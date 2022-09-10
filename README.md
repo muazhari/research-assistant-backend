@@ -1,1 +1,1 @@
-# semantic-search-ai-service
+# solomon-service
