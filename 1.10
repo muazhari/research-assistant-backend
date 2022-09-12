@@ -1,0 +1,2 @@
+Requirement already satisfied: pydantic in c:\programdata\anaconda3\envs\solomon-service\lib\site-packages (1.9.0)
+Requirement already satisfied: typing-extensions>=3.7.4.3 in c:\programdata\anaconda3\envs\solomon-service\lib\site-packages (from pydantic) (4.3.0)

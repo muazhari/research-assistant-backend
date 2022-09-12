@@ -1,7 +1,7 @@
 import aiohttp
 
 from app.infrastucture.config.client_config import client_config
-from app.infrastucture.gateway.client.BaseClient import BaseClient
+from app.infrastucture.gateway.client.base_client import BaseClient
 
 
 class AccountTransactionServiceClient(BaseClient):

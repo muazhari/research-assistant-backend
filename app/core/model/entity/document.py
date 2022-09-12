@@ -9,7 +9,7 @@ class Document(BaseEntity):
     id: Optional[UUID]
     name: str
     description: str
-    document_type_id: Optional[UUID]
-    account_id: Optional[UUID]
+    document_type_id: UUID
+    account_id: UUID
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
