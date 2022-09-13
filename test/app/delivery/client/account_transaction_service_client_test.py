@@ -62,6 +62,22 @@ async def test_find_all_account():
         assert all([account_mock in account_entities for account_mock in account_mocks])
 
 
+# test find one account by id
+@pytest.mark.asyncio
+async def test_find_one_account_by_id():
+    to_find_account = account_mocks[0]
+    account_id: UUID = to_find_account.id
+
+    async with await account_transaction_service_client.find_one_by_id(
+            account_id
+    ) as response:
+        assert response.status == 200
+        found_account: dict = await response.json()
+        assert found_account is not None
+        found_account_entity = Account(**found_account)
+        assert found_account_entity == to_find_account
+
+
 # test save one account
 @pytest.mark.asyncio
 async def test_save_one_account():
@@ -86,22 +102,6 @@ async def test_save_one_account():
         assert saved_account_entity == account_to_save
 
         account_mocks.append(saved_account_entity)
-
-
-# test find one account by id
-@pytest.mark.asyncio
-async def test_find_one_account_by_id():
-    to_find_account = account_mocks[0]
-    account_id: UUID = to_find_account.id
-
-    async with await account_transaction_service_client.find_one_by_id(
-            account_id
-    ) as response:
-        assert response.status == 200
-        found_account: dict = await response.json()
-        assert found_account is not None
-        found_account_entity = Account(**found_account)
-        assert found_account_entity == to_find_account
 
 
 # test update one account by id

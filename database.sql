@@ -142,3 +142,5 @@ from document_process
          inner join document_type as to_document_type on to_document_type.id = to_document.document_type_id
          inner join account on account.id = from_document.account_id;
 
+
+select * from account

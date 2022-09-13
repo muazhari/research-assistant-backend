@@ -12,14 +12,14 @@ document_mocks: [Document] = [
     Document(
         name="test document 0",
         description="test description 0",
-        document_type_id=UUID("eb5adc50-df69-4bd0-b4d0-e300d3ff7561"),
-        account_id=UUID("db5adc50-df69-4bd0-b4d0-e300d3ff7561")
+        document_type_id=UUID("eb5adc50-df69-4bd0-b4d0-e300d3ff7560"),
+        account_id=UUID("db5adc50-df69-4bd0-b4d0-e300d3ff7560")
     ),
     Document(
         name="test document 1",
         description="test description 1",
-        document_type_id=UUID("eb5adc50-df69-4bd0-b4d0-e300d3ff7562"),
-        account_id=UUID("db5adc50-df69-4bd0-b4d0-e300d3ff7561")
+        document_type_id=UUID("eb5adc50-df69-4bd0-b4d0-e300d3ff7561"),
+        account_id=UUID("db5adc50-df69-4bd0-b4d0-e300d3ff7560")
     )
 ]
 
@@ -70,8 +70,8 @@ async def test_save_one_document():
     document_to_save = Document(
         name="test document 2",
         description="test description 2",
-        document_type_id=UUID("eb5adc50-df69-4bd0-b4d0-e300d3ff7563"),
-        account_id=UUID("db5adc50-df69-4bd0-b4d0-e300d3ff7561")
+        document_type_id=UUID("eb5adc50-df69-4bd0-b4d0-e300d3ff7562"),
+        account_id=UUID("db5adc50-df69-4bd0-b4d0-e300d3ff7560")
     )
 
     async with await document_transaction_service_client.save_one(
@@ -113,8 +113,8 @@ async def test_update_one_document():
     document_to_update = document_mocks[0]
     document_to_update.name = "updated test document 2"
     document_to_update.description = "updated test description 2"
-    document_to_update.document_type_id = UUID("eb5adc50-df69-4bd0-b4d0-e300d3ff7563")
-    document_to_update.account_id = UUID("db5adc50-df69-4bd0-b4d0-e300d3ff7562")
+    document_to_update.document_type_id = UUID("eb5adc50-df69-4bd0-b4d0-e300d3ff7562")
+    document_to_update.account_id = UUID("db5adc50-df69-4bd0-b4d0-e300d3ff7561")
 
     async with await document_transaction_service_client.update_one_by_id(
             document_to_update.id,
