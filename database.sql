@@ -38,6 +38,7 @@ create table document_process
     id               uuid primary key,
     from_document_id uuid      not null references document (id) on delete cascade on update cascade,
     to_document_id   uuid      not null references document (id) on delete cascade on update cascade,
+    process_duration float not null,
     created_at       timestamp not null,
     updated_at       timestamp not null
 );
@@ -50,9 +51,7 @@ create table file_document
     document_id    uuid      not null references document (id) on delete cascade on update cascade,
     file_name      text      not null,
     file_extension text      not null,
-    file_byte      bytea     not null,
-    created_at     timestamp not null,
-    updated_at     timestamp not null
+    file_bytes     bytea     not null
 );
 
 drop table if exists web_document cascade;
@@ -60,9 +59,7 @@ create table web_document
 (
     id          uuid primary key,
     document_id uuid      not null references document (id) on delete cascade on update cascade,
-    web_url     text      not null,
-    created_at  timestamp not null,
-    updated_at  timestamp not null
+    web_url     text      not null
 );
 
 drop table if exists text_document cascade;
@@ -70,9 +67,7 @@ create table text_document
 (
     id           uuid primary key,
     document_id  uuid      not null references document (id) on delete cascade on update cascade,
-    text_content text      not null,
-    created_at   timestamp not null,
-    updated_at   timestamp not null
+    text_content text      not null
 );
 
 -- populate all table account
@@ -99,35 +94,31 @@ values
 -- populate table document and its sub tables
 insert into document (id, name, description, document_type_id, account_id, created_at, updated_at)
 values
-    ('fb5adc50-df69-4bd0-b4d0-e300d3ff7561', 'text document', 'text description',
+    ('fb5adc50-df69-4bd0-b4d0-e300d3ff7560', 'text document', 'text description',
         'eb5adc50-df69-4bd0-b4d0-e300d3ff7560', 'db5adc50-df69-4bd0-b4d0-e300d3ff7560',
         timezone('Asia/Jakarta', now())::timestamptz,
         timezone('Asia/Jakarta', now())::timestamptz),
-    ('fb5adc50-df69-4bd0-b4d0-e300d3ff7562', 'file document', 'file description',
+    ('fb5adc50-df69-4bd0-b4d0-e300d3ff7561', 'file document', 'file description',
         'eb5adc50-df69-4bd0-b4d0-e300d3ff7561', 'db5adc50-df69-4bd0-b4d0-e300d3ff7560',
         timezone('Asia/Jakarta', now())::timestamptz,
         timezone('Asia/Jakarta', now())::timestamptz),
-    ('fb5adc50-df69-4bd0-b4d0-e300d3ff7563', 'web document', 'web description',
+    ('fb5adc50-df69-4bd0-b4d0-e300d3ff7562', 'web document', 'web description',
         'eb5adc50-df69-4bd0-b4d0-e300d3ff7562', 'db5adc50-df69-4bd0-b4d0-e300d3ff7560',
         timezone('Asia/Jakarta', now())::timestamptz,
         timezone('Asia/Jakarta', now())::timestamptz);
 
-insert into text_document (id, document_id, text_content, created_at, updated_at)
-values ('4c3a1539-df81-4817-a224-05158ce6fd3a', 'fb5adc50-df69-4bd0-b4d0-e300d3ff7561', 'text @123',
-        timezone('Asia/Jakarta', now())::timestamptz,
-        timezone('Asia/Jakarta', now())::timestamptz);
-insert into file_document (id, document_id, file_name, file_extension, file_byte, created_at, updated_at)
-values ('4c3a1539-df81-4817-a224-05158ce6fd3b', 'fb5adc50-df69-4bd0-b4d0-e300d3ff7562', 'file', 'pdf',
-        'file_byte_35tv4c36vyv5etrgf', timezone('Asia/Jakarta', now())::timestamptz,
-        timezone('Asia/Jakarta', now())::timestamptz);
-insert into web_document (id, document_id, web_url, created_at, updated_at)
-values ('4c3a1539-df81-4817-a224-05158ce6fd3c', 'fb5adc50-df69-4bd0-b4d0-e300d3ff7563', 'http://www.google.com',
-        timezone('Asia/Jakarta', now())::timestamptz, timezone('Asia/Jakarta', now())::timestamptz);
+insert into text_document (id, document_id, text_content)
+values ('4c3a1539-df81-4817-a224-05158ce6fd3a', 'fb5adc50-df69-4bd0-b4d0-e300d3ff7560', 'text @123');
+insert into file_document (id, document_id, file_name, file_extension, file_bytes)
+values ('4c3a1539-df81-4817-a224-05158ce6fd3b', 'fb5adc50-df69-4bd0-b4d0-e300d3ff7561', 'file', 'pdf',
+        'file_byte_35tv4c36vyv5etrgf');
+insert into web_document (id, document_id, web_url)
+values ('4c3a1539-df81-4817-a224-05158ce6fd3c', 'fb5adc50-df69-4bd0-b4d0-e300d3ff7562', 'http://www.google.com');
 
 -- populate table document_process from web document to file document
-insert into document_process (id, from_document_id, to_document_id, created_at, updated_at)
-values ('63624e7e-a1bd-418f-a97d-241490240f1a', 'fb5adc50-df69-4bd0-b4d0-e300d3ff7563',
-        'fb5adc50-df69-4bd0-b4d0-e300d3ff7562', timezone('Asia/Jakarta', now())::timestamptz,
+insert into document_process (id, from_document_id, to_document_id, process_duration, created_at, updated_at)
+values ('63624e7e-a1bd-418f-a97d-241490240f1a', 'fb5adc50-df69-4bd0-b4d0-e300d3ff7562',
+        'fb5adc50-df69-4bd0-b4d0-e300d3ff7561', 0.1, timezone('Asia/Jakarta', now())::timestamptz,
         timezone('Asia/Jakarta', now())::timestamptz);
 
 
@@ -143,4 +134,7 @@ from document_process
          inner join account on account.id = from_document.account_id;
 
 
-select * from account
+select * from file_document;
+select * from document;
+
+delete from document where name like 'test%';

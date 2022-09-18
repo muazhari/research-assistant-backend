@@ -8,3 +8,5 @@ class DocumentSearchRequest(BaseModel):
     document_id: UUID
     query: str
     conversion_document_type_id: UUID
+    granularity: str
+    window_size: int

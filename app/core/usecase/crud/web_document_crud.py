@@ -5,7 +5,7 @@ from app.infrastucture.gateway.client.web_document_transaction_service_client im
     web_document_transaction_service_client
 
 
-def find_all() -> [WebDocument]:
+async def find_all() -> [WebDocument]:
     async with await web_document_transaction_service_client.find_all() as response:
         assert response.status == 200
         web_documents: [dict] = await response.json()
@@ -13,7 +13,7 @@ def find_all() -> [WebDocument]:
         return web_document_entities
 
 
-def find_one_by_id(id: UUID) -> WebDocument:
+async def find_one_by_id(id: UUID) -> WebDocument:
     async with await web_document_transaction_service_client.find_one_by_id(
             id
     ) as response:
@@ -22,7 +22,7 @@ def find_one_by_id(id: UUID) -> WebDocument:
         return found_web_document_entity
 
 
-def create_one(web_document: WebDocument) -> WebDocument:
+async def create_one(web_document: WebDocument) -> WebDocument:
     async with await web_document_transaction_service_client.save_one(
             web_document.dict()
     ) as response:
@@ -31,7 +31,7 @@ def create_one(web_document: WebDocument) -> WebDocument:
         return saved_web_document_entity
 
 
-def update_one_by_id(id: UUID, web_document: WebDocument) -> WebDocument:
+async def update_one_by_id(id: UUID, web_document: WebDocument) -> WebDocument:
     async with await web_document_transaction_service_client.update_one_by_id(
             id,
             web_document.dict()
@@ -41,7 +41,7 @@ def update_one_by_id(id: UUID, web_document: WebDocument) -> WebDocument:
         return updated_web_document_entity
 
 
-def delete_one_by_id(id: UUID) -> WebDocument:
+async def delete_one_by_id(id: UUID) -> WebDocument:
     async with await web_document_transaction_service_client.delete_one_by_id(
             id
     ) as response:

@@ -4,7 +4,7 @@ from app.core.model.entity.account import Account
 from app.infrastucture.gateway.client.account_transaction_service_client import account_transaction_service_client
 
 
-def find_all() -> [Account]:
+async def find_all() -> [Account]:
     async with await account_transaction_service_client.find_all() as response:
         assert response.status == 200
         accounts: [dict] = await response.json()
@@ -12,7 +12,7 @@ def find_all() -> [Account]:
         return account_entities
 
 
-def find_one_by_id(id: UUID) -> Account:
+async def find_one_by_id(id: UUID) -> Account:
     async with await account_transaction_service_client.find_one_by_id(
             id
     ) as response:
@@ -21,7 +21,7 @@ def find_one_by_id(id: UUID) -> Account:
         return found_account_entity
 
 
-def create_one(account: Account) -> Account:
+async def create_one(account: Account) -> Account:
     async with await account_transaction_service_client.save_one(
             account.dict()
     ) as response:
@@ -30,7 +30,7 @@ def create_one(account: Account) -> Account:
         return saved_account_entity
 
 
-def update_one_by_id(id: UUID, account: Account) -> Account:
+async def update_one_by_id(id: UUID, account: Account) -> Account:
     async with await account_transaction_service_client.update_one_by_id(
             id,
             account.dict()
@@ -40,7 +40,7 @@ def update_one_by_id(id: UUID, account: Account) -> Account:
         return updated_account_entity
 
 
-def delete_one_by_id(id: UUID) -> Account:
+async def delete_one_by_id(id: UUID) -> Account:
     async with await account_transaction_service_client.delete_one_by_id(
             id
     ) as response:

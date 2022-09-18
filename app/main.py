@@ -8,6 +8,7 @@ from app.infrastucture.delivery.router.api_v1 import api_router
 
 import logging
 
+
 if sys.platform == 'win32':
     loop = asyncio.ProactorEventLoop()
     asyncio.set_event_loop(loop)
