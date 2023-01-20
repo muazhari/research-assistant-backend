@@ -24,7 +24,7 @@ class DocumentTypeManager:
     def read_one_by_id(self, id: UUID) -> Content[DocumentType]:
         data: DocumentType = document_type_repository.read_one_by_id(id)
         content: Content[DocumentType] = Content[DocumentType](
-            message="Read one document_type succeed.",
+            message="Read one document_type by id succeed.",
             data=data
         )
         return content
@@ -58,7 +58,7 @@ class DocumentTypeManager:
 
         data: DocumentType = document_type_repository.patch_one_by_id(id, entity)
         content: Content[DocumentType] = Content[DocumentType](
-            message="Patch one document_type succeed.",
+            message="Patch one document_type by id succeed.",
             data=data
         )
         return content
@@ -66,7 +66,7 @@ class DocumentTypeManager:
     def delete_one_by_id(self, id: UUID) -> Content[DocumentType]:
         data: DocumentType = document_type_repository.delete_one_by_id(id)
         content: Content[DocumentType] = Content[DocumentType](
-            message="Delete one document_type succeed.",
+            message="Delete one document_type by id succeed.",
             data=data
         )
         return content

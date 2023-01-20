@@ -1,4 +1,4 @@
-from app.outer.settings.client_setting import client_setting
+from app.outer.settings.client_settings import client_setting
 from app.outer.interfaces.gateways.client.atlas_client import AtlasClient
 from app.outer.interfaces.gateways.client.base_client import BaseClient
 

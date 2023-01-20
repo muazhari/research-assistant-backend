@@ -24,7 +24,7 @@ class DocumentManager:
     def read_one_by_id(self, id: UUID) -> Content[Document]:
         data: Document = document_repository.read_one_by_id(id)
         content: Content[Document] = Content[Document](
-            message="Read one document succeed.",
+            message="Read one document by id succeed.",
             data=data
         )
         return content
@@ -62,7 +62,7 @@ class DocumentManager:
 
         data: Document = document_repository.patch_one_by_id(id, entity)
         content: Content[Document] = Content[Document](
-            message="Patch one document succeed.",
+            message="Patch one document by id succeed.",
             data=data
         )
         return content
@@ -70,7 +70,7 @@ class DocumentManager:
     def delete_one_by_id(self, id: UUID) -> Content[Document]:
         data: Document = document_repository.delete_one_by_id(id)
         content: Content[Document] = Content[Document](
-            message="Delete one document succeed.",
+            message="Delete one document by id succeed.",
             data=data
         )
         return content

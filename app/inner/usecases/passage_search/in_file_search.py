@@ -1,15 +1,15 @@
 from datetime import timedelta
 
 from app.inner.model.entities.file_document import FileDocument
-from app.outer.interfaces.deliveries.contracts.requests.document_search.document_search_request import \
-    DocumentSearchRequest
-from app.outer.interfaces.deliveries.contracts.responses.document_search.document_search_response import \
-    DocumentSearchResponse
+from app.outer.interfaces.deliveries.contracts.requests.passage_search.passage_search_request import \
+    PassageSearchRequest
+from app.outer.interfaces.deliveries.contracts.responses.passage_search.passage_search_response import \
+    PassageSearchResponse
 
 
 class InFileSearch:
-    def search(self, search_request: DocumentSearchRequest) -> DocumentSearchResponse[FileDocument]:
-        response = DocumentSearchResponse(
+    def search(self, search_request: PassageSearchRequest) -> PassageSearchResponse[FileDocument]:
+        response = PassageSearchResponse(
             processed_corpus=FileDocument(
                 id=2,
                 document_id=2,

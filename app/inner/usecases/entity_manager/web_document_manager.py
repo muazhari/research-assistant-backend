@@ -29,6 +29,14 @@ class WebDocumentManager:
         )
         return content
 
+    def read_one_by_document_id(self, document_id: UUID) -> Content[WebDocument]:
+        data: WebDocument = web_document_repository.read_one_by_document_id(document_id)
+        content: Content[WebDocument] = Content[WebDocument](
+            message="Read one web_document by document_id succeed.",
+            data=data
+        )
+        return content
+
     def create_one(self, entity_request: CreateOneRequest) -> Content[WebDocument]:
         entity: WebDocument = WebDocument(
             id=uuid.uuid4(),
@@ -54,7 +62,7 @@ class WebDocumentManager:
 
         data: WebDocument = web_document_repository.patch_one_by_id(id, entity)
         content: Content[WebDocument] = Content[WebDocument](
-            message="Patch one web_document succeed.",
+            message="Patch one web_document by id succeed.",
             data=data
         )
         return content
@@ -62,7 +70,7 @@ class WebDocumentManager:
     def delete_one_by_id(self, id: UUID) -> Content[WebDocument]:
         data: WebDocument = web_document_repository.delete_one_by_id(id)
         content: Content[WebDocument] = Content[WebDocument](
-            message="Delete one web_document succeed.",
+            message="Delete one web_document by id succeed.",
             data=data
         )
         return content

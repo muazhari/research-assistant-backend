@@ -21,6 +21,14 @@ class WebDocumentRepository:
                 raise Exception('Entity not found.')
             return found_entity
 
+    def read_one_by_document_id(self, document_id: UUID) -> WebDocument:
+        with create_session() as session:
+            statement: expression = select(WebDocument).where(WebDocument.document_id == document_id)
+            found_entity: WebDocument = session.exec(statement).first()
+            if found_entity is None:
+                raise Exception('Entity not found.')
+            return found_entity
+
     def create_one(self, entity: WebDocument) -> WebDocument:
         with create_session() as session:
             session.add(entity)

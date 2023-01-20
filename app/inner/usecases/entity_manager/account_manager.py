@@ -24,7 +24,7 @@ class AccountManager:
     def read_one_by_id(self, id: UUID) -> Content[Account]:
         data: Account = account_repository.read_one_by_id(id)
         content: Content[Account] = Content[Account](
-            message="Read one account succeed.",
+            message="Read one account by id succeed.",
             data=data
         )
         return content
@@ -60,7 +60,7 @@ class AccountManager:
 
         data: Account = account_repository.patch_one_by_id(id, entity)
         content: Content[Account] = Content[Account](
-            message="Patch one account succeed.",
+            message="Patch one account by id succeed.",
             data=data
         )
         return content
@@ -68,7 +68,7 @@ class AccountManager:
     def delete_one_by_id(self, id: UUID) -> Content[Account]:
         data: Account = account_repository.delete_one_by_id(id)
         content: Content[Account] = Content[Account](
-            message="Delete one account succeed.",
+            message="Delete one account by id succeed.",
             data=data
         )
         return content

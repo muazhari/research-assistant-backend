@@ -24,7 +24,15 @@ class FileDocumentManager:
     def read_one_by_id(self, id: UUID) -> Content[FileDocument]:
         data: FileDocument = file_document_repository.read_one_by_id(id)
         content: Content[FileDocument] = Content[FileDocument](
-            message="Read one file_document succeed.",
+            message="Read one file_document by id succeed.",
+            data=data
+        )
+        return content
+
+    def read_one_by_document_id(self, document_id: UUID) -> Content[FileDocument]:
+        data: FileDocument = file_document_repository.read_one_by_document_id(document_id)
+        content: Content[FileDocument] = Content[FileDocument](
+            message="Read one file_document by document_id succeed.",
             data=data
         )
         return content
@@ -58,7 +66,7 @@ class FileDocumentManager:
 
         data: FileDocument = file_document_repository.patch_one_by_id(id, entity)
         content: Content[FileDocument] = Content[FileDocument](
-            message="Patch one file_document succeed.",
+            message="Patch one file_document by id succeed.",
             data=data
         )
         return content
@@ -66,7 +74,7 @@ class FileDocumentManager:
     def delete_one_by_id(self, id: UUID) -> Content[FileDocument]:
         data: FileDocument = file_document_repository.delete_one_by_id(id)
         content: Content[FileDocument] = Content[FileDocument](
-            message="Delete one file_document succeed.",
+            message="Delete one file_document by id succeed.",
             data=data
         )
         return content

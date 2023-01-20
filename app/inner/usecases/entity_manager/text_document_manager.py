@@ -24,7 +24,15 @@ class TextDocumentManager:
     def read_one_by_id(self, id: UUID) -> Content[TextDocument]:
         data: TextDocument = text_document_repository.read_one_by_id(id)
         content: Content[TextDocument] = Content[TextDocument](
-            message="Read one text_document succeed.",
+            message="Read one text_document by id succeed.",
+            data=data
+        )
+        return content
+
+    def read_one_by_document_id(self, document_id: UUID) -> Content[TextDocument]:
+        data: TextDocument = text_document_repository.read_one_by_document_id(document_id)
+        content: Content[TextDocument] = Content[TextDocument](
+            message="Read one text_document by document_id succeed.",
             data=data
         )
         return content

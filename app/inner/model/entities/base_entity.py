@@ -11,4 +11,4 @@ class BaseEntity(SQLModel):
         }
 
     def json(self, *args, encoder=jsonable_encoder, **kwargs):
-        return super().json(*args, encoder, **kwargs)
+        return super().json(*args, encoder=encoder, **kwargs)

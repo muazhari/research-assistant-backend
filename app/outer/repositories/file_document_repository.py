@@ -21,6 +21,14 @@ class FileDocumentRepository:
                 raise Exception('Entity not found.')
             return found_entity
 
+    def read_one_by_document_id(self, document_id: UUID) -> FileDocument:
+        with create_session() as session:
+            statement: expression = select(FileDocument).where(FileDocument.document_id == document_id)
+            found_entity: FileDocument = session.exec(statement).first()
+            if found_entity is None:
+                raise Exception('Entity not found.')
+            return found_entity
+
     def create_one(self, entity: FileDocument) -> FileDocument:
         with create_session() as session:
             session.add(entity)

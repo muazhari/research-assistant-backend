@@ -24,7 +24,7 @@ class DocumentProcessManager:
     def read_one_by_id(self, id: UUID) -> Content[DocumentProcess]:
         data: DocumentProcess = document_process_repository.read_one_by_id(id)
         content: Content[DocumentProcess] = Content[DocumentProcess](
-            message="Read one document_process succeed.",
+            message="Read one document_process by id succeed.",
             data=data
         )
         return content
@@ -60,7 +60,7 @@ class DocumentProcessManager:
 
         data: DocumentProcess = document_process_repository.patch_one_by_id(id, entity)
         content: Content[DocumentProcess] = Content[DocumentProcess](
-            message="Patch one document_process succeed.",
+            message="Patch one document_process by id succeed.",
             data=data
         )
         return content
@@ -68,7 +68,7 @@ class DocumentProcessManager:
     def delete_one_by_id(self, id: UUID) -> Content[DocumentProcess]:
         data: DocumentProcess = document_process_repository.delete_one_by_id(id)
         content: Content[DocumentProcess] = Content[DocumentProcess](
-            message="Delete one document_process succeed.",
+            message="Delete one document_process by id succeed.",
             data=data
         )
         return content
