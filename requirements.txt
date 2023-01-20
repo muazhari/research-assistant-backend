@@ -1,0 +1,13 @@
+aiohttp
+farm_haystack
+txtai
+fastapi
+pydantic
+pytest
+SQLAlchemy
+uvicorn
+psycopg2-binary
+sqlmodel
+python-dotenv
+httpx
+pyarrow

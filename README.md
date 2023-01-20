@@ -1,1 +1,2 @@
-# solomon-service
+# semantic-search-backend
+"# research-assistant-backend" 

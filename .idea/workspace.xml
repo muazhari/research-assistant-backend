@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="348b68e2-6318-4199-97f7-3fe12b50a842" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/research-assistant-backend.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inner/model/entities/document.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inner/usecases/document_conversion/file_conversion.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inner/usecases/document_conversion/text_conversion.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inner/usecases/entity_manager/account_manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inner/usecases/entity_manager/document_manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inner/usecases/entity_manager/document_process_manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inner/usecases/entity_manager/document_type_manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inner/usecases/entity_manager/file_document_manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inner/usecases/entity_manager/text_document_manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inner/usecases/entity_manager/web_document_manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inner/usecases/passage_search/in_file_search.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inner/usecases/passage_search/in_text_search.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inner/usecases/passage_search/in_web_search.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/base_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/account/create_one_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/account/patch_one_by_id_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document/create_one_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document/patch_one_by_id_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document_process/create_one_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document_process/patch_one_by_id_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document_type/create_one_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document_type/patch_one_by_id_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/file_document/create_one_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/file_document/patch_one_by_id_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/text_document/create_one_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/text_document/patch_one_by_id_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/web_document/create_one_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/web_document/patch_one_by_id_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/responses/base_generic_response.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/responses/base_response.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/document_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/document_process_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/document_type_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/file_document_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/text_document_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/web_document_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/routers/api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/persistences/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/persistences/local_db.sqlite3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/repositories/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/repositories/account_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/repositories/document_process_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/repositories/document_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/repositories/document_type_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/repositories/file_document_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/repositories/text_document_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/repositories/web_document_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/settings/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/settings/client_setting.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/settings/document_store_seting.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outer/utility/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/app/delivery/controller/test_account_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/app/delivery/controller/test_document_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/app/delivery/controller/test_document_process_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/app/delivery/controller/test_document_type_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/app/delivery/controller/test_file_document_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/app/delivery/controller/test_text_document_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/app/delivery/controller/test_web_document_controller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/mock_data/conversion/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/mock_data/network/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/mock_data/open_ended_qa/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/mock_data/search/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/mock_data/search/document/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/mock_data/search/passage/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/mock_data/store/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/mock_data/transfer/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/utility/file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/solomon-service.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app-old.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/model/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/model/entity/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/entities/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/model/entity/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/entities/account.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/model/entity/base_entity.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/model/entity/document.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/model/entity/document_process.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/entities/document_process.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/model/entity/document_type.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/entities/document_type.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/model/entity/file_document.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/entities/file_document.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/model/entity/text_document.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/entities/text_document.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/model/entity/web_document.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/entities/web_document.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/model/value_object/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/entities/base_entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/model/value_object/search_file_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/value_objects/search_file_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/model/value_object/search_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/value_objects/search_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/model/value_object/search_text_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/value_objects/search_text_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/model/value_object/search_web_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/value_objects/search_web_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/model/value_object/utc_datetime.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/value_objects/utc_datetime.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/value_objects/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/crud/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/crud/account_crud.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/crud/document_crud.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/crud/document_process_crud.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/crud/document_type_crud.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/crud/file_document_crud.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/crud/text_document_crud.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/crud/web_document_crud.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/document_conversion/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/document_conversion/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/document_conversion/file_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/account_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/document_conversion/text_conversion.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/document_conversion/web_conversion.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/document_network/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/document_network/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/document_search/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/document_search/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/document_store/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/document_store/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/document_store/document_creator.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/document_transfer/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/document_transfer/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/document_transfer/download_document.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/document_transfer/download_document.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/document_transfer/upload_document.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/document_transfer/upload_document.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/open_ended_qa/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/entity_manager/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/passage_search/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/open_ended_qa/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/passage_search/search_in_file.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/passage_search/search_in_text.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/usecase/passage_search/search_in_web.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/graphical_user_interface/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/graphical_user_interface/streamlit.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/passage_search/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/config/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/config/client_config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/config/database_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/settings/database_setting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/request/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/account/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/request/document_search/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/request/document_search/document_search_request.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/request/document_transfer/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document_process/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/request/document_transfer/document_transfer_file_upload_request.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/request/document_transfer/document_transfer_text_upload_request.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/request/document_transfer/document_transfer_upload_request.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/request/document_transfer/document_transfer_web_upload_request.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/response/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document_type/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/response/document_search/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/file_document/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/response/document_search/base_document_search_response.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/response/document_search/file_document_search_response.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/response/document_search/text_document_search_response.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/response/document_search/web_document_search_response.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/response/document_transfer/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/text_document/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/response/document_transfer/document_transfer_download_response.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/contract/response/document_transfer/document_transfer_upload_response.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/controller/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/web_document/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/controller/passage_search_controller.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/router/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/delivery/router/api_v1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/gateway/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/gateway/client/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/gateway/client/account_transaction_service_client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/gateway/client/base_client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/gateway/client/document_process_transaction_service_client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/gateway/client/document_transaction_service_client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/gateway/client/document_type_transaction_service_client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/gateway/client/file_document_transaction_service_client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/gateway/client/text_document_transaction_service_client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/gateway/client/web_document_transaction_service_client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/persistence/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/persistence/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/persistences/db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/persistence/local_db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/utility/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastucture/utility/java_bytes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/utility/java_bytes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/app/delivery/client/account_transaction_service_client_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/delivery/client/account_atlas_service_client_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/app/delivery/client/file_document_transaction_service_client_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/delivery/client/file_document_atlas_service_client_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/app/delivery/controller/.pytest_cache/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/app/delivery/controller/.pytest_cache/CACHEDIR.TAG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/app/delivery/controller/.pytest_cache/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/app/delivery/controller/test_search_passage_controller.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/mock_data/search_passage_request.json" beforeDir="false" afterPath="$PROJECT_DIR$/test/mock_data/search/passage/search_passage_request.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/mock_data/search_passage_response.json" beforeDir="false" afterPath="$PROJECT_DIR$/test/mock_data/search/passage/search_passage_response.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/utility/base_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/utility/client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unknown-0.0-py39_0.tar.bz2" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2Jtkj9yJoYEjEASE7SJsIWOocfi" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Data/Apps/research-assistant-backend/test/app/delivery/controller",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Data\Apps\research-assistant-backend\test\app\delivery\controller" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\outer\interfaces\deliveries\contracts\responses" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\outer\interfaces\deliveries\contracts\requests" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\outer\interfaces\deliveries\contracts\requests\entity_manager\web_document" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\outer\interfaces\deliveries\contracts\requests\entity_manager\text_document" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Data\Apps\research-assistant-backend\app\outer\interfaces\deliveries\contracts\requests\entity_manager\web_document" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\outer\interfaces\deliveries\contracts\requests\entity_manager\text_document" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\outer\interfaces\deliveries\contracts\requests\entity_manager\file_document" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\outer\interfaces\deliveries\contracts\requests\entity_manager\document_type" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\outer\interfaces\deliveries\contracts\requests\entity_manager\document_process" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python tests.pytest in controller">
+    <configuration name="run-1" type="Python.FastAPI">
+      <option name="file" value="C:\Data\Apps\research-assistant-backend\app\main.py" />
+      <module name="research-assistant-backend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="C:\ProgramData\Anaconda3\envs\research-assistant-backend\python.exe" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest for test_document_controller.test_document_read_all_success" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="research-assistant-backend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test/app/delivery/controller" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_document_controller.test_document_read_all_success&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in controller" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="research-assistant-backend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test/app/delivery/controller" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/test/app/delivery/controller&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in test_account_controller.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="research-assistant-backend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test/app/delivery/controller" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/test/app/delivery/controller/test_account_controller.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="FastAPI.run-1" />
+      <item itemvalue="Python tests.pytest for test_document_controller.test_document_read_all_success" />
+      <item itemvalue="Python tests.pytest in controller" />
+      <item itemvalue="Python tests.pytest in test_account_controller.py" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.pytest in controller" />
+        <item itemvalue="Python tests.pytest for test_document_controller.test_document_read_all_success" />
+        <item itemvalue="Python tests.pytest in test_account_controller.py" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="348b68e2-6318-4199-97f7-3fe12b50a842" name="Changes" comment="" />
+      <created>1672904899355</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1672904899355</updated>
+      <workItem from="1672904901555" duration="10642000" />
+      <workItem from="1672928602311" duration="7929000" />
+      <workItem from="1673850435328" duration="38000" />
+      <workItem from="1673850477841" duration="40000" />
+      <workItem from="1673850540312" duration="21756000" />
+      <workItem from="1673881989416" duration="3256000" />
+      <workItem from="1673945873126" duration="714000" />
+      <workItem from="1674121152089" duration="156000" />
+      <workItem from="1674121604624" duration="13349000" />
+      <workItem from="1674194257456" duration="1546000" />
+      <workItem from="1674195830674" duration="637000" />
+      <workItem from="1674196524318" duration="20917000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test_account_controller_py.coverage" NAME="pytest in test_account_controller.py Coverage Results" MODIFIED="1674199809487" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_controller.coverage" NAME="pytest in controller Coverage Results" MODIFIED="1674224142626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
+    <SUITE FILE_PATH="coverage/semantic_search_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1672931155338" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1673882778191" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_account_controller_test_read_all_account_success.coverage" NAME="pytest for test_account_controller.test_read_all_account_success Coverage Results" MODIFIED="1673861260437" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_account_controller_TestAccountController.coverage" NAME="pytest for test_account_controller.TestAccountController Coverage Results" MODIFIED="1673864757608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_document_controller_test_document_read_all_success.coverage" NAME="pytest for test_document_controller.test_document_read_all_success Coverage Results" MODIFIED="1674206500751" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_account_controller_test_read_one_account_success.coverage" NAME="pytest for test_account_controller.test_read_one_account_success Coverage Results" MODIFIED="1673864611640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
+  </component>
+</project>
