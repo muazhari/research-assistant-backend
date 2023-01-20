@@ -1,2 +1,1 @@
-# semantic-search-backend
-"# research-assistant-backend" 
+# research-assistant-backend
