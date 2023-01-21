@@ -47,6 +47,7 @@ class InTextSearch:
 
         retriever = EmbeddingRetriever(
             document_store=document_store,
+            model_format="openai",
             embedding_model=passage_search_request.retriever_model,
             api_key=retriever_settings.RETRIEVER_OPEN_AI_API_KEY,
         )

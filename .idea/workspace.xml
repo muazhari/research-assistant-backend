@@ -2,63 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="348b68e2-6318-4199-97f7-3fe12b50a842" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/inner/model/value_objects/passage_search/file_passage_search_result.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inner/model/value_objects/passage_search/text_passage_search_result.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inner/model/value_objects/passage_search/web_passage_search_result.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inner/model/value_objects/specific_document.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inner/usecases/document_conversion/document_conversion.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inner/usecases/entity_manager/specific_document_manager.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inner/usecases/passage_search/pre_processor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/specific_document/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/specific_document/file/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/specific_document/file/create_one_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/specific_document/text/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/specific_document/text/create_one_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/specific_document/web/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/specific_document/web/create_one_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/passage_search/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/responses/passage_search/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outer/settings/client_settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outer/settings/database_settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outer/settings/retriever_settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/entities/base_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/entities/base_entity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/value_objects/search_file_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/value_objects/search_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/value_objects/search_text_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/value_objects/search_web_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/document_conversion/file_conversion.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/document_conversion/text_conversion.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/entity_manager/account_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/entity_manager/account_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/entity_manager/document_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/entity_manager/document_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/entity_manager/document_process_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/entity_manager/document_process_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/entity_manager/document_type_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/entity_manager/document_type_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/entity_manager/file_document_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/entity_manager/file_document_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/entity_manager/text_document_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/entity_manager/text_document_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/entity_manager/web_document_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/entity_manager/web_document_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/passage_search/in_file_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/passage_search/in_file_search.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/inner/usecases/passage_search/in_text_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/passage_search/in_text_search.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/passage_search/in_web_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/usecases/passage_search/in_web_search.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/document_search/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/document_search/document_search_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/passage_search/passage_search_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/document_search/document_search_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/passage_search/passage_search_response.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/file_document/create_one_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/file_document/create_one_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/text_document/create_one_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/text_document/create_one_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/web_document/create_one_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/web_document/create_one_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/responses/document_search/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inner/model/value_objects/passage_search/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/responses/document_search/document_search_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/responses/passage_search/passage_search_response.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/passage_search_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/passage_search_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/gateways/client/atlas/account_atlas_service_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/gateways/client/atlas/account_atlas_service_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/gateways/client/openai_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/gateways/client/openai_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/persistences/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/persistences/db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/repositories/file_document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/repositories/file_document_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/repositories/web_document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/repositories/web_document_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/settings/client_setting.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/settings/database_setting.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/settings/document_store_seting.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/settings/document_store_settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/guis/streamlit.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outer/interfaces/guis/streamlit.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/delivery/controller/test_account_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/delivery/controller/test_account_controller.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,21 +47,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Data/Apps/research-assistant-backend/app/outer/interfaces/deliveries/contracts/requests/passage_search",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Data/Apps/research-assistant-backend/app/outer/interfaces/deliveries/contracts/requests/passage_search&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Data\Apps\research-assistant-backend\app\outer\interfaces\deliveries\contracts\requests\passage_search" />
@@ -274,7 +221,8 @@
       <workItem from="1674194257456" duration="1546000" />
       <workItem from="1674195830674" duration="637000" />
       <workItem from="1674196524318" duration="22091000" />
-      <workItem from="1674231387274" duration="12800000" />
+      <workItem from="1674231387274" duration="15706000" />
+      <workItem from="1674283828880" duration="1302000" />
     </task>
     <servers />
   </component>

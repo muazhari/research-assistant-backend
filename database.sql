@@ -138,7 +138,7 @@ select *
 from file_document;
 
 
-select d.id, a.id, dt.id
+select *
 from document d
          inner join document_type dt on dt.id = d.document_type_id
          inner join account a on a.id = d.account_id
