@@ -1,11 +1,14 @@
 from uuid import UUID
 
+import nltk
 from fastapi import FastAPI
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseConfig
 
 from app.outers.interfaces.deliveries.routers.api import api_router
+
+nltk.download('punkt')
 
 BaseConfig.json_encoders = {UUID: jsonable_encoder}
 

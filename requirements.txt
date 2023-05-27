@@ -14,4 +14,10 @@ asyncpg
 sqlmodel
 httpx
 python-dotenv
+pdfrw
+pdfkit
+more_itertools
+nltk
+streamlit
+txtmarker
 tensorflow==2.9.0
