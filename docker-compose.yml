@@ -1,0 +1,29 @@
+version: "3"
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "${APP_PORT}:8000"
+    command:
+      - /bin/bash
+      - -c
+      - uvicorn app.main:app --host 0.0.0.0 --port 8000
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+  ds-1:
+    image: postgres:latest
+    volumes:
+      - ./ds-1.sql:/docker-entrypoint-initdb.d/db.sql
+    environment:
+      - POSTGRES_USER=${DS_1_USER}
+      - POSTGRES_PASSWORD=${DS_1_PASSWORD}
+      - POSTGRES_DB=${DS_1_DATABASE}
+    ports:
+      - "${DS_1_PORT}:5432"
