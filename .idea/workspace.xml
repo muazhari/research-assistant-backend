@@ -8,272 +8,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="348b68e2-6318-4199-97f7-3fe12b50a842" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/entities/base_entity.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/entities/document_process.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/entities/event.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/entities/text_document.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/entities/web_document.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/base_value_object.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/base_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/create_body.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/create_one_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/delete_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/patch_body.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/patch_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/read_all_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/read_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/create_body.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/create_one_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/delete_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/patch_body.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/patch_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/read_all_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/read_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/create_body.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/create_one_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/delete_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/patch_body.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/patch_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/read_all_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/read_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/create_body.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/create_one_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/delete_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/patch_body.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/patch_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/read_all_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/read_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/create_one_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/delete_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/patch_body.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/patch_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/read_all_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/read_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/create_body.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/create_one_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/delete_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/patch_body.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/patch_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/read_all_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/read_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/create_body.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/create_one_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/delete_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/patch_body.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/patch_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/read_all_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/read_one_by_id_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/base_response.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/content.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/account_management.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/document_management.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/document_process_management.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/document_type_management.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/file_document_management.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/text_document_management.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/web_document_management.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outers/persistences/datastore_one_persistence.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outers/repositories/account_repository.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outers/repositories/document_process_repository.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outers/repositories/document_repository.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outers/repositories/document_type_repository.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outers/repositories/file_document_repository.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outers/repositories/text_document_repository.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outers/repositories/web_document_repository.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outers/settings/datastore_one_setting.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outers/utilities/management_utility.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/account_controller_test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_controller_test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_process_controller_test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_type_controller_test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/file_document_controller_test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/text_document_controller_test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/web_document_controller_test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/mock_data/document_mock_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/mock_data/document_process_mock_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/mock_data/document_type_mock_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/mock_data/file_document_mock_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/mock_data/text_document_mock_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/mock_data/web_document_mock_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/utilities/test_client_utility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/research-assistant-backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/research-assistant-backend.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inners/use_cases/document_search/document_search.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/1.10" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/entities/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/entities/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/entities/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/entities/account.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/entities/base_entity.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/entities/document.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/entities/document.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/entities/document_process.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/entities/document_type.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/entities/document_type.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/entities/file_document.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/entities/file_document.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/entities/text_document.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/entities/web_document.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/value_objects/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/value_objects/passage_search/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/value_objects/passage_search/file_passage_search_result.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/value_objects/passage_search/text_passage_search_result.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/value_objects/passage_search/web_passage_search_result.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/value_objects/specific_document.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/model/value_objects/utc_datetime.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/document_conversion/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/document_conversion/document_conversion.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/document_network/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/document_search/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/document_store/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/document_transfer/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/document_transfer/download_document.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_transfer/download_document.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/document_transfer/upload_document.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_transfer/upload_document.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/entity_manager/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/entity_manager/account_manager.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/entity_manager/document_manager.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/entity_manager/document_process_manager.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/entity_manager/document_type_manager.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/entity_manager/file_document_manager.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/entity_manager/specific_document_manager.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/entity_manager/text_document_manager.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/entity_manager/web_document_manager.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/open_ended_qa/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/passage_search/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/passage_search/in_file_search.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/passage_search/in_text_search.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/passage_search/in_web_search.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inner/usecases/passage_search/pre_processor.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_network/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_search/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/base_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/document_transfer/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_store/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/document_transfer/document_transfer_file_upload_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/document_transfer/document_transfer_text_upload_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/document_transfer/document_transfer_upload_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/document_transfer/document_transfer_web_upload_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_transfer/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/account/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/account/create_one_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/account/patch_one_by_id_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/open_ended_qa/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document/create_one_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document/patch_one_by_id_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document_process/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document_process/create_one_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document_process/patch_one_by_id_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document_type/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document_type/create_one_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/document_type/patch_one_by_id_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/file_document/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/file_document/create_one_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/file_document/patch_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/create_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/specific_document/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/specific_document/file/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/specific_document/file/create_one_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/specific_document/text/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/routers/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/specific_document/text/create_one_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/specific_document/web/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/gateways/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/specific_document/web/create_one_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/text_document/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/gateways/clients/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/text_document/create_one_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/text_document/patch_one_by_id_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/web_document/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/guis/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/web_document/create_one_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/entity_manager/web_document/patch_one_by_id_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/passage_search/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/persistences/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/passage_search/passage_search_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/requests/passage_search/passage_search_response.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/responses/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/responses/base_generic_response.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/responses/base_response.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/responses/content.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/responses/document_transfer/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/settings/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/responses/document_transfer/document_transfer_download_response.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/responses/document_transfer/document_transfer_upload_response.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/responses/passage_search/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/utilities/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/contracts/responses/passage_search/passage_search_response.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/account_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/account_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/document_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/document_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/document_process_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/document_process_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/document_type_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/document_type_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/file_document_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/file_document_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/passage_search_controller.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/text_document_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/text_document_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/controllers/web_document_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/web_document_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/routers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/routers/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/routers/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/deliveries/routers/api_v1.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/routers/api_v1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/gateways/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/gateways/client/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/gateways/client/atlas/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/gateways/client/atlas/account_atlas_service_client.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/gateways/client/atlas/document_atlas_service_client.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/gateways/client/atlas/document_atlas_transaction_service_client.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/gateways/client/atlas/document_type_atlas_service_client.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/gateways/client/atlas/file_document_atlas_service_client.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/gateways/client/atlas/text_document_atlas_service_client.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/gateways/client/atlas/web_document_atlas_service_client.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/gateways/client/base_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/gateways/clients/base_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/gateways/client/openai_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/gateways/clients/openai_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/guis/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/mock_data/account_mock_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/interfaces/guis/streamlit.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/guis/streamlit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/persistences/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/utilities/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/persistences/db.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/persistences/local_db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/persistences/local_db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/repositories/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/repositories/account_repository.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/repositories/document_process_repository.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/repositories/document_repository.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/repositories/document_type_repository.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/repositories/file_document_repository.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/repositories/text_document_repository.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/repositories/web_document_repository.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/settings/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/settings/client_settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/settings/client_setting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/settings/database_settings.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/settings/document_store_settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/settings/document_store_setting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/settings/retriever_settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/settings/retriever_settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/utility/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outer/utility/java_bytes.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/ds-1.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/delivery/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/delivery/client/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/delivery/client/account_atlas_service_client_test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/delivery/client/file_document_atlas_service_client_test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/delivery/controller/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/delivery/controller/test_account_controller.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/delivery/controller/test_document_controller.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/delivery/controller/test_document_process_controller.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/delivery/controller/test_document_type_controller.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/delivery/controller/test_file_document_controller.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/delivery/controller/test_text_document_controller.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/delivery/controller/test_web_document_controller.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mock_data/conversion/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mock_data/document_text.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mock_data/network/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mock_data/open_ended_qa/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mock_data/search/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mock_data/search/document/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mock_data/search/passage/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mock_data/search/passage/search_passage_request.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mock_data/search/passage/search_passage_response.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mock_data/store/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mock_data/transfer/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/utility/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/utility/assertion.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/utility/client.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/utility/file.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/datastore_one_persistence.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/persistences/datastore_one_persistence.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/account_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/account_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/document_process_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/document_process_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/document_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/document_type_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/document_type_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/file_document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/file_document_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/text_document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/text_document_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/web_document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/web_document_repository.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -451,7 +195,7 @@
       <workItem from="1685113832349" duration="11762000" />
       <workItem from="1685133885373" duration="844000" />
       <workItem from="1685134922820" duration="10224000" />
-      <workItem from="1685179645544" duration="8092000" />
+      <workItem from="1685179645544" duration="9513000" />
     </task>
     <servers />
   </component>
@@ -478,7 +222,7 @@
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_account_controller_test_AccountControllerTest.coverage" NAME="pytest for account_controller_test.AccountControllerTest Coverage Results" MODIFIED="1685180488757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_controller.coverage" NAME="pytest in controller Coverage Results" MODIFIED="1674237127840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_account_controller_TestAccountController.coverage" NAME="pytest for test_account_controller.TestAccountController Coverage Results" MODIFIED="1673864757608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1685187504904" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1685189168028" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/semantic_search_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1672931155338" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_document_controller_test_document_read_all_success.coverage" NAME="pytest for test_document_controller.test_document_read_all_success Coverage Results" MODIFIED="1674206500751" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test_account_controller_py.coverage" NAME="pytest in test_account_controller.py Coverage Results" MODIFIED="1674199809487" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />

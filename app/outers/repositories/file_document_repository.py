@@ -5,23 +5,23 @@ from sqlmodel import select
 from sqlmodel.sql import expression
 
 from app.inners.models.entities.file_document import FileDocument
-from app.outers.persistences.datastore_one_persistence import DataStoreUtility
+from app.outers.persistences.datastore_one_persistence import DataStorePersistence
 
 
 class FileDocumentRepository:
 
     def __init__(self):
-        self.datastore_utility: DataStoreUtility = DataStoreUtility()
+        self.datastore_persistence: DataStorePersistence = DataStorePersistence()
 
     async def read_all(self) -> List[FileDocument]:
-        async with await self.datastore_utility.create_session() as session:
+        async with await self.datastore_persistence.create_session() as session:
             statement: expression = select(FileDocument)
             result = await session.execute(statement)
             found_entities: List[FileDocument] = result.scalars().all()
             return found_entities
 
     async def read_one_by_id(self, id: UUID) -> FileDocument:
-        async with await self.datastore_utility.create_session() as session:
+        async with await self.datastore_persistence.create_session() as session:
             statement: expression = select(FileDocument).where(FileDocument.id == id)
             result = await session.execute(statement)
             found_entity: FileDocument = result.scalars().one()
@@ -30,7 +30,7 @@ class FileDocumentRepository:
             return found_entity
 
     async def create_one(self, entity: FileDocument) -> FileDocument:
-        async with await self.datastore_utility.create_session() as session:
+        async with await self.datastore_persistence.create_session() as session:
             try:
                 session.add(entity)
                 await session.commit()
@@ -40,7 +40,7 @@ class FileDocumentRepository:
         return entity
 
     async def patch_one_by_id(self, id: UUID, entity: FileDocument) -> FileDocument:
-        async with await self.datastore_utility.create_session() as session:
+        async with await self.datastore_persistence.create_session() as session:
             try:
                 statement: expression = select(FileDocument).where(FileDocument.id == id)
                 result = await session.execute(statement)
@@ -55,7 +55,7 @@ class FileDocumentRepository:
             return found_entity
 
     async def delete_one_by_id(self, id: UUID) -> FileDocument:
-        async with await self.datastore_utility.create_session() as session:
+        async with await self.datastore_persistence.create_session() as session:
             try:
                 statement: expression = select(FileDocument).where(FileDocument.id == id)
                 result = await session.execute(statement)

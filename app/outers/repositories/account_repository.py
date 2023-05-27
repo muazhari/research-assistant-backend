@@ -5,23 +5,23 @@ from sqlmodel import select
 from sqlmodel.sql import expression
 
 from app.inners.models.entities.account import Account
-from app.outers.persistences.datastore_one_persistence import DataStoreUtility
+from app.outers.persistences.datastore_one_persistence import DataStorePersistence
 
 
 class AccountRepository:
 
     def __init__(self):
-        self.datastore_utility: DataStoreUtility = DataStoreUtility()
+        self.datastore_persistence: DataStorePersistence = DataStorePersistence()
 
     async def read_all(self) -> List[Account]:
-        async with await self.datastore_utility.create_session() as session:
+        async with await self.datastore_persistence.create_session() as session:
             statement: expression = select(Account)
             result = await session.execute(statement)
             found_entities: List[Account] = result.scalars().all()
             return found_entities
 
     async def read_one_by_id(self, id: UUID) -> Account:
-        async with await self.datastore_utility.create_session() as session:
+        async with await self.datastore_persistence.create_session() as session:
             statement: expression = select(Account).where(Account.id == id)
             result = await session.execute(statement)
             found_entity: Account = result.scalars().one()
@@ -30,7 +30,7 @@ class AccountRepository:
             return found_entity
 
     async def create_one(self, entity: Account) -> Account:
-        async with await self.datastore_utility.create_session() as session:
+        async with await self.datastore_persistence.create_session() as session:
             try:
                 session.add(entity)
                 await session.commit()
@@ -40,7 +40,7 @@ class AccountRepository:
         return entity
 
     async def patch_one_by_id(self, id: UUID, entity: Account) -> Account:
-        async with await self.datastore_utility.create_session() as session:
+        async with await self.datastore_persistence.create_session() as session:
             try:
                 statement: expression = select(Account).where(Account.id == id)
                 result = await session.execute(statement)
@@ -55,7 +55,7 @@ class AccountRepository:
             return found_entity
 
     async def delete_one_by_id(self, id: UUID) -> Account:
-        async with await self.datastore_utility.create_session() as session:
+        async with await self.datastore_persistence.create_session() as session:
             try:
                 statement: expression = select(Account).where(Account.id == id)
                 result = await session.execute(statement)

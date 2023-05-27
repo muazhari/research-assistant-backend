@@ -5,7 +5,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from app.outers.settings.datastore_one_setting import DatastoreOneSetting
 
 
-class DataStoreUtility:
+class DataStorePersistence:
     def __init__(self):
         self.datastore_one_setting = DatastoreOneSetting()
         self.engine = create_async_engine(
