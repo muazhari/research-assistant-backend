@@ -1,3 +1,4 @@
+import logging
 from uuid import UUID
 
 import nltk
@@ -7,6 +8,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseConfig
 
 from app.outers.interfaces.deliveries.routers.api import api_router
+
+logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
+logging.getLogger("haystack").setLevel(logging.DEBUG)
 
 nltk.download('punkt')
 

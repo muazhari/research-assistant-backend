@@ -18,6 +18,6 @@ class ProcessBody(BaseRequest):
     embedding_dimension: int
     num_iterations: Optional[int]
     similarity_function: str
-    retriever_top_k: float
-    ranker_top_k: float
+    retriever_top_k: int
+    ranker_top_k: int
     api_key: Optional[str]

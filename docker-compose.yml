@@ -3,6 +3,7 @@ services:
     build: .
     volumes:
       - .:/app
+      - ${CACHE_PATH}:/root/.cache
     ports:
       - "${APP_PORT}:8000"
     command:

@@ -114,7 +114,7 @@ class PassageSearch:
             process_body=process_body
         )
 
-        pipeline = Pipeline()
+        pipeline: Pipeline = Pipeline()
         pipeline.add_node(
             component=dense_retriever,
             name="DenseRetriever",
