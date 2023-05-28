@@ -64,7 +64,7 @@ async def test__passage_search_in_text__should_process_it__success():
         corpus=data["text_document"][0].text_content,
         query="definition of software engineering",
         granularity="sentence",
-        window_sizes="1 2 3 4 5",
+        window_sizes=[1, 2, 3, 4, 5],
         retriever_source_type="local",
         dense_retriever="dense_passage",
         sparse_retriever="bm25",

@@ -1,10 +1,9 @@
 import hashlib
-import os
 from datetime import datetime, timedelta
 from typing import List
 
 from haystack import Pipeline
-from haystack.document_stores import FAISSDocumentStore, InMemoryDocumentStore
+from haystack.document_stores import OpenSearchDocumentStore
 from haystack.nodes import BaseRetriever, JoinDocuments, BaseRanker
 from haystack.schema import Document
 
@@ -17,6 +16,7 @@ from app.inners.use_cases.passage_search.retriever_model import RetrieverModel
 from app.inners.use_cases.utilities.document_processor import DocumentProcessor
 from app.inners.use_cases.utilities.locker import Locker
 from app.outers.settings.datastore_one_setting import DatastoreOneSetting
+from app.outers.settings.datastore_two_setting import DatastoreTwoSetting
 
 
 class PassageSearch:
@@ -26,20 +26,21 @@ class PassageSearch:
         self.retriever_model = RetrieverModel()
         self.ranker_model = RankerModel()
         self.datastore_one_setting = DatastoreOneSetting()
+        self.datastore_two_setting = DatastoreTwoSetting()
 
     def get_window_sized_documents(self, process_body: ProcessBody) -> List[Document]:
         window_sized_documents: List[Document] = self.document_processor.process(
             corpus=process_body.corpus,
             corpus_source_type=process_body.corpus_source_type,
             granularity=process_body.granularity,
-            window_sizes=list(map(int, process_body.window_sizes.split(" ")))
+            window_sizes=process_body.window_sizes
         )
 
         return window_sized_documents
 
     def get_document_store_index_hash(self, process_body: ProcessBody) -> str:
         corpus_hash: str = hashlib.md5(process_body.corpus.encode("utf-8")).hexdigest()
-        window_sizes_hash: str = hashlib.md5(process_body.window_sizes.encode("utf-8")).hexdigest()
+        window_sizes_hash: str = hashlib.md5(str(process_body.window_sizes).encode("utf-8")).hexdigest()
         embedding_model_hash = hashlib.md5(str(process_body.embedding_model).encode("utf-8")).hexdigest()
 
         document_store_index_hash: str = f"{embedding_model_hash}_{corpus_hash}_{window_sizes_hash}"
@@ -52,35 +53,21 @@ class PassageSearch:
         document_store_index_hash: str = self.get_document_store_index_hash(
             process_body=process_body
         )
-        faiss_index_path: str = f"faiss_index_{document_store_index_hash}"
-        faiss_config_path: str = f"faiss_config_{document_store_index_hash}"
 
-        if all(map(os.path.exists, [faiss_index_path, faiss_config_path])):
-            document_store: FAISSDocumentStore = FAISSDocumentStore.load(
-                index_path=faiss_index_path,
-                config_path=faiss_config_path,
-            )
-            retriever: BaseRetriever = self.retriever_model.get_dense_retriever(
-                document_store=document_store,
-                process_body=process_body,
-            )
-        else:
-            document_store: FAISSDocumentStore = FAISSDocumentStore(
-                sql_url=self.datastore_one_setting.URL,
-                index=document_store_index_hash,
-                embedding_dim=process_body.embedding_dimension,
-                return_embedding=True,
-                similarity=process_body.similarity_function,
-                duplicate_documents="skip",
-            )
+        document_store: OpenSearchDocumentStore = OpenSearchDocumentStore(
+            host=self.datastore_two_setting.DS_2_HOST,
+            username=self.datastore_two_setting.DS_2_USERNAME,
+            password=self.datastore_two_setting.DS_2_PASSWORD,
+            port=self.datastore_two_setting.DS_2_PORT_1,
+            index=f"dense_{document_store_index_hash}",
+            embedding_dim=process_body.embedding_dimension,
+            similarity=process_body.similarity_function,
+        )
 
-            retriever: BaseRetriever = self.retriever_model.get_dense_retriever(
-                document_store=document_store,
-                process_body=process_body,
-            )
-            document_store.write_documents(documents)
-            document_store.update_embeddings(retriever)
-            document_store.save(faiss_index_path, faiss_config_path)
+        retriever: BaseRetriever = self.retriever_model.get_dense_retriever(
+            document_store=document_store,
+            process_body=process_body,
+        )
 
         return retriever
 
@@ -90,13 +77,13 @@ class PassageSearch:
             process_body=process_body
         )
 
-        document_store: InMemoryDocumentStore = InMemoryDocumentStore(
-            index=document_store_index_hash,
-            embedding_dim=process_body.embedding_dimension,
-            return_embedding=True,
+        document_store: OpenSearchDocumentStore = OpenSearchDocumentStore(
+            host=self.datastore_two_setting.DS_2_HOST,
+            username=self.datastore_two_setting.DS_2_USERNAME,
+            password=self.datastore_two_setting.DS_2_PASSWORD,
+            port=self.datastore_two_setting.DS_2_PORT_1,
+            index=f"sparse_{document_store_index_hash}",
             similarity=process_body.similarity_function,
-            duplicate_documents="skip",
-            use_bm25=True
         )
         retriever: BaseRetriever = self.retriever_model.get_sparse_retriever(
             document_store=document_store,

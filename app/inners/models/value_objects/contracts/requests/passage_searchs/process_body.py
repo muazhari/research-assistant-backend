@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from app.inners.models.value_objects.contracts.requests.base_request import BaseRequest
 from app.inners.models.value_objects.contracts.requests.embedding_model_body import EmbeddingModelBody
@@ -9,7 +9,7 @@ class ProcessBody(BaseRequest):
     corpus: str
     query: str
     granularity: str
-    window_sizes: str
+    window_sizes: List[int]
     retriever_source_type: str
     dense_retriever: str
     sparse_retriever: str

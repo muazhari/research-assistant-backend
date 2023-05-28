@@ -50,6 +50,9 @@ class DocumentProcessor:
         return granularized_corpus
 
     def windowize(self, corpus: List[str], window_size: int) -> List[Tuple[str, ...]]:
+        if window_size > len(corpus):
+            raise ValueError(f"Window size {window_size} is greater than corpus size {len(corpus)}.")
+
         return list(more_itertools.windowed(corpus, window_size))
 
     def degranularize(self, windowed_corpus: Tuple[str], granularity_source: str) -> str:

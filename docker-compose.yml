@@ -1,4 +1,3 @@
-version: "3"
 services:
   app:
     build: .
@@ -27,3 +26,16 @@ services:
       - POSTGRES_DB=${DS_1_DATABASE}
     ports:
       - "${DS_1_PORT}:5432"
+  ds-2:
+    image: opensearchproject/opensearch:latest
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "${DS_2_PORT_1}:9200"
+      - "${DS_2_PORT_2}:9600"
+  ds-2-management:
+    image: opensearchproject/opensearch-dashboards:latest
+    environment:
+      - OPENSEARCH_HOSTS=["https://ds-2:9200"]
+    ports:
+      - "${DS_2_MANAGEMENT_PORT}:5601"
