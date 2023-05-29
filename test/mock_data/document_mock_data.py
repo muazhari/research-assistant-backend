@@ -1,4 +1,5 @@
 import uuid
+from typing import List
 
 from app.inners.models.entities.document import Document
 from test.mock_data.account_mock_data import AccountMockData
@@ -8,9 +9,9 @@ from test.mock_data.document_type_mock_data import DocumentTypeMockData
 class DocumentMockData:
 
     def __init__(self):
-        self.account_mock_data = AccountMockData()
-        self.document_type_mock_data = DocumentTypeMockData()
-        self.data = [
+        self.account_mock_data: AccountMockData = AccountMockData()
+        self.document_type_mock_data: DocumentTypeMockData = DocumentTypeMockData()
+        self.data: List[Document] = [
             Document(
                 id=uuid.uuid4(),
                 name="name0",

@@ -1,4 +1,5 @@
 import uuid
+from typing import List
 
 from app.inners.models.entities.text_document import TextDocument
 from app.inners.models.value_objects.contracts.responses.managements.documents.text_document_response import \
@@ -9,8 +10,8 @@ from test.mock_data.document_mock_data import DocumentMockData
 class TextDocumentMockData:
 
     def __init__(self):
-        self.document_mock_data = DocumentMockData()
-        self.data = [
+        self.document_mock_data: DocumentMockData = DocumentMockData()
+        self.data: List[TextDocument] = [
             TextDocument(
                 id=uuid.uuid4(),
                 document_id=self.document_mock_data.data[0].id,
@@ -21,8 +22,8 @@ class TextDocumentMockData:
                 document_id=self.document_mock_data.data[1].id,
                 text_content="text_content_1",
             )
-        ],
-        self.response_data = [
+        ]
+        self.response_data: List[TextDocumentResponse] = [
             TextDocumentResponse(
                 id=self.document_mock_data.data[0].id,
                 name=self.document_mock_data.data[0].name,

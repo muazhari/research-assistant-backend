@@ -14,6 +14,7 @@ logging.getLogger("haystack").setLevel(logging.DEBUG)
 
 nltk.download('punkt')
 nltk.download('cmudict')
+nltk.download('averaged_perceptron_tagger')
 
 BaseConfig.json_encoders = {UUID: jsonable_encoder}
 

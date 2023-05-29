@@ -4,6 +4,7 @@ services:
     volumes:
       - .:/app
       - ${CACHE_PATH}:/root/.cache
+      - ${NLTK_DATA_PATH}:/root/nltk_data
     ports:
       - "${APP_PORT}:8000"
     command:

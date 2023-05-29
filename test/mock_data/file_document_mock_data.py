@@ -1,4 +1,5 @@
 import uuid
+from typing import List
 
 from app.inners.models.entities.file_document import FileDocument
 from app.inners.models.value_objects.contracts.responses.managements.documents.file_document_response import \
@@ -9,8 +10,8 @@ from test.mock_data.document_mock_data import DocumentMockData
 class FileDocumentMockData:
 
     def __init__(self):
-        self.document_mock_data = DocumentMockData()
-        self.data = [
+        self.document_mock_data: DocumentMockData = DocumentMockData()
+        self.data: List[FileDocument] = [
             FileDocument(
                 id=uuid.uuid4(),
                 document_id=self.document_mock_data.data[0].id,
@@ -25,8 +26,8 @@ class FileDocumentMockData:
                 file_extension="file_extension_1",
                 file_bytes=b"file_bytes_1",
             )
-        ],
-        self.response_data = [
+        ]
+        self.response_data: List[FileDocumentResponse] = [
             FileDocumentResponse(
                 id=self.document_mock_data.data[0].id,
                 name=self.document_mock_data.data[0].name,

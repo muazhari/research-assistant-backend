@@ -6,7 +6,7 @@ from app.inners.models.entities.account import Account
 class AccountMockData:
 
     def __init__(self):
-        self.data = [
+        self.data: List[Account] = [
             Account(
                 id=uuid.uuid4(),
                 name="name0",

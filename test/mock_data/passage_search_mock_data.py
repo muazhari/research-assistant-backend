@@ -1,5 +1,6 @@
 import pathlib
 import uuid
+from typing import List
 
 from app.inners.models.entities.account import Account
 from app.inners.models.entities.document import Document
@@ -12,7 +13,7 @@ from app.inners.models.entities.web_document import WebDocument
 class PassageSearchMockData:
 
     def __init__(self):
-        self.account_data = [
+        self.account_data: List[Account] = [
             Account(
                 id=uuid.uuid4(),
                 name="name0",
@@ -21,7 +22,7 @@ class PassageSearchMockData:
             ),
         ]
 
-        self.document_type_data = [
+        self.document_type_data: List[DocumentType] = [
             DocumentType(
                 id=uuid.uuid4(),
                 name="file",
@@ -39,7 +40,7 @@ class PassageSearchMockData:
             ),
         ]
 
-        self.document_data = [
+        self.document_data: List[Document] = [
             Document(
                 id=uuid.uuid4(),
                 name="name2",
@@ -53,7 +54,7 @@ class PassageSearchMockData:
         with open(file_path, "rb") as file:
             file_bytes = file.read()
 
-        self.file_document_data = [
+        self.file_document_data: List[FileDocument] = [
             FileDocument(
                 id=uuid.uuid4(),
                 document_id=self.document_data[0].id,
@@ -63,7 +64,7 @@ class PassageSearchMockData:
             )
         ]
 
-        self.text_document_data = [
+        self.text_document_data: List[TextDocument] = [
             TextDocument(
                 id=uuid.uuid4(),
                 document_id=self.document_data[0].id,
@@ -73,7 +74,7 @@ Engineering techniques are used to inform the software development process,[1][5
             )
         ]
 
-        self.web_document_data = [
+        self.web_document_data: List[WebDocument] = [
             WebDocument(
                 id=uuid.uuid4(),
                 document_id=self.document_data[0].id,
