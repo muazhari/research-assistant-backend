@@ -5,7 +5,7 @@ from uuid import UUID
 from app.inners.models.value_objects.contracts.responses.base_response import BaseResponse
 
 
-class DocumentResponse(BaseResponse, table=True):
+class DocumentResponse(BaseResponse):
     id: UUID
     name: str
     description: str
