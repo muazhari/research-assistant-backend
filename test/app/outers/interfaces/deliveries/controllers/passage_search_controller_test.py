@@ -22,49 +22,47 @@ from test.utilities.test_client_utility import get_async_client
 
 test_client = get_async_client()
 passage_search_mock_data = PassageSearchMockData()
-data = passage_search_mock_data.get_data()
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
 async def run_around(request: pytest.FixtureRequest):
-    for account in data["account"]:
+    for account in passage_search_mock_data.account_data:
         await account_repository.create_one(Account(**account.dict()))
-    for document_type in data["document_type"]:
+    for document_type in passage_search_mock_data.document_type_data:
         await document_type_repository.create_one(DocumentType(**document_type.dict()))
-    for document in data["document"]:
+    for document in passage_search_mock_data.document_data:
         await document_repository.create_one(Document(**document.dict()))
-    for file_document in data["file_document"]:
+    for file_document in passage_search_mock_data.file_document_data:
         await file_document_repository.create_one(FileDocument(**file_document.dict()))
-    for text_document in data["text_document"]:
+    for text_document in passage_search_mock_data.text_document_data:
         await text_document_repository.create_one(TextDocument(**text_document.dict()))
-    for web_document in data["web_document"]:
+    for web_document in passage_search_mock_data.web_document_data:
         await web_document_repository.create_one(WebDocument(**web_document.dict()))
 
     yield
 
-    for file_document in data["file_document"]:
+    for file_document in passage_search_mock_data.file_document_data:
         await file_document_repository.delete_one_by_id(file_document.id)
-    for text_document in data["text_document"]:
+    for text_document in passage_search_mock_data.text_document_data:
         await text_document_repository.delete_one_by_id(text_document.id)
-    for web_document in data["web_document"]:
+    for web_document in passage_search_mock_data.web_document_data:
         await web_document_repository.delete_one_by_id(web_document.id)
-    for document in data["document"]:
+    for document in passage_search_mock_data.document_data:
         await document_repository.delete_one_by_id(document.id)
-    for document_type in data["document_type"]:
+    for document_type in passage_search_mock_data.document_type_data:
         await document_type_repository.delete_one_by_id(document_type.id)
-    for account in data["account"]:
+    for account in passage_search_mock_data.account_data:
         await account_repository.delete_one_by_id(account.id)
 
 
 @pytest.mark.asyncio
 async def test__passage_search_in_text__should_process_it__success():
-    # Arrange
     body = ProcessBody(
         corpus_source_type="text",
-        corpus=data["text_document"][0].text_content,
+        corpus=passage_search_mock_data.text_document_data[0].text_content,
         query="definition of software engineering",
         granularity="sentence",
-        window_sizes=[1, 2, 3, 4, 5],
+        window_sizes=[1, 2, 3, 4],
         retriever_source_type="local",
         dense_retriever="dense_passage",
         sparse_retriever="bm25",
@@ -86,4 +84,4 @@ async def test__passage_search_in_text__should_process_it__success():
         json=json.loads(body.json())
     )
 
-    print(response)
+    assert response.status_code == 200

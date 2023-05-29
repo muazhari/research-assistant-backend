@@ -21,32 +21,31 @@ from test.utilities.test_client_utility import get_async_client
 test_client = get_async_client()
 document_process_repository = DocumentProcessRepository()
 document_process_mock_data = DocumentProcessMockData()
-data = document_process_mock_data.get_data()
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
 async def run_around(request: pytest.FixtureRequest):
-    for account in data["account"]:
+    for account in document_process_mock_data.document_mock_data.data:
         await account_repository.create_one(Account(**account.dict()))
-    for document_type in data["document_type"]:
+    for document_type in document_process_mock_data.document_mock_data.data:
         await document_type_repository.create_one(DocumentType(**document_type.dict()))
-    for document in data["document"]:
+    for document in document_process_mock_data.document_mock_data:
         await document_repository.create_one(Document(**document.dict()))
-    for document_process in data["document_process"]:
+    for document_process in document_process_mock_data.data:
         await document_process_repository.create_one(DocumentProcess(**document_process.dict()))
 
     yield
 
-    for document_process in data["document_process"]:
+    for document_process in document_process_mock_data.data:
         if request.node.name == "test__delete_one_by_id__should_delete_one_document_process__success" \
-                and document_process.id == data["document_process"][0].id:
+                and document_process.id == document_process_mock_data.data[0].id:
             continue
         await document_process_repository.delete_one_by_id(document_process.id)
-    for document in data["document"]:
+    for document in document_process_mock_data.document_mock_data:
         await document_repository.delete_one_by_id(document.id)
-    for document_type in data["document_type"]:
+    for document_type in document_process_mock_data.document_mock_data.data:
         await document_type_repository.delete_one_by_id(document_type.id)
-    for account in data["account"]:
+    for account in document_process_mock_data.document_mock_data.data:
         await account_repository.delete_one_by_id(account.id)
 
 
@@ -57,24 +56,24 @@ async def test__read_all__should_return_all_document_processs__success():
     )
     assert response.status_code == 200
     content: Content[List[DocumentProcess]] = Content[List[DocumentProcess]](**response.json())
-    assert all([document_process in content.data for document_process in data["document_process"]])
+    assert all(document_process in content.data for document_process in document_process_mock_data.data)
 
 
 @pytest.mark.asyncio
 async def test__read_one_by_id__should_return_one_document_process__success():
     response = await test_client.get(
-        url=f"api/v1/document-processes/{data['document_process'][0].id}"
+        url=f"api/v1/document-processes/{document_process_mock_data.data[0].id}"
     )
     assert response.status_code == 200
     content: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
-    assert content.data == data["document_process"][0]
+    assert content.data == document_process_mock_data.data[0]
 
 
 @pytest.mark.asyncio
 async def test__create_one__should_create_one_document_process__success():
     document_process_create: CreateBody = CreateBody(
-        initial_document_id=data["document"][0].id,
-        final_document_id=data["document"][1].id,
+        initial_document_id=document_process_mock_data.document_mock_data[0].id,
+        final_document_id=document_process_mock_data.document_mock_data[1].id,
         process_duration=2,
     )
     response = await test_client.post(
@@ -86,18 +85,18 @@ async def test__create_one__should_create_one_document_process__success():
     assert content.data.initial_document_id == document_process_create.initial_document_id
     assert content.data.final_document_id == document_process_create.final_document_id
     assert content.data.process_duration == document_process_create.process_duration
-    data["document_process"].append(content.data)
+    document_process_mock_data.data.append(content.data)
 
 
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_document_process__success():
     document_process_patch: PatchBody = PatchBody(
-        initial_document_id=data["document"][1].id,
-        final_document_id=data["document"][0].id,
+        initial_document_id=document_process_mock_data.document_mock_data[1].id,
+        final_document_id=document_process_mock_data.document_mock_data[0].id,
         process_duration=3,
     )
     response = await test_client.patch(
-        url=f"api/v1/document-processes/{data['document_process'][0].id}",
+        url=f"api/v1/document-processes/{document_process_mock_data.data[0].id}",
         json=json.loads(document_process_patch.json())
     )
     assert response.status_code == 200
@@ -105,14 +104,14 @@ async def test__patch_one_by_id__should_patch_one_document_process__success():
     assert content.data.initial_document_id == document_process_patch.initial_document_id
     assert content.data.final_document_id == document_process_patch.final_document_id
     assert content.data.process_duration == document_process_patch.process_duration
-    data["document_process"][0] = content.data
+    document_process_mock_data.data[0] = content.data
 
 
 @pytest.mark.asyncio
 async def test__delete_one_by_id__should_delete_one_document_process__success():
     response = await test_client.delete(
-        url=f"api/v1/document-processes/{data['document_process'][0].id}"
+        url=f"api/v1/document-processes/{document_process_mock_data.data[0].id}"
     )
     assert response.status_code == 200
     content: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
-    assert content.data == data["document_process"][0]
+    assert content.data == document_process_mock_data.data[0]

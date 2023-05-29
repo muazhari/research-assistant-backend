@@ -1,5 +1,4 @@
 import uuid
-from datetime import datetime, timezone
 from typing import List
 
 from app.inners.models.entities.document_process import DocumentProcess
@@ -62,12 +61,9 @@ class DocumentProcessManagement:
 
     async def create_one(self, request: CreateOneRequest) -> Content[DocumentProcess]:
         try:
-            timestamp: datetime = datetime.now(tz=timezone.utc)
             entity_to_create: DocumentProcess = DocumentProcess(
                 **request.body.dict(),
                 id=uuid.uuid4(),
-                created_at=timestamp,
-                updated_at=timestamp,
             )
             created_entity: DocumentProcess = await self.document_process_repository.create_one(entity_to_create)
             content: Content[DocumentProcess] = Content(
@@ -86,7 +82,6 @@ class DocumentProcessManagement:
             entity_to_patch: DocumentProcess = DocumentProcess(
                 **request.body.dict(),
                 id=request.id,
-                updated_at=datetime.now(tz=timezone.utc),
             )
             patched_entity: DocumentProcess = await self.document_process_repository.patch_one_by_id(request.id,
                                                                                                      entity_to_patch)

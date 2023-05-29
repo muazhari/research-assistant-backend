@@ -13,6 +13,7 @@ logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logg
 logging.getLogger("haystack").setLevel(logging.DEBUG)
 
 nltk.download('punkt')
+nltk.download('cmudict')
 
 BaseConfig.json_encoders = {UUID: jsonable_encoder}
 

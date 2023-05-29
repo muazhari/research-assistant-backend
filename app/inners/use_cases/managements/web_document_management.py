@@ -1,5 +1,4 @@
 import uuid
-from datetime import datetime, timezone
 from typing import List
 
 from app.inners.models.entities.web_document import WebDocument
@@ -61,12 +60,9 @@ class WebDocumentManagement:
 
     async def create_one(self, request: CreateOneRequest) -> Content[WebDocument]:
         try:
-            timestamp: datetime = datetime.now(tz=timezone.utc)
             entity_to_create: WebDocument = WebDocument(
                 **request.body.dict(),
                 id=uuid.uuid4(),
-                created_at=timestamp,
-                updated_at=timestamp,
             )
             created_entity: WebDocument = await self.web_document_repository.create_one(entity_to_create)
             content: Content[WebDocument] = Content(
@@ -85,7 +81,6 @@ class WebDocumentManagement:
             entity_to_patch: WebDocument = WebDocument(
                 **request.body.dict(),
                 id=request.id,
-                updated_at=datetime.now(tz=timezone.utc),
             )
             patched_entity: WebDocument = await self.web_document_repository.patch_one_by_id(request.id,
                                                                                              entity_to_patch)

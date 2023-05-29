@@ -49,7 +49,7 @@ class PassageSearchMockData:
             ),
         ]
 
-        file_path = pathlib.Path("../../../../../mock_data/files/Artificial_Intelligence_in_Education_A_Review.pdf")
+        file_path = pathlib.Path("../../test/mock_data/files/Artificial_Intelligence_in_Education_A_Review.pdf")
         with open(file_path, "rb") as file:
             file_bytes = file.read()
 
@@ -80,13 +80,3 @@ Engineering techniques are used to inform the software development process,[1][5
                 web_url="https://en.wikipedia.org/wiki/Software_engineering"
             )
         ]
-
-    def get_data(self) -> dict:
-        return {
-            "account": self.account_data,
-            "document_type": self.document_type_data,
-            "document": self.document_data,
-            "file_document": self.file_document_data,
-            "text_document": self.text_document_data,
-            "web_document": self.web_document_data,
-        }

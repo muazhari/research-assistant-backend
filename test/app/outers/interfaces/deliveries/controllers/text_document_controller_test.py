@@ -13,6 +13,8 @@ from app.inners.models.value_objects.contracts.requests.managements.text_documen
 from app.inners.models.value_objects.contracts.requests.managements.text_documents.patch_body import \
     PatchBody
 from app.inners.models.value_objects.contracts.responses.content import Content
+from app.inners.models.value_objects.contracts.responses.managements.documents.text_document_response import \
+    TextDocumentResponse
 from app.outers.repositories.text_document_repository import TextDocumentRepository
 from test.app.outers.interfaces.deliveries.controllers.account_controller_test import account_repository
 from test.app.outers.interfaces.deliveries.controllers.document_controller_test import document_repository
@@ -23,32 +25,31 @@ from test.utilities.test_client_utility import get_async_client
 test_client = get_async_client()
 text_document_repository = TextDocumentRepository()
 text_document_mock_data = TextDocumentMockData()
-data = text_document_mock_data.get_data()
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
 async def run_around(request: pytest.FixtureRequest):
-    for account in data["account"]:
+    for account in text_document_mock_data.document_mock_data.account_mock_data.data:
         await account_repository.create_one(Account(**account.dict()))
-    for document_type in data["document_type"]:
+    for document_type in text_document_mock_data.document_mock_data.document_type_mock_data.data:
         await document_type_repository.create_one(DocumentType(**document_type.dict()))
-    for document in data["document"]:
+    for document in text_document_mock_data.document_mock_data.data:
         await document_repository.create_one(Document(**document.dict()))
-    for text_document in data["text_document"]:
+    for text_document in text_document_mock_data.data:
         await text_document_repository.create_one(TextDocument(**text_document.dict()))
 
     yield
 
-    for text_document in data["text_document"]:
+    for text_document in text_document_mock_data.data:
         if request.node.name == "test__delete_one_by_id__should_delete_one_text_document__success" \
-                and text_document.id == data["text_document"][0].id:
+                and text_document.id == text_document_mock_data.data[0].id:
             continue
         await text_document_repository.delete_one_by_id(text_document.id)
-    for document in data["document"]:
+    for document in text_document_mock_data.document_mock_data.data:
         await document_repository.delete_one_by_id(document.id)
-    for document_type in data["document_type"]:
+    for document_type in text_document_mock_data.document_mock_data.document_type_mock_data.data:
         await document_type_repository.delete_one_by_id(document_type.id)
-    for account in data["account"]:
+    for account in text_document_mock_data.document_mock_data.account_mock_data.data:
         await account_repository.delete_one_by_id(account.id)
 
 
@@ -58,59 +59,80 @@ async def test__read_all__should_return_all_text_documents__success():
         url="api/v1/documents/texts"
     )
     assert response.status_code == 200
-    content: Content[List[TextDocument]] = Content[List[TextDocument]](**response.json())
-    assert all([text_document in content.data for text_document in data["text_document"]])
+    content: Content[List[TextDocumentResponse]] = Content[List[TextDocumentResponse]](**response.json())
+    assert all(
+        text_document_response in content.data
+        for text_document_response in text_document_mock_data.response_data
+    )
 
 
 @pytest.mark.asyncio
 async def test__read_one_by_id__should_return_one_text_document__success():
     response = await test_client.get(
-        url=f"api/v1/documents/texts/{data['text_document'][0].id}"
+        url=f"api/v1/documents/texts/{text_document_mock_data.data[0].id}"
     )
     assert response.status_code == 200
-    content: Content[TextDocument] = Content[TextDocument](**response.json())
-    assert content.data == data["text_document"][0]
+    content: Content[TextDocumentResponse] = Content[TextDocumentResponse](**response.json())
+    assert content.data == text_document_mock_data.response_data[0]
 
 
 @pytest.mark.asyncio
 async def test__create_one__should_create_one_text_document__success():
-    text_document_create: CreateBody = CreateBody(
-        document_id=data["document"][0].id,
+    body: CreateBody = CreateBody(
+        name="name_3",
+        description="description_3",
+        document_type_id=text_document_mock_data.document_mock_data.document_type_mock_data.data[0].id,
+        account_id=text_document_mock_data.document_mock_data.account_mock_data.data[0].id,
         text_content="text_content_3"
     )
     response = await test_client.post(
         url="api/v1/documents/texts",
-        json=json.loads(text_document_create.json())
+        json=json.loads(body.json())
     )
     assert response.status_code == 200
-    content: Content[TextDocument] = Content[TextDocument](**response.json())
-    assert content.data.document_id == text_document_create.document_id
-    assert content.data.text_content == text_document_create.text_content
-    data["text_document"].append(content.data)
+    content: Content[TextDocumentResponse] = Content[TextDocumentResponse](**response.json())
+    assert content.data.name == body.name
+    assert content.data.description == body.description
+    assert content.data.document_type_id == body.document_type_id
+    assert content.data.account_id == body.account_id
+    assert content.data.text_content == body.text_content
+
+    text_document_mock_data.response_data.append(content.data)
+    text_document_mock_data.data.append(text_document_repository.read_one_by_document_id(document_id=content.data.id))
+    text_document_mock_data.document_mock_data.data.append(document_repository.read_one_by_id(id=content.data.id))
 
 
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_text_document__success():
-    text_document_patch: PatchBody = PatchBody(
-        document_id=data["document"][1].id,
-        text_content=f"{data['text_document'][0].text_content} patched"
+    body: PatchBody = PatchBody(
+        name=f"{text_document_mock_data.document_mock_data.data[0].name} patched",
+        description=f"{text_document_mock_data.document_mock_data.data[0].description} patched",
+        document_type_id=text_document_mock_data.document_mock_data.document_type_mock_data.data[1].id,
+        account_id=text_document_mock_data.document_mock_data.account_mock_data.data[1].id,
+        text_content=f"{text_document_mock_data.data[0].text_content} patched"
     )
     response = await test_client.patch(
-        url=f"api/v1/documents/texts/{data['text_document'][0].id}",
-        json=json.loads(text_document_patch.json())
+        url=f"api/v1/documents/texts/{text_document_mock_data.data[0].id}",
+        json=json.loads(body.json())
     )
     assert response.status_code == 200
-    content: Content[TextDocument] = Content[TextDocument](**response.json())
-    assert content.data.document_id == text_document_patch.document_id
-    assert content.data.text_content == text_document_patch.text_content
-    data["text_document"][0] = content.data
+    content: Content[TextDocumentResponse] = Content[TextDocumentResponse](**response.json())
+    assert content.data.name == body.name
+    assert content.data.description == body.description
+    assert content.data.document_type_id == body.document_type_id
+    assert content.data.account_id == body.account_id
+    assert content.data.text_content == body.text_content
+
+    text_document_mock_data.response_data[0] = content.data
+    text_document_mock_data.data[0] = text_document_repository.read_one_by_document_id(document_id=content.data.id)
+    text_document_mock_data.document_mock_data.data[0] = document_repository.read_one_by_id(id=content.data.id)
 
 
 @pytest.mark.asyncio
 async def test__delete_one_by_id__should_delete_one_text_document__success():
     response = await test_client.delete(
-        url=f"api/v1/documents/texts/{data['text_document'][0].id}"
+        url=f"api/v1/documents/texts/{text_document_mock_data.data[0].id}"
     )
     assert response.status_code == 200
-    content: Content[TextDocument] = Content[TextDocument](**response.json())
-    assert content.data == data["text_document"][0]
+    content: Content[TextDocumentResponse] = Content[TextDocumentResponse](**response.json())
+    assert content.data == text_document_mock_data.data[0]

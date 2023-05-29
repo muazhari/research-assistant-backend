@@ -4,5 +4,8 @@ from app.inners.models.value_objects.contracts.requests.base_request import Base
 
 
 class CreateBody(BaseRequest):
-    document_id: UUID
+    name: str
+    description: str
+    document_type_id: UUID
+    account_id: UUID
     web_url: str

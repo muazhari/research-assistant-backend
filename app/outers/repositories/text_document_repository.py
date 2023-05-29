@@ -29,6 +29,15 @@ class TextDocumentRepository:
                 raise Exception("Entity not found.")
             return found_entity
 
+    async def read_one_by_document_id(self, document_id: UUID) -> TextDocument:
+        async with await self.datastore_persistence.create_session() as session:
+            statement: expression = select(TextDocument).where(TextDocument.document_id == document_id)
+            result = await session.execute(statement)
+            found_entity: TextDocument = result.scalars().one()
+            if found_entity is None:
+                raise Exception("Entity not found.")
+            return found_entity
+
     async def create_one(self, entity: TextDocument) -> TextDocument:
         async with await self.datastore_persistence.create_session() as session:
             try:
@@ -58,6 +67,20 @@ class TextDocumentRepository:
         async with await self.datastore_persistence.create_session() as session:
             try:
                 statement: expression = select(TextDocument).where(TextDocument.id == id)
+                result = await session.execute(statement)
+                found_entity: TextDocument = result.scalars().one()
+                if found_entity is None:
+                    raise Exception("Entity not found.")
+                await session.delete(found_entity)
+                await session.commit()
+            except Exception as exception:
+                raise exception
+            return found_entity
+
+    async def delete_one_by_document_id(self, document_id: UUID) -> TextDocument:
+        async with await self.datastore_persistence.create_session() as session:
+            try:
+                statement: expression = select(TextDocument).where(TextDocument.document_id == document_id)
                 result = await session.execute(statement)
                 found_entity: TextDocument = result.scalars().one()
                 if found_entity is None:
