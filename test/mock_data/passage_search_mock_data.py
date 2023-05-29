@@ -50,7 +50,7 @@ class PassageSearchMockData:
             ),
         ]
 
-        file_path = pathlib.Path("../../test/mock_data/files/Artificial_Intelligence_in_Education_A_Review.pdf")
+        file_path = pathlib.Path("test/mock_data/files/Artificial_Intelligence_in_Education_A_Review.pdf")
         with open(file_path, "rb") as file:
             file_bytes = file.read()
 

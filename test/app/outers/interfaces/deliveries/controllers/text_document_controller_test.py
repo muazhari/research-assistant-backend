@@ -98,8 +98,12 @@ async def test__create_one__should_create_one_text_document__success():
     assert content.data.text_content == body.text_content
 
     text_document_mock_data.response_data.append(content.data)
-    text_document_mock_data.data.append(text_document_repository.read_one_by_document_id(document_id=content.data.id))
-    text_document_mock_data.document_mock_data.data.append(document_repository.read_one_by_id(id=content.data.id))
+    text_document_mock_data.data.append(
+        await text_document_repository.read_one_by_document_id(document_id=content.data.id)
+    )
+    text_document_mock_data.document_mock_data.data.append(
+        await document_repository.read_one_by_id(id=content.data.id)
+    )
 
 
 @pytest.mark.asyncio
@@ -124,8 +128,9 @@ async def test__patch_one_by_id__should_patch_one_text_document__success():
     assert content.data.text_content == body.text_content
 
     text_document_mock_data.response_data[0] = content.data
-    text_document_mock_data.data[0] = text_document_repository.read_one_by_document_id(document_id=content.data.id)
-    text_document_mock_data.document_mock_data.data[0] = document_repository.read_one_by_id(id=content.data.id)
+    text_document_mock_data.data[0] = await text_document_repository.read_one_by_document_id(
+        document_id=content.data.id)
+    text_document_mock_data.document_mock_data.data[0] = await document_repository.read_one_by_id(id=content.data.id)
 
 
 @pytest.mark.asyncio

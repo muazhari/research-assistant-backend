@@ -1,4 +1,5 @@
 import uuid
+from typing import List
 
 from app.inners.models.entities.account import Account
 

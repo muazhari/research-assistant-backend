@@ -67,7 +67,7 @@ async def test__read_one_by_id__should_return_one_document__success():
 
 @pytest.mark.asyncio
 async def test__create_one__should_create_one_document__success():
-    document_create: CreateBody = CreateBody(
+    body: CreateBody = CreateBody(
         name="name2",
         description="description2",
         account_id=document_mock_data.account_mock_data.data[0].id,
@@ -75,20 +75,20 @@ async def test__create_one__should_create_one_document__success():
     )
     response = await test_client.post(
         url="api/v1/documents",
-        json=json.loads(document_create.json())
+        json=json.loads(body.json())
     )
     assert response.status_code == 200
     content: Content[Document] = Content[Document](**response.json())
-    assert content.data.name == document_create.name
-    assert content.data.description == document_create.description
-    assert content.data.account_id == document_create.account_id
-    assert content.data.document_type_id == document_create.document_type_id
+    assert content.data.name == body.name
+    assert content.data.description == body.description
+    assert content.data.account_id == body.account_id
+    assert content.data.document_type_id == body.document_type_id
     document_mock_data.data.append(content.data)
 
 
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_document__success():
-    document_patch: PatchBody = PatchBody(
+    body: PatchBody = PatchBody(
         name=f"{document_mock_data.data[0].name} patched",
         description=f"{document_mock_data.data[0].description} patched",
         account_id=document_mock_data.account_mock_data.data[1].id,
@@ -96,14 +96,14 @@ async def test__patch_one_by_id__should_patch_one_document__success():
     )
     response = await test_client.patch(
         url=f"api/v1/documents/{document_mock_data.data[0].id}",
-        json=json.loads(document_patch.json())
+        json=json.loads(body.json())
     )
     assert response.status_code == 200
     content: Content[Document] = Content[Document](**response.json())
-    assert content.data.name == document_patch.name
-    assert content.data.description == document_patch.description
-    assert content.data.account_id == document_patch.account_id
-    assert content.data.document_type_id == document_patch.document_type_id
+    assert content.data.name == body.name
+    assert content.data.description == body.description
+    assert content.data.account_id == body.account_id
+    assert content.data.document_type_id == body.document_type_id
     document_mock_data.data[0] = content.data
 
 

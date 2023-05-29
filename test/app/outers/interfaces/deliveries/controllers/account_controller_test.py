@@ -55,39 +55,39 @@ async def test__read_one_by_id__should_return_one_account__success():
 
 @pytest.mark.asyncio
 async def test__create_one__should_create_one_account__success():
-    account_create: CreateBody = CreateBody(
+    body: CreateBody = CreateBody(
         name="name2",
         email="email2",
         password="password2"
     )
     response = await test_client.post(
         url="api/v1/accounts",
-        json=json.loads(account_create.json())
+        json=json.loads(body.json())
     )
     assert response.status_code == 200
     content: Content[Account] = Content[Account](**response.json())
-    assert content.data.name == account_create.name
-    assert content.data.email == account_create.email
-    assert content.data.password == account_create.password
+    assert content.data.name == body.name
+    assert content.data.email == body.email
+    assert content.data.password == body.password
     account_mock_data.data.append(content.data)
 
 
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_account__success():
-    account_patch: PatchBody = PatchBody(
+    body: PatchBody = PatchBody(
         name=f"{account_mock_data.data[0].name} patched",
         email=f"{account_mock_data.data[0].email} patched",
         password=f"{account_mock_data.data[0].password} patched"
     )
     response = await test_client.patch(
         url=f"api/v1/accounts/{account_mock_data.data[0].id}",
-        json=json.loads(account_patch.json())
+        json=json.loads(body.json())
     )
     assert response.status_code == 200
     content: Content[Account] = Content[Account](**response.json())
-    assert content.data.name == account_patch.name
-    assert content.data.email == account_patch.email
-    assert content.data.password == account_patch.password
+    assert content.data.name == body.name
+    assert content.data.email == body.email
+    assert content.data.password == body.password
     account_mock_data.data[0] = content.data
 
 
