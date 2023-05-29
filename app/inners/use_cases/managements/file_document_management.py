@@ -190,11 +190,11 @@ class FileDocumentManagement:
 
     async def delete_one_by_id(self, request: DeleteOneByIdRequest) -> Content[FileDocumentResponse]:
         try:
-            deleted_document: Document = await self.document_repository.delete_one_by_id(
-                id=request.id
-            )
             deleted_file_document: FileDocument = await self.file_document_repository.delete_one_by_document_id(
-                document_id=deleted_document.id
+                document_id=request.id
+            )
+            deleted_document: Document = await self.document_repository.delete_one_by_id(
+                id=deleted_file_document.document_id
             )
 
             content: Content[FileDocumentResponse] = Content(

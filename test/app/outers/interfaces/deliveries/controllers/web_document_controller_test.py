@@ -46,6 +46,9 @@ async def run_around(request: pytest.FixtureRequest):
             continue
         await web_document_repository.delete_one_by_id(web_document.id)
     for document in web_document_mock_data.document_mock_data.data:
+        if request.node.name == "test__delete_one_by_id__should_delete_one_web_document__success" \
+                and document.id == web_document_mock_data.document_mock_data.data[0].id:
+            continue
         await document_repository.delete_one_by_id(document.id)
     for document_type in web_document_mock_data.document_mock_data.document_type_mock_data.data:
         await document_type_repository.delete_one_by_id(document_type.id)
@@ -116,7 +119,7 @@ async def test__patch_one_by_id__should_patch_one_web_document__success():
         web_url=f"{web_document_mock_data.data[0].web_url} patched"
     )
     response = await test_client.patch(
-        url=f"api/v1/documents/webs/{web_document_mock_data.data[0].id}",
+        url=f"api/v1/documents/webs/{web_document_mock_data.response_data[0].id}",
         json=json.loads(body.json())
     )
     assert response.status_code == 200
@@ -135,8 +138,8 @@ async def test__patch_one_by_id__should_patch_one_web_document__success():
 @pytest.mark.asyncio
 async def test__delete_one_by_id__should_delete_one_web_document__success():
     response = await test_client.delete(
-        url=f"api/v1/documents/webs/{web_document_mock_data.data[0].id}"
+        url=f"api/v1/documents/webs/{web_document_mock_data.response_data[0].id}"
     )
     assert response.status_code == 200
     content: Content[WebDocumentResponse] = Content[WebDocumentResponse](**response.json())
-    assert content.data == web_document_mock_data.data[0]
+    assert content.data == web_document_mock_data.response_data[0]

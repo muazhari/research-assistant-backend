@@ -72,8 +72,8 @@ async def test__read_one_by_id__should_return_one_document_process__success():
 @pytest.mark.asyncio
 async def test__create_one__should_create_one_document_process__success():
     body: CreateBody = CreateBody(
-        initial_document_id=document_process_mock_data.document_mock_data[0].id,
-        final_document_id=document_process_mock_data.document_mock_data[1].id,
+        initial_document_id=document_process_mock_data.document_mock_data.data[0].id,
+        final_document_id=document_process_mock_data.document_mock_data.data[1].id,
         process_duration=2,
     )
     response = await test_client.post(
@@ -91,8 +91,8 @@ async def test__create_one__should_create_one_document_process__success():
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_document_process__success():
     body: PatchBody = PatchBody(
-        initial_document_id=document_process_mock_data.document_mock_data[1].id,
-        final_document_id=document_process_mock_data.document_mock_data[0].id,
+        initial_document_id=document_process_mock_data.document_mock_data.data[1].id,
+        final_document_id=document_process_mock_data.document_mock_data.data[0].id,
         process_duration=3,
     )
     response = await test_client.patch(

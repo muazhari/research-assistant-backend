@@ -4,7 +4,6 @@ from uuid import UUID
 from fastapi import APIRouter, Request
 from fastapi_utils.cbv import cbv
 
-from app.inners.models.entities.web_document import WebDocument
 from app.inners.models.value_objects.contracts.requests.managements.web_documents.create_body import \
     CreateBody
 from app.inners.models.value_objects.contracts.requests.managements.web_documents.create_one_request import \
@@ -20,6 +19,8 @@ from app.inners.models.value_objects.contracts.requests.managements.web_document
 from app.inners.models.value_objects.contracts.requests.managements.web_documents.read_one_by_id_request import \
     ReadOneByIdRequest
 from app.inners.models.value_objects.contracts.responses.content import Content
+from app.inners.models.value_objects.contracts.responses.managements.documents.web_document_response import \
+    WebDocumentResponse
 from app.inners.use_cases.managements.web_document_management import WebDocumentManagement
 
 router: APIRouter = APIRouter(tags=["web-documents"])
@@ -31,26 +32,26 @@ class WebDocumentController:
         self.web_document_management: WebDocumentManagement = WebDocumentManagement()
 
     @router.get("/documents/webs")
-    async def read_all(self, request: Request) -> Content[List[WebDocument]]:
+    async def read_all(self, request: Request) -> Content[List[WebDocumentResponse]]:
         request: ReadAllRequest = ReadAllRequest(query_parameter=dict(request.query_params))
         return await self.web_document_management.read_all(request=request)
 
     @router.get("/documents/webs/{id}")
-    async def read_one_by_id(self, id: UUID) -> Content[WebDocument]:
+    async def read_one_by_id(self, id: UUID) -> Content[WebDocumentResponse]:
         request: ReadOneByIdRequest = ReadOneByIdRequest(id=id)
         return await self.web_document_management.read_one_by_id(request)
 
     @router.post("/documents/webs")
-    async def create_one(self, body: CreateBody) -> Content[WebDocument]:
+    async def create_one(self, body: CreateBody) -> Content[WebDocumentResponse]:
         request: CreateOneRequest = CreateOneRequest(body=body)
         return await self.web_document_management.create_one(request)
 
     @router.patch("/documents/webs/{id}")
-    async def patch_one_by_id(self, id: UUID, body: PatchBody) -> Content[WebDocument]:
+    async def patch_one_by_id(self, id: UUID, body: PatchBody) -> Content[WebDocumentResponse]:
         request: PatchOneByIdRequest = PatchOneByIdRequest(id=id, body=body)
         return await self.web_document_management.patch_one_by_id(request)
 
     @router.delete("/documents/webs/{id}")
-    async def delete_one_by_id(self, id: UUID) -> Content[WebDocument]:
+    async def delete_one_by_id(self, id: UUID) -> Content[WebDocumentResponse]:
         request: DeleteOneByIdRequest = DeleteOneByIdRequest(id=id)
         return await self.web_document_management.delete_one_by_id(request)
