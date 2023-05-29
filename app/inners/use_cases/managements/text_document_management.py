@@ -70,8 +70,8 @@ class TextDocumentManagement:
 
     async def read_one_by_id(self, request: ReadOneByIdRequest) -> Content[TextDocumentResponse]:
         try:
-            found_text_document: TextDocument = await self.text_document_repository.read_one_by_id(
-                id=request.id
+            found_text_document: TextDocument = await self.text_document_repository.read_one_by_document_id(
+                document_id=request.id
             )
             found_document: Document = await self.document_repository.read_one_by_id(
                 id=found_text_document.document_id

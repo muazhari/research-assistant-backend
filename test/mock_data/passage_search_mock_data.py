@@ -43,9 +43,23 @@ class PassageSearchMockData:
         self.document_data: List[Document] = [
             Document(
                 id=uuid.uuid4(),
+                name="name0",
+                description="description0",
+                document_type_id=self.document_type_data[0].id,
+                account_id=self.account_data[0].id,
+            ),
+            Document(
+                id=uuid.uuid4(),
+                name="name1",
+                description="description1",
+                document_type_id=self.document_type_data[1].id,
+                account_id=self.account_data[0].id,
+            ),
+            Document(
+                id=uuid.uuid4(),
                 name="name2",
                 description="description2",
-                document_type_id=self.document_type_data[0].id,
+                document_type_id=self.document_type_data[2].id,
                 account_id=self.account_data[0].id,
             ),
         ]
@@ -67,7 +81,7 @@ class PassageSearchMockData:
         self.text_document_data: List[TextDocument] = [
             TextDocument(
                 id=uuid.uuid4(),
-                document_id=self.document_data[0].id,
+                document_id=self.document_data[1].id,
                 text_content="""Software engineering is an engineering-based approach to software development.[1][2][3] A software engineer is a person who applies the engineering design process to design, develop, maintain, test, and evaluate computer software. The term programmer is sometimes used as a synonym, but may also refer more to implementation rather than design and can also lack connotations of engineering education or skills.[4]
 
 Engineering techniques are used to inform the software development process,[1][5] which involves the definition, implementation, assessment, measurement, management, change, and improvement of the software life cycle process itself. It heavily uses software configuration management,[1][5] which is about systematically controlling changes to the configuration, and maintaining the integrity and traceability of the configuration and code throughout the system life cycle. Modern processes use software versioning."""
@@ -77,7 +91,7 @@ Engineering techniques are used to inform the software development process,[1][5
         self.web_document_data: List[WebDocument] = [
             WebDocument(
                 id=uuid.uuid4(),
-                document_id=self.document_data[0].id,
+                document_id=self.document_data[2].id,
                 web_url="https://en.wikipedia.org/wiki/Software_engineering"
             )
         ]

@@ -70,8 +70,8 @@ class WebDocumentManagement:
 
     async def read_one_by_id(self, request: ReadOneByIdRequest) -> Content[WebDocumentResponse]:
         try:
-            found_web_document: WebDocument = await self.web_document_repository.read_one_by_id(
-                id=request.id
+            found_web_document: WebDocument = await self.web_document_repository.read_one_by_document_id(
+                document_id=request.id
             )
             found_document: Document = await self.document_repository.read_one_by_id(
                 id=found_web_document.document_id

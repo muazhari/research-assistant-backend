@@ -72,8 +72,8 @@ class FileDocumentManagement:
 
     async def read_one_by_id(self, request: ReadOneByIdRequest) -> Content[FileDocumentResponse]:
         try:
-            found_file_document: FileDocument = await self.file_document_repository.read_one_by_id(
-                id=request.id
+            found_file_document: FileDocument = await self.file_document_repository.read_one_by_document_id(
+                document_id=request.id
             )
             found_document: Document = await self.document_repository.read_one_by_id(
                 id=found_file_document.document_id

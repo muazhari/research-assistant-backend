@@ -18,7 +18,6 @@ from test.app.outers.interfaces.deliveries.controllers.document_type_controller_
 from test.mock_data.document_process_mock_data import DocumentProcessMockData
 from test.utilities.test_client_utility import get_async_client
 
-test_client = get_async_client()
 document_process_repository = DocumentProcessRepository()
 document_process_mock_data = DocumentProcessMockData()
 
@@ -51,9 +50,10 @@ async def run_around(request: pytest.FixtureRequest):
 
 @pytest.mark.asyncio
 async def test__read_all__should_return_all_document_process__success():
-    response = await test_client.get(
-        url="api/v1/document-processes"
-    )
+    async with get_async_client() as client:
+        response = await client.get(
+            url="api/v1/document-processes"
+        )
     assert response.status_code == 200
     content: Content[List[DocumentProcess]] = Content[List[DocumentProcess]](**response.json())
     assert all(document_process in content.data for document_process in document_process_mock_data.data)
@@ -61,12 +61,13 @@ async def test__read_all__should_return_all_document_process__success():
 
 @pytest.mark.asyncio
 async def test__read_one_by_id__should_return_one_document_process__success():
-    response = await test_client.get(
-        url=f"api/v1/document-processes/{document_process_mock_data.data[0].id}"
-    )
-    assert response.status_code == 200
-    content: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
-    assert content.data == document_process_mock_data.data[0]
+    async with get_async_client() as client:
+        response = await client.get(
+            url=f"api/v1/document-processes/{document_process_mock_data.data[0].id}"
+        )
+        assert response.status_code == 200
+        content: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
+        assert content.data == document_process_mock_data.data[0]
 
 
 @pytest.mark.asyncio
@@ -76,16 +77,17 @@ async def test__create_one__should_create_one_document_process__success():
         final_document_id=document_process_mock_data.document_mock_data.data[1].id,
         process_duration=2,
     )
-    response = await test_client.post(
-        url="api/v1/document-processes",
-        json=json.loads(body.json())
-    )
-    assert response.status_code == 200
-    content: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
-    assert content.data.initial_document_id == body.initial_document_id
-    assert content.data.final_document_id == body.final_document_id
-    assert content.data.process_duration == body.process_duration
-    document_process_mock_data.data.append(content.data)
+    async with get_async_client() as client:
+        response = await client.post(
+            url="api/v1/document-processes",
+            json=json.loads(body.json())
+        )
+        assert response.status_code == 200
+        content: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
+        assert content.data.initial_document_id == body.initial_document_id
+        assert content.data.final_document_id == body.final_document_id
+        assert content.data.process_duration == body.process_duration
+        document_process_mock_data.data.append(content.data)
 
 
 @pytest.mark.asyncio
@@ -95,23 +97,25 @@ async def test__patch_one_by_id__should_patch_one_document_process__success():
         final_document_id=document_process_mock_data.document_mock_data.data[0].id,
         process_duration=3,
     )
-    response = await test_client.patch(
-        url=f"api/v1/document-processes/{document_process_mock_data.data[0].id}",
-        json=json.loads(body.json())
-    )
-    assert response.status_code == 200
-    content: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
-    assert content.data.initial_document_id == body.initial_document_id
-    assert content.data.final_document_id == body.final_document_id
-    assert content.data.process_duration == body.process_duration
-    document_process_mock_data.data[0] = content.data
+    async with get_async_client() as client:
+        response = await client.patch(
+            url=f"api/v1/document-processes/{document_process_mock_data.data[0].id}",
+            json=json.loads(body.json())
+        )
+        assert response.status_code == 200
+        content: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
+        assert content.data.initial_document_id == body.initial_document_id
+        assert content.data.final_document_id == body.final_document_id
+        assert content.data.process_duration == body.process_duration
+        document_process_mock_data.data[0] = content.data
 
 
 @pytest.mark.asyncio
 async def test__delete_one_by_id__should_delete_one_document_process__success():
-    response = await test_client.delete(
-        url=f"api/v1/document-processes/{document_process_mock_data.data[0].id}"
-    )
-    assert response.status_code == 200
-    content: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
-    assert content.data == document_process_mock_data.data[0]
+    async with get_async_client() as client:
+        response = await client.delete(
+            url=f"api/v1/document-processes/{document_process_mock_data.data[0].id}"
+        )
+        assert response.status_code == 200
+        content: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
+        assert content.data == document_process_mock_data.data[0]

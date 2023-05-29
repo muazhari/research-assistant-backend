@@ -22,7 +22,6 @@ from test.app.outers.interfaces.deliveries.controllers.document_type_controller_
 from test.mock_data.file_document_mock_data import FileDocumentMockData
 from test.utilities.test_client_utility import get_async_client
 
-test_client = get_async_client()
 file_document_repository = FileDocumentRepository()
 file_document_mock_data = FileDocumentMockData()
 
@@ -58,25 +57,27 @@ async def run_around(request: pytest.FixtureRequest):
 
 @pytest.mark.asyncio
 async def test__read_all__should_return_all_file_documents__success():
-    response = await test_client.get(
-        url="api/v1/documents/files"
-    )
-    assert response.status_code == 200
-    content: Content[List[FileDocumentResponse]] = Content[List[FileDocumentResponse]](**response.json())
-    assert all(
-        file_document_response in content.data
-        for file_document_response in file_document_mock_data.response_data
-    )
+    async with get_async_client() as client:
+        response = await client.get(
+            url="api/v1/documents/files"
+        )
+        assert response.status_code == 200
+        content: Content[List[FileDocumentResponse]] = Content[List[FileDocumentResponse]](**response.json())
+        assert all(
+            file_document_response in content.data
+            for file_document_response in file_document_mock_data.response_data
+        )
 
 
 @pytest.mark.asyncio
 async def test__read_one_by_id__should_return_one_file_document__success():
-    response = await test_client.get(
-        url=f"api/v1/documents/files/{file_document_mock_data.data[0].id}"
-    )
-    assert response.status_code == 200
-    content: Content[FileDocumentResponse] = Content[FileDocumentResponse](**response.json())
-    assert content.data == file_document_mock_data.response_data[0]
+    async with get_async_client() as client:
+        response = await client.get(
+            url=f"api/v1/documents/files/{file_document_mock_data.data[0].id}"
+        )
+        assert response.status_code == 200
+        content: Content[FileDocumentResponse] = Content[FileDocumentResponse](**response.json())
+        assert content.data == file_document_mock_data.response_data[0]
 
 
 @pytest.mark.asyncio
@@ -90,27 +91,28 @@ async def test__create_one__should_create_one_file_document__success():
         file_extension="file_extension_3",
         file_bytes=b"file_bytes_3",
     )
-    response = await test_client.post(
-        url="api/v1/documents/files",
-        json=json.loads(body.json())
-    )
-    assert response.status_code == 200
-    content: Content[FileDocumentResponse] = Content[FileDocumentResponse](**response.json())
-    assert content.data.name == body.name
-    assert content.data.description == body.description
-    assert content.data.document_type_id == body.document_type_id
-    assert content.data.account_id == body.account_id
-    assert content.data.file_name == body.file_name
-    assert content.data.file_extension == body.file_extension
-    assert content.data.file_bytes == body.file_bytes
+    async with get_async_client() as client:
+        response = await client.post(
+            url="api/v1/documents/files",
+            json=json.loads(body.json())
+        )
+        assert response.status_code == 200
+        content: Content[FileDocumentResponse] = Content[FileDocumentResponse](**response.json())
+        assert content.data.name == body.name
+        assert content.data.description == body.description
+        assert content.data.document_type_id == body.document_type_id
+        assert content.data.account_id == body.account_id
+        assert content.data.file_name == body.file_name
+        assert content.data.file_extension == body.file_extension
+        assert content.data.file_bytes == body.file_bytes
 
-    file_document_mock_data.response_data.append(content.data)
-    file_document_mock_data.data.append(
-        await file_document_repository.read_one_by_document_id(document_id=content.data.id)
-    )
-    file_document_mock_data.document_mock_data.data.append(
-        await document_repository.read_one_by_id(id=content.data.id)
-    )
+        file_document_mock_data.response_data.append(content.data)
+        file_document_mock_data.data.append(
+            await file_document_repository.read_one_by_document_id(document_id=content.data.id)
+        )
+        file_document_mock_data.document_mock_data.data.append(
+            await document_repository.read_one_by_id(id=content.data.id)
+        )
 
 
 @pytest.mark.asyncio
@@ -124,31 +126,34 @@ async def test__patch_one_by_id__should_patch_one_file_document__success():
         file_extension=f"{file_document_mock_data.data[0].file_extension} patched",
         file_bytes=b"file_bytes_3 patched",
     )
-    response = await test_client.patch(
-        url=f"api/v1/documents/files/{file_document_mock_data.response_data[0].id}",
-        json=json.loads(body.json())
-    )
-    assert response.status_code == 200
-    content: Content[FileDocumentResponse] = Content[FileDocumentResponse](**response.json())
-    assert content.data.name == body.name
-    assert content.data.description == body.description
-    assert content.data.document_type_id == body.document_type_id
-    assert content.data.account_id == body.account_id
-    assert content.data.file_name == body.file_name
-    assert content.data.file_extension == body.file_extension
-    assert content.data.file_bytes == body.file_bytes
+    async with get_async_client() as client:
+        response = await client.patch(
+            url=f"api/v1/documents/files/{file_document_mock_data.response_data[0].id}",
+            json=json.loads(body.json())
+        )
+        assert response.status_code == 200
+        content: Content[FileDocumentResponse] = Content[FileDocumentResponse](**response.json())
+        assert content.data.name == body.name
+        assert content.data.description == body.description
+        assert content.data.document_type_id == body.document_type_id
+        assert content.data.account_id == body.account_id
+        assert content.data.file_name == body.file_name
+        assert content.data.file_extension == body.file_extension
+        assert content.data.file_bytes == body.file_bytes
 
-    file_document_mock_data.response_data[0] = content.data
-    file_document_mock_data.data[0] = await file_document_repository.read_one_by_document_id(
-        document_id=content.data.id)
-    file_document_mock_data.document_mock_data.data[0] = await document_repository.read_one_by_id(id=content.data.id)
+        file_document_mock_data.response_data[0] = content.data
+        file_document_mock_data.data[0] = await file_document_repository.read_one_by_document_id(
+            document_id=content.data.id)
+        file_document_mock_data.document_mock_data.data[0] = await document_repository.read_one_by_id(
+            id=content.data.id)
 
 
 @pytest.mark.asyncio
 async def test__delete_one_by_id__should_delete_one_file_document__success():
-    response = await test_client.delete(
-        url=f"api/v1/documents/files/{file_document_mock_data.response_data[0].id}"
-    )
-    assert response.status_code == 200
-    content: Content[FileDocumentResponse] = Content[FileDocumentResponse](**response.json())
-    assert content.data == file_document_mock_data.response_data[0]
+    async with get_async_client() as client:
+        response = await client.delete(
+            url=f"api/v1/documents/files/{file_document_mock_data.response_data[0].id}"
+        )
+        assert response.status_code == 200
+        content: Content[FileDocumentResponse] = Content[FileDocumentResponse](**response.json())
+        assert content.data == file_document_mock_data.response_data[0]

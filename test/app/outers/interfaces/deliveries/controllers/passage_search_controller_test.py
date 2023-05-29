@@ -9,8 +9,13 @@ from app.inners.models.entities.document_type import DocumentType
 from app.inners.models.entities.file_document import FileDocument
 from app.inners.models.entities.text_document import TextDocument
 from app.inners.models.entities.web_document import WebDocument
-from app.inners.models.value_objects.contracts.requests.embedding_model_body import EmbeddingModelBody
+from app.inners.models.value_objects.contracts.requests.dense_embedding_model_body import DenseEmbeddingModelBody
+from app.inners.models.value_objects.contracts.requests.dense_retriever_body import DenseRetrieverBody
+from app.inners.models.value_objects.contracts.requests.input_setting_body import InputSettingBody
+from app.inners.models.value_objects.contracts.requests.output_setting_body import OutputSettingBody
 from app.inners.models.value_objects.contracts.requests.passage_searchs.process_body import ProcessBody
+from app.inners.models.value_objects.contracts.requests.ranker_body import RankerBody
+from app.inners.models.value_objects.contracts.requests.sparse_retriever_body import SparseRetrieverBody
 from test.app.outers.interfaces.deliveries.controllers.account_controller_test import account_repository
 from test.app.outers.interfaces.deliveries.controllers.document_controller_test import document_repository
 from test.app.outers.interfaces.deliveries.controllers.document_type_controller_test import document_type_repository
@@ -20,7 +25,6 @@ from test.app.outers.interfaces.deliveries.controllers.web_document_controller_t
 from test.mock_data.passage_search_mock_data import PassageSearchMockData
 from test.utilities.test_client_utility import get_async_client
 
-test_client = get_async_client()
 passage_search_mock_data = PassageSearchMockData()
 
 
@@ -57,31 +61,43 @@ async def run_around(request: pytest.FixtureRequest):
 
 @pytest.mark.asyncio
 async def test__passage_search_in_text__should_process_it__success():
-    body = ProcessBody(
-        corpus_source_type="text",
-        corpus=passage_search_mock_data.text_document_data[0].text_content,
-        query="definition of software engineering",
-        granularity="sentence",
-        window_sizes=[1, 2, 3, 4],
-        retriever_source_type="local",
-        dense_retriever="dense_passage",
-        sparse_retriever="bm25",
-        ranker="sentence_transformers",
-        embedding_model=EmbeddingModelBody(
-            query_model="vblagoje/dpr-question_encoder-single-lfqa-wiki",
-            passage_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",
-            ranker_model="naver/trecdl22-crossencoder-electra"
+    body: ProcessBody = ProcessBody(
+        input_setting=InputSettingBody(
+            document_id=passage_search_mock_data.document_data[1].id,
+            query="definition of software engineering",
+            granularity="sentence",
+            window_sizes=[1, 2, 3],
+            dense_retriever=DenseRetrieverBody(
+                source_type="dense_passage",
+                similarity_function="dot_product",
+                top_k=100,
+                is_update=True,
+                embedding_model=DenseEmbeddingModelBody(
+                    dimension=128,
+                    query_model="vblagoje/dpr-question_encoder-single-lfqa-wiki",
+                    passage_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",
+                ),
+            ),
+            sparse_retriever=SparseRetrieverBody(
+                source_type="bm25",
+                similarity_function="dot_product",
+                top_k=100,
+            ),
+            ranker=RankerBody(
+                source_type="sentence_transformers",
+                model="naver/trecdl22-crossencoder-electra",
+                top_k=15,
+            )
         ),
-        embedding_dimension=128,
-        num_iterations=None,
-        similarity_function="dot_product",
-        retriever_top_k=100,
-        ranker_top_k=15,
-        api_key=None
-    )
-    response = await test_client.post(
-        url="/api/v1/passage-search",
-        json=json.loads(body.json())
+        output_setting=OutputSettingBody(
+            document_type_id=passage_search_mock_data.document_type_data[1].id,
+        )
     )
 
-    assert response.status_code == 200
+    async with get_async_client() as client:
+        response = await client.post(
+            url="/api/v1/passage-search",
+            json=json.loads(body.json())
+        )
+
+        assert response.status_code == 200

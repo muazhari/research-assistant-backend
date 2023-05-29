@@ -1,20 +1,20 @@
 from haystack.nodes import SentenceTransformersRanker, BaseRanker
 
-from app.inners.models.value_objects.contracts.requests.passage_searchs.process_body import ProcessBody
+from app.inners.models.value_objects.contracts.requests.ranker_body import RankerBody
 
 
 class RankerModel:
-    def get_sentence_transformers_ranker(self, process_body: ProcessBody) -> BaseRanker:
+    def get_sentence_transformers_ranker(self, ranker_body: RankerBody) -> BaseRanker:
         ranker: SentenceTransformersRanker = SentenceTransformersRanker(
-            model_name_or_path=process_body.embedding_model.ranker_model,
+            model_name_or_path=ranker_body.model,
         )
         return ranker
 
-    def get_ranker(self, process_body: ProcessBody) -> BaseRanker:
-        if process_body.ranker == "sentence_transformers":
+    def get_ranker(self, ranker_body: RankerBody) -> BaseRanker:
+        if ranker_body.source_type == "sentence_transformers":
             ranker = self.get_sentence_transformers_ranker(
-                process_body=process_body
+                ranker_body=ranker_body
             )
         else:
-            raise ValueError(f"Ranker {process_body.ranker} is not supported.")
+            raise ValueError(f"Ranker Source Type {ranker_body.source_type} is not supported.")
         return ranker
