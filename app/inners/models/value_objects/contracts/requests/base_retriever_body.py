@@ -2,6 +2,6 @@ from app.inners.models.value_objects.contracts.requests.base_request import Base
 
 
 class BaseRetrieverBody(BaseRequest):
+    top_k: int
     similarity_function: str
     source_type: str
-    top_k: int

@@ -1,6 +1,5 @@
 import hashlib
 from datetime import datetime, timedelta
-from pathlib import Path
 from typing import List
 
 from haystack import Pipeline
@@ -15,30 +14,17 @@ from app.inners.models.value_objects.contracts.requests.managements.document_typ
     ReadOneByIdRequest as DocumentTypeReadOneByIdRequest
 from app.inners.models.value_objects.contracts.requests.managements.documents.read_one_by_id_request import \
     ReadOneByIdRequest as DocumentReadOneByIdRequest
-from app.inners.models.value_objects.contracts.requests.managements.file_documents.read_one_by_id_request import \
-    ReadOneByIdRequest as FileDocumentReadOneByIdRequest
-from app.inners.models.value_objects.contracts.requests.managements.text_documents.read_one_by_id_request import \
-    ReadOneByIdRequest as TextDocumentReadOneByIdRequest
-from app.inners.models.value_objects.contracts.requests.managements.web_documents.read_one_by_id_request import \
-    ReadOneByIdRequest as WebDocumentReadOneByIdRequest
 from app.inners.models.value_objects.contracts.requests.passage_searchs.process_body import ProcessBody
 from app.inners.models.value_objects.contracts.requests.passage_searchs.process_request import ProcessRequest
 from app.inners.models.value_objects.contracts.responses.content import Content
-from app.inners.models.value_objects.contracts.responses.managements.documents.file_document_response import \
-    FileDocumentResponse
-from app.inners.models.value_objects.contracts.responses.managements.documents.text_document_response import \
-    TextDocumentResponse
-from app.inners.models.value_objects.contracts.responses.managements.documents.web_document_response import \
-    WebDocumentResponse
+from app.inners.models.value_objects.contracts.responses.managements.documents.document_response import DocumentResponse
 from app.inners.models.value_objects.contracts.responses.passage_search.process_response import ProcessResponse
+from app.inners.use_cases.document_conversion.passage_search_document_conversion import PassageSearchDocumentConversion
 from app.inners.use_cases.managements.document_management import DocumentManagement
 from app.inners.use_cases.managements.document_type_management import DocumentTypeManagement
-from app.inners.use_cases.managements.file_document_management import FileDocumentManagement
-from app.inners.use_cases.managements.text_document_management import TextDocumentManagement
-from app.inners.use_cases.managements.web_document_management import WebDocumentManagement
 from app.inners.use_cases.passage_search.ranker_model import RankerModel
 from app.inners.use_cases.passage_search.retriever_model import RetrieverModel
-from app.inners.use_cases.utilities.document_processor import DocumentProcessor
+from app.inners.use_cases.utilities.document_processor_utility import DocumentProcessorUtility
 from app.inners.use_cases.utilities.locker import Locker
 from app.outers.settings.datastore_one_setting import DatastoreOneSetting
 from app.outers.settings.datastore_two_setting import DatastoreTwoSetting
@@ -47,49 +33,14 @@ from app.outers.settings.datastore_two_setting import DatastoreTwoSetting
 class PassageSearch:
 
     def __init__(self):
-        self.document_processor = DocumentProcessor()
+        self.document_processor_utility = DocumentProcessorUtility()
         self.retriever_model = RetrieverModel()
         self.ranker_model = RankerModel()
         self.datastore_one_setting = DatastoreOneSetting()
         self.datastore_two_setting = DatastoreTwoSetting()
         self.document_management = DocumentManagement()
         self.document_type_management = DocumentTypeManagement()
-        self.file_document_management = FileDocumentManagement()
-        self.text_document_management = TextDocumentManagement()
-        self.web_document_management = WebDocumentManagement()
-
-    async def get_corpus(self, document: Document, document_type: DocumentType) -> str:
-        if document_type.name == "file":
-            found_detail_document: Content[FileDocumentResponse] = await self.file_document_management.read_one_by_id(
-                request=FileDocumentReadOneByIdRequest(
-                    id=document.id
-                )
-            )
-            file_name: str = found_detail_document.data.file_name
-            file_extension: str = found_detail_document.data.file_extension
-            file_path: Path = Path(f"app/outers/persistences/temps/{file_name}{file_extension}")
-            file_bytes: bytes = found_detail_document.data.file_bytes
-            with open(file_path, "wb") as file:
-                file.write(file_bytes)
-            corpus = file_path
-        elif document_type.name == "text":
-            found_detail_document: Content[TextDocumentResponse] = await self.text_document_management.read_one_by_id(
-                request=TextDocumentReadOneByIdRequest(
-                    id=document.id
-                )
-            )
-            corpus = found_detail_document.data.text_content
-        elif document_type.name == "web":
-            found_detail_document: Content[WebDocumentResponse] = await self.web_document_management.read_one_by_id(
-                request=WebDocumentReadOneByIdRequest(
-                    id=document.id
-                )
-            )
-            corpus = found_detail_document.data.web_url
-        else:
-            raise Exception(f"Document type id {document_type.id} not yet supported.")
-
-        return corpus
+        self.document_conversion = PassageSearchDocumentConversion()
 
     async def get_window_sized_documents(self, process_body: ProcessBody) -> List[Document]:
         found_document: Content[Document] = await self.document_management.read_one_by_id(
@@ -104,8 +55,8 @@ class PassageSearch:
             )
         )
 
-        window_sized_documents: List[DocumentHaystack] = self.document_processor.process(
-            corpus=await self.get_corpus(
+        window_sized_documents: List[DocumentHaystack] = self.document_processor_utility.process(
+            corpus=await self.document_conversion.convert_document_to_corpus(
                 document=found_document.data,
                 document_type=found_document_type.data
             ),
@@ -134,9 +85,9 @@ class PassageSearch:
 
         document_store: OpenSearchDocumentStore = OpenSearchDocumentStore(
             host=self.datastore_two_setting.DS_2_HOST,
+            port=self.datastore_two_setting.DS_2_PORT_1,
             username=self.datastore_two_setting.DS_2_USERNAME,
             password=self.datastore_two_setting.DS_2_PASSWORD,
-            port=self.datastore_two_setting.DS_2_PORT_1,
             index=f"dense_{document_store_index_hash}",
             embedding_dim=process_body.input_setting.dense_retriever.embedding_model.dimension,
             similarity=process_body.input_setting.dense_retriever.similarity_function,
@@ -233,25 +184,24 @@ class PassageSearch:
 
         retrieval_result: dict = pipeline.run(
             query=process_request.body.input_setting.query,
-            params={
-                "DenseRetriever": {"top_k": process_request.body.input_setting.dense_retriever.top_k},
-                "SparseRetriever": {"top_k": process_request.body.input_setting.sparse_retriever.top_k},
-                "Ranker": {"top_k": process_request.body.input_setting.ranker.top_k}
-            },
             debug=True
         )
 
         time_finish: datetime = datetime.now()
         time_delta: timedelta = time_finish - time_start
 
-        response: ProcessResponse = ProcessResponse(
+        output_document: DocumentResponse = await self.document_conversion.convert_retrieval_result_to_document(
+            process_body=process_request.body,
             retrieval_result=retrieval_result,
             process_duration=time_delta.total_seconds()
         )
 
-        content: Content = Content(
+        content: Content[ProcessResponse] = Content(
             message="Passage search succeed.",
-            data=response,
+            data=ProcessResponse(
+                output_document=output_document,
+                process_duration=time_delta.total_seconds()
+            ),
         )
 
         return content

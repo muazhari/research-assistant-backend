@@ -5,10 +5,4 @@
     <orderEntry type="jdk" jdkName="Remote Python 3.10.6 Docker Compose (app)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
-  <component name="PackageRequirementsSettings">
-    <option name="versionSpecifier" value="Don't specify version" />
-  </component>
-  <component name="TestRunnerService">
-    <option name="PROJECT_TEST_RUNNER" value="py.test" />
-  </component>
 </module>

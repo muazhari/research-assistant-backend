@@ -7,7 +7,7 @@ from txtai.pipeline import Segmentation, Textractor
 from app.inners.use_cases.utilities.locker import Locker
 
 
-class DocumentProcessor:
+class DocumentProcessorUtility:
 
     def segment(self, corpus: str, granularity: str) -> List[str]:
         granularized_corpus: List[str] = []
@@ -20,7 +20,7 @@ class DocumentProcessor:
         elif granularity == "word":
             granularized_corpus = corpus.split(" ")
         else:
-            ValueError(f"Granularity {granularity} is not supported.")
+            NotImplementedError(f"Granularity {granularity} is not supported.")
 
         return granularized_corpus
 
@@ -36,7 +36,7 @@ class DocumentProcessor:
             textractor = Textractor(paragraphs=True)
             granularized_corpus = textractor(text=corpus)
         else:
-            ValueError(f"Granularity {granularity} is not supported.")
+            NotImplementedError(f"Granularity {granularity} is not supported.")
 
         return granularized_corpus
 
@@ -46,7 +46,7 @@ class DocumentProcessor:
         elif corpus_source_type in ["file", "web"]:
             granularized_corpus = self.textract(corpus, granularity)
         else:
-            raise ValueError(f"Source type {corpus_source_type} is not supported.")
+            raise NotImplementedError(f"Source type {corpus_source_type} is not supported.")
         return granularized_corpus
 
     def windowize(self, corpus: List[str], window_size: int) -> List[Tuple[str, ...]]:
@@ -62,7 +62,7 @@ class DocumentProcessor:
         elif granularity_source in ["paragraph"]:
             degranularized_corpus = "\n".join(windowed_corpus)
         else:
-            ValueError(f"Granularity {granularity_source} is not supported.")
+            NotImplementedError(f"Granularity {granularity_source} is not supported.")
         return degranularized_corpus
 
     def process(self, corpus: str, corpus_source_type: str, granularity: str,

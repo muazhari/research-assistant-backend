@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AnalysisUIOptions">
-    <option name="SPLITTER_PROPORTION" value="0.48804137" />
-  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="348b68e2-6318-4199-97f7-3fe12b50a842" name="Changes" comment="">
-<<<<<<< Updated upstream
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/account_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/account_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_process_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_process_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_type_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_type_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/file_document_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/file_document_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/text_document_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/text_document_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/web_document_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/web_document_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mock_data/account_mock_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/mock_data/account_mock_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mock_data/passage_search_mock_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/mock_data/passage_search_mock_data.py" afterDir="false" />
-=======
+    <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/passage_search/search_response.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/base_document_conversion.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/passage_search_document_conversion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8a8d163-9438-4828-bb3d-2223fe4e6e5c.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8a8d163-9438-4828-bb3d-2223fe4e6e5c/storage_v2/_src_/database/research-assistant-backend.8w44_g.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8a8d163-9438-4828-bb3d-2223fe4e6e5c/storage_v2/_src_/database/research-assistant-backend.8w44_g/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8a8d163-9438-4828-bb3d-2223fe4e6e5c/storage_v2/_src_/database/research-assistant-backend.8w44_g/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/remote-mappings.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/research-assistant-backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/research-assistant-backend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
->>>>>>> Stashed changes
+      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/base_retriever_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/base_retriever_body.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/passage_searchs/process_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/passage_searchs/process_body.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/passage_search/process_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/passage_search/process_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/annotater.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/annotater.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/ranker_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/ranker_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/retriever_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/retriever_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_conversion_utility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_processor_utility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds-1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/ds-1.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,27 +46,13 @@
       </list>
     </option>
   </component>
-  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
-    <envs>
-      <env key="FLASK_APP" value="app" />
-    </envs>
-    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
-    <option name="myEnvs">
-      <map>
-        <entry key="FLASK_APP" value="app" />
-      </map>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
-  </component>
-  <component name="ProjectId" id="2Jtkj9yJoYEjEASE7SJsIWOocfi" />
+  <component name="ProjectId" id="2QVqaC0trGGGiifzIdDmVVel6Tf" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -72,16 +64,12 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "credentialsType com.jetbrains.python.remote.PyCreateRemoteInterpreterDialog$PyCreateRemoteSdkForm": "Docker Compose",
-    "last_opened_file_path": "C:/",
+    "last_opened_file_path": "C:/Data/Apps/research-assistant-backend/app/inners/models/value_objects/contracts/responses/passage_search",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -92,65 +80,23 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\responses\managements\documents" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\outers\settings" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\outers\interfaces\deliveries\controllers" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\use_cases" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\use_cases\passage_search" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\responses\managements\documents" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\outers\persistences" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\responses\passage_search" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inner\model" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.compose-1">
-    <configuration name="passage_search_mock_data" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="research-assistant-backend" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test/mock_data" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/mock_data/passage_search_mock_data.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="FastAPI.run-1">
     <configuration name="run-1" type="Python.FastAPI">
-      <option name="additionalOptions" value="--reload --port=8000 --host=0.0.0.0" />
+      <option name="additionalOptions" value="--reload --host=0.0.0.0" />
       <option name="file" value="C:\Data\Apps\research-assistant-backend\app\main.py" />
       <module name="research-assistant-backend" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="/usr/bin/python3" />
+      <option name="SDK_NAME" value="Remote Python 3.10.6 Docker Compose (app)" />
       <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <EXTENSION ID="net.ashald.envfile">
-        <option name="IS_ENABLED" value="false" />
-        <option name="IS_SUBST" value="false" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
-        </ENTRIES>
-      </EXTENSION>
       <option name="launchJavascriptDebuger" value="false" />
       <method v="2" />
     </configuration>
@@ -164,181 +110,48 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="pytest in passage_search_controller_test.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="research-assistant-backend" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="APP_PORT" value="8000" />
-        <env name="DS_1_DATABASE" value="research-assistant-backend" />
-        <env name="DS_1_DIALECT" value="postgresql+asyncpg" />
-        <env name="DS_1_HOST" value="ds-1" />
-        <env name="DS_1_PASSWORD" value="default" />
-        <env name="DS_1_PORT" value="5432" />
-        <env name="DS_1_USER" value="default" />
-        <env name="DS_2_HOST" value="ds-2" />
-        <env name="DS_2_MANAGEMENT_PORT" value="5601" />
-        <env name="DS_2_PASSWORD" value="admin" />
-        <env name="DS_2_PORT_1" value="9200" />
-        <env name="DS_2_PORT_2" value="9600" />
-        <env name="DS_2_USERNAME" value="admin" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_parameters" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pytest in test" type="tests" factoryName="py.test" singleton="false" temporary="true" nameIsGenerated="true">
-      <module name="research-assistant-backend" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="docker-compose://[C:\Data\Apps\research-assistant-backend\docker-compose.yml]:app//usr/bin/python3" />
-      <option name="SDK_NAME" value="Remote Python 3.10.6 Docker Compose (app at [C:\Data\Apps\research-assistant-backend\docker-compose.yml])" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <EXTENSION ID="net.ashald.envfile">
-        <option name="IS_ENABLED" value="true" />
-        <option name="IS_SUBST" value="false" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
-          <ENTRY IS_ENABLED="true" PARSER="env" IS_EXECUTABLE="false" PATH=".env" />
-        </ENTRIES>
-      </EXTENSION>
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_parameters" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;-n\u003dauto&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/test&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Docker.compose-1" />
       <item itemvalue="FastAPI.run-1" />
-      <item itemvalue="Python.passage_search_mock_data" />
-      <item itemvalue="Python tests.pytest in passage_search_controller_test.py" />
-      <item itemvalue="Python tests.pytest in test" />
     </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python tests.pytest in test" />
-        <item itemvalue="Python tests.pytest in passage_search_controller_test.py" />
-        <item itemvalue="Python.passage_search_mock_data" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="348b68e2-6318-4199-97f7-3fe12b50a842" name="Changes" comment="" />
-      <created>1672904899355</created>
+      <changelist id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="" />
+      <created>1685449158151</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1672904899355</updated>
-      <workItem from="1672904901555" duration="10642000" />
-      <workItem from="1672928602311" duration="7929000" />
-      <workItem from="1673850435328" duration="38000" />
-      <workItem from="1673850477841" duration="40000" />
-      <workItem from="1673850540312" duration="21756000" />
-      <workItem from="1673881989416" duration="3256000" />
-      <workItem from="1673945873126" duration="714000" />
-      <workItem from="1674121152089" duration="156000" />
-      <workItem from="1674121604624" duration="13349000" />
-      <workItem from="1674194257456" duration="1546000" />
-      <workItem from="1674195830674" duration="637000" />
-      <workItem from="1674196524318" duration="22091000" />
-      <workItem from="1674231387274" duration="15706000" />
-      <workItem from="1674283828880" duration="1302000" />
-      <workItem from="1685101982618" duration="10089000" />
-      <workItem from="1685113832349" duration="11762000" />
-      <workItem from="1685133885373" duration="844000" />
-      <workItem from="1685134922820" duration="10224000" />
-      <workItem from="1685179645544" duration="12905000" />
-      <workItem from="1685197035908" duration="6365000" />
-      <workItem from="1685254953886" duration="11097000" />
-      <workItem from="1685266950133" duration="8260000" />
-      <workItem from="1685284735233" duration="2760000" />
-      <workItem from="1685338036354" duration="20000" />
-      <workItem from="1685338117137" duration="1268000" />
-      <workItem from="1685340337238" duration="572000" />
-      <workItem from="1685341339216" duration="44000" />
-      <workItem from="1685341512025" duration="694000" />
-<<<<<<< Updated upstream
-      <workItem from="1685343218616" duration="22074000" />
-      <workItem from="1685367424277" duration="1180000" />
-      <workItem from="1685368677838" duration="903000" />
-=======
-      <workItem from="1685343218616" duration="16799000" />
-      <workItem from="1685369806029" duration="237000" />
->>>>>>> Stashed changes
+      <updated>1685449158151</updated>
+      <workItem from="1685449159375" duration="10542000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <default-breakpoints>
-        <breakpoint type="python-exception">
-          <properties notifyOnTerminate="true" exception="BaseException">
-            <option name="notifyOnTerminate" value="true" />
-          </properties>
-        </breakpoint>
-      </default-breakpoints>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py</url>
+          <line>103</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py</url>
+          <line>98</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py</url>
+          <line>206</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1685346592005" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_account_controller_test_read_one_account_success.coverage" NAME="pytest for test_account_controller.test_read_one_account_success Coverage Results" MODIFIED="1673864611640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_account_controller_test_read_all_account_success.coverage" NAME="pytest for test_account_controller.test_read_all_account_success Coverage Results" MODIFIED="1673861260437" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$passage_search_mock_data.coverage" NAME="passage_search_mock_data Coverage Results" MODIFIED="1685203253703" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/mock_data" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_account_controller_TestAccountController.coverage" NAME="pytest for test_account_controller.TestAccountController Coverage Results" MODIFIED="1673864757608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test_account_controller_py.coverage" NAME="pytest in test_account_controller.py Coverage Results" MODIFIED="1674199809487" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
-<<<<<<< Updated upstream
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_account_controller_test_read_all_account_success.coverage" NAME="pytest for test_account_controller.test_read_all_account_success Coverage Results" MODIFIED="1673861260437" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1685368403083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_account_controller_test_read_one_account_success.coverage" NAME="pytest for test_account_controller.test_read_one_account_success Coverage Results" MODIFIED="1673864611640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
-=======
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_account_controller_test_AccountControllerTest.coverage" NAME="pytest for account_controller_test.AccountControllerTest Coverage Results" MODIFIED="1685180488757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$test.coverage" NAME="test Coverage Results" MODIFIED="1685119229407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_controllers.coverage" NAME="pytest in controllers Coverage Results" MODIFIED="1685180399821" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/deliveries/controllers" />
->>>>>>> Stashed changes
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_controller.coverage" NAME="pytest in controller Coverage Results" MODIFIED="1674237127840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1685370025912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_passage_search_controller_test_py.coverage" NAME="pytest in passage_search_controller_test.py Coverage Results" MODIFIED="1685258220193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_document_controller_test_document_read_all_success.coverage" NAME="pytest for test_document_controller.test_document_read_all_success Coverage Results" MODIFIED="1674206500751" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
-    <SUITE FILE_PATH="coverage/semantic_search_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1672931155338" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-<<<<<<< Updated upstream
-    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1685364820081" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_passage_search_controller_test_py.coverage" NAME="pytest in passage_search_controller_test.py Coverage Results" MODIFIED="1685258220193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_account_controller_TestAccountController.coverage" NAME="pytest for test_account_controller.TestAccountController Coverage Results" MODIFIED="1673864757608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/delivery/controller" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_controllers.coverage" NAME="pytest in controllers Coverage Results" MODIFIED="1685180399821" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/app/deliveries/controllers" />
-=======
->>>>>>> Stashed changes
+    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1685458430716" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

@@ -62,6 +62,7 @@ async def run_around(request: pytest.FixtureRequest):
 @pytest.mark.asyncio
 async def test__passage_search_in_text__should_process_it__success():
     body: ProcessBody = ProcessBody(
+        account_id=passage_search_mock_data.account_data[0].id,
         input_setting=InputSettingBody(
             document_id=passage_search_mock_data.document_data[1].id,
             query="definition of software engineering",
@@ -70,8 +71,8 @@ async def test__passage_search_in_text__should_process_it__success():
             dense_retriever=DenseRetrieverBody(
                 source_type="dense_passage",
                 similarity_function="dot_product",
-                top_k=100,
                 is_update=True,
+                top_k=100,
                 embedding_model=DenseEmbeddingModelBody(
                     dimension=128,
                     query_model="vblagoje/dpr-question_encoder-single-lfqa-wiki",
