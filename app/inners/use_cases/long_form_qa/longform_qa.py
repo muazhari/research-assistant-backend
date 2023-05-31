@@ -9,6 +9,8 @@ from app.inners.models.value_objects.contracts.requests.long_form_qas.process_bo
 from app.inners.models.value_objects.contracts.requests.long_form_qas.process_request import ProcessRequest
 from app.inners.models.value_objects.contracts.responses.content import Content
 from app.inners.models.value_objects.contracts.responses.long_form_qas.process_response import ProcessResponse
+from app.inners.models.value_objects.contracts.responses.long_form_qas.retrieved_document_response import \
+    RetrievedDocumentResponse
 from app.inners.use_cases.document_conversion.long_form_qa_document_conversion import LongFormQADocumentConversion
 from app.inners.use_cases.long_form_qa.generator_model import GeneratorModel
 from app.inners.use_cases.passage_search.passage_search import PassageSearch
@@ -59,11 +61,23 @@ class LongFormQA:
             time_finish: datetime = datetime.now()
             time_delta: timedelta = time_finish - time_start
 
+            retrieved_documents: List[RetrievedDocumentResponse] = [
+                RetrievedDocumentResponse(
+                    id=document.id,
+                    content=document.content,
+                    content_type=document.content_type,
+                    meta=document.meta,
+                    id_hash_keys=document.id_hash_keys,
+                    score=document.score
+                )
+                for document in
+                generative_result["_debug"]["Ranker"]["output"]["documents"]
+            ]
             content: Content[ProcessResponse] = Content(
                 message="Long form QA succeed.",
                 data=ProcessResponse(
-                    retrieved_documents=generative_result["_debug"]["Ranker"]["output"]["documents"],
-                    generated_answer=generative_result["answers"],
+                    retrieved_documents=retrieved_documents,
+                    generated_answer=generative_result["answers"][0].answer,
                     process_duration=time_delta.total_seconds()
                 ),
             )

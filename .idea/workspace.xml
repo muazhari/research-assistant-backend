@@ -5,87 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4e06bac6-caf5-4590-ad66-72028591b182.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4e06bac6-caf5-4590-ad66-72028591b182.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/long_form_qas/retrieved_document_response.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/base_embedding_model_body.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/base_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/base_retriever_body.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/dense_embedding_model_body.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/dense_retriever_body.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/input_setting_body.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/lfqas/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/create_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/create_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/create_one_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/create_one_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/delete_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/delete_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/patch_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/patch_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/patch_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/patch_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/read_all_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/read_all_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/read_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/accounts/read_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/create_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/create_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/create_one_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/create_one_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/delete_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/delete_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/patch_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/patch_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/patch_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/patch_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/read_all_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/read_all_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/read_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_processes/read_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/create_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/create_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/create_one_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/create_one_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/delete_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/delete_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/patch_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/patch_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/patch_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/patch_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/read_all_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/read_all_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/read_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/document_types/read_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/create_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/create_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/create_one_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/create_one_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/delete_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/delete_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/patch_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/patch_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/patch_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/patch_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/read_all_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/read_all_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/read_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/documents/read_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/create_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/create_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/create_one_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/create_one_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/delete_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/delete_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/patch_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/patch_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/patch_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/patch_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/read_all_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/read_all_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/read_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/file_documents/read_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/create_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/create_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/create_one_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/create_one_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/delete_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/delete_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/patch_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/patch_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/patch_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/patch_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/read_all_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/read_all_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/read_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/text_documents/read_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/create_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/create_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/create_one_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/create_one_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/delete_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/delete_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/patch_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/patch_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/patch_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/patch_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/read_all_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/read_all_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/read_one_by_id_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/managements/web_documents/read_one_by_id_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/multihop_embedding_model_body.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/online_embedding_model_body.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/output_setting_body.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/passage_searchs/process_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/passage_searchs/process_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/passage_searchs/process_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/passage_searchs/process_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/ranker_body.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/sparse_retriever_body.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/passage_search/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/passage_search/process_response.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/passage_search/search_response.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/base_document_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/base_document_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/passage_search_document_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/passage_search_document_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/annotater.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/annotater.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/ranker_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/ranker_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/retriever_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/retriever_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_conversion_utility.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_conversion_utility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/passage_search_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/passage_search_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/routers/api_v1.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/routers/api_v1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/gateways/clients/openai_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/gateways/clients/openai_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/settings/client_setting.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/long_form_qas/process_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/long_form_qas/process_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +41,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Data/Apps/research-assistant-backend/app/inners/models/value_objects/contracts/requests/basic_settings",
+    "last_opened_file_path": "C:/Data/Apps/research-assistant-backend/app/inners/models/value_objects/contracts/responses/long_form_qas",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -133,11 +56,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\responses\long_form_qas" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\basic_settings" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\passage_searchs" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\long_form_qas" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\outers\interfaces\deliveries\controllers" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\use_cases\document_conversion" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\passage_searchs" />
@@ -186,7 +109,7 @@
       <updated>1685449158151</updated>
       <workItem from="1685449159375" duration="11798000" />
       <workItem from="1685513455729" duration="980000" />
-      <workItem from="1685514455518" duration="6763000" />
+      <workItem from="1685514455518" duration="7912000" />
     </task>
     <servers />
   </component>
