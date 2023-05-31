@@ -5,31 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/authentications/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/authentications/logins/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/authentications/logins/login_by_email_and_password_body.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/authentications/logins/login_by_email_and_password_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/authentications/registers/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/authentications/registers/register_by_email_and_password_body.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/authentications/registers/register_by_email_and_password_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/authentications/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/authentications/logins/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/authentications/logins/login_response.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/authentications/registers/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/authentications/registers/register_response.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/use_cases/authentications/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/use_cases/authentications/login_authentication.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/inners/use_cases/authentications/register_authentication.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/authentication_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/base_document_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/base_document_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/managements/account_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/account_management.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/annotater.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/annotater.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/routers/api_v1.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/routers/api_v1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/repositories/account_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/account_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/settings/temp_persistence_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/settings/temp_persistence_setting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/authentications/login_authentication.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/authentications/login_authentication.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/authentications/register_authentication.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/authentications/register_authentication.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +47,8 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Users\\M Kharisma Azhari\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\231.9011.38\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -232,7 +213,7 @@
       <updated>1685449158151</updated>
       <workItem from="1685449159375" duration="11798000" />
       <workItem from="1685513455729" duration="980000" />
-      <workItem from="1685514455518" duration="15741000" />
+      <workItem from="1685514455518" duration="18452000" />
     </task>
     <servers />
   </component>
@@ -242,7 +223,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/research_assistant_backend$test.coverage" NAME="test Coverage Results" MODIFIED="1685535405614" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$.coverage" NAME=" Coverage Results" MODIFIED="1685532212288" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1685540317059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1685549196381" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_app_outers_interfaces_deliveries_controllers_file_document_controller_test.coverage" NAME="pytest for test.app.outers.interfaces.deliveries.controllers.file_document_controller_test Coverage Results" MODIFIED="1685532826646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

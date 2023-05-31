@@ -1,8 +1,7 @@
-from app.inners.models.value_objects.contracts.responses.authentications.logins.login_response import LoginResponse
-
 from app.inners.models.entities.account import Account
 from app.inners.models.value_objects.contracts.requests.authentications.logins.login_by_email_and_password_request import \
     LoginByEmailAndPasswordRequest
+from app.inners.models.value_objects.contracts.responses.authentications.logins.login_response import LoginResponse
 from app.inners.models.value_objects.contracts.responses.content import Content
 from app.inners.use_cases.managements.account_management import AccountManagement
 
@@ -12,7 +11,7 @@ class LoginAuthentication:
         self.account_management: AccountManagement = AccountManagement()
 
     async def login_by_email_and_password(self, request: LoginByEmailAndPasswordRequest) -> Content[LoginResponse]:
-        found_account_by_email: Content[Account] = await self.account_management.read_one_by_email(request.email)
+        found_account_by_email: Content[Account] = await self.account_management.read_one_by_email(request.body.email)
         found_account_by_email_and_password: Content[
             Account] = await self.account_management.read_one_by_email_and_password(
             request.body.email,
@@ -34,7 +33,7 @@ class LoginAuthentication:
 
         content: Content[LoginResponse] = Content[LoginResponse](
             data=LoginResponse(
-                entity=found_account_by_email_and_password.data
+                account=found_account_by_email_and_password.data
             ),
             message="Authentication login succeed."
         )

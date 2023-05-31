@@ -40,7 +40,7 @@ class RegisterAuthentication:
 
         content: Content[RegisterResponse] = Content[RegisterResponse](
             data=RegisterResponse(
-                entity=created_account.data
+                account=created_account.data
             ),
             message="Authentication register succeed."
         )
