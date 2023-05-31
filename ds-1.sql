@@ -87,11 +87,11 @@ values ('eb5adc50-df69-4bd0-b4d0-e300d3ff7560', 'text', 'text description'),
 
 -- populate table documents and its sub tables
 insert into document (id, name, description, document_type_id, account_id)
-values ('fb5adc50-df69-4bd0-b4d0-e300d3ff7560', 'text documents', 'text description',
+values ('fb5adc50-df69-4bd0-b4d0-e300d3ff7560', 'text document', 'text description',
         'eb5adc50-df69-4bd0-b4d0-e300d3ff7560', 'db5adc50-df69-4bd0-b4d0-e300d3ff7560'),
-       ('fb5adc50-df69-4bd0-b4d0-e300d3ff7561', 'file documents', 'file description',
+       ('fb5adc50-df69-4bd0-b4d0-e300d3ff7561', 'file document', 'file description',
         'eb5adc50-df69-4bd0-b4d0-e300d3ff7561', 'db5adc50-df69-4bd0-b4d0-e300d3ff7560'),
-       ('fb5adc50-df69-4bd0-b4d0-e300d3ff7562', 'web documents', 'web description',
+       ('fb5adc50-df69-4bd0-b4d0-e300d3ff7562', 'web document', 'web description',
         'eb5adc50-df69-4bd0-b4d0-e300d3ff7562', 'db5adc50-df69-4bd0-b4d0-e300d3ff7560');
 
 insert into text_document (id, document_id, text_content)

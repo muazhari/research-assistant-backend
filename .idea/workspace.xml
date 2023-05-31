@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4e06bac6-caf5-4590-ad66-72028591b182.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4e06bac6-caf5-4590-ad66-72028591b182.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4e06bac6-caf5-4590-ad66-72028591b182/storage_v2/_src_/database/research-assistant-backend.8w44_g/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4e06bac6-caf5-4590-ad66-72028591b182/storage_v2/_src_/database/research-assistant-backend.8w44_g/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/authentications/login_authentication.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/authentications/login_authentication.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/authentications/register_authentication.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/authentications/register_authentication.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds-1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/ds-1.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +214,7 @@
       <updated>1685449158151</updated>
       <workItem from="1685449159375" duration="11798000" />
       <workItem from="1685513455729" duration="980000" />
-      <workItem from="1685514455518" duration="18452000" />
+      <workItem from="1685514455518" duration="22891000" />
     </task>
     <servers />
   </component>
