@@ -18,7 +18,6 @@ nltk.download('averaged_perceptron_tagger')
 
 BaseConfig.json_encoders = {
     UUID: jsonable_encoder,
-    bytes: lambda v: v.hex()
 }
 
 app = FastAPI(

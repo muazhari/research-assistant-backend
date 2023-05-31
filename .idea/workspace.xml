@@ -5,10 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/long_form_qas/retrieved_document_response.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/mock_data/long_form_qa_mock_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/long_form_qas/process_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/long_form_qas/process_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/long_form_qas/retrieved_document_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/responses/long_form_qas/retrieved_document_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/base_document_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/base_document_conversion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/annotater.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/annotater.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_conversion_utility.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_conversion_utility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/annotater_input_18307826b7e6ee66defaea9c88269a35.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/annotater_input_1be24741b302e42590d1b6b33f9fb2cf.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/annotater_input_4ac2b4d9ddca17fbfaabf31a10edae6b.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/annotater_input_909137e76c79691007f8d8f9814dbdc7.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/annotater_input_dcbeb2a328537d96faa39b361e07e47a.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/annotater_input_ed387bf179fea737801650e568e6f959.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/annotater_input_fe2b08520c2b41166541883731d71fc6.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/annotater_output_18307826b7e6ee66defaea9c88269a35.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/annotater_output_1be24741b302e42590d1b6b33f9fb2cf.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/annotater_output_4ac2b4d9ddca17fbfaabf31a10edae6b.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/annotater_output_909137e76c79691007f8d8f9814dbdc7.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/annotater_output_dcbeb2a328537d96faa39b361e07e47a.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/annotater_output_ed387bf179fea737801650e568e6f959.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/annotater_output_fe2b08520c2b41166541883731d71fc6.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/mock_data/passage_search_mock_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/mock_data/passage_search_mock_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +62,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Data/Apps/research-assistant-backend/app/inners/models/value_objects/contracts/responses/long_form_qas",
+    "last_opened_file_path": "C:/Data/Apps/research-assistant-backend/test/mock_data",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -56,11 +77,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Data\Apps\research-assistant-backend\test\mock_data" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\responses\long_form_qas" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\basic_settings" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\passage_searchs" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\long_form_qas" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\outers\interfaces\deliveries\controllers" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\passage_searchs" />
@@ -94,10 +115,87 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="Python tests in test" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="research-assistant-backend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="APP_PORT" value="8000" />
+        <env name="CACHE_PATH" value="'C:\Users\M Kharisma Azhari\.cache'" />
+        <env name="DS_1_DATABASE" value="research-assistant-backend" />
+        <env name="DS_1_DIALECT" value="postgresql+asyncpg" />
+        <env name="DS_1_HOST" value="ds-1" />
+        <env name="DS_1_PASSWORD" value="default" />
+        <env name="DS_1_PORT" value="5432" />
+        <env name="DS_1_USER" value="default" />
+        <env name="DS_2_HOST" value="ds-2" />
+        <env name="DS_2_MANAGEMENT_PORT" value="5601" />
+        <env name="DS_2_PASSWORD" value="admin" />
+        <env name="DS_2_PORT_1" value="9200" />
+        <env name="DS_2_PORT_2" value="9600" />
+        <env name="DS_2_USERNAME" value="admin" />
+        <env name="NLTK_DATA_PATH" value="'C:\Users\M Kharisma Azhari\AppData\Roaming\nltk_data'" />
+        <env name="OPEN_AI_API_KEY" value="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" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;-n\u003dauto&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/test&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest for test.app.outers.interfaces.deliveries.controllers.file_document_controller_test" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="research-assistant-backend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="APP_PORT" value="8000" />
+        <env name="CACHE_PATH" value="'C:\Users\M Kharisma Azhari\.cache'" />
+        <env name="DS_1_DATABASE" value="research-assistant-backend" />
+        <env name="DS_1_DIALECT" value="postgresql+asyncpg" />
+        <env name="DS_1_HOST" value="ds-1" />
+        <env name="DS_1_PASSWORD" value="default" />
+        <env name="DS_1_PORT" value="5432" />
+        <env name="DS_1_USER" value="default" />
+        <env name="DS_2_HOST" value="ds-2" />
+        <env name="DS_2_MANAGEMENT_PORT" value="5601" />
+        <env name="DS_2_PASSWORD" value="admin" />
+        <env name="DS_2_PORT_1" value="9200" />
+        <env name="DS_2_PORT_2" value="9600" />
+        <env name="DS_2_USERNAME" value="admin" />
+        <env name="NLTK_DATA_PATH" value="'C:\Users\M Kharisma Azhari\AppData\Roaming\nltk_data'" />
+        <env name="OPEN_AI_API_KEY" value="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" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3" />
+      <option name="SDK_NAME" value="Remote Python 3.10.6 Docker Compose (app)" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;-n\u003dauto&quot;" />
+      <option name="_new_target" value="&quot;test.app.outers.interfaces.deliveries.controllers.file_document_controller_test&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Docker.compose-1" />
       <item itemvalue="FastAPI.run-1" />
+      <item itemvalue="Python tests.pytest for test.app.outers.interfaces.deliveries.controllers.file_document_controller_test" />
+      <item itemvalue="Python tests.Python tests in test" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.pytest for test.app.outers.interfaces.deliveries.controllers.file_document_controller_test" />
+        <item itemvalue="Python tests.Python tests in test" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -109,40 +207,16 @@
       <updated>1685449158151</updated>
       <workItem from="1685449159375" duration="11798000" />
       <workItem from="1685513455729" duration="980000" />
-      <workItem from="1685514455518" duration="7912000" />
+      <workItem from="1685514455518" duration="11398000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py</url>
-          <line>109</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py</url>
-          <line>104</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py</url>
-          <line>121</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py</url>
-          <line>127</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1685519279355" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$.coverage" NAME=" Coverage Results" MODIFIED="1685532212288" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1685533881202" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_app_outers_interfaces_deliveries_controllers_file_document_controller_test.coverage" NAME="pytest for test.app.outers.interfaces.deliveries.controllers.file_document_controller_test Coverage Results" MODIFIED="1685532826646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

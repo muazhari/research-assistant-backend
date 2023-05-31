@@ -1,3 +1,4 @@
+import base64
 import pathlib
 import uuid
 from typing import List
@@ -66,7 +67,7 @@ class PassageSearchMockData:
 
         file_path = pathlib.Path("test/mock_data/files/Artificial_Intelligence_in_Education_A_Review.pdf")
         with open(file_path, "rb") as file:
-            file_bytes = file.read()
+            file_bytes = base64.b64encode(file.read())
 
         self.file_document_data: List[FileDocument] = [
             FileDocument(

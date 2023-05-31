@@ -14,12 +14,11 @@ from app.inners.models.value_objects.contracts.requests.basic_settings.dense_emb
 from app.inners.models.value_objects.contracts.requests.basic_settings.dense_retriever_body import DenseRetrieverBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.document_setting_body import DocumentSettingBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.generator_body import GeneratorBody
-from app.inners.models.value_objects.contracts.requests.passage_searchs.input_setting_body import InputSettingBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.online_generator_model_body import \
     OnlineGeneratorModelBody
-from app.inners.models.value_objects.contracts.requests.basic_settings.output_setting_body import OutputSettingBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.ranker_body import RankerBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.sparse_retriever_body import SparseRetrieverBody
+from app.inners.models.value_objects.contracts.requests.long_form_qas.input_setting_body import InputSettingBody
 from app.inners.models.value_objects.contracts.requests.long_form_qas.process_body import ProcessBody
 from app.inners.models.value_objects.contracts.responses.content import Content
 from app.inners.models.value_objects.contracts.responses.long_form_qas.process_response import ProcessResponse
@@ -30,51 +29,51 @@ from test.app.outers.interfaces.deliveries.controllers.document_type_controller_
 from test.app.outers.interfaces.deliveries.controllers.file_document_controller_test import file_document_repository
 from test.app.outers.interfaces.deliveries.controllers.text_document_controller_test import text_document_repository
 from test.app.outers.interfaces.deliveries.controllers.web_document_controller_test import web_document_repository
-from test.mock_data.passage_search_mock_data import PassageSearchMockData
+from test.mock_data.long_form_qa_mock_data import LongFormQAMockData
 from test.utilities.test_client_utility import get_async_client
 
-passage_search_mock_data = PassageSearchMockData()
+long_form_qa_mock_data = LongFormQAMockData()
 open_ai_setting = OpenAISetting()
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
 async def run_around(request: pytest.FixtureRequest):
-    for account in passage_search_mock_data.account_data:
+    for account in long_form_qa_mock_data.passage_search_mock_data.account_data:
         await account_repository.create_one(Account(**account.dict()))
-    for document_type in passage_search_mock_data.document_type_data:
+    for document_type in long_form_qa_mock_data.passage_search_mock_data.document_type_data:
         await document_type_repository.create_one(DocumentType(**document_type.dict()))
-    for document in passage_search_mock_data.document_data:
+    for document in long_form_qa_mock_data.passage_search_mock_data.document_data:
         await document_repository.create_one(Document(**document.dict()))
-    for file_document in passage_search_mock_data.file_document_data:
+    for file_document in long_form_qa_mock_data.passage_search_mock_data.file_document_data:
         await file_document_repository.create_one(FileDocument(**file_document.dict()))
-    for text_document in passage_search_mock_data.text_document_data:
+    for text_document in long_form_qa_mock_data.passage_search_mock_data.text_document_data:
         await text_document_repository.create_one(TextDocument(**text_document.dict()))
-    for web_document in passage_search_mock_data.web_document_data:
+    for web_document in long_form_qa_mock_data.passage_search_mock_data.web_document_data:
         await web_document_repository.create_one(WebDocument(**web_document.dict()))
 
     yield
 
-    for file_document in passage_search_mock_data.file_document_data:
+    for file_document in long_form_qa_mock_data.passage_search_mock_data.file_document_data:
         await file_document_repository.delete_one_by_id(file_document.id)
-    for text_document in passage_search_mock_data.text_document_data:
+    for text_document in long_form_qa_mock_data.passage_search_mock_data.text_document_data:
         await text_document_repository.delete_one_by_id(text_document.id)
-    for web_document in passage_search_mock_data.web_document_data:
+    for web_document in long_form_qa_mock_data.passage_search_mock_data.web_document_data:
         await web_document_repository.delete_one_by_id(web_document.id)
-    for document in passage_search_mock_data.document_data:
+    for document in long_form_qa_mock_data.passage_search_mock_data.document_data:
         await document_repository.delete_one_by_id(document.id)
-    for document_type in passage_search_mock_data.document_type_data:
+    for document_type in long_form_qa_mock_data.passage_search_mock_data.document_type_data:
         await document_type_repository.delete_one_by_id(document_type.id)
-    for account in passage_search_mock_data.account_data:
+    for account in long_form_qa_mock_data.passage_search_mock_data.account_data:
         await account_repository.delete_one_by_id(account.id)
 
 
 @pytest.mark.asyncio
-async def test__passage_search_in_text__should_process_it__success():
+async def test__long_form_qa__should_process_it__success():
     body: ProcessBody = ProcessBody(
-        account_id=passage_search_mock_data.account_data[0].id,
+        account_id=long_form_qa_mock_data.passage_search_mock_data.account_data[0].id,
         input_setting=InputSettingBody(
             document_setting=DocumentSettingBody(
-                document_id=passage_search_mock_data.document_data[1].id,
+                document_id=long_form_qa_mock_data.passage_search_mock_data.document_data[1].id,
             ),
             query="definition of software engineering",
             granularity="sentence",
@@ -121,7 +120,7 @@ async def test__passage_search_in_text__should_process_it__success():
 
     async with get_async_client() as client:
         response = await client.post(
-            url="/api/v1/passage-search",
+            url="/api/v1/long-form-qa",
             json=json.loads(body.json())
         )
 

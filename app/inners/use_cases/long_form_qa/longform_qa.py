@@ -67,7 +67,6 @@ class LongFormQA:
                     content=document.content,
                     content_type=document.content_type,
                     meta=document.meta,
-                    id_hash_keys=document.id_hash_keys,
                     score=document.score
                 )
                 for document in

@@ -1,3 +1,4 @@
+import base64
 from pathlib import Path
 
 from app.inners.models.entities.document import Document
@@ -55,7 +56,7 @@ class BaseDocumentConversion:
             corpus = file_path
 
             if file_extension == ".pdf":
-                split_file_name: str = f'{new_file_name}_split_{document_setting_body.detail_setting.start_page}_to_{document_setting_body.end_page}.pdf'
+                split_file_name: str = f'{new_file_name}_split_{document_setting_body.detail_setting.start_page}_to_{document_setting_body.detail_setting.end_page}.pdf'
                 split_file_path: Path = self.temp_persistence_setting.PATH / Path(f"/{split_file_name}")
                 split_file_bytes: bytes = self.document_conversion_utility.split_pdf_page(
                     file_path=file_path,

@@ -1,3 +1,4 @@
+import base64
 import hashlib
 import os
 import re
@@ -51,7 +52,7 @@ class Annotater:
         )
 
         with open(output_file_path, "rb") as file:
-            output_file_bytes = file.read()
+            output_file_bytes = base64.b64encode(file.read())
 
         os.remove(input_file_path)
         os.remove(output_file_path)

@@ -8,5 +8,4 @@ class RetrievedDocumentResponse(BaseResponse):
     content: str
     content_type: str
     meta: dict
-    id_hash_keys: List[str]
     score: float

@@ -1,3 +1,4 @@
+import base64
 from pathlib import Path
 
 import pdfkit
@@ -26,8 +27,8 @@ class DocumentConversionUtility:
 
     @Locker.wait_lock
     def file_to_pdf(self, input_file_path: Path) -> bytes:
-        with open(input_file_path, "rb") as input_file:
-            input_file_bytes = input_file.read()
+        with open(input_file_path, "rb") as file:
+            input_file_bytes = base64.b64encode(file.read())
             if input_file_path.suffix == ".pdf":
                 return input_file_bytes
             else:
@@ -61,8 +62,8 @@ class DocumentConversionUtility:
 
     @Locker.wait_lock
     def file_bytes_to_pdf(self, file_bytes: bytes, output_file_path: Path) -> Path:
-        with open(output_file_path, "wb") as f:
-            f.write(file_bytes)
+        with open(output_file_path, "wb") as file:
+            file.write(file_bytes)
 
         return output_file_path
 
