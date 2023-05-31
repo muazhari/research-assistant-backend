@@ -1,6 +1,6 @@
 from haystack.nodes import SentenceTransformersRanker, BaseRanker
 
-from app.inners.models.value_objects.contracts.requests.ranker_body import RankerBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.ranker_body import RankerBody
 
 
 class RankerModel:

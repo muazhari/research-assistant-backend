@@ -46,13 +46,18 @@ class DocumentConversionUtility:
         return output
 
     @Locker.wait_lock
-    def split_pdf_page(self, start_page: int, end_page: int, input_file_path: Path, output_file_path: Path) -> Path:
+    def split_pdf_page(self, start_page: int, end_page: int, input_file_path: Path, output_file_path: Path) -> bytes:
+        """
+            This method has a side effect of creating a file in the output_file_path.
+        """
+
         input_pdf_reader = PdfReader(input_file_path)
         output_pdf_writer = PdfWriter(output_file_path)
         output_pdf_writer.addpages(input_pdf_reader.pages[start_page - 1:end_page])
         output_pdf_writer.write()
+        output_file_bytes: bytes = output_file_path.read_bytes()
 
-        return output_file_path
+        return output_file_bytes
 
     @Locker.wait_lock
     def file_bytes_to_pdf(self, file_bytes: bytes, output_file_path: Path) -> Path:

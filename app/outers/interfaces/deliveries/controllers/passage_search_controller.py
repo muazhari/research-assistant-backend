@@ -4,7 +4,7 @@ from fastapi_utils.cbv import cbv
 from app.inners.models.value_objects.contracts.requests.passage_searchs.process_body import ProcessBody
 from app.inners.models.value_objects.contracts.requests.passage_searchs.process_request import ProcessRequest
 from app.inners.models.value_objects.contracts.responses.content import Content
-from app.inners.models.value_objects.contracts.responses.passage_search.process_response import ProcessResponse
+from app.inners.models.value_objects.contracts.responses.passage_searchs.process_response import ProcessResponse
 from app.inners.use_cases.passage_search.passage_search import PassageSearch
 
 router: APIRouter = APIRouter(tags=["passage-search"])

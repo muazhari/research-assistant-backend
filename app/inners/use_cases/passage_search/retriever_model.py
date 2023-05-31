@@ -2,8 +2,8 @@ from haystack.document_stores import BaseDocumentStore
 from haystack.nodes import EmbeddingRetriever, BaseRetriever, DensePassageRetriever, MultihopEmbeddingRetriever, \
     BM25Retriever, TfidfRetriever
 
-from app.inners.models.value_objects.contracts.requests.dense_retriever_body import DenseRetrieverBody
-from app.inners.models.value_objects.contracts.requests.sparse_retriever_body import SparseRetrieverBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.dense_retriever_body import DenseRetrieverBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.sparse_retriever_body import SparseRetrieverBody
 
 
 class RetrieverModel:

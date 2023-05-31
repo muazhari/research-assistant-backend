@@ -7,28 +7,28 @@ from typing import List
 from txtmarker.factory import Factory
 
 from app.inners.use_cases.utilities.locker import Locker
+from app.outers.settings.temp_persistence_setting import TempPersistenceSetting
 
 
 class Annotater:
 
+    def __init__(self):
+        self.temp_persistence_setting = TempPersistenceSetting()
+
     @Locker.wait_lock
-    def annotate(self,
-                 labels: List[str],
-                 documents: List[str], input_file_bytes: bytes,
-                 overwrite: bool = True
-                 ) -> bytes:
+    def annotate(
+            self,
+            labels: List[str],
+            documents: List[str],
+            input_file_bytes: bytes,
+    ) -> bytes:
         input_file_name: str = f"annotater_input_{hashlib.md5(input_file_bytes).hexdigest()}"
         input_file_extension: str = ".pdf"
-        input_file_path: Path = Path(f"app/outers/persistences/temps/{input_file_name}{input_file_extension}")
+        input_file_path: Path = self.temp_persistence_setting.PATH / Path(f"/{input_file_name}{input_file_extension}")
         output_file_name: str = f"annotater_output_{hashlib.md5(input_file_bytes).hexdigest()}"
         output_file_extension: str = ".pdf"
-        output_file_path: Path = Path(f"app/outers/persistences/temps/{output_file_name}{output_file_extension}")
-
-        if os.path.exists(output_file_path):
-            if overwrite is False:
-                with open(output_file_path, "rb") as file:
-                    output_file_bytes = file.read()
-                return output_file_bytes
+        output_file_path: Path = self.temp_persistence_setting.PATH / Path(
+            f"/{output_file_name}{output_file_extension}")
 
         with open(input_file_path, "wb") as file:
             file.write(input_file_bytes)
@@ -52,6 +52,9 @@ class Annotater:
 
         with open(output_file_path, "rb") as file:
             output_file_bytes = file.read()
+
+        os.remove(input_file_path)
+        os.remove(output_file_path)
 
         return output_file_bytes
 

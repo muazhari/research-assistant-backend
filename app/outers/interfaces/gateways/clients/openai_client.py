@@ -1,5 +1,5 @@
 from app.outers.interfaces.gateways.clients.base_client import BaseClient
-from app.outers.settings.client_setting import ClientSetting
+from app.outers.settings.open_ai_setting import ClientSetting
 
 
 class OpenAIClient(BaseClient):

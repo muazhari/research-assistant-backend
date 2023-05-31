@@ -9,13 +9,17 @@ from app.inners.models.entities.document_type import DocumentType
 from app.inners.models.entities.file_document import FileDocument
 from app.inners.models.entities.text_document import TextDocument
 from app.inners.models.entities.web_document import WebDocument
-from app.inners.models.value_objects.contracts.requests.dense_embedding_model_body import DenseEmbeddingModelBody
-from app.inners.models.value_objects.contracts.requests.dense_retriever_body import DenseRetrieverBody
-from app.inners.models.value_objects.contracts.requests.input_setting_body import InputSettingBody
-from app.inners.models.value_objects.contracts.requests.output_setting_body import OutputSettingBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.dense_embedding_model_body import \
+    DenseEmbeddingModelBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.dense_retriever_body import DenseRetrieverBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.document_setting_body import DocumentSettingBody
+from app.inners.models.value_objects.contracts.requests.passage_searchs.input_setting_body import InputSettingBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.output_setting_body import OutputSettingBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.ranker_body import RankerBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.sparse_retriever_body import SparseRetrieverBody
 from app.inners.models.value_objects.contracts.requests.passage_searchs.process_body import ProcessBody
-from app.inners.models.value_objects.contracts.requests.ranker_body import RankerBody
-from app.inners.models.value_objects.contracts.requests.sparse_retriever_body import SparseRetrieverBody
+from app.inners.models.value_objects.contracts.responses.content import Content
+from app.inners.models.value_objects.contracts.responses.passage_searchs.process_response import ProcessResponse
 from test.app.outers.interfaces.deliveries.controllers.account_controller_test import account_repository
 from test.app.outers.interfaces.deliveries.controllers.document_controller_test import document_repository
 from test.app.outers.interfaces.deliveries.controllers.document_type_controller_test import document_type_repository
@@ -64,7 +68,9 @@ async def test__passage_search_in_text__should_process_it__success():
     body: ProcessBody = ProcessBody(
         account_id=passage_search_mock_data.account_data[0].id,
         input_setting=InputSettingBody(
-            document_id=passage_search_mock_data.document_data[1].id,
+            document_setting=DocumentSettingBody(
+                document_id=passage_search_mock_data.document_data[1].id,
+            ),
             query="definition of software engineering",
             granularity="sentence",
             window_sizes=[1, 2, 3],
@@ -102,3 +108,5 @@ async def test__passage_search_in_text__should_process_it__success():
         )
 
         assert response.status_code == 200
+        content: Content[ProcessResponse] = Content[ProcessResponse](**response.json())
+        assert content.data is not None

@@ -30,7 +30,6 @@ class PassageSearchDocumentConversion(BaseDocumentConversion):
         super().__init__()
         self.search_statistics = SearchStatistics()
         self.document_processor_utility = DocumentProcessorUtility()
-        self.document_conversion_utility = DocumentConversionUtility()
         self.document_process_management = DocumentProcessManagement()
         self.annotater = Annotater()
 
@@ -41,7 +40,7 @@ class PassageSearchDocumentConversion(BaseDocumentConversion):
     ) -> bytes:
         found_document: Content[Document] = await self.document_management.read_one_by_id(
             request=DocumentReadOneByIdRequest(
-                id=process_body.input_setting.document_id
+                id=process_body.input_setting.document_setting.document_id
             )
         )
 
@@ -52,6 +51,7 @@ class PassageSearchDocumentConversion(BaseDocumentConversion):
         )
 
         corpus: str = await self.convert_document_to_corpus(
+            document_setting_body=process_body.input_setting.document_setting,
             document=found_document.data,
             document_type=found_document_type.data
         )
@@ -103,7 +103,7 @@ class PassageSearchDocumentConversion(BaseDocumentConversion):
 
         document_process_to_create: DocumentProcess = DocumentProcess(
             id=uuid.uuid4(),
-            initial_document_id=process_body.input_setting.document_id,
+            initial_document_id=process_body.input_setting.document_setting.document_id,
             final_document_id=uuid.uuid4(),
             process_duration=process_duration,
         )

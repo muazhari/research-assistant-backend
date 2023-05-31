@@ -9,16 +9,16 @@ from haystack.schema import Document as DocumentHaystack
 
 from app.inners.models.entities.document import Document
 from app.inners.models.entities.document_type import DocumentType
-from app.inners.models.value_objects.contracts.requests.input_setting_body import InputSettingBody
 from app.inners.models.value_objects.contracts.requests.managements.document_types.read_one_by_id_request import \
     ReadOneByIdRequest as DocumentTypeReadOneByIdRequest
 from app.inners.models.value_objects.contracts.requests.managements.documents.read_one_by_id_request import \
     ReadOneByIdRequest as DocumentReadOneByIdRequest
+from app.inners.models.value_objects.contracts.requests.passage_searchs.input_setting_body import InputSettingBody
 from app.inners.models.value_objects.contracts.requests.passage_searchs.process_body import ProcessBody
 from app.inners.models.value_objects.contracts.requests.passage_searchs.process_request import ProcessRequest
 from app.inners.models.value_objects.contracts.responses.content import Content
 from app.inners.models.value_objects.contracts.responses.managements.documents.document_response import DocumentResponse
-from app.inners.models.value_objects.contracts.responses.passage_search.process_response import ProcessResponse
+from app.inners.models.value_objects.contracts.responses.passage_searchs.process_response import ProcessResponse
 from app.inners.use_cases.document_conversion.passage_search_document_conversion import PassageSearchDocumentConversion
 from app.inners.use_cases.managements.document_management import DocumentManagement
 from app.inners.use_cases.managements.document_type_management import DocumentTypeManagement
@@ -45,7 +45,7 @@ class PassageSearch:
     async def get_window_sized_documents(self, process_body: ProcessBody) -> List[Document]:
         found_document: Content[Document] = await self.document_management.read_one_by_id(
             request=DocumentReadOneByIdRequest(
-                id=process_body.input_setting.document_id
+                id=process_body.input_setting.document_setting.document_id
             )
         )
 
@@ -57,6 +57,7 @@ class PassageSearch:
 
         window_sized_documents: List[DocumentHaystack] = self.document_processor_utility.process(
             corpus=await self.document_conversion.convert_document_to_corpus(
+                document_setting_body=process_body.input_setting.document_setting,
                 document=found_document.data,
                 document_type=found_document_type.data
             ),
@@ -69,7 +70,7 @@ class PassageSearch:
 
     def get_document_store_index_hash(self, input_setting: InputSettingBody) -> str:
         hash_source: dict = {
-            "document_id": input_setting.document_id,
+            "document_id": input_setting.document_setting.document_id,
             "granularity": input_setting.granularity,
             "window_sizes": input_setting.window_sizes,
             "embedding_model": input_setting.dense_retriever.embedding_model,
@@ -171,37 +172,43 @@ class PassageSearch:
         return pipeline
 
     async def search(self, process_request: ProcessRequest) -> Content[ProcessResponse]:
-        time_start: datetime = datetime.now()
+        try:
+            time_start: datetime = datetime.now()
 
-        window_sized_documents: List[DocumentHaystack] = await self.get_window_sized_documents(
-            process_body=process_request.body
-        )
+            window_sized_documents: List[DocumentHaystack] = await self.get_window_sized_documents(
+                process_body=process_request.body
+            )
 
-        pipeline: Pipeline = self.get_pipeline(
-            process_body=process_request.body,
-            documents=window_sized_documents
-        )
+            pipeline: Pipeline = self.get_pipeline(
+                process_body=process_request.body,
+                documents=window_sized_documents
+            )
 
-        retrieval_result: dict = pipeline.run(
-            query=process_request.body.input_setting.query,
-            debug=True
-        )
+            retrieval_result: dict = pipeline.run(
+                query=process_request.body.input_setting.query,
+                debug=True
+            )
 
-        time_finish: datetime = datetime.now()
-        time_delta: timedelta = time_finish - time_start
+            time_finish: datetime = datetime.now()
+            time_delta: timedelta = time_finish - time_start
 
-        output_document: DocumentResponse = await self.document_conversion.convert_retrieval_result_to_document(
-            process_body=process_request.body,
-            retrieval_result=retrieval_result,
-            process_duration=time_delta.total_seconds()
-        )
-
-        content: Content[ProcessResponse] = Content(
-            message="Passage search succeed.",
-            data=ProcessResponse(
-                output_document=output_document,
+            output_document: DocumentResponse = await self.document_conversion.convert_retrieval_result_to_document(
+                process_body=process_request.body,
+                retrieval_result=retrieval_result,
                 process_duration=time_delta.total_seconds()
-            ),
-        )
+            )
+
+            content: Content[ProcessResponse] = Content(
+                message="Passage search succeed.",
+                data=ProcessResponse(
+                    output_document=output_document,
+                    process_duration=time_delta.total_seconds()
+                ),
+            )
+        except Exception as exception:
+            content: Content[ProcessResponse] = Content(
+                message=f"Passage search failed: {exception}",
+                data=None,
+            )
 
         return content

@@ -2,6 +2,7 @@ from pathlib import Path
 
 from app.inners.models.entities.document import Document
 from app.inners.models.entities.document_type import DocumentType
+from app.inners.models.value_objects.contracts.requests.basic_settings.document_setting_body import DocumentSettingBody
 from app.inners.models.value_objects.contracts.requests.managements.file_documents.read_one_by_id_request import \
     ReadOneByIdRequest as FileDocumentReadOneByIdRequest
 from app.inners.models.value_objects.contracts.requests.managements.text_documents.read_one_by_id_request import \
@@ -20,6 +21,8 @@ from app.inners.use_cases.managements.document_type_management import DocumentTy
 from app.inners.use_cases.managements.file_document_management import FileDocumentManagement
 from app.inners.use_cases.managements.text_document_management import TextDocumentManagement
 from app.inners.use_cases.managements.web_document_management import WebDocumentManagement
+from app.inners.use_cases.utilities.document_conversion_utility import DocumentConversionUtility
+from app.outers.settings.temp_persistence_setting import TempPersistenceSetting
 
 
 class BaseDocumentConversion:
@@ -31,8 +34,11 @@ class BaseDocumentConversion:
         self.file_document_management = FileDocumentManagement()
         self.text_document_management = TextDocumentManagement()
         self.web_document_management = WebDocumentManagement()
+        self.document_conversion_utility = DocumentConversionUtility()
+        self.temp_persistence_setting = TempPersistenceSetting()
 
-    async def convert_document_to_corpus(self, document: Document, document_type: DocumentType) -> str:
+    async def convert_document_to_corpus(self, document_setting_body: DocumentSettingBody, document: Document,
+                                         document_type: DocumentType) -> str:
         if document_type.name == "file":
             found_detail_document: Content[FileDocumentResponse] = await self.file_document_management.read_one_by_id(
                 request=FileDocumentReadOneByIdRequest(
@@ -41,11 +47,23 @@ class BaseDocumentConversion:
             )
             file_name: str = found_detail_document.data.file_name
             file_extension: str = found_detail_document.data.file_extension
-            file_path: Path = Path(f"app/outers/persistences/temps/{document.id}_{file_name}{file_extension}")
+            new_file_name: str = f"{document.id}_{file_name}{file_extension}"
+            file_path: Path = self.temp_persistence_setting.PATH / Path(f"/{new_file_name}")
             file_bytes: bytes = found_detail_document.data.file_bytes
             with open(file_path, "wb") as file:
                 file.write(file_bytes)
             corpus = file_path
+
+            if file_extension == ".pdf":
+                split_file_name: str = f'{new_file_name}_split_{document_setting_body.detail_setting.start_page}_to_{document_setting_body.end_page}.pdf'
+                split_file_path: Path = self.temp_persistence_setting.PATH / Path(f"/{split_file_name}")
+                split_file_bytes: bytes = self.document_conversion_utility.split_pdf_page(
+                    file_path=file_path,
+                    split_file_path=split_file_path,
+                    start_page=document_setting_body.detail_setting.start_page,
+                    end_page=document_setting_body.detail_setting.end_page,
+                )
+                corpus = str(split_file_path)
         elif document_type.name == "text":
             found_detail_document: Content[TextDocumentResponse] = await self.text_document_management.read_one_by_id(
                 request=TextDocumentReadOneByIdRequest(
