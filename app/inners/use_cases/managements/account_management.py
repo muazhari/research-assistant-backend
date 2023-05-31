@@ -57,6 +57,35 @@ class AccountManagement:
             )
         return content
 
+
+    async def read_one_by_email(self, email: str) -> Content[Account]:
+        try:
+            found_entity: Account = await self.account_repository.read_one_by_email(email)
+            content: Content[Account] = Content(
+                data=found_entity,
+                message="Account read one by email succeed."
+            )
+        except Exception as exception:
+            content: Content[Account] = Content(
+                data=None,
+                message=f"Account read one by email failed: {exception}"
+            )
+        return content
+
+    async def read_one_by_email_and_password(self, email: str, password: str) -> Content[Account]:
+        try:
+            found_entity: Account = await self.account_repository.read_one_by_email_and_password(email, password)
+            content: Content[Account] = Content(
+                data=found_entity,
+                message="Account read one by email and password succeed."
+            )
+        except Exception as exception:
+            content: Content[Account] = Content(
+                data=None,
+                message=f"Account read one by email and password failed: {exception}"
+            )
+        return content
+
     async def create_one(self, request: CreateOneRequest) -> Content[Account]:
         try:
             entity_to_create: Account = Account(

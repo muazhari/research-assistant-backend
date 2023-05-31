@@ -49,7 +49,7 @@ class BaseDocumentConversion:
             file_name: str = found_detail_document.data.file_name
             file_extension: str = found_detail_document.data.file_extension
             new_file_name: str = f"{document.id}_{file_name}{file_extension}"
-            file_path: Path = self.temp_persistence_setting.PATH / Path(f"/{new_file_name}")
+            file_path: Path = self.temp_persistence_setting.TEMP_PATH / Path(f"{new_file_name}")
             file_bytes: bytes = found_detail_document.data.file_bytes
             with open(file_path, "wb") as file:
                 file.write(file_bytes)
@@ -57,7 +57,7 @@ class BaseDocumentConversion:
 
             if file_extension == ".pdf":
                 split_file_name: str = f'{new_file_name}_split_{document_setting_body.detail_setting.start_page}_to_{document_setting_body.detail_setting.end_page}.pdf'
-                split_file_path: Path = self.temp_persistence_setting.PATH / Path(f"/{split_file_name}")
+                split_file_path: Path = self.temp_persistence_setting.TEMP_PATH / Path(f"{split_file_name}")
                 split_file_bytes: bytes = self.document_conversion_utility.split_pdf_page(
                     file_path=file_path,
                     split_file_path=split_file_path,
