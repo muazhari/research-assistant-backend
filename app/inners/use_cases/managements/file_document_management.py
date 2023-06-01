@@ -1,5 +1,8 @@
 import asyncio
+import base64
+import os
 import uuid
+from pathlib import Path
 from typing import List
 
 from app.inners.models.entities.document import Document
@@ -15,10 +18,14 @@ from app.inners.models.value_objects.contracts.requests.managements.file_documen
 from app.inners.models.value_objects.contracts.requests.managements.file_documents.read_one_by_id_request import \
     ReadOneByIdRequest
 from app.inners.models.value_objects.contracts.responses.content import Content
+from app.inners.models.value_objects.contracts.responses.managements.documents.file_document_property_response import \
+    FileDocumentPropertyResponse
 from app.inners.models.value_objects.contracts.responses.managements.documents.file_document_response import \
     FileDocumentResponse
+from app.inners.use_cases.utilities.document_conversion_utility import DocumentConversionUtility
 from app.outers.repositories.document_repository import DocumentRepository
 from app.outers.repositories.file_document_repository import FileDocumentRepository
+from app.outers.settings.temp_persistence_setting import TempPersistenceSetting
 from app.outers.utilities.management_utility import ManagementUtility
 
 
@@ -27,6 +34,8 @@ class FileDocumentManagement:
         self.management_utility: ManagementUtility = ManagementUtility()
         self.document_repository: DocumentRepository = DocumentRepository()
         self.file_document_repository: FileDocumentRepository = FileDocumentRepository()
+        self.document_conversion_utility: DocumentConversionUtility = DocumentConversionUtility()
+        self.temp_persistence_setting: TempPersistenceSetting = TempPersistenceSetting()
 
     async def read_all(self, request: ReadAllRequest) -> Content[List[FileDocumentResponse]]:
         try:
@@ -95,6 +104,43 @@ class FileDocumentManagement:
         except Exception as exception:
             content: Content[FileDocumentResponse] = Content(
                 message=f"FileDocument read one by id failed: {exception}",
+                data=None,
+            )
+        return content
+
+    async def read_one_property_by_id(self, request) -> Content[FileDocumentPropertyResponse]:
+        try:
+            found_file_document: FileDocument = await self.file_document_repository.read_one_by_document_id(
+                document_id=request.id
+            )
+
+            if found_file_document.file_extension == ".pdf":
+                file_path: Path = self.document_conversion_utility.file_bytes_to_pdf(
+                    file_bytes=base64.b64decode(found_file_document.file_bytes),
+                    output_file_path=self.temp_persistence_setting.TEMP_PERSISTENCE_PATH / Path(
+                        f"{found_file_document.file_name}{found_file_document.file_extension}"
+                    )
+                )
+
+                page_length: int = self.document_conversion_utility.get_pdf_page_length(
+                    input_file_path=file_path
+                )
+                content: Content[FileDocumentPropertyResponse] = Content(
+                    message="FileDocument read one property by id succeed.",
+                    data=FileDocumentPropertyResponse(
+                        page_length=page_length,
+                    )
+                )
+
+                os.remove(file_path)
+            else:
+                content: Content[FileDocumentPropertyResponse] = Content(
+                    message=f"FileDocument read one property by id failed: File extension {found_file_document.file_extension} is not supported.",
+                    data=None,
+                )
+        except Exception as exception:
+            content: Content[FileDocumentPropertyResponse] = Content(
+                message=f"FileDocument read one property by id failed: {exception}",
                 data=None,
             )
         return content

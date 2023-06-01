@@ -19,6 +19,8 @@ from app.inners.models.value_objects.contracts.requests.managements.file_documen
 from app.inners.models.value_objects.contracts.requests.managements.file_documents.read_one_by_id_request import \
     ReadOneByIdRequest
 from app.inners.models.value_objects.contracts.responses.content import Content
+from app.inners.models.value_objects.contracts.responses.managements.documents.file_document_property_response import \
+    FileDocumentPropertyResponse
 from app.inners.models.value_objects.contracts.responses.managements.documents.file_document_response import \
     FileDocumentResponse
 from app.inners.use_cases.managements.file_document_management import FileDocumentManagement
@@ -40,6 +42,11 @@ class FileDocumentController:
     async def read_one_by_id(self, id: UUID) -> Content[FileDocumentResponse]:
         request: ReadOneByIdRequest = ReadOneByIdRequest(id=id)
         return await self.file_document_management.read_one_by_id(request)
+
+    @router.get("/documents/files/{id}/property")
+    async def read_one_property_by_id(self, id: UUID) -> Content[FileDocumentPropertyResponse]:
+        request: ReadOneByIdRequest = ReadOneByIdRequest(id=id)
+        return await self.file_document_management.read_one_property_by_id(request)
 
     @router.post("/documents/files")
     async def create_one(self, body: CreateBody) -> Content[FileDocumentResponse]:
