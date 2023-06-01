@@ -4,4 +4,4 @@ from pydantic import BaseSettings
 
 
 class TempPersistenceSetting(BaseSettings):
-    TEMP_PATH: Path = "app/outers/persistences/temps"
+    TEMP_PERSISTENCE_PATH: Path

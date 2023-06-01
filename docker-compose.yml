@@ -5,6 +5,7 @@ services:
       - '.:/app'
       - '${CACHE_PATH}:/root/.cache'
       - '${NLTK_DATA_PATH}:/root/nltk_data'
+      - '${TEMP_PATH}:/tmp'
     ports:
       - '${APP_PORT}:8000'
     command:

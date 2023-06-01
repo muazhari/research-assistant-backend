@@ -8,8 +8,10 @@
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/base_document_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/base_document_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/fb5adc50-df69-4bd0-b4d0-e300d3ff7561_The Waterfall Model in Large-Scale Development.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/persistences/temps/fb5adc50-df69-4bd0-b4d0-e300d3ff7561_The Waterfall Model in Large-Scale Development.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/annotater.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/annotater.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/settings/temp_persistence_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/settings/temp_persistence_setting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -215,7 +217,7 @@
       <workItem from="1685449159375" duration="11798000" />
       <workItem from="1685513455729" duration="980000" />
       <workItem from="1685514455518" duration="28478000" />
-      <workItem from="1685627887124" duration="7520000" />
+      <workItem from="1685627887124" duration="9197000" />
     </task>
     <servers />
   </component>
@@ -225,7 +227,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/research_assistant_backend$test.coverage" NAME="test Coverage Results" MODIFIED="1685535405614" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$.coverage" NAME=" Coverage Results" MODIFIED="1685532212288" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1685637546879" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1685640646686" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_app_outers_interfaces_deliveries_controllers_file_document_controller_test.coverage" NAME="pytest for test.app.outers.interfaces.deliveries.controllers.file_document_controller_test Coverage Results" MODIFIED="1685532826646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
