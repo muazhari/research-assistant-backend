@@ -75,16 +75,21 @@ class RetrieverModel:
 
     def get_sparse_retriever(self, document_store: BaseDocumentStore,
                              retriever_body: SparseRetrieverBody) -> BaseRetriever:
-        if retriever_body.source_type == "tfidf":
-            retriever = self.get_tfidf_retriever(
-                document_store=document_store,
-                retriever_body=retriever_body
-            )
-        elif retriever_body.source_type == "bm25":
-            retriever = self.get_bm25_retriever(
-                document_store=document_store,
-                retriever_body=retriever_body
-            )
+        if retriever_body.source_type == "local":
+            if retriever_body.model == "tfidf":
+                retriever = self.get_tfidf_retriever(
+                    document_store=document_store,
+                    retriever_body=retriever_body
+                )
+            elif retriever_body.model == "bm25":
+                retriever = self.get_bm25_retriever(
+                    document_store=document_store,
+                    retriever_body=retriever_body
+                )
+            else:
+                raise NotImplementedError(
+                    f"Sparse retriever source type {retriever_body.source_type} is not supported.")
         else:
             raise NotImplementedError(f"Sparse retriever source type {retriever_body.source_type} is not supported.")
+
         return retriever

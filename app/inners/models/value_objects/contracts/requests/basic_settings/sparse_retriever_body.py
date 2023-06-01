@@ -2,4 +2,4 @@ from app.inners.models.value_objects.contracts.requests.basic_settings.base_retr
 
 
 class SparseRetrieverBody(BaseRetrieverBody):
-    pass
+    model: str
