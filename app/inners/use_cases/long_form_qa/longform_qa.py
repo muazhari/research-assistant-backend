@@ -85,5 +85,6 @@ class LongFormQA:
                 message=f"Long form QA failed: {exception}",
                 data=None,
             )
+            raise exception
 
         return content
