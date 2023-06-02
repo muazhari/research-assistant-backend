@@ -19,6 +19,8 @@ from app.inners.models.value_objects.contracts.requests.passage_searchs.input_se
 from app.inners.models.value_objects.contracts.requests.passage_searchs.process_body import ProcessBody
 from app.inners.models.value_objects.contracts.requests.passage_searchs.process_request import ProcessRequest
 from app.inners.models.value_objects.contracts.responses.content import Content
+from app.inners.models.value_objects.contracts.responses.long_form_qas.retrieved_document_response import \
+    RetrievedDocumentResponse
 from app.inners.models.value_objects.contracts.responses.managements.documents.document_response import DocumentResponse
 from app.inners.models.value_objects.contracts.responses.passage_searchs.process_response import ProcessResponse
 from app.inners.use_cases.document_conversion.passage_search_document_conversion import PassageSearchDocumentConversion
@@ -204,9 +206,22 @@ class PassageSearch:
                 process_duration=time_delta.total_seconds()
             )
 
+            retrieved_documents: List[RetrievedDocumentResponse] = [
+                RetrievedDocumentResponse(
+                    id=document.id,
+                    content=document.content,
+                    content_type=document.content_type,
+                    meta=document.meta,
+                    score=document.score
+                )
+                for document in
+                retrieval_result["_debug"]["Ranker"]["output"]["documents"]
+            ]
+
             content: Content[ProcessResponse] = Content(
                 message="Passage search succeed.",
                 data=ProcessResponse(
+                    retrieved_documents=retrieved_documents,
                     output_document=output_document,
                     process_duration=time_delta.total_seconds()
                 ),
@@ -216,5 +231,7 @@ class PassageSearch:
                 message=f"Passage search failed: {exception}",
                 data=None,
             )
+
+            raise exception
 
         return content

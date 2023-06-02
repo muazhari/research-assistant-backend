@@ -1,3 +1,4 @@
+import base64
 import os
 import uuid
 
@@ -63,8 +64,6 @@ class PassageSearchDocumentConversion(BaseDocumentConversion):
             granularity=process_body.input_setting.granularity
         )
 
-        os.remove(corpus)
-
         result_document_indexes_with_overlapped_scores: dict[int, dict] = \
             self.search_statistics.get_document_indexes_with_overlapped_scores(result_windowed_documents)
 
@@ -86,8 +85,10 @@ class PassageSearchDocumentConversion(BaseDocumentConversion):
         highlighted_pdf_output_file_bytes: bytes = self.annotater.annotate(
             labels=selected_result_labels,
             documents=selected_result_documents,
-            input_file_bytes=pdf_output_file_bytes
+            input_file_bytes=base64.b64decode(pdf_output_file_bytes)
         )
+
+        os.remove(corpus)
 
         return highlighted_pdf_output_file_bytes
 
