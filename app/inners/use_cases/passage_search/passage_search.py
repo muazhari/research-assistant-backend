@@ -232,6 +232,4 @@ class PassageSearch:
                 data=None,
             )
 
-            raise exception
-
         return content
