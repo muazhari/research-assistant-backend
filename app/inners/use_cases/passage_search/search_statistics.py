@@ -29,7 +29,7 @@ class SearchStatistics:
 
         return result_document_indexes_with_overlapped_scores
 
-    def get_selected_labels(self, document_indexes_with_overlapped_scores: Dict[int, Dict], top_k: float) -> List:
+    def get_selected_labels(self, document_indexes_with_overlapped_scores: Dict[int, Dict], top_k: float) -> List[str]:
         items = document_indexes_with_overlapped_scores.items()
         selected_labels = []
         max_selection = top_k

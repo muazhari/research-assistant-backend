@@ -1,6 +1,7 @@
 import base64
 import os
 import uuid
+from pathlib import Path
 
 from app.inners.models.entities.document import Document
 from app.inners.models.entities.document_process import DocumentProcess
@@ -88,7 +89,7 @@ class PassageSearchDocumentConversion(BaseDocumentConversion):
             input_file_bytes=base64.b64decode(pdf_output_file_bytes)
         )
 
-        os.remove(corpus)
+        os.remove(Path(corpus))
 
         return highlighted_pdf_output_file_bytes
 
