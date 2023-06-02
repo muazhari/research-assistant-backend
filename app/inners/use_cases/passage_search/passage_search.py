@@ -92,12 +92,14 @@ class PassageSearch:
             input_setting=process_body.input_setting
         )
 
+        index: str = f"dense_{document_store_index_hash}"
+
         document_store: OpenSearchDocumentStore = OpenSearchDocumentStore(
             host=self.datastore_two_setting.DS_2_HOST,
             port=self.datastore_two_setting.DS_2_PORT_1,
             username=self.datastore_two_setting.DS_2_USERNAME,
             password=self.datastore_two_setting.DS_2_PASSWORD,
-            index=f"dense_{document_store_index_hash}",
+            index=index,
             embedding_dim=process_body.input_setting.dense_retriever.embedding_model.dimension,
             similarity=process_body.input_setting.dense_retriever.similarity_function,
         )
@@ -108,6 +110,7 @@ class PassageSearch:
         )
 
         if process_body.input_setting.dense_retriever.is_update is True:
+            document_store.delete_all_documents(index=index)
             document_store.write_documents(documents)
             document_store.update_embeddings(retriever)
 
