@@ -1,3 +1,4 @@
+import os
 import uuid
 
 from app.inners.models.entities.document import Document
@@ -20,7 +21,6 @@ from app.inners.use_cases.document_conversion.base_document_conversion import Ba
 from app.inners.use_cases.managements.document_process_management import DocumentProcessManagement
 from app.inners.use_cases.passage_search.annotater import Annotater
 from app.inners.use_cases.passage_search.search_statistics import SearchStatistics
-from app.inners.use_cases.utilities.document_conversion_utility import DocumentConversionUtility
 from app.inners.use_cases.utilities.document_processor_utility import DocumentProcessorUtility
 
 
@@ -62,6 +62,8 @@ class PassageSearchDocumentConversion(BaseDocumentConversion):
             corpus_source_type=found_document_type.data.name,
             granularity=process_body.input_setting.granularity
         )
+
+        os.remove(corpus)
 
         result_document_indexes_with_overlapped_scores: dict[int, dict] = \
             self.search_statistics.get_document_indexes_with_overlapped_scores(result_windowed_documents)

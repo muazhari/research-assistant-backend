@@ -1,5 +1,7 @@
 import hashlib
+import os
 from datetime import datetime, timedelta
+from pathlib import Path
 from typing import List
 
 from haystack import Pipeline
@@ -55,16 +57,20 @@ class PassageSearch:
             )
         )
 
+        corpus: str = await self.document_conversion.convert_document_to_corpus(
+            document_setting_body=process_body.input_setting.document_setting,
+            document=found_document.data,
+            document_type=found_document_type.data
+        )
+
         window_sized_documents: List[DocumentHaystack] = self.document_processor_utility.process(
-            corpus=await self.document_conversion.convert_document_to_corpus(
-                document_setting_body=process_body.input_setting.document_setting,
-                document=found_document.data,
-                document_type=found_document_type.data
-            ),
+            corpus=corpus,
             corpus_source_type=found_document_type.data.name,
             granularity=process_body.input_setting.granularity,
             window_sizes=process_body.input_setting.window_sizes
         )
+
+        os.remove(Path(corpus))
 
         return window_sized_documents
 

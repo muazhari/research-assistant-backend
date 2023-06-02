@@ -1,4 +1,5 @@
 import base64
+import os
 from pathlib import Path
 
 from app.inners.models.entities.document import Document
@@ -65,6 +66,9 @@ class BaseDocumentConversion:
                     end_page=document_setting_body.detail_setting.end_page,
                 )
                 corpus = str(split_file_path)
+                os.remove(file_path)
+            else:
+                NotImplementedError(f"File extension {file_extension} is not supported.")
         elif document_type.name == "text":
             found_detail_document: Content[TextDocumentResponse] = await self.text_document_management.read_one_by_id(
                 request=TextDocumentReadOneByIdRequest(
