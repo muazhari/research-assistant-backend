@@ -49,14 +49,15 @@ class BaseDocumentConversion:
             )
             file_name: str = found_detail_document.data.file_name
             file_extension: str = found_detail_document.data.file_extension
-            new_file_name: str = f"{document.id}_{file_name}{file_extension}"
-            file_path: Path = self.temp_persistence_setting.TEMP_PERSISTENCE_PATH / Path(f"{new_file_name}")
-            file_bytes: bytes = base64.b64decode(found_detail_document.data.file_bytes)
-            with open(file_path, "wb") as file:
-                file.write(file_bytes)
-            corpus = file_path
 
             if file_extension == ".pdf":
+                new_file_name: str = f"{document.id}_{file_name}{file_extension}"
+                file_path: Path = self.temp_persistence_setting.TEMP_PERSISTENCE_PATH / Path(f"{new_file_name}")
+                file_bytes: bytes = base64.b64decode(found_detail_document.data.file_bytes)
+                with open(file_path, "wb") as file:
+                    file.write(file_bytes)
+                corpus = file_path
+
                 split_file_name: str = f'{new_file_name}_split_{document_setting_body.detail_setting.start_page}_to_{document_setting_body.detail_setting.end_page}.pdf'
                 split_file_path: Path = self.temp_persistence_setting.TEMP_PERSISTENCE_PATH / Path(f"{split_file_name}")
                 split_file_bytes: bytes = self.document_conversion_utility.split_pdf_page(
@@ -66,9 +67,11 @@ class BaseDocumentConversion:
                     end_page=document_setting_body.detail_setting.end_page,
                 )
                 corpus = str(split_file_path)
+
                 os.remove(file_path)
             else:
-                NotImplementedError(f"File extension {file_extension} is not supported.")
+                raise NotImplementedError(f"File extension {file_extension} is not supported.")
+
         elif document_type.name == "text":
             found_detail_document: Content[TextDocumentResponse] = await self.text_document_management.read_one_by_id(
                 request=TextDocumentReadOneByIdRequest(
