@@ -71,7 +71,6 @@ class BaseDocumentConversion:
                 os.remove(file_path)
             else:
                 raise NotImplementedError(f"File extension {file_extension} is not supported.")
-
         elif document_type.name == "text":
             found_detail_document: Content[TextDocumentResponse] = await self.text_document_management.read_one_by_id(
                 request=TextDocumentReadOneByIdRequest(

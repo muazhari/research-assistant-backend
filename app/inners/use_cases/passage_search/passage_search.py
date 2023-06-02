@@ -105,8 +105,8 @@ class PassageSearch:
             retriever_body=process_body.input_setting.dense_retriever,
         )
 
-        document_store.write_documents(documents)
         if process_body.input_setting.dense_retriever.is_update is True:
+            document_store.write_documents(documents)
             document_store.update_embeddings(retriever)
 
         return retriever

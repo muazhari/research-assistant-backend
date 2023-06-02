@@ -8,8 +8,12 @@
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/base_document_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/base_document_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/passage_search_document_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/passage_search_document_conversion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/fb5adc50-df69-4bd0-b4d0-e300d3ff7561_EducationintheEraofGenerativeArtificialIntelligenceAI_.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/fb5adc50-df69-4bd0-b4d0-e300d3ff7561_EducationintheEraofGenerativeArtificialIntelligenceAI_.pdf_split_1_to_23.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/fb5adc50-df69-4bd0-b4d0-e300d3ff7561_The Waterfall Model in Large-Scale Development.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/fb5adc50-df69-4bd0-b4d0-e300d3ff7561_The Waterfall Model in Large-Scale Development.pdf_split_1_to_1.pdf" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -215,7 +219,7 @@
       <workItem from="1685449159375" duration="11798000" />
       <workItem from="1685513455729" duration="980000" />
       <workItem from="1685514455518" duration="28478000" />
-      <workItem from="1685627887124" duration="14450000" />
+      <workItem from="1685627887124" duration="19885000" />
     </task>
     <servers />
   </component>
