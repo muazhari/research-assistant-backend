@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -214,7 +215,8 @@
       <workItem from="1685513455729" duration="980000" />
       <workItem from="1685514455518" duration="28478000" />
       <workItem from="1685627887124" duration="26157000" />
-      <workItem from="1685701643097" duration="5969000" />
+      <workItem from="1685701643097" duration="7872000" />
+      <workItem from="1685786147727" duration="197000" />
     </task>
     <servers />
   </component>

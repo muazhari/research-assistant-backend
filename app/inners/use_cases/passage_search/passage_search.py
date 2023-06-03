@@ -110,7 +110,7 @@ class PassageSearch:
         )
 
         if process_body.input_setting.dense_retriever.is_update is True:
-            document_store.delete_all_documents(index=index)
+            document_store.delete_index(index=index)
             document_store.write_documents(documents)
             document_store.update_embeddings(retriever)
 
