@@ -72,7 +72,8 @@ class PassageSearch:
             window_sizes=process_body.input_setting.window_sizes
         )
 
-        os.remove(Path(corpus))
+        if found_document_type.data.name == "file":
+            os.remove(Path(corpus))
 
         return window_sized_documents
 
@@ -234,5 +235,7 @@ class PassageSearch:
                 message=f"Passage search failed: {exception}",
                 data=None,
             )
+
+            raise Exception
 
         return content

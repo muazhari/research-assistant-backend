@@ -20,10 +20,10 @@ class DocumentConversionUtility:
         }
 
     def text_to_pdf(self, text: str) -> bytes:
-        return pdfkit.from_string(text, options=self.options)
+        return base64.b64encode(pdfkit.from_string(text, options=self.options))
 
     def web_to_pdf(self, url: str) -> bytes:
-        return pdfkit.from_url(url, options=self.options)
+        return base64.b64encode(pdfkit.from_url(url, options=self.options))
 
     @Locker.wait_lock
     def file_to_pdf(self, input_file_path: Path) -> bytes:

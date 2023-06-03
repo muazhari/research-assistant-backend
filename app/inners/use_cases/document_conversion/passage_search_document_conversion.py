@@ -89,7 +89,8 @@ class PassageSearchDocumentConversion(BaseDocumentConversion):
             input_file_bytes=base64.b64decode(pdf_output_file_bytes)
         )
 
-        os.remove(Path(corpus))
+        if found_document_type.data.name == "file":
+            os.remove(Path(corpus))
 
         return highlighted_pdf_output_file_bytes
 
