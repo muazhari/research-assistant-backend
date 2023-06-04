@@ -7,9 +7,6 @@
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/passage_search_document_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/passage_search_document_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_conversion_utility.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_conversion_utility.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +68,7 @@
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\basic_settings" />
     </key>
   </component>
-  <component name="RunManager" selected="FastAPI.run-1">
+  <component name="RunManager" selected="Docker.compose-1">
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="research-assistant-backend" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -217,7 +214,8 @@
       <workItem from="1685514455518" duration="28478000" />
       <workItem from="1685627887124" duration="26157000" />
       <workItem from="1685701643097" duration="7872000" />
-      <workItem from="1685786147727" duration="1504000" />
+      <workItem from="1685786147727" duration="2365000" />
+      <workItem from="1685870097040" duration="3751000" />
     </task>
     <servers />
   </component>

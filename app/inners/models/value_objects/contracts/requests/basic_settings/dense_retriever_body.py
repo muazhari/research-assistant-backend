@@ -7,6 +7,6 @@ from app.inners.models.value_objects.contracts.requests.basic_settings.online_em
 
 
 class DenseRetrieverBody(BaseRetrieverBody):
-    is_update: bool
+    is_refresh: bool
     source_type: str
     embedding_model: Union[DenseEmbeddingModelBody, MultihopEmbeddingModelBody, OnlineEmbeddingModelBody]

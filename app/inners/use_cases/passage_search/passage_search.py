@@ -110,7 +110,7 @@ class PassageSearch:
             retriever_body=process_body.input_setting.dense_retriever,
         )
 
-        if process_body.input_setting.dense_retriever.is_update is True:
+        if process_body.input_setting.dense_retriever.is_refresh is True:
             document_store.delete_index(index=index)
             document_store.write_documents(documents)
             document_store.update_embeddings(retriever)
