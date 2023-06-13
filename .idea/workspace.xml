@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4e06bac6-caf5-4590-ad66-72028591b182.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4e06bac6-caf5-4590-ad66-72028591b182.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/research-assistant-backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/research-assistant-backend.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/annotater_input_345ab8f3a8575879d4c46502f7cd10a3.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/annotater_input_612952bf3f36f5f383da6fcf17b94949.pdf" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +73,7 @@
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\basic_settings" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.compose-1">
+  <component name="RunManager" selected="FastAPI.run-1">
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="research-assistant-backend" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -99,7 +103,6 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="/usr/bin/python3" />
-      <option name="SDK_NAME" value="Remote Python 3.10.6 Docker Compose (app)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -174,7 +177,6 @@
         <env name="OPEN_AI_API_KEY" value="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" />
       </envs>
       <option name="SDK_HOME" value="/usr/bin/python3" />
-      <option name="SDK_NAME" value="Remote Python 3.10.6 Docker Compose (app)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -218,7 +220,14 @@
       <workItem from="1685786147727" duration="2365000" />
       <workItem from="1685870097040" duration="3751000" />
       <workItem from="1686056785255" duration="5000" />
-      <workItem from="1686225563864" duration="572000" />
+      <workItem from="1686225563864" duration="938000" />
+      <workItem from="1686229997068" duration="28000" />
+      <workItem from="1686230655061" duration="7000" />
+      <workItem from="1686231829667" duration="36000" />
+      <workItem from="1686251628560" duration="618000" />
+      <workItem from="1686322368211" duration="139000" />
+      <workItem from="1686638944723" duration="7000" />
+      <workItem from="1686663173684" duration="1195000" />
     </task>
     <servers />
   </component>
