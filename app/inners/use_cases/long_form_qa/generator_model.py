@@ -7,8 +7,7 @@ from app.inners.models.value_objects.contracts.requests.long_form_qas.process_bo
 class GeneratorModel:
     def get_online_generator(self, generator_body: GeneratorBody) -> PromptNode:
         prompt_template = PromptTemplate(
-            name="default",
-            prompt_text=generator_body.prompt,
+            prompt=generator_body.prompt,
             output_parser=AnswerParser()
         )
 

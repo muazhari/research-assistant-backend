@@ -19,6 +19,7 @@ RUN yes | DEBIAN_FRONTEND=noninteractive apt install -y \
     libpq-dev  \
     gdb \
     wget \
+    git \
     python3 \
     python3-pip
 
@@ -32,7 +33,7 @@ RUN pip3 install \
 # Install python dependencies.
 RUN pip3 install \
     -r requirements.txt \
-    farm-haystack[all] \
+    git+https://github.com/deepset-ai/haystack.git@main#egg=farm-haystack[all] \
     txtai[all] \
     pydantic[dotenv] \
     aiopg[sa] \
