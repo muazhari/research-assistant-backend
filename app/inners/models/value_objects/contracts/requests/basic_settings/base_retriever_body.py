@@ -5,3 +5,4 @@ class BaseRetrieverBody(BaseRequest):
     top_k: int
     similarity_function: str
     source_type: str
+    is_refresh: bool

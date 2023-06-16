@@ -1,6 +1,3 @@
-from app.inners.models.value_objects.contracts.responses.authentications.registers.register_response import \
-    RegisterResponse
-
 from app.inners.models.entities.account import Account
 from app.inners.models.value_objects.contracts.requests.authentications.registers.register_by_email_and_password_request import \
     RegisterByEmailAndPasswordRequest
@@ -8,6 +5,8 @@ from app.inners.models.value_objects.contracts.requests.managements.accounts.cre
     CreateBody as AccountCreateBody
 from app.inners.models.value_objects.contracts.requests.managements.accounts.create_one_request import \
     CreateOneRequest as AccountCreateOneRequest
+from app.inners.models.value_objects.contracts.responses.authentications.registers.register_response import \
+    RegisterResponse
 from app.inners.models.value_objects.contracts.responses.content import Content
 from app.inners.use_cases.managements.account_management import AccountManagement
 

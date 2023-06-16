@@ -122,19 +122,25 @@ class PassageSearch:
             input_setting=process_body.input_setting
         )
 
+        index: str = f"sparse_{document_store_index_hash}"
+
         document_store: OpenSearchDocumentStore = OpenSearchDocumentStore(
             host=self.datastore_two_setting.DS_2_HOST,
             username=self.datastore_two_setting.DS_2_USERNAME,
             password=self.datastore_two_setting.DS_2_PASSWORD,
             port=self.datastore_two_setting.DS_2_PORT_1,
-            index=f"sparse_{document_store_index_hash}",
+            index=index,
             similarity=process_body.input_setting.sparse_retriever.similarity_function,
         )
+
         retriever: BaseRetriever = self.retriever_model.get_sparse_retriever(
             document_store=document_store,
             retriever_body=process_body.input_setting.sparse_retriever,
         )
-        document_store.write_documents(documents)
+
+        if process_body.input_setting.sparse_retriever.is_refresh is True:
+            document_store.delete_index(index=index)
+            document_store.write_documents(documents)
 
         return retriever
 

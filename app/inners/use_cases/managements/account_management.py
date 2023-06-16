@@ -57,7 +57,6 @@ class AccountManagement:
             )
         return content
 
-
     async def read_one_by_email(self, email: str) -> Content[Account]:
         try:
             found_entity: Account = await self.account_repository.read_one_by_email(email)
