@@ -77,23 +77,22 @@ class PassageSearch:
 
         return window_sized_documents
 
-    def get_document_store_index_hash(self, input_setting: InputSettingBody) -> str:
+    def get_dense_index_hash(self, input_setting: InputSettingBody) -> str:
         hash_source: dict = {
             "document_id": input_setting.document_setting.document_id,
             "granularity": input_setting.granularity,
             "window_sizes": input_setting.window_sizes,
             "embedding_model": input_setting.dense_retriever.embedding_model,
-            "similarity_function": input_setting.dense_retriever.similarity_function
         }
         return hashlib.md5(str(hash_source).encode("utf-8")).hexdigest()
 
     @Locker.wait_lock
     def get_dense_retriever(self, process_body: ProcessBody, documents: List[DocumentHaystack]) -> BaseRetriever:
-        document_store_index_hash: str = self.get_document_store_index_hash(
+        index_hash: str = self.get_dense_index_hash(
             input_setting=process_body.input_setting
         )
 
-        index: str = f"dense_{document_store_index_hash}"
+        index: str = f"dense_{index_hash}"
 
         document_store: OpenSearchDocumentStore = OpenSearchDocumentStore(
             host=self.datastore_two_setting.DS_2_HOST,
@@ -117,12 +116,21 @@ class PassageSearch:
 
         return retriever
 
+    def get_sparse_index_hash(self, input_setting: InputSettingBody) -> str:
+        hash_source: dict = {
+            "document_id": input_setting.document_setting.document_id,
+            "granularity": input_setting.granularity,
+            "window_sizes": input_setting.window_sizes,
+            "model": input_setting.sparse_retriever.model,
+        }
+        return hashlib.md5(str(hash_source).encode("utf-8")).hexdigest()
+
     def get_sparse_retriever(self, process_body: ProcessBody, documents: List[Document]) -> BaseRetriever:
-        document_store_index_hash: str = self.get_document_store_index_hash(
+        index_hash: str = self.get_sparse_index_hash(
             input_setting=process_body.input_setting
         )
 
-        index: str = f"sparse_{document_store_index_hash}"
+        index: str = f"sparse_{index_hash}"
 
         document_store: OpenSearchDocumentStore = OpenSearchDocumentStore(
             host=self.datastore_two_setting.DS_2_HOST,
