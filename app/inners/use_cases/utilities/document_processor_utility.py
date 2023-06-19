@@ -28,7 +28,8 @@ class DocumentProcessorUtility:
     def textract(self, corpus: str, granularity: str) -> List[str]:
         granularized_corpus: List[str] = []
         if granularity == "word":
-            granularized_corpus = corpus.split(" ")
+            textractor = Textractor()
+            granularized_corpus = textractor(text=corpus).split(" ")
         elif granularity == "sentence":
             textractor = Textractor(sentences=True)
             granularized_corpus = textractor(text=corpus)
