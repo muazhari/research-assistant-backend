@@ -6,7 +6,6 @@ from pdfrw import PdfReader, PdfWriter
 
 from app.inners.models.entities.document import Document
 from app.inners.models.entities.document_type import DocumentType
-from app.inners.use_cases.utilities.locker import Locker
 
 
 class DocumentConversionUtility:
@@ -25,7 +24,6 @@ class DocumentConversionUtility:
     def web_to_pdf(self, url: str) -> bytes:
         return base64.b64encode(pdfkit.from_url(url, options=self.options))
 
-    @Locker.wait_lock
     def file_to_pdf(self, input_file_path: Path) -> bytes:
         with open(input_file_path, "rb") as file:
             input_file_bytes = base64.b64encode(file.read())
@@ -46,7 +44,6 @@ class DocumentConversionUtility:
 
         return output
 
-    @Locker.wait_lock
     def split_pdf_page(self, start_page: int, end_page: int, input_file_path: Path, output_file_path: Path) -> bytes:
         """
             This method has a side effect of creating a file in the output_file_path.
@@ -60,14 +57,12 @@ class DocumentConversionUtility:
 
         return output_file_bytes
 
-    @Locker.wait_lock
     def file_bytes_to_pdf(self, file_bytes: bytes, output_file_path: Path) -> Path:
         with open(output_file_path, "wb") as file:
             file.write(file_bytes)
 
         return output_file_path
 
-    @Locker.wait_lock
     def get_pdf_page_length(self, input_file_path: Path) -> int:
         input_pdf_reader = PdfReader(input_file_path)
         pdf_page_length = len(input_pdf_reader.pages)

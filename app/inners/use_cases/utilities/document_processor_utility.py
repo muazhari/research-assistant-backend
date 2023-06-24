@@ -1,13 +1,24 @@
+import concurrent.futures
+import hashlib
+import math
+import os
+from pathlib import Path
 from typing import List, Tuple
 
 import more_itertools
+import psutil
 from haystack import Document
 from txtai.pipeline import Segmentation, Textractor
 
-from app.inners.use_cases.utilities.locker import Locker
+from app.inners.use_cases.utilities.document_conversion_utility import DocumentConversionUtility
+from app.outers.settings.temp_persistence_setting import TempPersistenceSetting
 
 
 class DocumentProcessorUtility:
+
+    def __init__(self):
+        self.document_conversion_utility = DocumentConversionUtility()
+        self.temp_persistence_setting = TempPersistenceSetting()
 
     def segment(self, corpus: str, granularity: str) -> List[str]:
         granularized_corpus: List[str] = []
@@ -24,7 +35,6 @@ class DocumentProcessorUtility:
 
         return granularized_corpus
 
-    @Locker.wait_lock
     def textract(self, corpus: str, granularity: str) -> List[str]:
         granularized_corpus: List[str] = []
         if granularity == "word":
@@ -44,7 +54,29 @@ class DocumentProcessorUtility:
     def granularize(self, corpus: str, corpus_source_type: str, granularity: str) -> List[str]:
         if corpus_source_type in ["text"]:
             granularized_corpus = self.segment(corpus, granularity)
-        elif corpus_source_type in ["file", "web"]:
+        elif corpus_source_type in ["file"]:
+            page_size = self.document_conversion_utility.get_pdf_page_length(input_file_path=Path(corpus))
+            core_size = psutil.cpu_count(logical=False)
+            chunk_size = math.ceil(page_size / core_size)
+            step = max(chunk_size, 1)
+            split_pdf_page_args = []
+            for i in range(1, page_size, step):
+                start_page = i
+                end_page = min(i + step - 1, page_size - 1)
+                input_file_path = Path(corpus)
+                output_file_name = hashlib.md5(corpus.encode()).hexdigest()
+                output_file_path = self.temp_persistence_setting.TEMP_PERSISTENCE_PATH / Path(
+                    f"{output_file_name}_{start_page}_{end_page}.pdf")
+                split_pdf_page_arg = (start_page, end_page, input_file_path, output_file_path)
+                split_pdf_page_args.append(split_pdf_page_arg)
+
+            with concurrent.futures.ProcessPoolExecutor() as executor:
+                executor.map(self.document_conversion_utility.split_pdf_page, *zip(*split_pdf_page_args))
+                textract_args = [(str(split_pdf_page_arg[3]), granularity) for split_pdf_page_arg in split_pdf_page_args]
+                textract_result = executor.map(self.textract, *zip(*textract_args))
+                granularized_corpus = [item for sublist in textract_result for item in sublist]
+                executor.map(os.remove, (split_pdf_page_arg[3] for split_pdf_page_arg in split_pdf_page_args))
+        elif corpus_source_type in ["web"]:
             granularized_corpus = self.textract(corpus, granularity)
         else:
             raise NotImplementedError(f"Source type {corpus_source_type} is not supported.")

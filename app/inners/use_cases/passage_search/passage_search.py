@@ -29,7 +29,6 @@ from app.inners.use_cases.managements.document_type_management import DocumentTy
 from app.inners.use_cases.passage_search.ranker_model import RankerModel
 from app.inners.use_cases.passage_search.retriever_model import RetrieverModel
 from app.inners.use_cases.utilities.document_processor_utility import DocumentProcessorUtility
-from app.inners.use_cases.utilities.locker import Locker
 from app.outers.settings.datastore_one_setting import DatastoreOneSetting
 from app.outers.settings.datastore_two_setting import DatastoreTwoSetting
 
@@ -86,7 +85,6 @@ class PassageSearch:
         }
         return hashlib.md5(str(hash_source).encode("utf-8")).hexdigest()
 
-    @Locker.wait_lock
     def get_dense_retriever(self, process_body: ProcessBody, documents: List[DocumentHaystack]) -> BaseRetriever:
         index_hash: str = self.get_dense_index_hash(
             input_setting=process_body.input_setting

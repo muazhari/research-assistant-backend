@@ -7,7 +7,6 @@ from typing import List
 
 from txtmarker.factory import Factory
 
-from app.inners.use_cases.utilities.locker import Locker
 from app.outers.settings.temp_persistence_setting import TempPersistenceSetting
 
 
@@ -16,7 +15,6 @@ class Annotater:
     def __init__(self):
         self.temp_persistence_setting = TempPersistenceSetting()
 
-    @Locker.wait_lock
     def annotate(
             self,
             labels: List[str],
