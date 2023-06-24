@@ -2,6 +2,7 @@ import logging
 from uuid import UUID
 
 import nltk
+import uvicorn
 from fastapi import FastAPI
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
@@ -36,3 +37,4 @@ app.add_middleware(
 app.include_router(
     router=api_router
 )
+
