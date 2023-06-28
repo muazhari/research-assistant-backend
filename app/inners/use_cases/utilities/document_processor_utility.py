@@ -1,5 +1,4 @@
 import concurrent.futures
-import hashlib
 import math
 import os
 from pathlib import Path
@@ -64,18 +63,20 @@ class DocumentProcessorUtility:
                 start_page = i
                 end_page = min(i + step - 1, page_size - 1)
                 input_file_path = Path(corpus)
-                output_file_name = hashlib.md5(corpus.encode()).hexdigest()
+                input_file_path_base = input_file_path.stem
                 output_file_path = self.temp_persistence_setting.TEMP_PERSISTENCE_PATH / Path(
-                    f"{output_file_name}_{start_page}_{end_page}.pdf")
+                    f"{input_file_path_base}_chunk_{start_page}_to_{end_page}.pdf")
                 split_pdf_page_arg = (start_page, end_page, input_file_path, output_file_path)
                 split_pdf_page_args.append(split_pdf_page_arg)
 
-            with concurrent.futures.ProcessPoolExecutor() as executor:
+            with concurrent.futures.ProcessPoolExecutor(max_workers=core_size) as executor:
                 executor.map(self.document_conversion_utility.split_pdf_page, *zip(*split_pdf_page_args))
-                textract_args = [(str(split_pdf_page_arg[3]), granularity) for split_pdf_page_arg in split_pdf_page_args]
+                textract_args = [
+                    (str(split_pdf_page_arg[3]), granularity) for split_pdf_page_arg in split_pdf_page_args
+                ]
                 textract_result = executor.map(self.textract, *zip(*textract_args))
                 granularized_corpus = [item for sublist in textract_result for item in sublist]
-                executor.map(os.remove, (split_pdf_page_arg[3] for split_pdf_page_arg in split_pdf_page_args))
+                executor.map(os.remove, [split_pdf_page_arg[3] for split_pdf_page_arg in split_pdf_page_args])
         elif corpus_source_type in ["web"]:
             granularized_corpus = self.textract(corpus, granularity)
         else:
