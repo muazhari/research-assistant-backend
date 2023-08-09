@@ -17,16 +17,21 @@ from app.inners.models.value_objects.contracts.requests.managements.web_document
 from app.inners.models.value_objects.contracts.responses.content import Content
 from app.inners.models.value_objects.contracts.responses.managements.documents.web_document_response import \
     WebDocumentResponse
+from app.inners.use_cases.utilities.management_utility import ManagementUtility
 from app.outers.repositories.document_repository import DocumentRepository
 from app.outers.repositories.web_document_repository import WebDocumentRepository
-from app.outers.utilities.management_utility import ManagementUtility
 
 
 class WebDocumentManagement:
-    def __init__(self):
-        self.management_utility: ManagementUtility = ManagementUtility()
-        self.document_repository: DocumentRepository = DocumentRepository()
-        self.web_document_repository: WebDocumentRepository = WebDocumentRepository()
+    def __init__(
+            self,
+            document_repository: DocumentRepository,
+            web_document_repository: WebDocumentRepository,
+            management_utility: ManagementUtility
+    ):
+        self.document_repository: DocumentRepository = document_repository
+        self.web_document_repository: WebDocumentRepository = web_document_repository
+        self.management_utility: ManagementUtility = management_utility
 
     async def read_all(self, request: ReadAllRequest) -> Content[List[WebDocumentResponse]]:
         try:

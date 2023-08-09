@@ -1,7 +1,8 @@
 from typing import List
 from uuid import UUID
 
-from fastapi import APIRouter, Request
+from dependency_injector.wiring import Provide, inject
+from fastapi import APIRouter, Request, Depends
 from fastapi_utils.cbv import cbv
 
 from app.inners.models.value_objects.contracts.requests.managements.text_documents.create_body import \
@@ -22,14 +23,22 @@ from app.inners.models.value_objects.contracts.responses.content import Content
 from app.inners.models.value_objects.contracts.responses.managements.documents.text_document_response import \
     TextDocumentResponse
 from app.inners.use_cases.managements.text_document_management import TextDocumentManagement
+from app.outers.containers.application_container import ApplicationContainer
 
 router: APIRouter = APIRouter(tags=["text-documents"])
 
 
 @cbv(router)
 class TextDocumentController:
-    def __init__(self):
-        self.text_document_management: TextDocumentManagement = TextDocumentManagement()
+
+    @inject
+    def __init__(
+            self,
+            text_document_management: TextDocumentManagement = Depends(
+                Provide[ApplicationContainer.use_cases.managements.text_document]
+            )
+    ) -> None:
+        self.text_document_management = text_document_management
 
     @router.get("/documents/texts")
     async def read_all(self, request: Request) -> Content[List[TextDocumentResponse]]:

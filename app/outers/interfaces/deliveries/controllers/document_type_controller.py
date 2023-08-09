@@ -1,7 +1,8 @@
 from typing import List
 from uuid import UUID
 
-from fastapi import APIRouter, Request
+from dependency_injector.wiring import Provide, inject
+from fastapi import APIRouter, Request, Depends
 from fastapi_utils.cbv import cbv
 
 from app.inners.models.entities.document_type import DocumentType
@@ -21,14 +22,22 @@ from app.inners.models.value_objects.contracts.requests.managements.document_typ
     ReadOneByIdRequest
 from app.inners.models.value_objects.contracts.responses.content import Content
 from app.inners.use_cases.managements.document_type_management import DocumentTypeManagement
+from app.outers.containers.application_container import ApplicationContainer
 
 router: APIRouter = APIRouter(tags=["document-types"])
 
 
 @cbv(router)
 class DocumentTypeController:
-    def __init__(self):
-        self.document_type_management: DocumentTypeManagement = DocumentTypeManagement()
+
+    @inject
+    def __init__(
+            self,
+            document_type_management: DocumentTypeManagement = Depends(
+                Provide[ApplicationContainer.use_cases.managements.document_type]
+            )
+    ) -> None:
+        self.document_type_management: DocumentTypeManagement = document_type_management
 
     @router.get("/document-types")
     async def read_all(self, request: Request) -> Content[List[DocumentType]]:

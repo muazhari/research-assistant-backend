@@ -12,8 +12,11 @@ from app.outers.settings.temp_persistence_setting import TempPersistenceSetting
 
 class Annotater:
 
-    def __init__(self):
-        self.temp_persistence_setting = TempPersistenceSetting()
+    def __init__(
+            self,
+            temp_persistence_setting: TempPersistenceSetting
+    ):
+        self.temp_persistence_setting: TempPersistenceSetting = temp_persistence_setting
 
     def annotate(
             self,

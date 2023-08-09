@@ -12,8 +12,11 @@ from app.inners.use_cases.managements.account_management import AccountManagemen
 
 
 class RegisterAuthentication:
-    def __init__(self):
-        self.account_management: AccountManagement = AccountManagement()
+    def __init__(
+            self,
+            account_management: AccountManagement
+    ):
+        self.account_management = account_management
 
     async def register_by_email_and_password(self, request: RegisterByEmailAndPasswordRequest) -> Content[
         RegisterResponse]:

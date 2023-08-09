@@ -5,23 +5,23 @@ from sqlmodel import select
 from sqlmodel.sql import expression
 
 from app.inners.models.entities.document_process import DocumentProcess
-from app.outers.persistences.datastore_one_persistence import DataStorePersistence
+from app.outers.persistences.datastore_one_persistence import DatastoreOnePersistence
 
 
 class DocumentProcessRepository:
 
-    def __init__(self):
-        self.datastore_persistence: DataStorePersistence = DataStorePersistence()
+    def __init__(self, datastore_one_persistence: DatastoreOnePersistence):
+        self.datastore_one_persistence: DatastoreOnePersistence = datastore_one_persistence
 
     async def read_all(self) -> List[DocumentProcess]:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             statement: expression = select(DocumentProcess)
             result = await session.execute(statement)
             found_entities: List[DocumentProcess] = result.scalars().all()
             return found_entities
 
     async def read_one_by_id(self, id: UUID) -> DocumentProcess:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             statement: expression = select(DocumentProcess).where(DocumentProcess.id == id)
             result = await session.execute(statement)
             found_entity: DocumentProcess = result.scalars().one()
@@ -30,7 +30,7 @@ class DocumentProcessRepository:
             return found_entity
 
     async def create_one(self, entity: DocumentProcess) -> DocumentProcess:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             try:
                 session.add(entity)
                 await session.commit()
@@ -40,7 +40,7 @@ class DocumentProcessRepository:
         return entity
 
     async def patch_one_by_id(self, id: UUID, entity: DocumentProcess) -> DocumentProcess:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             try:
                 statement: expression = select(DocumentProcess).where(DocumentProcess.id == id)
                 result = await session.execute(statement)
@@ -55,7 +55,7 @@ class DocumentProcessRepository:
             return found_entity
 
     async def delete_one_by_id(self, id: UUID) -> DocumentProcess:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             try:
                 statement: expression = select(DocumentProcess).where(DocumentProcess.id == id)
                 result = await session.execute(statement)

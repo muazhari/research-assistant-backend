@@ -5,23 +5,23 @@ from sqlmodel import select
 from sqlmodel.sql import expression
 
 from app.inners.models.entities.document_type import DocumentType
-from app.outers.persistences.datastore_one_persistence import DataStorePersistence
+from app.outers.persistences.datastore_one_persistence import DatastoreOnePersistence
 
 
 class DocumentTypeRepository:
 
-    def __init__(self):
-        self.datastore_persistence: DataStorePersistence = DataStorePersistence()
+    def __init__(self, datastore_one_persistence: DatastoreOnePersistence):
+        self.datastore_one_persistence: DatastoreOnePersistence = datastore_one_persistence
 
     async def read_all(self) -> List[DocumentType]:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             statement: expression = select(DocumentType)
             result = await session.execute(statement)
             found_entities: List[DocumentType] = result.scalars().all()
             return found_entities
 
     async def read_one_by_id(self, id: UUID) -> DocumentType:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             statement: expression = select(DocumentType).where(DocumentType.id == id)
             result = await session.execute(statement)
             found_entity: DocumentType = result.scalars().one()
@@ -30,7 +30,7 @@ class DocumentTypeRepository:
             return found_entity
 
     async def create_one(self, entity: DocumentType) -> DocumentType:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             try:
                 session.add(entity)
                 await session.commit()
@@ -40,7 +40,7 @@ class DocumentTypeRepository:
         return entity
 
     async def patch_one_by_id(self, id: UUID, entity: DocumentType) -> DocumentType:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             try:
                 statement: expression = select(DocumentType).where(DocumentType.id == id)
                 result = await session.execute(statement)
@@ -55,7 +55,7 @@ class DocumentTypeRepository:
             return found_entity
 
     async def delete_one_by_id(self, id: UUID) -> DocumentType:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             try:
                 statement: expression = select(DocumentType).where(DocumentType.id == id)
                 result = await session.execute(statement)

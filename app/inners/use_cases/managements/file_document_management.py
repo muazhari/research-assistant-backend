@@ -23,19 +23,26 @@ from app.inners.models.value_objects.contracts.responses.managements.documents.f
 from app.inners.models.value_objects.contracts.responses.managements.documents.file_document_response import \
     FileDocumentResponse
 from app.inners.use_cases.utilities.document_conversion_utility import DocumentConversionUtility
+from app.inners.use_cases.utilities.management_utility import ManagementUtility
 from app.outers.repositories.document_repository import DocumentRepository
 from app.outers.repositories.file_document_repository import FileDocumentRepository
 from app.outers.settings.temp_persistence_setting import TempPersistenceSetting
-from app.outers.utilities.management_utility import ManagementUtility
 
 
 class FileDocumentManagement:
-    def __init__(self):
-        self.management_utility: ManagementUtility = ManagementUtility()
-        self.document_repository: DocumentRepository = DocumentRepository()
-        self.file_document_repository: FileDocumentRepository = FileDocumentRepository()
-        self.document_conversion_utility: DocumentConversionUtility = DocumentConversionUtility()
-        self.temp_persistence_setting: TempPersistenceSetting = TempPersistenceSetting()
+    def __init__(
+            self,
+            document_repository: DocumentRepository,
+            file_document_repository: FileDocumentRepository,
+            management_utility: ManagementUtility,
+            document_conversion_utility: DocumentConversionUtility,
+            temp_persistence_setting: TempPersistenceSetting
+    ):
+        self.document_repository: DocumentRepository = document_repository
+        self.file_document_repository: FileDocumentRepository = file_document_repository
+        self.management_utility: ManagementUtility = management_utility
+        self.document_conversion_utility: DocumentConversionUtility = document_conversion_utility
+        self.temp_persistence_setting: TempPersistenceSetting = temp_persistence_setting
 
     async def read_all(self, request: ReadAllRequest) -> Content[List[FileDocumentResponse]]:
         try:

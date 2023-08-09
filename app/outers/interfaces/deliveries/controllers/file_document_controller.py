@@ -1,7 +1,8 @@
 from typing import List
 from uuid import UUID
 
-from fastapi import APIRouter, Request
+from dependency_injector.wiring import Provide, inject
+from fastapi import APIRouter, Request, Depends
 from fastapi_utils.cbv import cbv
 
 from app.inners.models.value_objects.contracts.requests.managements.file_documents.create_body import \
@@ -24,14 +25,22 @@ from app.inners.models.value_objects.contracts.responses.managements.documents.f
 from app.inners.models.value_objects.contracts.responses.managements.documents.file_document_response import \
     FileDocumentResponse
 from app.inners.use_cases.managements.file_document_management import FileDocumentManagement
+from app.outers.containers.application_container import ApplicationContainer
 
 router: APIRouter = APIRouter(tags=["file-documents"])
 
 
 @cbv(router)
 class FileDocumentController:
-    def __init__(self):
-        self.file_document_management: FileDocumentManagement = FileDocumentManagement()
+
+    @inject
+    def __init__(
+            self,
+            file_document_management: FileDocumentManagement = Depends(
+                Provide[ApplicationContainer.use_cases.managements.file_document]
+            )
+    ) -> None:
+        self.file_document_management = file_document_management
 
     @router.get("/documents/files")
     async def read_all(self, request: Request) -> Content[List[FileDocumentResponse]]:

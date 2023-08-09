@@ -1,18 +1,12 @@
 fastapi
 fastapi-utils
 httpx
-pydantic
 pytest
 pytest-asyncio
 pytest-xdist
 SQLAlchemy
 sqlmodel
-starlette
-torch
-psycopg2-binary
 asyncpg
-sqlmodel
-httpx
 python-dotenv
 pdfrw
 pdfkit
@@ -20,4 +14,4 @@ more_itertools
 nltk
 streamlit
 txtmarker
-tensorflow==2.9.0
+dependency-injector

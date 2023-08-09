@@ -23,6 +23,9 @@ RUN yes | DEBIAN_FRONTEND=noninteractive apt install -y \
     python3 \
     python3-pip
 
+# Update pip.
+RUN pip3 install --upgrade pip
+
 # Install pytorch.
 RUN pip3 install \
     torch \

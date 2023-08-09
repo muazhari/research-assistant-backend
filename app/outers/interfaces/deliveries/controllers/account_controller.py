@@ -1,7 +1,8 @@
 from typing import List
 from uuid import UUID
 
-from fastapi import APIRouter, Request
+from dependency_injector.wiring import Provide, inject
+from fastapi import APIRouter, Request, Depends
 from fastapi_utils.cbv import cbv
 
 from app.inners.models.entities.account import Account
@@ -20,14 +21,22 @@ from app.inners.models.value_objects.contracts.requests.managements.accounts.rea
     ReadOneByIdRequest
 from app.inners.models.value_objects.contracts.responses.content import Content
 from app.inners.use_cases.managements.account_management import AccountManagement
+from app.outers.containers.application_container import ApplicationContainer
 
 router: APIRouter = APIRouter(tags=["accounts"])
 
 
 @cbv(router)
 class AccountController:
-    def __init__(self):
-        self.account_management: AccountManagement = AccountManagement()
+
+    @inject
+    def __init__(
+            self,
+            account_management: AccountManagement = Depends(
+                Provide[ApplicationContainer.use_cases.managements.account]
+            )
+    ) -> None:
+        self.account_management: AccountManagement = account_management
 
     @router.get("/accounts")
     async def read_all(self, request: Request) -> Content[List[Account]]:

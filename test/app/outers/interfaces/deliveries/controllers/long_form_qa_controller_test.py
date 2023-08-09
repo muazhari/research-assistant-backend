@@ -22,7 +22,7 @@ from app.inners.models.value_objects.contracts.requests.long_form_qas.input_sett
 from app.inners.models.value_objects.contracts.requests.long_form_qas.process_body import ProcessBody
 from app.inners.models.value_objects.contracts.responses.content import Content
 from app.inners.models.value_objects.contracts.responses.long_form_qas.process_response import ProcessResponse
-from app.outers.settings.open_ai_setting import OpenAISetting
+from app.outers.settings.openai_setting import OpenAiSetting
 from test.app.outers.interfaces.deliveries.controllers.account_controller_test import account_repository
 from test.app.outers.interfaces.deliveries.controllers.document_controller_test import document_repository
 from test.app.outers.interfaces.deliveries.controllers.document_type_controller_test import document_type_repository
@@ -33,7 +33,7 @@ from test.mock_data.long_form_qa_mock_data import LongFormQAMockData
 from test.utilities.test_client_utility import get_async_client
 
 long_form_qa_mock_data = LongFormQAMockData()
-open_ai_setting = OpenAISetting()
+open_ai_setting = OpenAiSetting()
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)

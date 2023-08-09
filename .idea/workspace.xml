@@ -5,9 +5,77 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/outers/containers/application_container.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/containers/gateway_container.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/containers/persistence_container.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/containers/repository_container.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/containers/setting_container.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/containers/use_case_container.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/containers/use_cases/authentication_container.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/containers/use_cases/document_conversion_container.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/containers/use_cases/longform_qa_container.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/containers/use_cases/management_container.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/containers/use_cases/passage_search_container.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/containers/use_cases/utility_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/authentications/login_authentication.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/authentications/login_authentication.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/authentications/register_authentication.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/authentications/register_authentication.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/base_document_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/base_document_conversion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/long_form_qa_document_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/long_form_qa_document_conversion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/passage_search_document_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/passage_search_document_conversion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_search/document_search.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_transfer/download_document.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_transfer/upload_document.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/managements/account_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/account_management.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/managements/document_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/document_management.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/managements/document_process_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/document_process_management.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/managements/document_type_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/document_type_management.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/managements/file_document_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/file_document_management.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/managements/text_document_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/text_document_management.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/managements/web_document_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/web_document_management.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/annotater.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/utilities/annotater.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/retriever_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/retriever_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/search_statistics.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/utilities/search_statistic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_conversion_utility.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_conversion_utility.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_processor_utility.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_processor_utility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/account_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/account_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/authentication_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/authentication_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/document_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/document_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/document_process_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/document_process_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/document_type_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/document_type_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/file_document_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/file_document_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/long_form_qa_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/long_form_qa_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/passage_search_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/passage_search_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/text_document_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/text_document_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/web_document_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/web_document_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/gateways/clients/base_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/gateways/clients/base_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/gateways/clients/openai_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/gateways/clients/openai_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/datastore_one_persistence.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/persistences/datastore_one_persistence.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/persistences/temps/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/account_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/account_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/document_process_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/document_process_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/document_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/document_type_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/document_type_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/file_document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/file_document_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/text_document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/text_document_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/web_document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/web_document_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/settings/datastore_one_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/settings/datastore_one_setting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/settings/datastore_two_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/settings/datastore_two_setting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/settings/document_store_setting.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/settings/open_ai_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/settings/openai_setting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/settings/retriever_settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/utilities/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/use_cases/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/utilities/management_utility.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/utilities/management_utility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/utilities/test_client_utility.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/utilities/test_client_utility.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +106,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectId" id="2QVqaC0trGGGiifzIdDmVVel6Tf" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -46,42 +117,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Data/Apps/research-assistant-backend/app/inners/models/value_objects/contracts/responses/managements/documents&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\M Kharisma Azhari\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\231.9011.38\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "last_opened_file_path": "C:/Data/Apps/research-assistant-backend/app/inners/use_cases/utilities",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "ts.external.directory.path": "C:\\Users\\M Kharisma Azhari\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\231.9011.38\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\use_cases\utilities" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\outers\containers\use_cases" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\outers\containers" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\responses\managements\documents" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\responses" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\outers\interfaces\deliveries\controllers" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\use_cases" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\use_cases\utilities" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\passage_searchs" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\basic_settings" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.compose-1">
+  <component name="RunManager" selected="FastAPI.run-1">
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="research-assistant-backend" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -135,13 +208,13 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="Python tests in test" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="pytest in test" type="tests" factoryName="py.test" nameIsGenerated="true">
       <module name="research-assistant-backend" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="APP_PORT" value="8000" />
-        <env name="CACHE_PATH" value="'C:\Users\M Kharisma Azhari\.cache'" />
+        <env name="CACHE_PATH" value="'$USER_HOME$/.cache'" />
         <env name="DS_1_DATABASE" value="research-assistant-backend" />
         <env name="DS_1_DIALECT" value="postgresql+asyncpg" />
         <env name="DS_1_HOST" value="ds-1" />
@@ -154,67 +227,34 @@
         <env name="DS_2_PORT_1" value="9200" />
         <env name="DS_2_PORT_2" value="9600" />
         <env name="DS_2_USERNAME" value="admin" />
-        <env name="NLTK_DATA_PATH" value="'C:\Users\M Kharisma Azhari\AppData\Roaming\nltk_data'" />
-        <env name="OPEN_AI_API_KEY" value="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" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;-n\u003dauto&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/test&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pytest for test.app.outers.interfaces.deliveries.controllers.file_document_controller_test" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="research-assistant-backend" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="APP_PORT" value="8000" />
-        <env name="CACHE_PATH" value="'C:\Users\M Kharisma Azhari\.cache'" />
-        <env name="DS_1_DATABASE" value="research-assistant-backend" />
-        <env name="DS_1_DIALECT" value="postgresql+asyncpg" />
-        <env name="DS_1_HOST" value="ds-1" />
-        <env name="DS_1_PASSWORD" value="default" />
-        <env name="DS_1_PORT" value="5432" />
-        <env name="DS_1_USER" value="default" />
-        <env name="DS_2_HOST" value="ds-2" />
-        <env name="DS_2_MANAGEMENT_PORT" value="5601" />
-        <env name="DS_2_PASSWORD" value="admin" />
-        <env name="DS_2_PORT_1" value="9200" />
-        <env name="DS_2_PORT_2" value="9600" />
-        <env name="DS_2_USERNAME" value="admin" />
-        <env name="NLTK_DATA_PATH" value="'C:\Users\M Kharisma Azhari\AppData\Roaming\nltk_data'" />
-        <env name="OPEN_AI_API_KEY" value="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" />
+        <env name="NLTK_DATA_PATH" value="'$USER_HOME$/AppData/Roaming/nltk_data'" />
+        <env name="OPEN_AI_API_KEY" value="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" />
+        <env name="TEMP_PATH" value="'$USER_HOME$/AppData/Local/Temp'" />
+        <env name="TEMP_PERSISTENCE_PATH" value="'app/outers/persistences/temps'" />
       </envs>
       <option name="SDK_HOME" value="/usr/bin/python3" />
+      <option name="SDK_NAME" value="research-assistant-backend" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_parameters" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;-n\u003dauto&quot;" />
-      <option name="_new_target" value="&quot;test.app.outers.interfaces.deliveries.controllers.file_document_controller_test&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/test&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Docker.compose-1" />
       <item itemvalue="FastAPI.run-1" />
       <item itemvalue="Python.test" />
-      <item itemvalue="Python tests.pytest for test.app.outers.interfaces.deliveries.controllers.file_document_controller_test" />
-      <item itemvalue="Python tests.Python tests in test" />
+      <item itemvalue="Python tests.pytest in test" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.test" />
-        <item itemvalue="Python tests.pytest for test.app.outers.interfaces.deliveries.controllers.file_document_controller_test" />
-        <item itemvalue="Python tests.Python tests in test" />
       </list>
     </recent_temporary>
   </component>
@@ -253,7 +293,19 @@
       <workItem from="1687580758786" duration="6932000" />
       <workItem from="1687596431145" duration="4118000" />
       <workItem from="1687667468264" duration="2592000" />
-      <workItem from="1687962651340" duration="672000" />
+      <workItem from="1687962651340" duration="1000000" />
+      <workItem from="1687963757557" duration="5676000" />
+      <workItem from="1688047647162" duration="45000" />
+      <workItem from="1689673420439" duration="829000" />
+      <workItem from="1689698919389" duration="2684000" />
+      <workItem from="1690187829877" duration="54000" />
+      <workItem from="1690449999265" duration="5812000" />
+      <workItem from="1690880452333" duration="699000" />
+      <workItem from="1691222641932" duration="4257000" />
+      <workItem from="1691228257283" duration="1117000" />
+      <workItem from="1691488640159" duration="20000" />
+      <workItem from="1691488757472" duration="672000" />
+      <workItem from="1691518342148" duration="30716000" />
     </task>
     <servers />
   </component>
@@ -261,9 +313,10 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/research_assistant_backend$test.coverage" NAME="test Coverage Results" MODIFIED="1685535405614" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$.coverage" NAME=" Coverage Results" MODIFIED="1685532212288" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1687587022986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$test.coverage" NAME="test Coverage Results" MODIFIED="1691225094856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1691227314022" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$.coverage" NAME=" Coverage Results" MODIFIED="1691227085154" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1691584081520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_app_outers_interfaces_deliveries_controllers_file_document_controller_test.coverage" NAME="pytest for test.app.outers.interfaces.deliveries.controllers.file_document_controller_test Coverage Results" MODIFIED="1685532826646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

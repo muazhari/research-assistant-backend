@@ -6,7 +6,7 @@ from typing import List
 
 from haystack import Pipeline
 from haystack.document_stores import OpenSearchDocumentStore
-from haystack.nodes import BaseRetriever, JoinDocuments, BaseRanker
+from haystack.nodes import BaseRetriever, JoinDocuments, BaseRanker, DenseRetriever
 from haystack.schema import Document as DocumentHaystack
 
 from app.inners.models.entities.document import Document
@@ -35,15 +35,25 @@ from app.outers.settings.datastore_two_setting import DatastoreTwoSetting
 
 class PassageSearch:
 
-    def __init__(self):
-        self.document_processor_utility = DocumentProcessorUtility()
-        self.retriever_model = RetrieverModel()
-        self.ranker_model = RankerModel()
-        self.datastore_one_setting = DatastoreOneSetting()
-        self.datastore_two_setting = DatastoreTwoSetting()
-        self.document_management = DocumentManagement()
-        self.document_type_management = DocumentTypeManagement()
-        self.document_conversion = PassageSearchDocumentConversion()
+    def __init__(
+            self,
+            document_management: DocumentManagement,
+            document_type_management: DocumentTypeManagement,
+            retriever_model: RetrieverModel,
+            ranker_model: RankerModel,
+            passage_search_document_conversion: PassageSearchDocumentConversion,
+            document_processor_utility: DocumentProcessorUtility,
+            datastore_one_setting: DatastoreOneSetting,
+            datastore_two_setting: DatastoreTwoSetting
+    ):
+        self.document_management: DocumentManagement = document_management
+        self.document_type_management: DocumentTypeManagement = document_type_management
+        self.retriever_model: RetrieverModel = retriever_model
+        self.ranker_model: RankerModel = ranker_model
+        self.passage_search_document_conversion: PassageSearchDocumentConversion = passage_search_document_conversion
+        self.document_processor_utility: DocumentProcessorUtility = document_processor_utility
+        self.datastore_one_setting: DatastoreOneSetting = datastore_one_setting
+        self.datastore_two_setting: DatastoreTwoSetting = datastore_two_setting
 
     async def get_window_sized_documents(self, process_body: ProcessBody) -> List[Document]:
         found_document: Content[Document] = await self.document_management.read_one_by_id(
@@ -58,7 +68,7 @@ class PassageSearch:
             )
         )
 
-        corpus: str = await self.document_conversion.convert_document_to_corpus(
+        corpus: str = await self.passage_search_document_conversion.convert_document_to_corpus(
             document_setting_body=process_body.input_setting.document_setting,
             document=found_document.data,
             document_type=found_document_type.data
@@ -102,15 +112,15 @@ class PassageSearch:
             similarity=process_body.input_setting.dense_retriever.similarity_function,
         )
 
-        retriever: BaseRetriever = self.retriever_model.get_dense_retriever(
+        retriever: DenseRetriever = self.retriever_model.get_dense_retriever(
             document_store=document_store,
             retriever_body=process_body.input_setting.dense_retriever,
         )
 
         if process_body.input_setting.dense_retriever.is_refresh is True:
             document_store.delete_index(index=index)
-            document_store.write_documents(documents)
-            document_store.update_embeddings(retriever)
+            document_store.write_documents(documents=documents)
+            document_store.update_embeddings(retriever=retriever)
 
         return retriever
 
@@ -216,7 +226,7 @@ class PassageSearch:
             time_finish: datetime = datetime.now()
             time_delta: timedelta = time_finish - time_start
 
-            output_document: DocumentResponse = await self.document_conversion.convert_retrieval_result_to_document(
+            output_document: DocumentResponse = await self.passage_search_document_conversion.convert_retrieval_result_to_document(
                 process_body=process_request.body,
                 retrieval_result=retrieval_result,
                 process_duration=time_delta.total_seconds()

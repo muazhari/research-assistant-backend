@@ -2,12 +2,13 @@ import logging
 from uuid import UUID
 
 import nltk
-import uvicorn
 from fastapi import FastAPI
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseConfig
 
+from app import inners, outers
+from app.outers.containers.application_container import ApplicationContainer
 from app.outers.interfaces.deliveries.routers.api import api_router
 
 logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
@@ -21,10 +22,13 @@ BaseConfig.json_encoders = {
     UUID: jsonable_encoder,
 }
 
-app = FastAPI(
+app: FastAPI = FastAPI(
     title="research-assistant-backend",
     version="0.0.1"
 )
+
+app.container = ApplicationContainer()
+app.container.wire(packages=[inners, outers])
 
 app.add_middleware(
     middleware_class=CORSMiddleware,
@@ -37,4 +41,3 @@ app.add_middleware(
 app.include_router(
     router=api_router
 )
-

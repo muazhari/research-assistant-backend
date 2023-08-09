@@ -6,7 +6,7 @@ from pydantic import BaseSettings
 class DatastoreOneSetting(BaseSettings):
     DS_1_DIALECT: str
     DS_1_HOST: str
-    DS_1_PORT: str
+    DS_1_PORT: int
     DS_1_USER: str
     DS_1_PASSWORD: str
     DS_1_DATABASE: str

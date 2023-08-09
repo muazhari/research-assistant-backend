@@ -5,23 +5,23 @@ from sqlmodel import select
 from sqlmodel.sql import expression
 
 from app.inners.models.entities.text_document import TextDocument
-from app.outers.persistences.datastore_one_persistence import DataStorePersistence
+from app.outers.persistences.datastore_one_persistence import DatastoreOnePersistence
 
 
 class TextDocumentRepository:
 
-    def __init__(self):
-        self.datastore_persistence: DataStorePersistence = DataStorePersistence()
+    def __init__(self, datastore_one_persistence: DatastoreOnePersistence):
+        self.datastore_one_persistence: DatastoreOnePersistence = datastore_one_persistence
 
     async def read_all(self) -> List[TextDocument]:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             statement: expression = select(TextDocument)
             result = await session.execute(statement)
             found_entities: List[TextDocument] = result.scalars().all()
             return found_entities
 
     async def read_one_by_id(self, id: UUID) -> TextDocument:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             statement: expression = select(TextDocument).where(TextDocument.id == id)
             result = await session.execute(statement)
             found_entity: TextDocument = result.scalars().one()
@@ -30,7 +30,7 @@ class TextDocumentRepository:
             return found_entity
 
     async def read_one_by_document_id(self, document_id: UUID) -> TextDocument:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             statement: expression = select(TextDocument).where(TextDocument.document_id == document_id)
             result = await session.execute(statement)
             found_entity: TextDocument = result.scalars().one()
@@ -39,7 +39,7 @@ class TextDocumentRepository:
             return found_entity
 
     async def create_one(self, entity: TextDocument) -> TextDocument:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             try:
                 session.add(entity)
                 await session.commit()
@@ -49,7 +49,7 @@ class TextDocumentRepository:
         return entity
 
     async def patch_one_by_id(self, id: UUID, entity: TextDocument) -> TextDocument:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             try:
                 statement: expression = select(TextDocument).where(TextDocument.id == id)
                 result = await session.execute(statement)
@@ -64,7 +64,7 @@ class TextDocumentRepository:
             return found_entity
 
     async def delete_one_by_id(self, id: UUID) -> TextDocument:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             try:
                 statement: expression = select(TextDocument).where(TextDocument.id == id)
                 result = await session.execute(statement)
@@ -78,7 +78,7 @@ class TextDocumentRepository:
             return found_entity
 
     async def delete_one_by_document_id(self, document_id: UUID) -> TextDocument:
-        async with await self.datastore_persistence.create_session() as session:
+        async with await self.datastore_one_persistence.create_session() as session:
             try:
                 statement: expression = select(TextDocument).where(TextDocument.document_id == document_id)
                 result = await session.execute(statement)

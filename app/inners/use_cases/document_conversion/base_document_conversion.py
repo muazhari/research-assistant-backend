@@ -29,15 +29,21 @@ from app.outers.settings.temp_persistence_setting import TempPersistenceSetting
 
 class BaseDocumentConversion:
 
-    def __init__(self):
-
-        self.document_management = DocumentManagement()
-        self.document_type_management = DocumentTypeManagement()
-        self.file_document_management = FileDocumentManagement()
-        self.text_document_management = TextDocumentManagement()
-        self.web_document_management = WebDocumentManagement()
-        self.document_conversion_utility = DocumentConversionUtility()
-        self.temp_persistence_setting = TempPersistenceSetting()
+    def __init__(self,
+                 document_management: DocumentManagement,
+                 document_type_management: DocumentTypeManagement,
+                 file_document_management: FileDocumentManagement,
+                 text_document_management: TextDocumentManagement,
+                 web_document_management: WebDocumentManagement,
+                 temp_persistence_setting: TempPersistenceSetting,
+                 document_conversion_utility: DocumentConversionUtility):
+        self.document_management: DocumentManagement = document_management
+        self.document_type_management: DocumentTypeManagement = document_type_management
+        self.file_document_management: FileDocumentManagement = file_document_management
+        self.text_document_management: TextDocumentManagement = text_document_management
+        self.web_document_management: WebDocumentManagement = web_document_management
+        self.temp_persistence_setting: TempPersistenceSetting = temp_persistence_setting
+        self.document_conversion_utility: DocumentConversionUtility = document_conversion_utility
 
     async def convert_document_to_corpus(self, document_setting_body: DocumentSettingBody, document: Document,
                                          document_type: DocumentType) -> str:
@@ -55,13 +61,11 @@ class BaseDocumentConversion:
                 file_bytes: bytes = base64.b64decode(found_detail_document.data.file_bytes)
                 with open(file_path, "wb") as file:
                     file.write(file_bytes)
-                corpus = file_path
 
                 split_file_name: str = f"split_{document_setting_body.detail_setting.start_page}_to_{document_setting_body.detail_setting.end_page}_{new_file_name}"
-                split_file_path: Path = self.temp_persistence_setting.TEMP_PERSISTENCE_PATH / Path(f"{split_file_name}")
-                split_file_bytes: bytes = self.document_conversion_utility.split_pdf_page(
+                split_file_path: Path = self.document_conversion_utility.split_pdf_page(
                     input_file_path=file_path,
-                    output_file_path=split_file_path,
+                    output_file_path=self.temp_persistence_setting.TEMP_PERSISTENCE_PATH / Path(f"{split_file_name}"),
                     start_page=document_setting_body.detail_setting.start_page,
                     end_page=document_setting_body.detail_setting.end_page,
                 )

@@ -17,16 +17,21 @@ from app.inners.models.value_objects.contracts.requests.managements.text_documen
 from app.inners.models.value_objects.contracts.responses.content import Content
 from app.inners.models.value_objects.contracts.responses.managements.documents.text_document_response import \
     TextDocumentResponse
+from app.inners.use_cases.utilities.management_utility import ManagementUtility
 from app.outers.repositories.document_repository import DocumentRepository
 from app.outers.repositories.text_document_repository import TextDocumentRepository
-from app.outers.utilities.management_utility import ManagementUtility
 
 
 class TextDocumentManagement:
-    def __init__(self):
-        self.management_utility: ManagementUtility = ManagementUtility()
-        self.document_repository: DocumentRepository = DocumentRepository()
-        self.text_document_repository: TextDocumentRepository = TextDocumentRepository()
+    def __init__(
+            self,
+            document_repository: DocumentRepository,
+            text_document_repository: TextDocumentRepository,
+            management_utility: ManagementUtility
+    ):
+        self.document_repository: DocumentRepository = document_repository
+        self.text_document_repository: TextDocumentRepository = text_document_repository
+        self.management_utility: ManagementUtility = management_utility
 
     async def read_all(self, request: ReadAllRequest) -> Content[List[TextDocumentResponse]]:
         try:

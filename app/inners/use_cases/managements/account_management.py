@@ -11,14 +11,18 @@ from app.inners.models.value_objects.contracts.requests.managements.accounts.rea
 from app.inners.models.value_objects.contracts.requests.managements.accounts.read_one_by_id_request import \
     ReadOneByIdRequest
 from app.inners.models.value_objects.contracts.responses.content import Content
+from app.inners.use_cases.utilities.management_utility import ManagementUtility
 from app.outers.repositories.account_repository import AccountRepository
-from app.outers.utilities.management_utility import ManagementUtility
 
 
 class AccountManagement:
-    def __init__(self):
-        self.management_utility: ManagementUtility = ManagementUtility()
-        self.account_repository: AccountRepository = AccountRepository()
+    def __init__(
+            self,
+            account_repository: AccountRepository,
+            management_utility: ManagementUtility
+    ):
+        self.account_repository: AccountRepository = account_repository
+        self.management_utility: ManagementUtility = management_utility
 
     async def read_all(self, request: ReadAllRequest) -> Content[List[Account]]:
         try:

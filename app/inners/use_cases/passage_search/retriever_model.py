@@ -1,5 +1,7 @@
+from typing import Union
+
 from haystack.document_stores import BaseDocumentStore
-from haystack.nodes import EmbeddingRetriever, BaseRetriever, DensePassageRetriever, MultihopEmbeddingRetriever, \
+from haystack.nodes import EmbeddingRetriever, DensePassageRetriever, MultihopEmbeddingRetriever, \
     BM25Retriever, TfidfRetriever
 
 from app.inners.models.value_objects.contracts.requests.basic_settings.dense_retriever_body import DenseRetrieverBody
@@ -8,7 +10,7 @@ from app.inners.models.value_objects.contracts.requests.basic_settings.sparse_re
 
 class RetrieverModel:
     def get_multihop_retriever(self, document_store: BaseDocumentStore,
-                               retriever_body: DenseRetrieverBody) -> BaseRetriever:
+                               retriever_body: DenseRetrieverBody) -> MultihopEmbeddingRetriever:
         retriever: MultihopEmbeddingRetriever = MultihopEmbeddingRetriever(
             document_store=document_store,
             embedding_model=retriever_body.embedding_model.model,
@@ -18,7 +20,7 @@ class RetrieverModel:
         return retriever
 
     def get_online_retriever(self, document_store: BaseDocumentStore,
-                             retriever_body: DenseRetrieverBody) -> BaseRetriever:
+                             retriever_body: DenseRetrieverBody) -> EmbeddingRetriever:
         retriever: EmbeddingRetriever = EmbeddingRetriever(
             document_store=document_store,
             embedding_model=retriever_body.embedding_model.model,
@@ -28,7 +30,7 @@ class RetrieverModel:
         return retriever
 
     def get_dense_passage_retriever(self, document_store: BaseDocumentStore,
-                                    retriever_body: DenseRetrieverBody) -> BaseRetriever:
+                                    retriever_body: DenseRetrieverBody) -> DensePassageRetriever:
         retriever: DensePassageRetriever = DensePassageRetriever(
             document_store=document_store,
             query_embedding_model=retriever_body.embedding_model.query_model,
@@ -37,7 +39,7 @@ class RetrieverModel:
         )
         return retriever
 
-    def get_bm25_retriever(self, document_store: any, retriever_body: SparseRetrieverBody) -> BaseRetriever:
+    def get_bm25_retriever(self, document_store: any, retriever_body: SparseRetrieverBody) -> BM25Retriever:
         retriever: BM25Retriever = BM25Retriever(
             document_store=document_store,
             top_k=retriever_body.top_k
@@ -45,15 +47,17 @@ class RetrieverModel:
         return retriever
 
     def get_tfidf_retriever(self, document_store: BaseDocumentStore,
-                            retriever_body: SparseRetrieverBody) -> BaseRetriever:
+                            retriever_body: SparseRetrieverBody) -> TfidfRetriever:
         retriever: TfidfRetriever = TfidfRetriever(
             document_store=document_store,
             top_k=retriever_body.top_k
         )
         return retriever
 
-    def get_dense_retriever(self, document_store: BaseDocumentStore,
-                            retriever_body: DenseRetrieverBody) -> BaseRetriever:
+    def get_dense_retriever(self,
+                            document_store: BaseDocumentStore,
+                            retriever_body: DenseRetrieverBody
+                            ) -> Union[EmbeddingRetriever, DensePassageRetriever, MultihopEmbeddingRetriever]:
         if retriever_body.source_type == "online":
             retriever = self.get_online_retriever(
                 document_store=document_store,
@@ -73,8 +77,10 @@ class RetrieverModel:
             raise NotImplementedError(f"Dense retriever source type {retriever_body.source_type} is not supported.")
         return retriever
 
-    def get_sparse_retriever(self, document_store: BaseDocumentStore,
-                             retriever_body: SparseRetrieverBody) -> BaseRetriever:
+    def get_sparse_retriever(self,
+                             document_store: BaseDocumentStore,
+                             retriever_body: SparseRetrieverBody
+                             ) -> Union[BM25Retriever, TfidfRetriever]:
         if retriever_body.source_type == "local":
             if retriever_body.model == "tfidf":
                 retriever = self.get_tfidf_retriever(

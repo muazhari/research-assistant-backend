@@ -7,8 +7,11 @@ from app.inners.use_cases.managements.account_management import AccountManagemen
 
 
 class LoginAuthentication:
-    def __init__(self):
-        self.account_management: AccountManagement = AccountManagement()
+    def __init__(
+            self,
+            account_management: AccountManagement
+    ):
+        self.account_management = account_management
 
     async def login_by_email_and_password(self, request: LoginByEmailAndPasswordRequest) -> Content[LoginResponse]:
         found_account_by_email: Content[Account] = await self.account_management.read_one_by_email(request.body.email)

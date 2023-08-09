@@ -1,7 +1,7 @@
 from typing import List, Dict
 
 
-class SearchStatistics:
+class SearchStatistic:
     def get_document_indexes_with_overlapped_scores(self, result_windowed_documents: List) -> Dict[int, Dict]:
         result_document_indexes_with_overlapped_scores: dict = {}
         for windowed_document in result_windowed_documents:

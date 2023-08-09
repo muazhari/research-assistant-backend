@@ -13,14 +13,18 @@ from app.inners.models.value_objects.contracts.requests.managements.document_typ
 from app.inners.models.value_objects.contracts.requests.managements.document_types.read_one_by_id_request import \
     ReadOneByIdRequest
 from app.inners.models.value_objects.contracts.responses.content import Content
+from app.inners.use_cases.utilities.management_utility import ManagementUtility
 from app.outers.repositories.document_type_repository import DocumentTypeRepository
-from app.outers.utilities.management_utility import ManagementUtility
 
 
 class DocumentTypeManagement:
-    def __init__(self):
-        self.management_utility: ManagementUtility = ManagementUtility()
-        self.document_type_repository: DocumentTypeRepository = DocumentTypeRepository()
+    def __init__(
+            self,
+            document_type_repository: DocumentTypeRepository,
+            management_utility: ManagementUtility
+    ):
+        self.document_type_repository: DocumentTypeRepository = document_type_repository
+        self.management_utility: ManagementUtility = management_utility
 
     async def read_all(self, request: ReadAllRequest) -> Content[List[DocumentType]]:
         try:

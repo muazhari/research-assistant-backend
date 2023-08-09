@@ -17,10 +17,15 @@ from app.inners.use_cases.passage_search.passage_search import PassageSearch
 
 
 class LongFormQA:
-    def __init__(self):
-        self.generator_model = GeneratorModel()
-        self.passage_search = PassageSearch()
-        self.document_conversion = LongFormQADocumentConversion()
+    def __init__(
+            self,
+            passage_search: PassageSearch,
+            generator_model: GeneratorModel,
+            long_form_qa_document_conversion: LongFormQADocumentConversion
+    ):
+        self.passage_search: PassageSearch = passage_search
+        self.generator_model: GeneratorModel = generator_model
+        self.long_form_qa_document_conversion: LongFormQADocumentConversion = long_form_qa_document_conversion
 
     def get_pipeline(self, process_body: ProcessBody, documents: List[Document]) -> Pipeline:
         generator: PromptNode = self.generator_model.get_generator(

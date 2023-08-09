@@ -1,8 +1,9 @@
 from pydantic import BaseSettings
 
 
-class RetrieverSettings(BaseSettings):
-    RETRIEVER_OPEN_AI_API_KEY: str
+class OpenAiSetting(BaseSettings):
+    OPEN_AI_API_KEY: str
+    OPEN_AI_URL: str
 
     class Config:
         env_file = ".env"

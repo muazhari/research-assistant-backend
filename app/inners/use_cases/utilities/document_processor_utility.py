@@ -15,9 +15,13 @@ from app.outers.settings.temp_persistence_setting import TempPersistenceSetting
 
 class DocumentProcessorUtility:
 
-    def __init__(self):
-        self.document_conversion_utility = DocumentConversionUtility()
-        self.temp_persistence_setting = TempPersistenceSetting()
+    def __init__(
+            self,
+            document_conversion_utility: DocumentConversionUtility,
+            temp_persistence_setting: TempPersistenceSetting
+    ):
+        self.document_conversion_utility: DocumentConversionUtility = document_conversion_utility
+        self.temp_persistence_setting: TempPersistenceSetting = temp_persistence_setting
 
     def segment(self, corpus: str, granularity: str) -> List[str]:
         granularized_corpus: List[str] = []
@@ -55,13 +59,12 @@ class DocumentProcessorUtility:
             granularized_corpus = self.segment(corpus, granularity)
         elif corpus_source_type in ["file"]:
             page_size = self.document_conversion_utility.get_pdf_page_length(input_file_path=Path(corpus))
-            core_size = psutil.cpu_count(logical=False)
+            core_size = math.floor(psutil.cpu_count(logical=False) / 2)
             chunk_size = math.ceil(page_size / core_size)
-            step = max(chunk_size, 1)
             split_pdf_page_args = []
-            for i in range(1, page_size, step):
-                start_page = i
-                end_page = min(i + step - 1, page_size - 1)
+            for i, j in zip(range(0, page_size, chunk_size), range(chunk_size, page_size + chunk_size, chunk_size)):
+                start_page = i + 1
+                end_page = min(j, page_size)
                 input_file_path = Path(corpus)
                 input_file_path_base = input_file_path.stem
                 output_file_path = self.temp_persistence_setting.TEMP_PERSISTENCE_PATH / Path(
@@ -70,13 +73,16 @@ class DocumentProcessorUtility:
                 split_pdf_page_args.append(split_pdf_page_arg)
 
             with concurrent.futures.ProcessPoolExecutor(max_workers=core_size) as executor:
-                executor.map(self.document_conversion_utility.split_pdf_page, *zip(*split_pdf_page_args))
+                output_file_paths = list(executor.map(
+                    self.document_conversion_utility.split_pdf_page,
+                    *zip(*split_pdf_page_args)
+                ))
                 textract_args = [
                     (str(split_pdf_page_arg[3]), granularity) for split_pdf_page_arg in split_pdf_page_args
                 ]
-                textract_result = executor.map(self.textract, *zip(*textract_args))
+                textract_result = list(executor.map(self.textract, *zip(*textract_args)))
                 granularized_corpus = [item for sublist in textract_result for item in sublist]
-                executor.map(os.remove, [split_pdf_page_arg[3] for split_pdf_page_arg in split_pdf_page_args])
+                executor.map(os.remove, output_file_paths)
         elif corpus_source_type in ["web"]:
             granularized_corpus = self.textract(corpus, granularity)
         else:
