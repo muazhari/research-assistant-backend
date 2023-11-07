@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="research-assistant-backend@localhost">
-  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.48">
+  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.49">
     <root id="1"/>
     <database id="2" parent="1" name="research-assistant-backend">
       <Current>1</Current>
@@ -3569,9 +3569,9 @@
       <ObjectId>16977</ObjectId>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <RefColNames>id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>2734</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>id</RefKeyColNames>
       <RefTableId>16963</RefTableId>
       <RefTableName>document_type</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -3582,9 +3582,9 @@
       <ObjectId>16982</ObjectId>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <RefColNames>id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>2734</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>id</RefKeyColNames>
       <RefTableId>16956</RefTableId>
       <RefTableName>account</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -3639,9 +3639,9 @@
       <ObjectId>16992</ObjectId>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <RefColNames>id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>2736</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>id</RefKeyColNames>
       <RefTableId>16970</RefTableId>
       <RefTableName>document</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -3652,9 +3652,9 @@
       <ObjectId>16997</ObjectId>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <RefColNames>id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>2736</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>id</RefKeyColNames>
       <RefTableId>16970</RefTableId>
       <RefTableName>document</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -3804,9 +3804,9 @@
       <ObjectId>17009</ObjectId>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <RefColNames>id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>2738</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>id</RefKeyColNames>
       <RefTableId>16970</RefTableId>
       <RefTableName>document</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -3854,9 +3854,9 @@
       <ObjectId>17033</ObjectId>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <RefColNames>id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>2742</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>id</RefKeyColNames>
       <RefTableId>16970</RefTableId>
       <RefTableName>document</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -3904,9 +3904,9 @@
       <ObjectId>17021</ObjectId>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <RefColNames>id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>2740</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>id</RefKeyColNames>
       <RefTableId>16970</RefTableId>
       <RefTableName>document</RefTableName>
       <RefTableKind>table</RefTableKind>

@@ -26,5 +26,7 @@ class GeneratorModel:
                 generator_body=process_body.input_setting.generator,
             )
         else:
-            raise ValueError(f"Model format {process_body.input_setting.generator.source_type} is not supported.")
+            raise ValueError(
+                f"Generator source type {process_body.input_setting.generator.source_type} is not supported."
+            )
         return generator
