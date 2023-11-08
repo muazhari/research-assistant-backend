@@ -17,6 +17,8 @@ from app.inners.models.value_objects.contracts.requests.basic_settings.generator
 from app.inners.models.value_objects.contracts.requests.basic_settings.online_generator_model_body import \
     OnlineGeneratorModelBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.ranker_body import RankerBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.sentence_transformers_ranker_body import \
+    SentenceTransformersRankerModelBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.sparse_retriever_body import SparseRetrieverBody
 from app.inners.models.value_objects.contracts.requests.long_form_qas.input_setting_body import InputSettingBody
 from app.inners.models.value_objects.contracts.requests.long_form_qas.process_body import ProcessBody
@@ -96,7 +98,9 @@ async def test__long_form_qa__should_process_it__success():
             ),
             ranker=RankerBody(
                 source_type="sentence_transformers",
-                model="naver/trecdl22-crossencoder-electra",
+                ranker_model=SentenceTransformersRankerModelBody(
+                    model="naver/trecdl22-crossencoder-electra"
+                ),
                 top_k=15,
             ),
             generator=GeneratorBody(

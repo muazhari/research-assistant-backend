@@ -13,6 +13,8 @@ from app.inners.models.value_objects.contracts.requests.basic_settings.dense_emb
     DenseEmbeddingModelBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.dense_retriever_body import DenseRetrieverBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.document_setting_body import DocumentSettingBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.sentence_transformers_ranker_body import \
+    SentenceTransformersRankerModelBody
 from app.inners.models.value_objects.contracts.requests.passage_searchs.input_setting_body import InputSettingBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.output_setting_body import OutputSettingBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.ranker_body import RankerBody
@@ -92,7 +94,9 @@ async def test__passage_search_in_text__should_process_it__success():
             ),
             ranker=RankerBody(
                 source_type="sentence_transformers",
-                model="naver/trecdl22-crossencoder-electra",
+                ranker_model=SentenceTransformersRankerModelBody(
+                    model="naver/trecdl22-crossencoder-electra"
+                ),
                 top_k=15,
             )
         ),
