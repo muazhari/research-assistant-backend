@@ -36,7 +36,7 @@ RUN pip3 install \
 # Install python dependencies.
 RUN pip3 install \
     -r requirements.txt \
-    git+https://github.com/deepset-ai/haystack.git@main#egg=farm-haystack[all] \
+    farm-haystack[all] \
     txtai[all] \
     pydantic[dotenv] \
     aiopg[sa] \

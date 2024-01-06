@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/settings/datastore_two_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/settings/datastore_two_setting.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,9 +41,9 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="ProjectErrors" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2QVqaC0trGGGiifzIdDmVVel6Tf" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -58,7 +58,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "C:/Data/Apps/research-assistant-backend/app/inners/models/value_objects/contracts/requests/basic_settings",
+    "last_opened_file_path": "C:/Data/Apps/research-assistant-backend/app/inners/use_cases/passage_search",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -77,11 +77,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\use_cases\passage_search" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\basic_settings" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\use_cases\utilities" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\outers\containers\use_cases" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\outers\containers" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\responses\managements\documents" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\use_cases\utilities" />
@@ -246,6 +246,17 @@
       <workItem from="1695364740248" duration="15000" />
       <workItem from="1696070772567" duration="379000" />
       <workItem from="1699375630010" duration="8618000" />
+      <workItem from="1699451089611" duration="1472000" />
+      <workItem from="1699460095685" duration="1492000" />
+      <workItem from="1701070854113" duration="1345000" />
+      <workItem from="1701072682608" duration="1118000" />
+      <workItem from="1702198272036" duration="1265000" />
+      <workItem from="1702793173436" duration="2725000" />
+      <workItem from="1702901973304" duration="59000" />
+      <workItem from="1702912734975" duration="1017000" />
+      <workItem from="1704441246352" duration="2774000" />
+      <workItem from="1704456543785" duration="2908000" />
+      <workItem from="1704479298383" duration="3113000" />
     </task>
     <servers />
   </component>
