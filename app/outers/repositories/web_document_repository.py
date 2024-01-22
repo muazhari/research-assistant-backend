@@ -5,23 +5,23 @@ from sqlmodel import select
 from sqlmodel.sql import expression
 
 from app.inners.models.entities.web_document import WebDocument
-from app.outers.persistences.datastore_one_persistence import DatastoreOnePersistence
+from app.outers.datastores.one_datastore import OneDatastore
 
 
 class WebDocumentRepository:
 
-    def __init__(self, datastore_one_persistence: DatastoreOnePersistence):
-        self.datastore_one_persistence: DatastoreOnePersistence = datastore_one_persistence
+    def __init__(self, one_datastore: OneDatastore):
+        self.one_datastore: OneDatastore = one_datastore
 
     async def read_all(self) -> List[WebDocument]:
-        async with await self.datastore_one_persistence.create_session() as session:
+        async with await self.one_datastore.create_session() as session:
             statement: expression = select(WebDocument)
             result = await session.execute(statement)
             found_entities: List[WebDocument] = result.scalars().all()
             return found_entities
 
     async def read_one_by_id(self, id: UUID) -> WebDocument:
-        async with await self.datastore_one_persistence.create_session() as session:
+        async with await self.one_datastore.create_session() as session:
             statement: expression = select(WebDocument).where(WebDocument.id == id)
             result = await session.execute(statement)
             found_entity: WebDocument = result.scalars().one()
@@ -30,7 +30,7 @@ class WebDocumentRepository:
             return found_entity
 
     async def read_one_by_document_id(self, document_id: UUID) -> WebDocument:
-        async with await self.datastore_one_persistence.create_session() as session:
+        async with await self.one_datastore.create_session() as session:
             statement: expression = select(WebDocument).where(WebDocument.document_id == document_id)
             result = await session.execute(statement)
             found_entity: WebDocument = result.scalars().one()
@@ -39,7 +39,7 @@ class WebDocumentRepository:
             return found_entity
 
     async def create_one(self, entity: WebDocument) -> WebDocument:
-        async with await self.datastore_one_persistence.create_session() as session:
+        async with await self.one_datastore.create_session() as session:
             try:
                 session.add(entity)
                 await session.commit()
@@ -49,7 +49,7 @@ class WebDocumentRepository:
         return entity
 
     async def patch_one_by_id(self, id: UUID, entity: WebDocument) -> WebDocument:
-        async with await self.datastore_one_persistence.create_session() as session:
+        async with await self.one_datastore.create_session() as session:
             try:
                 statement: expression = select(WebDocument).where(WebDocument.id == id)
                 result = await session.execute(statement)
@@ -64,7 +64,7 @@ class WebDocumentRepository:
             return found_entity
 
     async def delete_one_by_id(self, id: UUID) -> WebDocument:
-        async with await self.datastore_one_persistence.create_session() as session:
+        async with await self.one_datastore.create_session() as session:
             try:
                 statement: expression = select(WebDocument).where(WebDocument.id == id)
                 result = await session.execute(statement)
@@ -78,7 +78,7 @@ class WebDocumentRepository:
             return found_entity
 
     async def delete_one_by_document_id(self, document_id: UUID) -> WebDocument:
-        async with await self.datastore_one_persistence.create_session() as session:
+        async with await self.one_datastore.create_session() as session:
             try:
                 statement: expression = select(WebDocument).where(WebDocument.document_id == document_id)
                 result = await session.execute(statement)

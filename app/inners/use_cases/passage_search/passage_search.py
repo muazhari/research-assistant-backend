@@ -7,7 +7,7 @@ from typing import List
 from haystack import Pipeline
 from haystack.document_stores import OpenSearchDocumentStore
 from haystack.nodes import BaseRetriever, JoinDocuments, BaseRanker, DenseRetriever
-from haystack.schema import Document as DocumentHaystack
+from haystack.schema import Document as HaystackDocument
 
 from app.inners.models.entities.document import Document
 from app.inners.models.entities.document_type import DocumentType
@@ -15,9 +15,9 @@ from app.inners.models.value_objects.contracts.requests.managements.document_typ
     ReadOneByIdRequest as DocumentTypeReadOneByIdRequest
 from app.inners.models.value_objects.contracts.requests.managements.documents.read_one_by_id_request import \
     ReadOneByIdRequest as DocumentReadOneByIdRequest
-from app.inners.models.value_objects.contracts.requests.passage_searchs.input_setting_body import InputSettingBody
-from app.inners.models.value_objects.contracts.requests.passage_searchs.process_body import ProcessBody
-from app.inners.models.value_objects.contracts.requests.passage_searchs.process_request import ProcessRequest
+from app.inners.models.value_objects.contracts.requests.passage_searches.input_setting_body import InputSettingBody
+from app.inners.models.value_objects.contracts.requests.passage_searches.process_body import ProcessBody
+from app.inners.models.value_objects.contracts.requests.passage_searches.process_request import ProcessRequest
 from app.inners.models.value_objects.contracts.responses.content import Content
 from app.inners.models.value_objects.contracts.responses.long_form_qas.retrieved_document_response import \
     RetrievedDocumentResponse
@@ -29,8 +29,9 @@ from app.inners.use_cases.managements.document_type_management import DocumentTy
 from app.inners.use_cases.passage_search.ranker_model import RankerModel
 from app.inners.use_cases.passage_search.retriever_model import RetrieverModel
 from app.inners.use_cases.utilities.document_processor_utility import DocumentProcessorUtility
-from app.outers.settings.datastore_one_setting import DatastoreOneSetting
-from app.outers.settings.datastore_two_setting import DatastoreTwoSetting
+from app.inners.use_cases.utilities.query_processor_utility import QueryProcessorUtility
+from app.outers.settings.one_datastore_setting import OneDatastoreSetting
+from app.outers.settings.two_datastore_setting import TwoDatastoreSetting
 
 
 class PassageSearch:
@@ -42,20 +43,30 @@ class PassageSearch:
             retriever_model: RetrieverModel,
             ranker_model: RankerModel,
             passage_search_document_conversion: PassageSearchDocumentConversion,
+            query_processor_utility: QueryProcessorUtility,
             document_processor_utility: DocumentProcessorUtility,
-            datastore_one_setting: DatastoreOneSetting,
-            datastore_two_setting: DatastoreTwoSetting
+            one_datastore_setting: OneDatastoreSetting,
+            two_datastore_setting: TwoDatastoreSetting
     ):
         self.document_management: DocumentManagement = document_management
         self.document_type_management: DocumentTypeManagement = document_type_management
         self.retriever_model: RetrieverModel = retriever_model
         self.ranker_model: RankerModel = ranker_model
         self.passage_search_document_conversion: PassageSearchDocumentConversion = passage_search_document_conversion
+        self.query_processor_utility: QueryProcessorUtility = query_processor_utility
         self.document_processor_utility: DocumentProcessorUtility = document_processor_utility
-        self.datastore_one_setting: DatastoreOneSetting = datastore_one_setting
-        self.datastore_two_setting: DatastoreTwoSetting = datastore_two_setting
+        self.one_datastore_setting: OneDatastoreSetting = one_datastore_setting
+        self.two_datastore_setting: TwoDatastoreSetting = two_datastore_setting
 
-    async def get_window_sized_documents(self, process_body: ProcessBody) -> List[Document]:
+    def get_processed_query(self, process_body: ProcessBody) -> str:
+        processed_query: str = self.query_processor_utility.process(
+            query=process_body.input_setting.query,
+            prefix=process_body.input_setting.query_setting.prefix
+        )
+
+        return processed_query
+
+    async def get_processed_documents(self, process_body: ProcessBody) -> List[Document]:
         found_document: Content[Document] = await self.document_management.read_one_by_id(
             request=DocumentReadOneByIdRequest(
                 id=process_body.input_setting.document_setting.document_id
@@ -74,17 +85,32 @@ class PassageSearch:
             document_type=found_document_type.data
         )
 
-        window_sized_documents: List[DocumentHaystack] = self.document_processor_utility.process(
+        processed_documents: List[HaystackDocument] = self.document_processor_utility.process(
             corpus=corpus,
             corpus_source_type=found_document_type.data.name,
             granularity=process_body.input_setting.granularity,
-            window_sizes=process_body.input_setting.window_sizes
+            window_sizes=process_body.input_setting.window_sizes,
+            prefix=process_body.input_setting.document_setting.prefix,
         )
 
         if found_document_type.data.name == "file":
             os.remove(Path(corpus))
 
-        return window_sized_documents
+        return processed_documents
+
+    def deprefix_documents(self, documents: List[HaystackDocument], prefix: str) -> List[HaystackDocument]:
+        deprefixed_documents: List[HaystackDocument] = []
+        for document in documents:
+            deprefixed_document: HaystackDocument = HaystackDocument(
+                id=document.id,
+                content=document.content[len(prefix):],
+                content_type=document.content_type,
+                meta=document.meta,
+                score=document.score
+            )
+            deprefixed_documents.append(deprefixed_document)
+
+        return deprefixed_documents
 
     def get_dense_index_hash(self, input_setting: InputSettingBody) -> str:
         hash_source: dict = {
@@ -95,7 +121,7 @@ class PassageSearch:
         }
         return hashlib.md5(str(hash_source).encode("utf-8")).hexdigest()
 
-    def get_dense_retriever(self, process_body: ProcessBody, documents: List[DocumentHaystack]) -> BaseRetriever:
+    def get_dense_retriever(self, process_body: ProcessBody, documents: List[HaystackDocument]) -> BaseRetriever:
         index_hash: str = self.get_dense_index_hash(
             input_setting=process_body.input_setting
         )
@@ -103,10 +129,10 @@ class PassageSearch:
         index: str = f"dense_{index_hash}"
 
         document_store: OpenSearchDocumentStore = OpenSearchDocumentStore(
-            host=self.datastore_two_setting.DS_2_HOST,
-            port=self.datastore_two_setting.DS_2_PORT_1,
-            username=self.datastore_two_setting.DS_2_USERNAME,
-            password=self.datastore_two_setting.DS_2_PASSWORD,
+            host=self.two_datastore_setting.DS_2_HOST,
+            port=self.two_datastore_setting.DS_2_PORT_1,
+            username=self.two_datastore_setting.DS_2_USERNAME,
+            password=self.two_datastore_setting.DS_2_PASSWORD,
             index=index,
             embedding_dim=process_body.input_setting.dense_retriever.embedding_model.dimension,
             similarity=process_body.input_setting.dense_retriever.similarity_function,
@@ -141,10 +167,10 @@ class PassageSearch:
         index: str = f"sparse_{index_hash}"
 
         document_store: OpenSearchDocumentStore = OpenSearchDocumentStore(
-            host=self.datastore_two_setting.DS_2_HOST,
-            username=self.datastore_two_setting.DS_2_USERNAME,
-            password=self.datastore_two_setting.DS_2_PASSWORD,
-            port=self.datastore_two_setting.DS_2_PORT_1,
+            host=self.two_datastore_setting.DS_2_HOST,
+            username=self.two_datastore_setting.DS_2_USERNAME,
+            password=self.two_datastore_setting.DS_2_PASSWORD,
+            port=self.two_datastore_setting.DS_2_PORT_1,
             index=index,
             similarity=process_body.input_setting.sparse_retriever.similarity_function,
         )
@@ -209,17 +235,21 @@ class PassageSearch:
         try:
             time_start: datetime = datetime.now()
 
-            window_sized_documents: List[DocumentHaystack] = await self.get_window_sized_documents(
+            processed_query: str = self.get_processed_query(
+                process_body=process_request.body
+            )
+
+            processed_documents: List[HaystackDocument] = await self.get_processed_documents(
                 process_body=process_request.body
             )
 
             pipeline: Pipeline = self.get_pipeline(
                 process_body=process_request.body,
-                documents=window_sized_documents
+                documents=processed_documents
             )
 
             retrieval_result: dict = pipeline.run(
-                query=process_request.body.input_setting.query,
+                query=processed_query,
                 debug=True
             )
 
@@ -232,6 +262,11 @@ class PassageSearch:
                 process_duration=time_delta.total_seconds()
             )
 
+            deprefixed_documents: List[HaystackDocument] = self.deprefix_documents(
+                documents=retrieval_result["_debug"]["Ranker"]["output"]["documents"],
+                prefix=process_request.body.input_setting.document_setting.prefix
+            )
+
             retrieved_documents: List[RetrievedDocumentResponse] = [
                 RetrievedDocumentResponse(
                     id=document.id,
@@ -240,8 +275,7 @@ class PassageSearch:
                     meta=document.meta,
                     score=document.score
                 )
-                for document in
-                retrieval_result["_debug"]["Ranker"]["output"]["documents"]
+                for document in deprefixed_documents
             ]
 
             content: Content[ProcessResponse] = Content(
@@ -257,7 +291,5 @@ class PassageSearch:
                 message=f"Passage search failed: {exception}",
                 data=None,
             )
-
-            raise Exception
 
         return content

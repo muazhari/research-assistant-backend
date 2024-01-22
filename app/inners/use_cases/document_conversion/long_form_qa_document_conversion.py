@@ -8,7 +8,7 @@ from app.inners.use_cases.managements.web_document_management import WebDocument
 from app.inners.use_cases.utilities.document_conversion_utility import DocumentConversionUtility
 from app.inners.use_cases.utilities.document_processor_utility import DocumentProcessorUtility
 from app.inners.use_cases.utilities.search_statistic import SearchStatistic
-from app.outers.settings.temp_persistence_setting import TempPersistenceSetting
+from app.outers.settings.temp_datastore_setting import TempDatastoreSetting
 
 
 class LongFormQADocumentConversion(BaseDocumentConversion):
@@ -20,7 +20,7 @@ class LongFormQADocumentConversion(BaseDocumentConversion):
             file_document_management: FileDocumentManagement,
             text_document_management: TextDocumentManagement,
             web_document_management: WebDocumentManagement,
-            temp_persistence_setting: TempPersistenceSetting,
+            temp_datastore_setting: TempDatastoreSetting,
             document_conversion_utility: DocumentConversionUtility,
             search_statistics: SearchStatistic,
             document_processor_utility: DocumentProcessorUtility,
@@ -32,7 +32,7 @@ class LongFormQADocumentConversion(BaseDocumentConversion):
             file_document_management,
             text_document_management,
             web_document_management,
-            temp_persistence_setting,
+            temp_datastore_setting,
             document_conversion_utility
         )
         self.search_statistics = search_statistics

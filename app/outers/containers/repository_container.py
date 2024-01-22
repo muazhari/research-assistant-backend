@@ -1,7 +1,7 @@
 from dependency_injector import providers
 from dependency_injector.containers import DeclarativeContainer
 
-from app.outers.containers.persistence_container import PersistenceContainer
+from app.outers.containers.datastore_container import DatastoreContainer
 from app.outers.containers.setting_container import SettingContainer
 from app.outers.repositories.account_repository import AccountRepository
 from app.outers.repositories.document_process_repository import DocumentProcessRepository
@@ -14,33 +14,33 @@ from app.outers.repositories.web_document_repository import WebDocumentRepositor
 
 class RepositoryContainer(DeclarativeContainer):
     settings: SettingContainer = providers.DependenciesContainer()
-    persistences: PersistenceContainer = providers.DependenciesContainer()
+    datastores: DatastoreContainer = providers.DependenciesContainer()
 
     account: AccountRepository = providers.Singleton(
         AccountRepository,
-        datastore_one_persistence=persistences.datastore_one
+        one_datastore=datastores.one_datastore
     )
     document_process: DocumentProcessRepository = providers.Singleton(
         DocumentProcessRepository,
-        datastore_one_persistence=persistences.datastore_one
+        one_datastore=datastores.one_datastore
     )
     document: DocumentRepository = providers.Singleton(
         DocumentRepository,
-        datastore_one_persistence=persistences.datastore_one
+        one_datastore=datastores.one_datastore
     )
     document_type: DocumentTypeRepository = providers.Singleton(
         DocumentTypeRepository,
-        datastore_one_persistence=persistences.datastore_one
+        one_datastore=datastores.one_datastore
     )
     file_document: FileDocumentRepository = providers.Singleton(
         FileDocumentRepository,
-        datastore_one_persistence=persistences.datastore_one
+        one_datastore=datastores.one_datastore
     )
     text_document: TextDocumentRepository = providers.Singleton(
         TextDocumentRepository,
-        datastore_one_persistence=persistences.datastore_one
+        one_datastore=datastores.one_datastore
     )
     web_document: WebDocumentRepository = providers.Singleton(
         WebDocumentRepository,
-        datastore_one_persistence=persistences.datastore_one
+        one_datastore=datastores.one_datastore
     )

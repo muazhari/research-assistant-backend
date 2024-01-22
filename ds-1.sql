@@ -154,6 +154,8 @@ select *
 from account;
 
 
-select encode(fd.file_bytes, 'escape'), * from file_document fd;
+select encode(fd.file_bytes, 'escape'), *
+from file_document fd;
 
-select * from file_document fd;
+select *
+from file_document fd;

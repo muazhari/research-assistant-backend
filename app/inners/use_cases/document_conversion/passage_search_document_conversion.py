@@ -16,7 +16,7 @@ from app.inners.models.value_objects.contracts.requests.managements.file_documen
     CreateBody as FileDocumentCreateBody
 from app.inners.models.value_objects.contracts.requests.managements.file_documents.create_one_request import \
     CreateOneRequest as FileDocumentCreateOneRequest
-from app.inners.models.value_objects.contracts.requests.passage_searchs.process_body import ProcessBody
+from app.inners.models.value_objects.contracts.requests.passage_searches.process_body import ProcessBody
 from app.inners.models.value_objects.contracts.responses.content import Content
 from app.inners.models.value_objects.contracts.responses.managements.documents.document_response import DocumentResponse
 from app.inners.use_cases.document_conversion.base_document_conversion import BaseDocumentConversion
@@ -30,7 +30,7 @@ from app.inners.use_cases.utilities.annotater import Annotater
 from app.inners.use_cases.utilities.document_conversion_utility import DocumentConversionUtility
 from app.inners.use_cases.utilities.document_processor_utility import DocumentProcessorUtility
 from app.inners.use_cases.utilities.search_statistic import SearchStatistic
-from app.outers.settings.temp_persistence_setting import TempPersistenceSetting
+from app.outers.settings.temp_datastore_setting import TempDatastoreSetting
 
 
 class PassageSearchDocumentConversion(BaseDocumentConversion):
@@ -42,7 +42,7 @@ class PassageSearchDocumentConversion(BaseDocumentConversion):
             file_document_management: FileDocumentManagement,
             text_document_management: TextDocumentManagement,
             web_document_management: WebDocumentManagement,
-            temp_persistence_setting: TempPersistenceSetting,
+            temp_datastore_setting: TempDatastoreSetting,
             document_conversion_utility: DocumentConversionUtility,
             document_process_management: DocumentProcessManagement,
             search_statistics: SearchStatistic,
@@ -55,7 +55,7 @@ class PassageSearchDocumentConversion(BaseDocumentConversion):
             file_document_management,
             text_document_management,
             web_document_management,
-            temp_persistence_setting,
+            temp_datastore_setting,
             document_conversion_utility
         )
         self.document_process_management = document_process_management

@@ -13,13 +13,14 @@ from app.inners.models.value_objects.contracts.requests.basic_settings.dense_emb
     DenseEmbeddingModelBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.dense_retriever_body import DenseRetrieverBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.document_setting_body import DocumentSettingBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.output_setting_body import OutputSettingBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.query_setting_body import QuerySettingBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.ranker_body import RankerBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.sentence_transformers_ranker_body import \
     SentenceTransformersRankerModelBody
-from app.inners.models.value_objects.contracts.requests.passage_searchs.input_setting_body import InputSettingBody
-from app.inners.models.value_objects.contracts.requests.basic_settings.output_setting_body import OutputSettingBody
-from app.inners.models.value_objects.contracts.requests.basic_settings.ranker_body import RankerBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.sparse_retriever_body import SparseRetrieverBody
-from app.inners.models.value_objects.contracts.requests.passage_searchs.process_body import ProcessBody
+from app.inners.models.value_objects.contracts.requests.passage_searches.input_setting_body import InputSettingBody
+from app.inners.models.value_objects.contracts.requests.passage_searches.process_body import ProcessBody
 from app.inners.models.value_objects.contracts.responses.content import Content
 from app.inners.models.value_objects.contracts.responses.passage_searchs.process_response import ProcessResponse
 from test.app.outers.interfaces.deliveries.controllers.account_controller_test import account_repository
@@ -70,12 +71,16 @@ async def test__passage_search_in_text__should_process_it__success():
     body: ProcessBody = ProcessBody(
         account_id=passage_search_mock_data.account_data[0].id,
         input_setting=InputSettingBody(
-            document_setting=DocumentSettingBody(
-                document_id=passage_search_mock_data.document_data[1].id,
-            ),
             query="definition of software engineering",
             granularity="sentence",
             window_sizes=[1, 2, 3],
+            query_setting=QuerySettingBody(
+                prefix="query: ",
+            ),
+            document_setting=DocumentSettingBody(
+                document_id=passage_search_mock_data.document_data[1].id,
+                prefix="passage: ",
+            ),
             dense_retriever=DenseRetrieverBody(
                 source_type="dense_passage",
                 similarity_function="dot_product",

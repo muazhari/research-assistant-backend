@@ -13,3 +13,4 @@ from app.inners.models.value_objects.contracts.requests.basic_settings.web_docum
 class DocumentSettingBody(BaseRequest):
     document_id: UUID
     detail_setting: Optional[Union[FileDocumentSettingBody, TextDocumentSettingBody, WebDocumentSettingBody]]
+    prefix: str

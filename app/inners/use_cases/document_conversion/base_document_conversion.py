@@ -24,7 +24,7 @@ from app.inners.use_cases.managements.file_document_management import FileDocume
 from app.inners.use_cases.managements.text_document_management import TextDocumentManagement
 from app.inners.use_cases.managements.web_document_management import WebDocumentManagement
 from app.inners.use_cases.utilities.document_conversion_utility import DocumentConversionUtility
-from app.outers.settings.temp_persistence_setting import TempPersistenceSetting
+from app.outers.settings.temp_datastore_setting import TempDatastoreSetting
 
 
 class BaseDocumentConversion:
@@ -35,14 +35,14 @@ class BaseDocumentConversion:
                  file_document_management: FileDocumentManagement,
                  text_document_management: TextDocumentManagement,
                  web_document_management: WebDocumentManagement,
-                 temp_persistence_setting: TempPersistenceSetting,
+                 temp_datastore_setting: TempDatastoreSetting,
                  document_conversion_utility: DocumentConversionUtility):
         self.document_management: DocumentManagement = document_management
         self.document_type_management: DocumentTypeManagement = document_type_management
         self.file_document_management: FileDocumentManagement = file_document_management
         self.text_document_management: TextDocumentManagement = text_document_management
         self.web_document_management: WebDocumentManagement = web_document_management
-        self.temp_persistence_setting: TempPersistenceSetting = temp_persistence_setting
+        self.temp_datastore_setting: TempDatastoreSetting = temp_datastore_setting
         self.document_conversion_utility: DocumentConversionUtility = document_conversion_utility
 
     async def convert_document_to_corpus(self, document_setting_body: DocumentSettingBody, document: Document,
@@ -57,7 +57,7 @@ class BaseDocumentConversion:
 
             if file_extension == ".pdf":
                 new_file_name: str = f"{document.id}{file_extension}"
-                file_path: Path = self.temp_persistence_setting.TEMP_PERSISTENCE_PATH / Path(new_file_name)
+                file_path: Path = self.temp_datastore_setting.TEMP_DATASTORE_PATH / Path(new_file_name)
                 file_bytes: bytes = base64.b64decode(found_detail_document.data.file_bytes)
                 with open(file_path, "wb") as file:
                     file.write(file_bytes)
@@ -65,7 +65,7 @@ class BaseDocumentConversion:
                 split_file_name: str = f"split_{document_setting_body.detail_setting.start_page}_to_{document_setting_body.detail_setting.end_page}_{new_file_name}"
                 split_file_path: Path = self.document_conversion_utility.split_pdf_page(
                     input_file_path=file_path,
-                    output_file_path=self.temp_persistence_setting.TEMP_PERSISTENCE_PATH / Path(f"{split_file_name}"),
+                    output_file_path=self.temp_datastore_setting.TEMP_DATASTORE_PATH / Path(f"{split_file_name}"),
                     start_page=document_setting_body.detail_setting.start_page,
                     end_page=document_setting_body.detail_setting.end_page,
                 )

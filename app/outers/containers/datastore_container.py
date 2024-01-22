@@ -2,13 +2,13 @@ from dependency_injector import providers
 from dependency_injector.containers import DeclarativeContainer
 
 from app.outers.containers.setting_container import SettingContainer
-from app.outers.interfaces.gateways.clients.openai_client import OpenAiClient
+from app.outers.datastores.one_datastore import OneDatastore
 
 
-class GatewayContainer(DeclarativeContainer):
+class DatastoreContainer(DeclarativeContainer):
     settings: SettingContainer = providers.DependenciesContainer()
 
-    openai_client: OpenAiClient = providers.Singleton(
-        OpenAiClient,
-        openai_setting=settings.open_ai_setting
+    one_datastore: OneDatastore = providers.Singleton(
+        OneDatastore,
+        one_datastore_setting=settings.one_datastore_setting
     )

@@ -44,7 +44,7 @@ class ManagementContainer(DeclarativeContainer):
         file_document_repository=repositories.file_document,
         management_utility=utilities.management,
         document_conversion_utility=utilities.document_conversion,
-        temp_persistence_setting=settings.temp_persistence
+        temp_datastore_setting=settings.temp_datastore_setting
     )
     text_document: TextDocumentManagement = providers.Singleton(
         TextDocumentManagement,

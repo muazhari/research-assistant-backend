@@ -3,17 +3,17 @@ from sqlalchemy.orm import sessionmaker, Session
 from sqlmodel import create_engine
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from app.outers.settings.datastore_one_setting import DatastoreOneSetting
+from app.outers.settings.one_datastore_setting import OneDatastoreSetting
 
 
-class DatastoreOnePersistence:
+class OneDatastore:
     def __init__(
             self,
-            datastore_one_setting: DatastoreOneSetting
+            one_datastore_setting: OneDatastoreSetting
     ):
-        self.datastore_one_setting: DatastoreOneSetting = datastore_one_setting
+        self.one_datastore_setting: OneDatastoreSetting = one_datastore_setting
         self.engine: AsyncEngine = AsyncEngine(create_engine(
-            url=self.datastore_one_setting.URL,
+            url=self.one_datastore_setting.URL,
             echo=True,
             future=True
         ))

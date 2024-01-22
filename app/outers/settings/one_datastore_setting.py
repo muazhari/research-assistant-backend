@@ -3,7 +3,7 @@ from typing import Optional
 from pydantic import BaseSettings
 
 
-class DatastoreOneSetting(BaseSettings):
+class OneDatastoreSetting(BaseSettings):
     DS_1_DIALECT: str
     DS_1_HOST: str
     DS_1_PORT: int

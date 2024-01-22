@@ -16,6 +16,7 @@ from app.inners.models.value_objects.contracts.requests.basic_settings.document_
 from app.inners.models.value_objects.contracts.requests.basic_settings.generator_body import GeneratorBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.online_generator_model_body import \
     OnlineGeneratorModelBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.query_setting_body import QuerySettingBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.ranker_body import RankerBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.sentence_transformers_ranker_body import \
     SentenceTransformersRankerModelBody
@@ -74,12 +75,16 @@ async def test__long_form_qa__should_process_it__success():
     body: ProcessBody = ProcessBody(
         account_id=long_form_qa_mock_data.passage_search_mock_data.account_data[0].id,
         input_setting=InputSettingBody(
-            document_setting=DocumentSettingBody(
-                document_id=long_form_qa_mock_data.passage_search_mock_data.document_data[1].id,
-            ),
             query="definition of software engineering",
             granularity="sentence",
             window_sizes=[1, 2, 3],
+            query_setting=QuerySettingBody(
+                prefix="query: ",
+            ),
+            document_setting=DocumentSettingBody(
+                document_id=long_form_qa_mock_data.passage_search_mock_data.document_data[1].id,
+                prefix="passage: ",
+            ),
             dense_retriever=DenseRetrieverBody(
                 source_type="dense_passage",
                 similarity_function="dot_product",

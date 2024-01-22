@@ -7,16 +7,16 @@ from typing import List
 
 from txtmarker.factory import Factory
 
-from app.outers.settings.temp_persistence_setting import TempPersistenceSetting
+from app.outers.settings.temp_datastore_setting import TempDatastoreSetting
 
 
 class Annotater:
 
     def __init__(
             self,
-            temp_persistence_setting: TempPersistenceSetting
+            temp_datastore_setting: TempDatastoreSetting
     ):
-        self.temp_persistence_setting: TempPersistenceSetting = temp_persistence_setting
+        self.temp_datastore_setting: TempDatastoreSetting = temp_datastore_setting
 
     def annotate(
             self,
@@ -26,11 +26,11 @@ class Annotater:
     ) -> bytes:
         input_file_name: str = f"annotater_input_{hashlib.md5(input_file_bytes).hexdigest()}"
         input_file_extension: str = ".pdf"
-        input_file_path: Path = self.temp_persistence_setting.TEMP_PERSISTENCE_PATH / Path(
+        input_file_path: Path = self.temp_datastore_setting.TEMP_DATASTORE_PATH / Path(
             f"{input_file_name}{input_file_extension}")
         output_file_name: str = f"annotater_output_{hashlib.md5(input_file_bytes).hexdigest()}"
         output_file_extension: str = ".pdf"
-        output_file_path: Path = self.temp_persistence_setting.TEMP_PERSISTENCE_PATH / Path(
+        output_file_path: Path = self.temp_datastore_setting.TEMP_DATASTORE_PATH / Path(
             f"/{output_file_name}{output_file_extension}")
 
         with open(input_file_path, "wb") as file:

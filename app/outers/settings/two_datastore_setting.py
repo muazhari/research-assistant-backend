@@ -1,7 +1,7 @@
 from pydantic import BaseSettings
 
 
-class DatastoreTwoSetting(BaseSettings):
+class TwoDatastoreSetting(BaseSettings):
     DS_2_HOST: str
     DS_2_USERNAME: str
     DS_2_PASSWORD: str

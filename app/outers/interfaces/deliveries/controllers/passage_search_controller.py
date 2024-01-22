@@ -2,8 +2,8 @@ from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Depends
 from fastapi_utils.cbv import cbv
 
-from app.inners.models.value_objects.contracts.requests.passage_searchs.process_body import ProcessBody
-from app.inners.models.value_objects.contracts.requests.passage_searchs.process_request import ProcessRequest
+from app.inners.models.value_objects.contracts.requests.passage_searches.process_body import ProcessBody
+from app.inners.models.value_objects.contracts.requests.passage_searches.process_request import ProcessRequest
 from app.inners.models.value_objects.contracts.responses.content import Content
 from app.inners.models.value_objects.contracts.responses.passage_searchs.process_response import ProcessResponse
 from app.inners.use_cases.passage_search.passage_search import PassageSearch

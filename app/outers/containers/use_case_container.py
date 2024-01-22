@@ -16,8 +16,7 @@ class UseCaseContainer(DeclarativeContainer):
 
     utilities = providers.Container(
         UtilityContainer,
-        settings=settings,
-        repositories=repositories
+        settings=settings
     )
     managements = providers.Container(
         ManagementContainer,

@@ -5,23 +5,23 @@ from sqlmodel import select
 from sqlmodel.sql import expression
 
 from app.inners.models.entities.account import Account
-from app.outers.persistences.datastore_one_persistence import DatastoreOnePersistence
+from app.outers.datastores.one_datastore import OneDatastore
 
 
 class AccountRepository:
 
-    def __init__(self, datastore_one_persistence: DatastoreOnePersistence):
-        self.datastore_one_persistence: DatastoreOnePersistence = datastore_one_persistence
+    def __init__(self, one_datastore: OneDatastore):
+        self.one_datastore: OneDatastore = one_datastore
 
     async def read_all(self) -> List[Account]:
-        async with await self.datastore_one_persistence.create_session() as session:
+        async with await self.one_datastore.create_session() as session:
             statement: expression = select(Account)
             result = await session.execute(statement)
             found_entities: List[Account] = result.scalars().all()
             return found_entities
 
     async def read_one_by_id(self, id: UUID) -> Account:
-        async with await self.datastore_one_persistence.create_session() as session:
+        async with await self.one_datastore.create_session() as session:
             statement: expression = select(Account).where(Account.id == id)
             result = await session.execute(statement)
             found_entity: Account = result.scalars().one()
@@ -30,7 +30,7 @@ class AccountRepository:
             return found_entity
 
     async def read_one_by_email_and_password(self, email: str, password: str) -> Account:
-        async with await self.datastore_one_persistence.create_session() as session:
+        async with await self.one_datastore.create_session() as session:
             statement: expression = select(Account).where(Account.email == email).where(
                 Account.password == password)
             result = await session.execute(statement)
@@ -40,7 +40,7 @@ class AccountRepository:
             return found_entity
 
     async def read_one_by_email(self, email: str) -> Account:
-        async with await self.datastore_one_persistence.create_session() as session:
+        async with await self.one_datastore.create_session() as session:
             statement: expression = select(Account).where(Account.email == email)
             result = await session.execute(statement)
             found_entity: Account = result.scalars().one()
@@ -49,7 +49,7 @@ class AccountRepository:
             return found_entity
 
     async def create_one(self, entity: Account) -> Account:
-        async with await self.datastore_one_persistence.create_session() as session:
+        async with await self.one_datastore.create_session() as session:
             try:
                 session.add(entity)
                 await session.commit()
@@ -59,7 +59,7 @@ class AccountRepository:
         return entity
 
     async def patch_one_by_id(self, id: UUID, entity: Account) -> Account:
-        async with await self.datastore_one_persistence.create_session() as session:
+        async with await self.one_datastore.create_session() as session:
             try:
                 statement: expression = select(Account).where(Account.id == id)
                 result = await session.execute(statement)
@@ -74,7 +74,7 @@ class AccountRepository:
             return found_entity
 
     async def delete_one_by_id(self, id: UUID) -> Account:
-        async with await self.datastore_one_persistence.create_session() as session:
+        async with await self.one_datastore.create_session() as session:
             try:
                 statement: expression = select(Account).where(Account.id == id)
                 result = await session.execute(statement)

@@ -29,7 +29,8 @@ class PassageSearchContainer(DeclarativeContainer):
         retriever_model=retriever_model,
         ranker_model=ranker_model,
         passage_search_document_conversion=document_conversions.passage_search_document_conversion,
+        query_processor_utility=utilities.query_processor,
         document_processor_utility=utilities.document_processor,
-        datastore_one_setting=settings.datastore_one,
-        datastore_two_setting=settings.datastore_two
+        one_datastore_setting=settings.one_datastore_setting,
+        two_datastore_setting=settings.two_datastore_setting
     )

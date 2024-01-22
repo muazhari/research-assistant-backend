@@ -3,7 +3,7 @@ from dependency_injector.containers import DeclarativeContainer
 
 from app.inners.use_cases.long_form_qa.generator_model import GeneratorModel
 from app.inners.use_cases.long_form_qa.longform_qa import LongFormQA
-from app.outers.containers.persistence_container import PersistenceContainer
+from app.outers.containers.datastore_container import DatastoreContainer
 from app.outers.containers.setting_container import SettingContainer
 from app.outers.containers.use_cases.document_conversion_container import DocumentConversionContainer
 from app.outers.containers.use_cases.management_container import ManagementContainer
@@ -14,7 +14,7 @@ from app.outers.containers.use_cases.utility_container import UtilityContainer
 class LongFormQAContainer(DeclarativeContainer):
     settings: SettingContainer = providers.DependenciesContainer()
     utilities: UtilityContainer = providers.DependenciesContainer()
-    persistences: PersistenceContainer = providers.DependenciesContainer()
+    datastores: DatastoreContainer = providers.DependenciesContainer()
     managements: ManagementContainer = providers.DependenciesContainer()
     document_conversions: DocumentConversionContainer = providers.DependenciesContainer()
     passage_searches: PassageSearchContainer = providers.DependenciesContainer()

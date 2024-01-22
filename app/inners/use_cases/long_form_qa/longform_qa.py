@@ -3,7 +3,7 @@ from typing import List
 
 from haystack import Pipeline
 from haystack.nodes import PromptNode
-from haystack.schema import Document
+from haystack.schema import Document as HaystackDocument
 
 from app.inners.models.value_objects.contracts.requests.long_form_qas.process_body import ProcessBody
 from app.inners.models.value_objects.contracts.requests.long_form_qas.process_request import ProcessRequest
@@ -27,7 +27,7 @@ class LongFormQA:
         self.generator_model: GeneratorModel = generator_model
         self.long_form_qa_document_conversion: LongFormQADocumentConversion = long_form_qa_document_conversion
 
-    def get_pipeline(self, process_body: ProcessBody, documents: List[Document]) -> Pipeline:
+    def get_pipeline(self, process_body: ProcessBody, documents: List[HaystackDocument]) -> Pipeline:
         generator: PromptNode = self.generator_model.get_generator(
             process_body=process_body
         )
@@ -49,22 +49,31 @@ class LongFormQA:
         try:
             time_start: datetime = datetime.now()
 
-            window_sized_documents: List[Document] = await self.passage_search.get_window_sized_documents(
+            processed_query: str = self.passage_search.get_processed_query(
+                process_body=process_request.body
+            )
+
+            processed_documents: List[HaystackDocument] = await self.passage_search.get_processed_documents(
                 process_body=process_request.body
             )
 
             pipeline: Pipeline = self.get_pipeline(
                 process_body=process_request.body,
-                documents=window_sized_documents
+                documents=processed_documents
             )
 
             generative_result: dict = pipeline.run(
-                query=process_request.body.input_setting.query,
+                query=processed_query,
                 debug=True
             )
 
             time_finish: datetime = datetime.now()
             time_delta: timedelta = time_finish - time_start
+
+            deprefixed_documents: List[HaystackDocument] = self.passage_search.deprefix_documents(
+                documents=generative_result["_debug"]["Ranker"]["output"]["documents"],
+                prefix=process_request.body.input_setting.document_setting.prefix
+            )
 
             retrieved_documents: List[RetrievedDocumentResponse] = [
                 RetrievedDocumentResponse(
@@ -74,9 +83,9 @@ class LongFormQA:
                     meta=document.meta,
                     score=document.score
                 )
-                for document in
-                generative_result["_debug"]["Ranker"]["output"]["documents"]
+                for document in deprefixed_documents
             ]
+
             content: Content[ProcessResponse] = Content(
                 message="Long form QA succeed.",
                 data=ProcessResponse(

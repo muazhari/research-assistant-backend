@@ -26,7 +26,7 @@ from app.inners.use_cases.utilities.document_conversion_utility import DocumentC
 from app.inners.use_cases.utilities.management_utility import ManagementUtility
 from app.outers.repositories.document_repository import DocumentRepository
 from app.outers.repositories.file_document_repository import FileDocumentRepository
-from app.outers.settings.temp_persistence_setting import TempPersistenceSetting
+from app.outers.settings.temp_datastore_setting import TempDatastoreSetting
 
 
 class FileDocumentManagement:
@@ -36,13 +36,13 @@ class FileDocumentManagement:
             file_document_repository: FileDocumentRepository,
             management_utility: ManagementUtility,
             document_conversion_utility: DocumentConversionUtility,
-            temp_persistence_setting: TempPersistenceSetting
+            temp_datastore_setting: TempDatastoreSetting
     ):
         self.document_repository: DocumentRepository = document_repository
         self.file_document_repository: FileDocumentRepository = file_document_repository
         self.management_utility: ManagementUtility = management_utility
         self.document_conversion_utility: DocumentConversionUtility = document_conversion_utility
-        self.temp_persistence_setting: TempPersistenceSetting = temp_persistence_setting
+        self.temp_datastore_setting: TempDatastoreSetting = temp_datastore_setting
 
     async def read_all(self, request: ReadAllRequest) -> Content[List[FileDocumentResponse]]:
         try:
@@ -124,7 +124,7 @@ class FileDocumentManagement:
             if found_file_document.file_extension == ".pdf":
                 file_path: Path = self.document_conversion_utility.file_bytes_to_pdf(
                     file_bytes=base64.b64decode(found_file_document.file_bytes),
-                    output_file_path=self.temp_persistence_setting.TEMP_PERSISTENCE_PATH / Path(
+                    output_file_path=self.temp_datastore_setting.TEMP_DATASTORE_PATH / Path(
                         f"{found_file_document.file_name}{found_file_document.file_extension}"
                     )
                 )

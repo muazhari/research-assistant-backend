@@ -6,11 +6,11 @@ from typing import List, Tuple
 
 import more_itertools
 import psutil
-from haystack import Document
+from haystack import Document as HaystackDocument
 from txtai.pipeline import Segmentation, Textractor
 
 from app.inners.use_cases.utilities.document_conversion_utility import DocumentConversionUtility
-from app.outers.settings.temp_persistence_setting import TempPersistenceSetting
+from app.outers.settings.temp_datastore_setting import TempDatastoreSetting
 
 
 class DocumentProcessorUtility:
@@ -18,10 +18,10 @@ class DocumentProcessorUtility:
     def __init__(
             self,
             document_conversion_utility: DocumentConversionUtility,
-            temp_persistence_setting: TempPersistenceSetting
+            temp_datastore_setting: TempDatastoreSetting
     ):
         self.document_conversion_utility: DocumentConversionUtility = document_conversion_utility
-        self.temp_persistence_setting: TempPersistenceSetting = temp_persistence_setting
+        self.temp_datastore_setting: TempDatastoreSetting = temp_datastore_setting
 
     def segment(self, corpus: str, granularity: str) -> List[str]:
         granularized_corpus: List[str] = []
@@ -67,7 +67,7 @@ class DocumentProcessorUtility:
                 end_page = min(j, page_size)
                 input_file_path = Path(corpus)
                 input_file_path_base = input_file_path.stem
-                output_file_path = self.temp_persistence_setting.TEMP_PERSISTENCE_PATH / Path(
+                output_file_path = self.temp_datastore_setting.TEMP_DATASTORE_PATH / Path(
                     f"{input_file_path_base}_chunk_{start_page}_to_{end_page}.pdf")
                 split_pdf_page_arg = (start_page, end_page, input_file_path, output_file_path)
                 split_pdf_page_args.append(split_pdf_page_arg)
@@ -105,18 +105,32 @@ class DocumentProcessorUtility:
             NotImplementedError(f"Granularity {granularity_source} is not supported.")
         return degranularized_corpus
 
+    def prefixer(self, documents: List[HaystackDocument], prefix: str) -> List[HaystackDocument]:
+        for document in documents:
+            document.content = prefix + document.content
+
+        return documents
+
+    def deprefixer(self, documents: List[HaystackDocument], prefix: str) -> List[HaystackDocument]:
+        for document in documents:
+            document.content = document.content[len(prefix):]
+
+        return documents
+
     def process(self, corpus: str, corpus_source_type: str, granularity: str,
-                window_sizes: List[int]) -> List[Document]:
+                window_sizes: List[int], prefix: str) -> List[HaystackDocument]:
         granularized_corpus: List[str] = self.granularize(corpus, corpus_source_type, granularity)
 
-        processed_documents_with_many_window = []
+        documents_with_many_window_size = []
         for window_size in window_sizes:
             windowed_corpus: List[Tuple[str, ...]] = self.windowize(granularized_corpus, window_size)
             for index_window, content_window in enumerate(windowed_corpus):
-                document: Document = Document(
+                document: HaystackDocument = HaystackDocument(
                     content=self.degranularize(content_window, granularity),
                     meta={"index_window": index_window, "window_size": window_size}
                 )
-                processed_documents_with_many_window.append(document)
+                documents_with_many_window_size.append(document)
 
-        return processed_documents_with_many_window
+        prefixed_documents: List[HaystackDocument] = self.prefixer(documents_with_many_window_size, prefix)
+
+        return prefixed_documents
