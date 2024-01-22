@@ -5,54 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/basic_settings/query_setting_body.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/outers/datastores/local_db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/basic_settings/document_setting_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/basic_settings/document_setting_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/long_form_qas/input_setting_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/long_form_qas/input_setting_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/passage_searchs/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/passage_searches/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/passage_searchs/input_setting_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/passage_searches/input_setting_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/passage_searchs/process_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/passage_searches/process_body.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/passage_searchs/process_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/value_objects/contracts/requests/passage_searches/process_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/base_document_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/base_document_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/long_form_qa_document_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/long_form_qa_document_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/passage_search_document_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/passage_search_document_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/managements/file_document_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/file_document_management.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/utilities/annotater.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/utilities/annotater.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_processor_utility.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_processor_utility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/containers/application_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/application_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/containers/gateway_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/gateway_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/containers/persistence_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/datastore_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/containers/repository_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/repository_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/containers/setting_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/setting_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/containers/use_case_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/use_case_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/containers/use_cases/document_conversion_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/use_cases/document_conversion_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/containers/use_cases/longform_qa_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/use_cases/longform_qa_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/containers/use_cases/management_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/use_cases/management_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/containers/use_cases/passage_search_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/use_cases/passage_search_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/containers/use_cases/utility_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/use_cases/utility_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/passage_search_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/passage_search_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/persistences/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/utilities/query_processor_utility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/persistences/datastore_one_persistence.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/datastores/one_datastore.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/persistences/local_db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/datastores/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/repositories/account_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/account_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/repositories/document_process_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/document_process_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/repositories/document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/document_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/repositories/document_type_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/document_type_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/repositories/file_document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/file_document_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/repositories/text_document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/text_document_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/repositories/web_document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/web_document_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/settings/datastore_one_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/settings/one_datastore_setting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/settings/datastore_two_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/settings/two_datastore_setting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/settings/temp_persistence_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/settings/temp_datastore_setting.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +88,7 @@
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\passage_searchs" />
     </key>
   </component>
-  <component name="RunManager" selected="FastAPI.run-1">
+  <component name="RunManager" selected="Docker.compose-1">
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="research-assistant-backend" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -311,7 +265,7 @@
       <workItem from="1705919748267" duration="802000" />
       <workItem from="1705920557025" duration="1000" />
       <workItem from="1705920567024" duration="4058000" />
-      <workItem from="1705938315284" duration="6534000" />
+      <workItem from="1705938315284" duration="8471000" />
     </task>
     <servers />
   </component>

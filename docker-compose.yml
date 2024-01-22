@@ -8,10 +8,10 @@ services:
       - '${TEMP_PATH}:/tmp'
     ports:
       - '${APP_PORT}:8000'
-    #    entrypoint: [ "/bin/bash", "-c" ]
-    #    command:
-    #      - |
-    #        python3 run.py
+    entrypoint: [ "/bin/bash", "-c" ]
+    command:
+      - |
+        python3 run.py
     deploy:
       resources:
         reservations:
