@@ -1,7 +1,6 @@
 from dependency_injector import providers
 from dependency_injector.containers import DeclarativeContainer
 
-from app.inners.use_cases.long_form_qa.generator_model import GeneratorModel
 from app.inners.use_cases.long_form_qa.longform_qa import LongFormQA
 from app.outers.containers.datastore_container import DatastoreContainer
 from app.outers.containers.setting_container import SettingContainer
@@ -19,12 +18,8 @@ class LongFormQAContainer(DeclarativeContainer):
     document_conversions: DocumentConversionContainer = providers.DependenciesContainer()
     passage_searches: PassageSearchContainer = providers.DependenciesContainer()
 
-    generator_model: GeneratorModel = providers.Singleton(
-        GeneratorModel
-    )
     longform_qa: LongFormQA = providers.Singleton(
         LongFormQA,
         passage_search=passage_searches.passage_search,
-        generator_model=generator_model,
-        long_form_qa_document_conversion=document_conversions.long_form_qa_document_conversion,
+        long_form_qa_document_conversion=document_conversions.long_form_qa_document_conversion
     )

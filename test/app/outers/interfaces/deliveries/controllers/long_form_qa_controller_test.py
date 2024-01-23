@@ -14,6 +14,7 @@ from app.inners.models.value_objects.contracts.requests.basic_settings.dense_emb
 from app.inners.models.value_objects.contracts.requests.basic_settings.dense_retriever_body import DenseRetrieverBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.document_setting_body import DocumentSettingBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.generator_body import GeneratorBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.hyde_setting_body import HydeSettingBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.online_generator_model_body import \
     OnlineGeneratorModelBody
 from app.inners.models.value_objects.contracts.requests.basic_settings.query_setting_body import QuerySettingBody
@@ -80,6 +81,24 @@ async def test__long_form_qa__should_process_it__success():
             window_sizes=[1, 2, 3],
             query_setting=QuerySettingBody(
                 prefix="query: ",
+                query_setting=QuerySettingBody(
+                    prefix="query: ",
+                    hyde_setting=HydeSettingBody(
+                        is_use=True,
+                        generator=GeneratorBody(
+                            source_type="online",
+                            generator_model=OnlineGeneratorModelBody(
+                                model="gpt-3.5-turbo",
+                                api_key=open_ai_setting.OPEN_AI_API_KEY
+                            ),
+                            prompt="""
+                            Question: {query}
+                            Answer:
+                            """,
+                            answer_max_length=100,
+                        )
+                    )
+                ),
             ),
             document_setting=DocumentSettingBody(
                 document_id=long_form_qa_mock_data.passage_search_mock_data.document_data[1].id,

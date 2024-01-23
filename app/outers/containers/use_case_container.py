@@ -39,7 +39,7 @@ class UseCaseContainer(DeclarativeContainer):
         settings=settings,
         utilities=utilities,
         managements=managements,
-        document_conversions=document_conversions,
+        document_conversions=document_conversions
     )
     longform_qas = providers.Container(
         LongFormQAContainer,

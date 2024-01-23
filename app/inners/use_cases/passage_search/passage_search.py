@@ -3,14 +3,16 @@ import os
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import List
+from uuid import UUID
 
 from haystack import Pipeline
 from haystack.document_stores import OpenSearchDocumentStore
-from haystack.nodes import BaseRetriever, JoinDocuments, BaseRanker, DenseRetriever
+from haystack.nodes import BaseRetriever, JoinDocuments, BaseRanker, DenseRetriever, PromptNode
 from haystack.schema import Document as HaystackDocument
 
 from app.inners.models.entities.document import Document
 from app.inners.models.entities.document_type import DocumentType
+from app.inners.models.value_objects.contracts.requests.basic_settings.document_setting_body import DocumentSettingBody
 from app.inners.models.value_objects.contracts.requests.managements.document_types.read_one_by_id_request import \
     ReadOneByIdRequest as DocumentTypeReadOneByIdRequest
 from app.inners.models.value_objects.contracts.requests.managements.documents.read_one_by_id_request import \
@@ -26,6 +28,7 @@ from app.inners.models.value_objects.contracts.responses.passage_searchs.process
 from app.inners.use_cases.document_conversion.passage_search_document_conversion import PassageSearchDocumentConversion
 from app.inners.use_cases.managements.document_management import DocumentManagement
 from app.inners.use_cases.managements.document_type_management import DocumentTypeManagement
+from app.inners.use_cases.passage_search.generator_model import GeneratorModel
 from app.inners.use_cases.passage_search.ranker_model import RankerModel
 from app.inners.use_cases.passage_search.retriever_model import RetrieverModel
 from app.inners.use_cases.utilities.document_processor_utility import DocumentProcessorUtility
@@ -42,6 +45,7 @@ class PassageSearch:
             document_type_management: DocumentTypeManagement,
             retriever_model: RetrieverModel,
             ranker_model: RankerModel,
+            generator_model: GeneratorModel,
             passage_search_document_conversion: PassageSearchDocumentConversion,
             query_processor_utility: QueryProcessorUtility,
             document_processor_utility: DocumentProcessorUtility,
@@ -52,24 +56,33 @@ class PassageSearch:
         self.document_type_management: DocumentTypeManagement = document_type_management
         self.retriever_model: RetrieverModel = retriever_model
         self.ranker_model: RankerModel = ranker_model
+        self.generator_model: GeneratorModel = generator_model
         self.passage_search_document_conversion: PassageSearchDocumentConversion = passage_search_document_conversion
         self.query_processor_utility: QueryProcessorUtility = query_processor_utility
         self.document_processor_utility: DocumentProcessorUtility = document_processor_utility
         self.one_datastore_setting: OneDatastoreSetting = one_datastore_setting
         self.two_datastore_setting: TwoDatastoreSetting = two_datastore_setting
 
-    def get_processed_query(self, process_body: ProcessBody) -> str:
+    def get_processed_query(self, query: str, prefix: str) -> str:
         processed_query: str = self.query_processor_utility.process(
-            query=process_body.input_setting.query,
-            prefix=process_body.input_setting.query_setting.prefix
+            query=query,
+            prefix=prefix
         )
 
         return processed_query
 
-    async def get_processed_documents(self, process_body: ProcessBody) -> List[Document]:
+    async def get_processed_documents(
+            self,
+            document_id: UUID,
+            document_setting_body: DocumentSettingBody,
+            granularity: str,
+            window_sizes: List[int],
+            prefix: str
+
+    ) -> List[Document]:
         found_document: Content[Document] = await self.document_management.read_one_by_id(
             request=DocumentReadOneByIdRequest(
-                id=process_body.input_setting.document_setting.document_id
+                id=document_id
             )
         )
 
@@ -80,7 +93,7 @@ class PassageSearch:
         )
 
         corpus: str = await self.passage_search_document_conversion.convert_document_to_corpus(
-            document_setting_body=process_body.input_setting.document_setting,
+            document_setting_body=document_setting_body,
             document=found_document.data,
             document_type=found_document_type.data
         )
@@ -88,9 +101,9 @@ class PassageSearch:
         processed_documents: List[HaystackDocument] = self.document_processor_utility.process(
             corpus=corpus,
             corpus_source_type=found_document_type.data.name,
-            granularity=process_body.input_setting.granularity,
-            window_sizes=process_body.input_setting.window_sizes,
-            prefix=process_body.input_setting.document_setting.prefix,
+            granularity=granularity,
+            window_sizes=window_sizes,
+            prefix=prefix,
         )
 
         if found_document_type.data.name == "file":
@@ -235,12 +248,30 @@ class PassageSearch:
         try:
             time_start: datetime = datetime.now()
 
-            processed_query: str = self.get_processed_query(
-                process_body=process_request.body
-            )
+            if process_request.body.input_setting.query_setting.hyde_setting.is_use:
+                hyde_generator: PromptNode = self.generator_model.get_generator(
+                    source_type=process_request.body.input_setting.query_setting.hyde_setting.generator.source_type,
+                    generator_body=process_request.body.input_setting.query_setting.hyde_setting.generator
+                )
+                hyde_query = hyde_generator.run(
+                    query=process_request.body.input_setting.query,
+                )
+                processed_query: str = self.get_processed_query(
+                    query=hyde_query[0]["answers"][0].answer,
+                    prefix=process_request.body.input_setting.query_setting.prefix
+                )
+            else:
+                processed_query: str = self.get_processed_query(
+                    query=process_request.body.input_setting.query,
+                    prefix=process_request.body.input_setting.query_setting.prefix
+                )
 
             processed_documents: List[HaystackDocument] = await self.get_processed_documents(
-                process_body=process_request.body
+                document_id=process_request.body.input_setting.document_setting.document_id,
+                document_setting_body=process_request.body.input_setting.document_setting,
+                granularity=process_request.body.input_setting.granularity,
+                window_sizes=process_request.body.input_setting.window_sizes,
+                prefix=process_request.body.input_setting.document_setting.prefix
             )
 
             pipeline: Pipeline = self.get_pipeline(
