@@ -130,6 +130,7 @@ class PassageSearch:
             "document_id": input_setting.document_setting.document_id,
             "granularity": input_setting.granularity,
             "window_sizes": input_setting.window_sizes,
+            "prefix": input_setting.document_setting.prefix,
             "embedding_model": input_setting.dense_retriever.embedding_model,
         }
         return hashlib.md5(str(hash_source).encode("utf-8")).hexdigest()
@@ -168,6 +169,7 @@ class PassageSearch:
             "document_id": input_setting.document_setting.document_id,
             "granularity": input_setting.granularity,
             "window_sizes": input_setting.window_sizes,
+            "prefix": input_setting.document_setting.prefix,
             "model": input_setting.sparse_retriever.model,
         }
         return hashlib.md5(str(hash_source).encode("utf-8")).hexdigest()
