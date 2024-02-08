@@ -65,10 +65,7 @@ class LongFormQA:
                 documents=processed_documents
             )
 
-            deprefixed_query: str = self.passage_search.query_processor_utility.deprefixer(
-                query=processed_query,
-                prefix=process_request.body.input_setting.query_setting.prefix
-            )
+            original_query: str = process_request.body.input_setting.query
 
             generative_result: dict = pipeline.run(
                 params={
@@ -82,7 +79,7 @@ class LongFormQA:
                         "query": processed_query,
                     },
                     "Generator": {
-                        "query": deprefixed_query,
+                        "query": original_query,
                     }
                 },
                 debug=True
