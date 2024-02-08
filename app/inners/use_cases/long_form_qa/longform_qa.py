@@ -24,14 +24,8 @@ class LongFormQA:
         self.passage_search: PassageSearch = passage_search
         self.long_form_qa_document_conversion: LongFormQADocumentConversion = long_form_qa_document_conversion
 
-    def deprocessed_query(self, query: str, prefix: str) -> str:
-        deprefixed_query: str = self.passage_search.query_processor_utility.deprefixer(query, prefix)
-
-        return deprefixed_query
-
     def get_pipeline(self, process_body: ProcessBody, documents: List[HaystackDocument]) -> Pipeline:
         generator: PromptNode = self.passage_search.generator_model.get_generator(
-            source_type=process_body.input_setting.generator.source_type,
             generator_body=process_body.input_setting.generator
         )
 
@@ -52,23 +46,11 @@ class LongFormQA:
         try:
             time_start: datetime = datetime.now()
 
-            if process_request.body.input_setting.query_setting.hyde_setting.is_use:
-                hyde_generator: PromptNode = self.passage_search.generator_model.get_generator(
-                    source_type=process_request.body.input_setting.query_setting.hyde_setting.generator.source_type,
-                    generator_body=process_request.body.input_setting.query_setting.hyde_setting.generator
-                )
-                hyde_query = hyde_generator.run(
-                    query=process_request.body.input_setting.query,
-                )
-                processed_query: str = self.passage_search.get_processed_query(
-                    query=hyde_query[0]["answers"][0].answer,
-                    prefix=process_request.body.input_setting.query_setting.prefix
-                )
-            else:
-                processed_query: str = self.passage_search.get_processed_query(
-                    query=process_request.body.input_setting.query,
-                    prefix=process_request.body.input_setting.query_setting.prefix
-                )
+            processed_query: str = self.passage_search.get_processed_query(
+                hyde_setting=process_request.body.input_setting.query_setting.hyde_setting,
+                query=process_request.body.input_setting.query,
+                prefix=process_request.body.input_setting.query_setting.prefix
+            )
 
             processed_documents: List[HaystackDocument] = await self.passage_search.get_processed_documents(
                 document_id=process_request.body.input_setting.document_setting.document_id,
@@ -83,12 +65,10 @@ class LongFormQA:
                 documents=processed_documents
             )
 
-            deprocessed_query: str = self.deprocessed_query(
+            deprefixed_query: str = self.passage_search.query_processor_utility.deprefixer(
                 query=processed_query,
                 prefix=process_request.body.input_setting.query_setting.prefix
             )
-
-            original_query: str = process_request.body.input_setting.query
 
             generative_result: dict = pipeline.run(
                 params={
@@ -102,7 +82,7 @@ class LongFormQA:
                         "query": processed_query,
                     },
                     "Generator": {
-                        "query": original_query,
+                        "query": deprefixed_query,
                     }
                 },
                 debug=True
@@ -111,7 +91,7 @@ class LongFormQA:
             time_finish: datetime = datetime.now()
             time_delta: timedelta = time_finish - time_start
 
-            deprefixed_documents: List[HaystackDocument] = self.passage_search.deprefix_documents(
+            deprefixed_documents: List[HaystackDocument] = self.passage_search.document_processor_utility.deprefixer(
                 documents=generative_result["_debug"]["Ranker"]["output"]["documents"],
                 prefix=process_request.body.input_setting.document_setting.prefix
             )

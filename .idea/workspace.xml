@@ -6,9 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4e06bac6-caf5-4590-ad66-72028591b182.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4e06bac6-caf5-4590-ad66-72028591b182.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/generator_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/generator_model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_processor_utility.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/utilities/document_processor_utility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/utilities/query_processor_utility.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/utilities/query_processor_utility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +62,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;FastAPI.run-1.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
@@ -193,9 +198,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.test" />
-      <item itemvalue="FastAPI.run-1" />
       <item itemvalue="Docker.compose-1" />
+      <item itemvalue="FastAPI.run-1" />
+      <item itemvalue="Python.test" />
       <item itemvalue="Python tests.pytest in test" />
     </list>
     <recent_temporary>
@@ -207,7 +212,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-50da183f06c8-2887949eec09-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.13135.95" />
+        <option value="bundled-python-sdk-5a2391486177-2887949eec09-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.13763.11" />
       </set>
     </attachedChunks>
   </component>
@@ -285,7 +290,12 @@
       <workItem from="1705989838711" duration="12192000" />
       <workItem from="1706170787742" duration="285000" />
       <workItem from="1706359872013" duration="308000" />
-      <workItem from="1706379132489" duration="143000" />
+      <workItem from="1706379132489" duration="818000" />
+      <workItem from="1706556035208" duration="116000" />
+      <workItem from="1707125478013" duration="967000" />
+      <workItem from="1707215000781" duration="1291000" />
+      <workItem from="1707380538434" duration="2399000" />
+      <workItem from="1707383455030" duration="1514000" />
     </task>
     <servers />
   </component>
@@ -293,10 +303,10 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1707384646907" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_app_outers_interfaces_deliveries_controllers_file_document_controller_test.coverage" NAME="pytest for test.app.outers.interfaces.deliveries.controllers.file_document_controller_test Coverage Results" MODIFIED="1685532826646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1705998576511" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$test.coverage" NAME="test Coverage Results" MODIFIED="1691225094856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$.coverage" NAME=" Coverage Results" MODIFIED="1691227085154" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1691586238459" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$.coverage" NAME=" Coverage Results" MODIFIED="1691227085154" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$test.coverage" NAME="test Coverage Results" MODIFIED="1691225094856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

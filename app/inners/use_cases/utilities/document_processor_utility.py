@@ -106,16 +106,32 @@ class DocumentProcessorUtility:
         return degranularized_corpus
 
     def prefixer(self, documents: List[HaystackDocument], prefix: str) -> List[HaystackDocument]:
+        prefixed_documents: List[HaystackDocument] = []
         for document in documents:
-            document.content = prefix + document.content
+            prefixed_document: HaystackDocument = HaystackDocument(
+                id=document.id,
+                content=prefix + document.content,
+                content_type=document.content_type,
+                meta=document.meta,
+                score=document.score
+            )
+            prefixed_documents.append(prefixed_document)
 
-        return documents
+        return prefixed_documents
 
     def deprefixer(self, documents: List[HaystackDocument], prefix: str) -> List[HaystackDocument]:
+        deprefixed_documents: List[HaystackDocument] = []
         for document in documents:
-            document.content = document.content[len(prefix):]
+            deprefixed_document: HaystackDocument = HaystackDocument(
+                id=document.id,
+                content=document.content[len(prefix):],
+                content_type=document.content_type,
+                meta=document.meta,
+                score=document.score
+            )
+            deprefixed_documents.append(deprefixed_document)
 
-        return documents
+        return deprefixed_documents
 
     def process(self, corpus: str, corpus_source_type: str, granularity: str,
                 window_sizes: List[int], prefix: str) -> List[HaystackDocument]:

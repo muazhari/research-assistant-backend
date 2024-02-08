@@ -19,13 +19,13 @@ class GeneratorModel:
         )
         return generator
 
-    def get_generator(self, source_type: str, generator_body: GeneratorBody) -> PromptNode:
-        if source_type == "online":
+    def get_generator(self, generator_body: GeneratorBody) -> PromptNode:
+        if generator_body.source_type == "online":
             generator: PromptNode = self.get_online_generator(
                 generator_body=generator_body
             )
         else:
             raise ValueError(
-                f"Generator source type {source_type} is not supported."
+                f"Generator source type {generator_body.source_type} is not supported."
             )
         return generator

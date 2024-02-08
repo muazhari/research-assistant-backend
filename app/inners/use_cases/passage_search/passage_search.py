@@ -13,6 +13,7 @@ from haystack.schema import Document as HaystackDocument
 from app.inners.models.entities.document import Document
 from app.inners.models.entities.document_type import DocumentType
 from app.inners.models.value_objects.contracts.requests.basic_settings.document_setting_body import DocumentSettingBody
+from app.inners.models.value_objects.contracts.requests.basic_settings.hyde_setting_body import HydeSettingBody
 from app.inners.models.value_objects.contracts.requests.managements.document_types.read_one_by_id_request import \
     ReadOneByIdRequest as DocumentTypeReadOneByIdRequest
 from app.inners.models.value_objects.contracts.requests.managements.documents.read_one_by_id_request import \
@@ -63,13 +64,30 @@ class PassageSearch:
         self.one_datastore_setting: OneDatastoreSetting = one_datastore_setting
         self.two_datastore_setting: TwoDatastoreSetting = two_datastore_setting
 
-    def get_processed_query(self, query: str, prefix: str) -> str:
-        processed_query: str = self.query_processor_utility.process(
-            query=query,
-            prefix=prefix
-        )
+    def get_processed_query(
+            self,
+            hyde_setting: HydeSettingBody,
+            query: str,
+            prefix: str
+    ) -> str:
+        if hyde_setting.is_use:
+            hyde_generator: PromptNode = self.generator_model.get_generator(
+                generator_body=hyde_setting.generator
+            )
+            hyde_generator_result = hyde_generator.run(
+                query=query,
+            )
+            prefixed_query: str = self.query_processor_utility.prefixer(
+                query=hyde_generator_result[0]["answers"][0].answer,
+                prefix=prefix
+            )
+        else:
+            prefixed_query: str = self.query_processor_utility.prefixer(
+                query=query,
+                prefix=prefix
+            )
 
-        return processed_query
+        return prefixed_query
 
     async def get_processed_documents(
             self,
@@ -110,20 +128,6 @@ class PassageSearch:
             os.remove(Path(corpus))
 
         return processed_documents
-
-    def deprefix_documents(self, documents: List[HaystackDocument], prefix: str) -> List[HaystackDocument]:
-        deprefixed_documents: List[HaystackDocument] = []
-        for document in documents:
-            deprefixed_document: HaystackDocument = HaystackDocument(
-                id=document.id,
-                content=document.content[len(prefix):],
-                content_type=document.content_type,
-                meta=document.meta,
-                score=document.score
-            )
-            deprefixed_documents.append(deprefixed_document)
-
-        return deprefixed_documents
 
     def get_dense_index_hash(self, input_setting: InputSettingBody) -> str:
         hash_source: dict = {
@@ -250,23 +254,11 @@ class PassageSearch:
         try:
             time_start: datetime = datetime.now()
 
-            if process_request.body.input_setting.query_setting.hyde_setting.is_use:
-                hyde_generator: PromptNode = self.generator_model.get_generator(
-                    source_type=process_request.body.input_setting.query_setting.hyde_setting.generator.source_type,
-                    generator_body=process_request.body.input_setting.query_setting.hyde_setting.generator
-                )
-                hyde_query = hyde_generator.run(
-                    query=process_request.body.input_setting.query,
-                )
-                processed_query: str = self.get_processed_query(
-                    query=hyde_query[0]["answers"][0].answer,
-                    prefix=process_request.body.input_setting.query_setting.prefix
-                )
-            else:
-                processed_query: str = self.get_processed_query(
-                    query=process_request.body.input_setting.query,
-                    prefix=process_request.body.input_setting.query_setting.prefix
-                )
+            processed_query: str = self.get_processed_query(
+                hyde_setting=process_request.body.input_setting.query_setting.hyde_setting,
+                query=process_request.body.input_setting.query,
+                prefix=process_request.body.input_setting.query_setting.prefix
+            )
 
             processed_documents: List[HaystackDocument] = await self.get_processed_documents(
                 document_id=process_request.body.input_setting.document_setting.document_id,
@@ -295,7 +287,7 @@ class PassageSearch:
                 process_duration=time_delta.total_seconds()
             )
 
-            deprefixed_documents: List[HaystackDocument] = self.deprefix_documents(
+            deprefixed_documents: List[HaystackDocument] = self.document_processor_utility.deprefixer(
                 documents=retrieval_result["_debug"]["Ranker"]["output"]["documents"],
                 prefix=process_request.body.input_setting.document_setting.prefix
             )
