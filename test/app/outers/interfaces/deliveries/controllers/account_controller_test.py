@@ -1,105 +1,84 @@
 import json
-from typing import List
+import uuid
 
+import bcrypt
 import pytest as pytest
 import pytest_asyncio
+from httpx import Response
 
-from app.inners.models.entities.account import Account
-from app.inners.models.value_objects.contracts.requests.managements.accounts.create_body import \
-    CreateBody
-from app.inners.models.value_objects.contracts.requests.managements.accounts.patch_body import \
-    PatchBody
-from app.inners.models.value_objects.contracts.responses.content import Content
-from app.outers.repositories.account_repository import AccountRepository
-from test.mock_data.account_mock_data import AccountMockData
-from test.utilities.test_client_utility import get_async_client
+from app.inners.models.daos.account import Account
+from app.inners.models.dtos.contracts.content import Content
+from app.inners.models.dtos.contracts.requests.managements.accounts.create_one_body import \
+    CreateOneBody
+from app.inners.models.dtos.contracts.requests.managements.accounts.patch_one_body import \
+    PatchOneBody
+from test.containers.test_container import TestContainer
+from test.main import MainTest
 
-account_repository = AccountRepository()
-account_mock_data = AccountMockData()
+url_path = "api/v1/accounts"
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
 async def run_around(request: pytest.FixtureRequest):
-    for account in account_mock_data.data:
-        await account_repository.create_one(Account(**account.dict()))
-
-    yield
-
-    for account in account_mock_data.data:
-        if request.node.name == "test__delete_one_by_id__should_delete_one_account__success" \
-                and account.id == account_mock_data.data[0].id:
-            continue
-        await account_repository.delete_one_by_id(account.id)
-
-
-@pytest.mark.asyncio
-async def test__read_all__should_return_all_accounts__success():
-    async with get_async_client() as client:
-        response = await client.get(
-            url="api/v1/accounts"
-        )
-        assert response.status_code == 200
-        content: Content[List[Account]] = Content[List[Account]](**response.json())
-        assert all(account in content.data for account in account_mock_data.data)
-
-
-@pytest.mark.asyncio
-async def test__read_one_by_id__should_return_one_account__success():
-    async with get_async_client() as client:
-        response = await client.get(
-            url=f"api/v1/accounts/{account_mock_data.data[0].id}"
-        )
-        assert response.status_code == 200
-        content: Content[Account] = Content[Account](**response.json())
-        assert content.data == account_mock_data.data[0]
-
-
-@pytest.mark.asyncio
-async def test__create_one__should_create_one_account__success():
-    body: CreateBody = CreateBody(
-        name="name2",
-        email="email2",
-        password="password2"
+    test_container: TestContainer = TestContainer()
+    main_test: MainTest = MainTest(
+        all_seeder=test_container.seeders.all_seeder()
     )
-    async with get_async_client() as client:
-        response = await client.post(
-            url="api/v1/accounts",
-            json=json.loads(body.json())
-        )
-        assert response.status_code == 200
-        content: Content[Account] = Content[Account](**response.json())
-        assert content.data.name == body.name
-        assert content.data.email == body.email
-        assert content.data.password == body.password
-        account_mock_data.data.append(content.data)
+    await main_test.all_seeder.up()
+    yield main_test
+    await main_test.all_seeder.down()
 
 
 @pytest.mark.asyncio
-async def test__patch_one_by_id__should_patch_one_account__success():
-    body: PatchBody = PatchBody(
-        name=f"{account_mock_data.data[0].name} patched",
-        email=f"{account_mock_data.data[0].email} patched",
-        password=f"{account_mock_data.data[0].password} patched"
+async def test__find_one_by_id__should_return_one_account__success(main_test: MainTest):
+    selected_account_mock: Account = main_test.all_seeder.account_seeder.account_mock.data[0]
+    response: Response = main_test.client.get(
+        url=f"{url_path}/{selected_account_mock.id}"
     )
-    async with get_async_client() as client:
-        response = await client.patch(
-            url=f"api/v1/accounts/{account_mock_data.data[0].id}",
-            json=json.loads(body.json())
-        )
-        assert response.status_code == 200
-        content: Content[Account] = Content[Account](**response.json())
-        assert content.data.name == body.name
-        assert content.data.email == body.email
-        assert content.data.password == body.password
-        account_mock_data.data[0] = content.data
+    assert response.status_code == 200
+    response_body: Content[Account] = Content[Account](**response.json())
+    assert response_body.data == selected_account_mock
 
 
 @pytest.mark.asyncio
-async def test__delete_one_by_id__should_delete_one_account__success():
-    async with get_async_client() as client:
-        response = await client.delete(
-            url=f"api/v1/accounts/{account_mock_data.data[0].id}"
-        )
-        assert response.status_code == 200
-        content: Content[Account] = Content[Account](**response.json())
-        assert content.data == account_mock_data.data[0]
+async def test__create_one__should_create_one_account__success(main_test: MainTest):
+    account_to_create_body: CreateOneBody = CreateOneBody(
+        email=f"email{uuid.uuid4()}@mail.com",
+        password="password0",
+    )
+    response: Response = main_test.client.post(
+        url=url_path,
+        data=json.loads(account_to_create_body.json())
+    )
+    assert response.status_code == 201
+    response_body: Content[Account] = Content[Account](**response.json())
+    assert response_body.data.email == account_to_create_body.email
+    assert bcrypt.checkpw(account_to_create_body.password.encode(), response_body.data.password.encode()) is True
+
+
+@pytest.mark.asyncio
+async def test__patch_one_by_id__should_patch_one_account__success(main_test: MainTest):
+    selected_account_mock: Account = main_test.all_seeder.account_seeder.account_mock.data[0]
+    account_to_patch_body: PatchOneBody = PatchOneBody(
+        email=f"patched.email{uuid.uuid4()}@mail.com",
+        password="patched.password1",
+    )
+    response: Response = main_test.client.patch(
+        url=f"{url_path}/{selected_account_mock.id}",
+        data=json.loads(account_to_patch_body.json())
+    )
+    assert response.status_code == 200
+    response_body: Content[Account] = Content[Account](**response.json())
+    assert response_body.data.email == account_to_patch_body.email
+    assert bcrypt.checkpw(account_to_patch_body.password.encode(), response_body.data.password.encode()) is True
+
+
+@pytest.mark.asyncio
+async def test__delete_one_by_id__should_delete_one_account__success(main_test: MainTest):
+    selected_account_mock: Account = main_test.all_seeder.account_seeder.account_mock.data[0]
+    response: Response = main_test.client.delete(
+        url=f"{url_path}/{selected_account_mock.id}"
+    )
+    assert response.status_code == 200
+    response_body: Content[Account] = Content[Account](**response.json())
+    assert response_body.data == selected_account_mock

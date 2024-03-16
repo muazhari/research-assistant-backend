@@ -1,11 +1,12 @@
 from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Depends
 from fastapi_utils.cbv import cbv
+from starlette.requests import Request
+from starlette.responses import Response
 
-from app.inners.models.value_objects.contracts.requests.long_form_qas.process_body import ProcessBody
-from app.inners.models.value_objects.contracts.requests.long_form_qas.process_request import ProcessRequest
-from app.inners.models.value_objects.contracts.responses.content import Content
-from app.inners.models.value_objects.contracts.responses.long_form_qas.process_response import ProcessResponse
+from app.inners.models.dtos.contracts.requests.long_form_qas.process_body import ProcessBody
+from app.inners.models.dtos.contracts.responses.long_form_qas.process_response import ProcessResponse
+from app.inners.models.dtos.contracts.result import Result
 from app.inners.use_cases.long_form_qa.longform_qa import LongFormQA
 from app.outers.containers.application_container import ApplicationContainer
 
@@ -24,7 +25,17 @@ class PassageSearchController:
     ):
         self.long_form_qa = long_form_qa
 
-    @router.post("/long-form-qa")
-    async def search(self, body: ProcessBody) -> Content[ProcessResponse]:
-        request: ProcessRequest = ProcessRequest(body=body)
-        return await self.long_form_qa.qa(request)
+    @router.post("/long-form-qas")
+    async def search(self, request: Request, body: ProcessBody) -> Response:
+        result: Result[ProcessResponse] = await self.long_form_qa.process(
+            session=request.state.session,
+            body=body
+        )
+        response: Response = Response(
+            status_code=result.status_code,
+            content=ProcessResponse(
+                message=result.message,
+                data=result.data
+            )
+        )
+        return response

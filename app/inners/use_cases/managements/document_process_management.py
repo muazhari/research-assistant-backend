@@ -1,19 +1,13 @@
-import uuid
-from typing import List
+from uuid import UUID
 
-from app.inners.models.entities.document_process import DocumentProcess
-from app.inners.models.value_objects.contracts.requests.managements.document_processes.create_one_request import \
-    CreateOneRequest
-from app.inners.models.value_objects.contracts.requests.managements.document_processes.delete_one_by_id_request import \
-    DeleteOneByIdRequest
-from app.inners.models.value_objects.contracts.requests.managements.document_processes.patch_one_by_id_request import \
-    PatchOneByIdRequest
-from app.inners.models.value_objects.contracts.requests.managements.document_processes.read_all_request import \
-    ReadAllRequest
-from app.inners.models.value_objects.contracts.requests.managements.document_processes.read_one_by_id_request import \
-    ReadOneByIdRequest
-from app.inners.models.value_objects.contracts.responses.content import Content
-from app.inners.use_cases.utilities.management_utility import ManagementUtility
+from sqlalchemy import exc
+from sqlmodel.ext.asyncio.session import AsyncSession
+from starlette import status
+
+from app.inners.models.daos.document_process import DocumentProcess
+from app.inners.models.dtos.contracts.requests.managements.document_processes.create_one_body import CreateOneBody
+from app.inners.models.dtos.contracts.requests.managements.document_processes.patch_one_body import PatchOneBody
+from app.inners.models.dtos.contracts.result import Result
 from app.outers.repositories.document_process_repository import DocumentProcessRepository
 
 
@@ -21,95 +15,111 @@ class DocumentProcessManagement:
     def __init__(
             self,
             document_process_repository: DocumentProcessRepository,
-            management_utility: ManagementUtility
     ):
         self.document_process_repository: DocumentProcessRepository = document_process_repository
-        self.management_utility: ManagementUtility = management_utility
 
-    async def read_all(self, request: ReadAllRequest) -> Content[List[DocumentProcess]]:
+    async def find_one_by_id(self, session: AsyncSession, id: UUID) -> Result[DocumentProcess]:
         try:
-            found_entities: List[DocumentProcess] = await self.document_process_repository.read_all()
-
-            if len(request.query_parameter.keys()) > 0:
-                found_entities = list(
-                    filter(
-                        lambda entity: self.management_utility.filter(request.query_parameter, entity),
-                        found_entities
-                    )
-                )
-
-            content: Content[List[DocumentProcess]] = Content(
-                data=found_entities,
-                message="DocumentProcess read all succeed."
+            found_document_process: DocumentProcess = await self.document_process_repository.find_one_by_id(
+                session=session,
+                id=id
             )
-        except Exception as exception:
-            content: Content[List[DocumentProcess]] = Content(
+            result: Result[DocumentProcess] = Result(
+                status_code=status.HTTP_200_OK,
+                message="DocumentProcessManagement.find_one_by_id: Succeed.",
+                data=found_document_process,
+            )
+        except exc.NoResultFound:
+            result: Result[DocumentProcess] = Result(
+                status_code=status.HTTP_404_NOT_FOUND,
+                message="DocumentProcessManagement.find_one_by_id: Failed, document_process is not found.",
                 data=None,
-                message=f"DocumentProcess read all failed: {exception}"
             )
-        return content
+        return result
 
-    async def read_one_by_id(self, request: ReadOneByIdRequest) -> Content[DocumentProcess]:
+    async def create_one(self, session: AsyncSession, body: CreateOneBody) -> Result[DocumentProcess]:
+        document_process_to_create: DocumentProcess = DocumentProcess(**body.dict())
+        created_document_process: DocumentProcess = await self.document_process_repository.create_one(
+            session=session,
+            document_process_to_create=document_process_to_create
+        )
+        result: Result[DocumentProcess] = Result(
+            status_code=status.HTTP_201_CREATED,
+            message="DocumentProcessManagement.create_one: Succeed.",
+            data=created_document_process,
+        )
+        return result
+
+    async def create_one_raw(self, session: AsyncSession, document_process_to_create: DocumentProcess) -> Result[
+        DocumentProcess]:
+        created_document_process: DocumentProcess = await self.document_process_repository.create_one(
+            session=session,
+            document_process_to_create=document_process_to_create
+        )
+        result: Result[DocumentProcess] = Result(
+            status_code=status.HTTP_201_CREATED,
+            message="DocumentProcessManagement.create_one_raw: Succeed.",
+            data=created_document_process,
+        )
+        return result
+
+    async def patch_one_by_id(self, session: AsyncSession, id: UUID, body: PatchOneBody) -> Result[DocumentProcess]:
         try:
-            found_entity: DocumentProcess = await self.document_process_repository.read_one_by_id(request.id)
-            content: Content[DocumentProcess] = Content(
-                data=found_entity,
-                message="DocumentProcess read one by id succeed."
+            document_process_to_patch: DocumentProcess = DocumentProcess(**body.dict())
+            patched_document_process: DocumentProcess = await self.document_process_repository.patch_one_by_id(
+                session=session,
+                id=id,
+                document_process_to_patch=document_process_to_patch
             )
-        except Exception as exception:
-            content: Content[DocumentProcess] = Content(
+            result: Result[DocumentProcess] = Result(
+                status_code=status.HTTP_200_OK,
+                message="DocumentProcessManagement.patch_one_by_id: Succeed.",
+                data=patched_document_process,
+            )
+        except exc.NoResultFound:
+            result: Result[DocumentProcess] = Result(
+                status_code=status.HTTP_404_NOT_FOUND,
+                message="DocumentProcessManagement.patch_one_by_id: Failed, document_process is not found.",
                 data=None,
-                message=f"DocumentProcess read one by id failed: {exception}"
             )
-        return content
+        return result
 
-    async def create_one(self, request: CreateOneRequest) -> Content[DocumentProcess]:
+    async def patch_one_by_id_raw(self, session: AsyncSession, id: UUID, document_process_to_patch: DocumentProcess) -> \
+            Result[DocumentProcess]:
         try:
-            entity_to_create: DocumentProcess = DocumentProcess(
-                **request.body.dict(),
-                id=uuid.uuid4(),
+            patched_document_process: DocumentProcess = await self.document_process_repository.patch_one_by_id(
+                session=session,
+                id=id,
+                document_process_to_patch=document_process_to_patch
             )
-            created_entity: DocumentProcess = await self.document_process_repository.create_one(entity_to_create)
-            content: Content[DocumentProcess] = Content(
-                data=created_entity,
-                message="DocumentProcess create one succeed."
+            result: Result[DocumentProcess] = Result(
+                status_code=status.HTTP_200_OK,
+                message="DocumentProcessManagement.patch_one_by_id_raw: Succeed.",
+                data=patched_document_process,
             )
-        except Exception as exception:
-            content: Content[DocumentProcess] = Content(
+        except exc.NoResultFound:
+            result: Result[DocumentProcess] = Result(
+                status_code=status.HTTP_404_NOT_FOUND,
+                message="DocumentProcessManagement.patch_one_by_id_raw: Failed, document_process is not found.",
                 data=None,
-                message=f"DocumentProcess create one failed: {exception}"
             )
-        return content
+        return result
 
-    async def patch_one_by_id(self, request: PatchOneByIdRequest) -> Content[DocumentProcess]:
+    async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> Result[DocumentProcess]:
         try:
-            entity_to_patch: DocumentProcess = DocumentProcess(
-                **request.body.dict(),
-                id=request.id,
+            deleted_document_process: DocumentProcess = await self.document_process_repository.delete_one_by_id(
+                session=session,
+                id=id
             )
-            patched_entity: DocumentProcess = await self.document_process_repository.patch_one_by_id(request.id,
-                                                                                                     entity_to_patch)
-            content: Content[DocumentProcess] = Content(
-                data=patched_entity,
-                message="DocumentProcess patch one by id succeed."
+            result: Result[DocumentProcess] = Result(
+                status_code=status.HTTP_200_OK,
+                message="DocumentProcessManagement.delete_one_by_id: Succeed.",
+                data=deleted_document_process,
             )
-        except Exception as exception:
-            content: Content[DocumentProcess] = Content(
+        except exc.NoResultFound:
+            result: Result[DocumentProcess] = Result(
+                status_code=status.HTTP_404_NOT_FOUND,
+                message="DocumentProcessManagement.delete_one_by_id: Failed, document_process is not found.",
                 data=None,
-                message=f"DocumentProcess patch one by id failed: {exception}"
             )
-        return content
-
-    async def delete_one_by_id(self, request: DeleteOneByIdRequest) -> Content[DocumentProcess]:
-        try:
-            deleted_entity: DocumentProcess = await self.document_process_repository.delete_one_by_id(request.id)
-            content: Content[DocumentProcess] = Content(
-                data=deleted_entity,
-                message="DocumentProcess delete one by id succeed."
-            )
-        except Exception as exception:
-            content: Content[DocumentProcess] = Content(
-                data=None,
-                message=f"DocumentProcess delete one by id failed: {exception}"
-            )
-        return content
+        return result

@@ -1,210 +1,131 @@
-import asyncio
-import uuid
-from typing import List
+from uuid import UUID
 
-from app.inners.models.entities.document import Document
-from app.inners.models.entities.text_document import TextDocument
-from app.inners.models.value_objects.contracts.requests.managements.text_documents.create_one_request import \
-    CreateOneRequest
-from app.inners.models.value_objects.contracts.requests.managements.text_documents.delete_one_by_id_request import \
-    DeleteOneByIdRequest
-from app.inners.models.value_objects.contracts.requests.managements.text_documents.patch_one_by_id_request import \
-    PatchOneByIdRequest
-from app.inners.models.value_objects.contracts.requests.managements.text_documents.read_all_request import \
-    ReadAllRequest
-from app.inners.models.value_objects.contracts.requests.managements.text_documents.read_one_by_id_request import \
-    ReadOneByIdRequest
-from app.inners.models.value_objects.contracts.responses.content import Content
-from app.inners.models.value_objects.contracts.responses.managements.documents.text_document_response import \
-    TextDocumentResponse
-from app.inners.use_cases.utilities.management_utility import ManagementUtility
-from app.outers.repositories.document_repository import DocumentRepository
+from sqlalchemy import exc
+from sqlmodel.ext.asyncio.session import AsyncSession
+from starlette import status
+
+from app.inners.models.daos.text_document import TextDocument
+from app.inners.models.dtos.contracts.requests.managements.text_documents.create_one_body import CreateOneBody
+from app.inners.models.dtos.contracts.requests.managements.text_documents.patch_one_body import PatchOneBody
+from app.inners.models.dtos.contracts.responses.managements.documents.text_document_response import TextDocumentResponse
+from app.inners.models.dtos.contracts.result import Result
+from app.inners.use_cases.managements.document_management import DocumentManagement
 from app.outers.repositories.text_document_repository import TextDocumentRepository
 
 
 class TextDocumentManagement:
     def __init__(
             self,
-            document_repository: DocumentRepository,
+            document_management: DocumentManagement,
             text_document_repository: TextDocumentRepository,
-            management_utility: ManagementUtility
     ):
-        self.document_repository: DocumentRepository = document_repository
+        self.document_management: DocumentManagement = document_management
         self.text_document_repository: TextDocumentRepository = text_document_repository
-        self.management_utility: ManagementUtility = management_utility
 
-    async def read_all(self, request: ReadAllRequest) -> Content[List[TextDocumentResponse]]:
+    async def find_one_by_id(self, session: AsyncSession, id: UUID) -> Result[TextDocumentResponse]:
         try:
-            found_text_documents: List[TextDocument] = await self.text_document_repository.read_all()
-            found_document_coroutines = [
-                self.document_repository.read_one_by_id(text_document.document_id)
-                for text_document in found_text_documents
-            ]
-            found_documents: List[Document] = await asyncio.gather(*found_document_coroutines)
-
-            found_entities: List[TextDocumentResponse] = [
-                TextDocumentResponse(
-                    id=document.id,
-                    name=document.name,
-                    description=document.description,
-                    document_type_id=document.document_type_id,
-                    account_id=document.account_id,
-                    text_content=text_document.text_content,
-                )
-                for document, text_document in zip(found_documents, found_text_documents)
-            ]
-
-            if len(request.query_parameter.keys()) > 0:
-                found_entities = list(
-                    filter(
-                        lambda entity: self.management_utility.filter(request.query_parameter, entity),
-                        found_entities
-                    )
-                )
-
-            content: Content[List[TextDocumentResponse]] = Content(
-                message="TextDocument read all succeed.",
-                data=found_entities,
+            found_text_document: TextDocument = await self.text_document_repository.find_one_by_id(
+                session=session,
+                id=id
             )
-        except Exception as exception:
-            content: Content[List[TextDocumentResponse]] = Content(
-                message=f"TextDocument read all failed: {exception}",
+            result: Result[TextDocumentResponse] = Result(
+                status_code=status.HTTP_200_OK,
+                message="TextDocumentManagement.find_one_by_id: Succeed.",
+                data=found_text_document,
+            )
+        except exc.NoResultFound:
+            result: Result[TextDocumentResponse] = Result(
+                status_code=status.HTTP_404_NOT_FOUND,
+                message="TextDocumentManagement.find_one_by_id: Failed, text_document is not found.",
                 data=None,
             )
-        return content
+        return result
 
-    async def read_one_by_id(self, request: ReadOneByIdRequest) -> Content[TextDocumentResponse]:
+    async def create_one(self, session: AsyncSession, body: CreateOneBody) -> Result[TextDocumentResponse]:
+        text_document_to_create: TextDocument = TextDocument(**body.dict())
+        created_text_document: TextDocument = await self.text_document_repository.create_one(
+            session=session,
+            text_document_to_create=text_document_to_create
+        )
+        result: Result[TextDocumentResponse] = Result(
+            status_code=status.HTTP_201_CREATED,
+            message="TextDocumentManagement.create_one: Succeed.",
+            data=created_text_document,
+        )
+        return result
+
+    async def create_one_raw(self, session: AsyncSession, text_document_to_create: TextDocument) -> Result[
+        TextDocumentResponse]:
+        created_text_document: TextDocument = await self.text_document_repository.create_one(
+            session=session,
+            text_document_to_create=text_document_to_create
+        )
+        result: Result[TextDocumentResponse] = Result(
+            status_code=status.HTTP_201_CREATED,
+            message="TextDocumentManagement.create_one_raw: Succeed.",
+            data=created_text_document,
+        )
+        return result
+
+    async def patch_one_by_id(self, session: AsyncSession, id: UUID, body: PatchOneBody) -> Result[
+        TextDocumentResponse]:
         try:
-            found_text_document: TextDocument = await self.text_document_repository.read_one_by_document_id(
-                document_id=request.id
-            )
-            found_document: Document = await self.document_repository.read_one_by_id(
-                id=found_text_document.document_id
-            )
-
-            content: Content[TextDocumentResponse] = Content(
-                message="TextDocument read one by id succeed.",
-                data=TextDocumentResponse(
-                    id=found_document.id,
-                    name=found_document.name,
-                    description=found_document.description,
-                    document_type_id=found_document.document_type_id,
-                    account_id=found_document.account_id,
-                    text_content=found_text_document.text_content,
-                )
-            )
-        except Exception as exception:
-            content: Content[TextDocumentResponse] = Content(
-                message=f"TextDocument read one by id failed: {exception}",
-                data=None,
-            )
-        return content
-
-    async def create_one(self, request: CreateOneRequest) -> Content[TextDocumentResponse]:
-        try:
-            created_document: Document = await self.document_repository.create_one(
-                entity=Document(
-                    id=uuid.uuid4(),
-                    name=request.body.name,
-                    description=request.body.description,
-                    document_type_id=request.body.document_type_id,
-                    account_id=request.body.account_id,
-                )
-            )
-
-            created_text_document: TextDocument = await self.text_document_repository.create_one(
-                entity=TextDocument(
-                    id=uuid.uuid4(),
-                    document_id=created_document.id,
-                    text_content=request.body.text_content,
-                )
-            )
-
-            content: Content[TextDocumentResponse] = Content(
-                data=TextDocumentResponse(
-                    id=created_document.id,
-                    name=created_document.name,
-                    description=created_document.description,
-                    document_type_id=created_document.document_type_id,
-                    account_id=created_document.account_id,
-                    text_content=created_text_document.text_content,
-                ),
-                message="TextDocument create one succeed."
-            )
-        except Exception as exception:
-            content: Content[TextDocumentResponse] = Content(
-                data=None,
-                message=f"TextDocument create one failed: {exception}"
-            )
-        return content
-
-    async def patch_one_by_id(self, request: PatchOneByIdRequest) -> Content[TextDocumentResponse]:
-        try:
-            patched_document: Document = await self.document_repository.patch_one_by_id(
-                id=request.id,
-                entity=Document(
-                    id=request.id,
-                    name=request.body.name,
-                    description=request.body.description,
-                    document_type_id=request.body.document_type_id,
-                    account_id=request.body.account_id,
-                )
-            )
-
-            found_text_document: TextDocument = await self.text_document_repository.read_one_by_document_id(
-                document_id=patched_document.id
-            )
+            text_document_to_patch: TextDocument = TextDocument(**body.dict())
             patched_text_document: TextDocument = await self.text_document_repository.patch_one_by_id(
-                id=found_text_document.id,
-                entity=TextDocument(
-                    id=found_text_document.id,
-                    document_id=found_text_document.document_id,
-                    text_content=request.body.text_content,
-                )
+                session=session,
+                id=id,
+                text_document_to_patch=text_document_to_patch
             )
-
-            content: Content[TextDocumentResponse] = Content(
-                data=TextDocumentResponse(
-                    id=patched_document.id,
-                    name=patched_document.name,
-                    description=patched_document.description,
-                    document_type_id=patched_document.document_type_id,
-                    account_id=patched_document.account_id,
-                    text_content=patched_text_document.text_content,
-                ),
-                message="TextDocument patch one by id succeed."
+            result: Result[TextDocumentResponse] = Result(
+                status_code=status.HTTP_200_OK,
+                message="TextDocumentManagement.patch_one_by_id: Succeed.",
+                data=patched_text_document,
             )
-        except Exception as exception:
-            content: Content[TextDocumentResponse] = Content(
+        except exc.NoResultFound:
+            result: Result[TextDocumentResponse] = Result(
+                status_code=status.HTTP_404_NOT_FOUND,
+                message="TextDocumentManagement.patch_one_by_id: Failed, text_document is not found.",
                 data=None,
-                message=f"TextDocument patch one by id failed: {exception}"
             )
-        return content
+        return result
 
-    async def delete_one_by_id(self, request: DeleteOneByIdRequest) -> Content[TextDocumentResponse]:
+    async def patch_one_by_id_raw(self, session: AsyncSession, id: UUID, text_document_to_patch: TextDocument) -> \
+            Result[
+                TextDocumentResponse]:
         try:
-            deleted_text_document: TextDocument = await self.text_document_repository.delete_one_by_document_id(
-                document_id=request.id
+            patched_text_document: TextDocument = await self.text_document_repository.patch_one_by_id(
+                session=session,
+                id=id,
+                text_document_to_patch=text_document_to_patch
             )
-
-            deleted_document: Document = await self.document_repository.delete_one_by_id(
-                id=deleted_text_document.document_id
+            result: Result[TextDocumentResponse] = Result(
+                status_code=status.HTTP_200_OK,
+                message="TextDocumentManagement.patch_one_by_id_raw: Succeed.",
+                data=patched_text_document,
             )
-
-            content: Content[TextDocumentResponse] = Content(
-                message="TextDocument delete one by id succeed.",
-                data=TextDocumentResponse(
-                    id=deleted_document.id,
-                    name=deleted_document.name,
-                    description=deleted_document.description,
-                    document_type_id=deleted_document.document_type_id,
-                    account_id=deleted_document.account_id,
-                    text_content=deleted_text_document.text_content,
-                ),
-            )
-        except Exception as exception:
-            content: Content[TextDocumentResponse] = Content(
-                message=f"TextDocument delete one by id failed: {exception}",
+        except exc.NoResultFound:
+            result: Result[TextDocumentResponse] = Result(
+                status_code=status.HTTP_404_NOT_FOUND,
+                message="TextDocumentManagement.patch_one_by_id_raw: Failed, text_document is not found.",
                 data=None,
             )
-        return content
+        return result
+
+    async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> Result[TextDocumentResponse]:
+        try:
+            deleted_text_document: TextDocument = await self.text_document_repository.delete_one_by_id(
+                session=session,
+                id=id
+            )
+            result: Result[TextDocumentResponse] = Result(
+                status_code=status.HTTP_200_OK,
+                message="TextDocumentManagement.delete_one_by_id: Succeed.",
+                data=deleted_text_document,
+            )
+        except exc.NoResultFound:
+            result: Result[TextDocumentResponse] = Result(
+                status_code=status.HTTP_404_NOT_FOUND,
+                message="TextDocumentManagement.delete_one_by_id: Failed, text_document is not found.",
+                data=None,
+            )
+        return result

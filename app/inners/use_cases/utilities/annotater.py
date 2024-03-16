@@ -22,19 +22,19 @@ class Annotater:
             self,
             labels: List[str],
             documents: List[str],
-            input_file_bytes: bytes,
+            input_file_data: bytes,
     ) -> bytes:
-        input_file_name: str = f"annotater_input_{hashlib.md5(input_file_bytes).hexdigest()}"
+        input_file_name: str = f"annotater_input_{hashlib.md5(input_file_data).hexdigest()}"
         input_file_extension: str = ".pdf"
         input_file_path: Path = self.temp_datastore_setting.TEMP_DATASTORE_PATH / Path(
             f"{input_file_name}{input_file_extension}")
-        output_file_name: str = f"annotater_output_{hashlib.md5(input_file_bytes).hexdigest()}"
+        output_file_name: str = f"annotater_output_{hashlib.md5(input_file_data).hexdigest()}"
         output_file_extension: str = ".pdf"
         output_file_path: Path = self.temp_datastore_setting.TEMP_DATASTORE_PATH / Path(
             f"/{output_file_name}{output_file_extension}")
 
         with open(input_file_path, "wb") as file:
-            file.write(input_file_bytes)
+            file.write(input_file_data)
 
         highlights = []
         for label, document in zip(labels, documents):
@@ -54,12 +54,12 @@ class Annotater:
         )
 
         with open(output_file_path, "rb") as file:
-            output_file_bytes = base64.b64encode(file.read())
+            output_file_data = base64.b64encode(file.read())
 
         os.remove(input_file_path)
         os.remove(output_file_path)
 
-        return output_file_bytes
+        return output_file_data
 
     def formatter(self, text):
         """

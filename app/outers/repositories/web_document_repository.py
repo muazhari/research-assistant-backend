@@ -1,92 +1,41 @@
-from typing import List
 from uuid import UUID
 
 from sqlmodel import select
-from sqlmodel.sql import expression
+from sqlmodel.engine.result import Result
+from sqlmodel.ext.asyncio.session import AsyncSession
 
-from app.inners.models.entities.web_document import WebDocument
-from app.outers.datastores.one_datastore import OneDatastore
+from app.inners.models.daos.web_document import WebDocument
 
 
 class WebDocumentRepository:
 
-    def __init__(self, one_datastore: OneDatastore):
-        self.one_datastore: OneDatastore = one_datastore
+    def __init__(self):
+        pass
 
-    async def read_all(self) -> List[WebDocument]:
-        async with await self.one_datastore.create_session() as session:
-            statement: expression = select(WebDocument)
-            result = await session.execute(statement)
-            found_entities: List[WebDocument] = result.scalars().all()
-            return found_entities
+    async def find_one_by_id(self, session: AsyncSession, id: UUID) -> WebDocument:
+        found_web_document_result: Result = await session.execute(
+            select(WebDocument).where(WebDocument.id == id).limit(1)
+        )
+        found_web_document: WebDocument = found_web_document_result.scalars().one()
+        return found_web_document
 
-    async def read_one_by_id(self, id: UUID) -> WebDocument:
-        async with await self.one_datastore.create_session() as session:
-            statement: expression = select(WebDocument).where(WebDocument.id == id)
-            result = await session.execute(statement)
-            found_entity: WebDocument = result.scalars().one()
-            if found_entity is None:
-                raise Exception("Entity not found.")
-            return found_entity
+    async def create_one(self, session: AsyncSession, web_document_to_create: WebDocument) -> WebDocument:
+        session.add(web_document_to_create)
+        return web_document_to_create
 
-    async def read_one_by_document_id(self, document_id: UUID) -> WebDocument:
-        async with await self.one_datastore.create_session() as session:
-            statement: expression = select(WebDocument).where(WebDocument.document_id == document_id)
-            result = await session.execute(statement)
-            found_entity: WebDocument = result.scalars().one()
-            if found_entity is None:
-                raise Exception("Entity not found.")
-            return found_entity
+    async def patch_one_by_id(self, session: AsyncSession, id: UUID,
+                              web_document_to_patch: WebDocument) -> WebDocument:
+        found_web_document: WebDocument = await self.find_one_by_id(
+            session=session,
+            id=id
+        )
+        found_web_document.patch_from(web_document_to_patch.dict())
+        return found_web_document
 
-    async def create_one(self, entity: WebDocument) -> WebDocument:
-        async with await self.one_datastore.create_session() as session:
-            try:
-                session.add(entity)
-                await session.commit()
-                await session.refresh(entity)
-            except Exception as exception:
-                raise exception
-        return entity
-
-    async def patch_one_by_id(self, id: UUID, entity: WebDocument) -> WebDocument:
-        async with await self.one_datastore.create_session() as session:
-            try:
-                statement: expression = select(WebDocument).where(WebDocument.id == id)
-                result = await session.execute(statement)
-                found_entity: WebDocument = result.scalars().one()
-                if found_entity is None:
-                    raise Exception("Entity not found.")
-                found_entity.patch_from(entity.dict())
-                await session.commit()
-                await session.refresh(found_entity)
-            except Exception as exception:
-                raise exception
-            return found_entity
-
-    async def delete_one_by_id(self, id: UUID) -> WebDocument:
-        async with await self.one_datastore.create_session() as session:
-            try:
-                statement: expression = select(WebDocument).where(WebDocument.id == id)
-                result = await session.execute(statement)
-                found_entity: WebDocument = result.scalars().one()
-                if found_entity is None:
-                    raise Exception("Entity not found.")
-                await session.delete(found_entity)
-                await session.commit()
-            except Exception as exception:
-                raise exception
-            return found_entity
-
-    async def delete_one_by_document_id(self, document_id: UUID) -> WebDocument:
-        async with await self.one_datastore.create_session() as session:
-            try:
-                statement: expression = select(WebDocument).where(WebDocument.document_id == document_id)
-                result = await session.execute(statement)
-                found_entity: WebDocument = result.scalars().one()
-                if found_entity is None:
-                    raise Exception("Entity not found.")
-                await session.delete(found_entity)
-                await session.commit()
-            except Exception as exception:
-                raise exception
-            return found_entity
+    async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> WebDocument:
+        found_web_document: WebDocument = await self.find_one_by_id(
+            session=session,
+            id=id
+        )
+        await session.delete(found_web_document)
+        return found_web_document

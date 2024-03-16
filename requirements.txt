@@ -1,6 +1,6 @@
+uvicorn
 fastapi
 fastapi-utils
-httpx
 pytest
 pytest-asyncio
 pytest-xdist
@@ -8,10 +8,7 @@ SQLAlchemy
 sqlmodel
 asyncpg
 python-dotenv
-pdfrw
-pdfkit
-more_itertools
-nltk
-streamlit
 txtmarker
 dependency-injector
+langchain
+langsmith

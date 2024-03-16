@@ -1,8 +1,12 @@
-from app.inners.models.entities.account import Account
-from app.inners.models.value_objects.contracts.requests.authentications.logins.login_by_email_and_password_request import \
-    LoginByEmailAndPasswordRequest
-from app.inners.models.value_objects.contracts.responses.authentications.logins.login_response import LoginResponse
-from app.inners.models.value_objects.contracts.responses.content import Content
+import bcrypt
+from sqlmodel.ext.asyncio.session import AsyncSession
+from starlette import status
+
+from app.inners.models.daos.account import Account
+from app.inners.models.dtos.contracts.requests.authentications.logins.login_by_email_and_password_body import \
+    LoginByEmailAndPasswordBody
+from app.inners.models.dtos.contracts.responses.authentications.logins.login_response import LoginResponse
+from app.inners.models.dtos.contracts.result import Result
 from app.inners.use_cases.managements.account_management import AccountManagement
 
 
@@ -13,32 +17,33 @@ class LoginAuthentication:
     ):
         self.account_management = account_management
 
-    async def login_by_email_and_password(self, request: LoginByEmailAndPasswordRequest) -> Content[LoginResponse]:
-        found_account_by_email: Content[Account] = await self.account_management.read_one_by_email(request.body.email)
-        found_account_by_email_and_password: Content[
-            Account] = await self.account_management.read_one_by_email_and_password(
-            request.body.email,
-            request.body.password)
-
-        if found_account_by_email.data is None:
-            content: Content[LoginResponse] = Content[LoginResponse](
-                data=None,
-                message="Authentication login failed: Email not found."
-            )
-            return content
-
-        if found_account_by_email_and_password.data is None:
-            content: Content[LoginResponse] = Content[LoginResponse](
-                data=None,
-                message="Authentication login failed: Wrong password."
-            )
-            return content
-
-        content: Content[LoginResponse] = Content[LoginResponse](
-            data=LoginResponse(
-                account=found_account_by_email_and_password.data
-            ),
-            message="Authentication login succeed."
+    async def login_by_email_and_password(self, session: AsyncSession, body: LoginByEmailAndPasswordBody) \
+            -> Result[LoginResponse]:
+        found_account_by_email: Result[Account] = await self.account_management.find_one_by_email(
+            session=session,
+            email=body.email
         )
 
-        return content
+        if found_account_by_email.status_code != status.HTTP_200_OK:
+            result: Result[LoginResponse] = Result(
+                status_code=found_account_by_email.status_code,
+                message=f"LoginAuthentication.login_by_email_and_password: Failed, {found_account_by_email.message}",
+                data=None
+            )
+            return result
+
+        is_password_matched: bool = bcrypt.checkpw(
+            body.password.encode(),
+            found_account_by_email.data.password.encode()
+        )
+        if not is_password_matched:
+            result: Result[LoginResponse] = Result(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                message="LoginAuthentication.login_by_email_and_password: Failed, password is not matched.",
+                data=None
+            )
+            return result
+
+        found_session
+
+        return result

@@ -1,22 +1,12 @@
-import logging
 from uuid import UUID
 
-import nltk
 from fastapi import FastAPI
 from fastapi.encoders import jsonable_encoder
-from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseConfig
 
-from app import inners, outers
+from app import outers, inners
 from app.outers.containers.application_container import ApplicationContainer
-from app.outers.interfaces.deliveries.routers.api import api_router
-
-logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
-logging.getLogger("haystack").setLevel(logging.DEBUG)
-
-nltk.download('punkt')
-nltk.download('cmudict')
-nltk.download('averaged_perceptron_tagger')
+from app.outers.interfaces.deliveries.routers.api_router import api_router
 
 BaseConfig.json_encoders = {
     UUID: jsonable_encoder,
@@ -24,19 +14,11 @@ BaseConfig.json_encoders = {
 
 app: FastAPI = FastAPI(
     title="research-assistant-backend",
-    version="0.0.1"
+    version="0.0.2"
 )
 
 app.container = ApplicationContainer()
 app.container.wire(packages=[inners, outers])
-
-app.add_middleware(
-    middleware_class=CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 app.include_router(
     router=api_router

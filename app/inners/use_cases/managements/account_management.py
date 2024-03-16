@@ -1,17 +1,15 @@
 import uuid
-from typing import List
+from uuid import UUID
 
-from app.inners.models.entities.account import Account
-from app.inners.models.value_objects.contracts.requests.managements.accounts.create_one_request import CreateOneRequest
-from app.inners.models.value_objects.contracts.requests.managements.accounts.delete_one_by_id_request import \
-    DeleteOneByIdRequest
-from app.inners.models.value_objects.contracts.requests.managements.accounts.patch_one_by_id_request import \
-    PatchOneByIdRequest
-from app.inners.models.value_objects.contracts.requests.managements.accounts.read_all_request import ReadAllRequest
-from app.inners.models.value_objects.contracts.requests.managements.accounts.read_one_by_id_request import \
-    ReadOneByIdRequest
-from app.inners.models.value_objects.contracts.responses.content import Content
-from app.inners.use_cases.utilities.management_utility import ManagementUtility
+import bcrypt
+from sqlalchemy import exc
+from sqlmodel.ext.asyncio.session import AsyncSession
+from starlette import status
+
+from app.inners.models.daos.account import Account
+from app.inners.models.dtos.contracts.requests.managements.accounts.create_one_body import CreateOneBody
+from app.inners.models.dtos.contracts.requests.managements.accounts.patch_one_body import PatchOneBody
+from app.inners.models.dtos.contracts.result import Result
 from app.outers.repositories.account_repository import AccountRepository
 
 
@@ -19,122 +17,144 @@ class AccountManagement:
     def __init__(
             self,
             account_repository: AccountRepository,
-            management_utility: ManagementUtility
     ):
         self.account_repository: AccountRepository = account_repository
-        self.management_utility: ManagementUtility = management_utility
 
-    async def read_all(self, request: ReadAllRequest) -> Content[List[Account]]:
+    async def find_one_by_id(self, session: AsyncSession, id: UUID) -> Result[Account]:
         try:
-            found_entities: List[Account] = await self.account_repository.read_all()
-
-            if len(request.query_parameter.keys()) > 0:
-                found_entities = list(
-                    filter(
-                        lambda entity: self.management_utility.filter(request.query_parameter, entity),
-                        found_entities
-                    )
-                )
-
-            content: Content[List[Account]] = Content(
-                data=found_entities,
-                message="Account read all succeed."
+            found_account: Account = await self.account_repository.find_one_by_id(
+                session=session,
+                id=id
             )
-        except Exception as exception:
-            content: Content[List[Account]] = Content(
+            result: Result[Account] = Result(
+                status_code=status.HTTP_200_OK,
+                message="AccountManagement.find_one_by_id: Succeed.",
+                data=found_account,
+            )
+        except exc.NoResultFound:
+            result: Result[Account] = Result(
+                status_code=status.HTTP_404_NOT_FOUND,
+                message="AccountManagement.find_one_by_id: Failed, account is not found.",
                 data=None,
-                message=f"Account read all failed: {exception}"
             )
-        return content
+        return result
 
-    async def read_one_by_id(self, request: ReadOneByIdRequest) -> Content[Account]:
+    async def find_one_by_email(self, session: AsyncSession, email: str) -> Result[Account]:
         try:
-            found_entity: Account = await self.account_repository.read_one_by_id(request.id)
-            content: Content[Account] = Content(
-                data=found_entity,
-                message="Account read one by id succeed."
+            found_account: Account = await self.account_repository.find_one_by_email(
+                session=session,
+                email=email
             )
-        except Exception as exception:
-            content: Content[Account] = Content(
+            result: Result[Account] = Result(
+                status_code=status.HTTP_200_OK,
+                message="AccountManagement.find_one_by_email: Succeed.",
+                data=found_account,
+            )
+        except exc.NoResultFound:
+            result: Result[Account] = Result(
+                status_code=status.HTTP_404_NOT_FOUND,
+                message="AccountManagement.find_one_by_email: Failed, account is not found.",
                 data=None,
-                message=f"Account read one by id failed: {exception}"
             )
-        return content
+        return result
 
-    async def read_one_by_email(self, email: str) -> Content[Account]:
+    async def find_one_by_email_and_password(self, session: AsyncSession, email: str, password: str) -> Result[Account]:
         try:
-            found_entity: Account = await self.account_repository.read_one_by_email(email)
-            content: Content[Account] = Content(
-                data=found_entity,
-                message="Account read one by email succeed."
+            found_account: Account = await self.account_repository.find_one_by_email_and_password(
+                session=session,
+                email=email,
+                password=password
             )
-        except Exception as exception:
-            content: Content[Account] = Content(
+            result: Result[Account] = Result(
+                status_code=status.HTTP_200_OK,
+                message="AccountManagement.find_one_by_email_and_password: Succeed.",
+                data=found_account,
+            )
+        except exc.NoResultFound:
+            result: Result[Account] = Result(
+                status_code=status.HTTP_404_NOT_FOUND,
+                message="AccountManagement.find_one_by_email_and_password: Failed, account is not found.",
                 data=None,
-                message=f"Account read one by email failed: {exception}"
             )
-        return content
+        return result
 
-    async def read_one_by_email_and_password(self, email: str, password: str) -> Content[Account]:
-        try:
-            found_entity: Account = await self.account_repository.read_one_by_email_and_password(email, password)
-            content: Content[Account] = Content(
-                data=found_entity,
-                message="Account read one by email and password succeed."
-            )
-        except Exception as exception:
-            content: Content[Account] = Content(
-                data=None,
-                message=f"Account read one by email and password failed: {exception}"
-            )
-        return content
+    async def create_one(self, session: AsyncSession, body: CreateOneBody) -> Result[Account]:
+        account_to_create: Account = Account(**body.dict())
+        account_to_create.id = uuid.uuid4()
+        account_to_create.password = bcrypt.hashpw(account_to_create.password.encode(), bcrypt.gensalt()).decode()
+        created_account: Account = await self.account_repository.create_one(
+            session=session,
+            account_to_create=account_to_create
+        )
+        result: Result[Account] = Result(
+            status_code=status.HTTP_201_CREATED,
+            message="AccountManagement.create_one: Succeed.",
+            data=created_account,
+        )
+        return result
 
-    async def create_one(self, request: CreateOneRequest) -> Content[Account]:
-        try:
-            entity_to_create: Account = Account(
-                **request.body.dict(),
-                id=uuid.uuid4(),
-            )
-            created_entity: Account = await self.account_repository.create_one(entity_to_create)
-            content: Content[Account] = Content(
-                data=created_entity,
-                message="Account create one succeed."
-            )
-        except Exception as exception:
-            content: Content[Account] = Content(
-                data=None,
-                message=f"Account create one failed: {exception}"
-            )
-        return content
+    async def create_one_raw(self, session: AsyncSession, account_to_create: Account) -> Result[Account]:
+        created_account: Account = await self.account_repository.create_one(
+            session=session,
+            account_to_create=account_to_create
+        )
+        result: Result[Account] = Result(
+            status_code=status.HTTP_201_CREATED,
+            message="AccountManagement.create_one_raw: Succeed.",
+            data=created_account,
+        )
+        return result
 
-    async def patch_one_by_id(self, request: PatchOneByIdRequest) -> Content[Account]:
+    async def patch_one_by_id(self, session: AsyncSession, id: UUID, body: PatchOneBody) -> Result[Account]:
         try:
-            entity_to_patch: Account = Account(
-                **request.body.dict(),
-                id=request.id,
+            account_to_patch: Account = Account(**body.dict())
+            account_to_patch.password = bcrypt.hashpw(account_to_patch.password.encode(), bcrypt.gensalt()).decode()
+            patched_account: Account = await self.account_repository.patch_one_by_id(
+                session=session,
+                id=id,
+                account_to_patch=account_to_patch
             )
-            patched_entity: Account = await self.account_repository.patch_one_by_id(request.id, entity_to_patch)
-            content: Content[Account] = Content(
-                data=patched_entity,
-                message="Account patch one by id succeed."
+            result: Result[Account] = Result(
+                status_code=status.HTTP_200_OK,
+                message="AccountManagement.patch_one_by_id: Succeed.",
+                data=patched_account,
             )
-        except Exception as exception:
-            content: Content[Account] = Content(
+        except exc.NoResultFound:
+            result: Result[Account] = Result(
+                status_code=status.HTTP_404_NOT_FOUND,
+                message="AccountManagement.patch_one_by_id: Failed, account is not found.",
                 data=None,
-                message=f"Account patch one by id failed: {exception}"
             )
-        return content
+        return result
 
-    async def delete_one_by_id(self, request: DeleteOneByIdRequest) -> Content[Account]:
+    async def patch_one_by_id_raw(self, session: AsyncSession, id: UUID, account_to_patch: Account) -> Result[Account]:
+        patched_account: Account = await self.account_repository.patch_one_by_id(
+            session=session,
+            id=id,
+            account_to_patch=account_to_patch
+        )
+        result: Result[Account] = Result(
+            status_code=status.HTTP_200_OK,
+            message="AccountManagement.patch_one_by_id_raw: Succeed.",
+            data=patched_account,
+        )
+        return result
+
+    async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> Result[Account]:
         try:
-            deleted_entity: Account = await self.account_repository.delete_one_by_id(request.id)
-            content: Content[Account] = Content(
-                data=deleted_entity,
-                message="Account delete one by id succeed."
+            deleted_account: Account = await self.account_repository.delete_one_by_id(
+                session=session,
+                id=id
             )
-        except Exception as exception:
-            content: Content[Account] = Content(
+            result: Result[Account] = Result(
+                status_code=status.HTTP_200_OK,
+                message="AccountManagement.delete_one_by_id: Succeed.",
+                data=deleted_account,
+            )
+        except exc.NoResultFound:
+            result: Result[Account] = Result(
+                status_code=status.HTTP_404_NOT_FOUND,
+                message="AccountManagement.delete_one_by_id: Failed, account is not found.",
                 data=None,
-                message=f"Account delete one by id failed: {exception}"
             )
-        return content
+        return result

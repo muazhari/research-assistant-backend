@@ -1,69 +1,41 @@
-from typing import List
 from uuid import UUID
 
 from sqlmodel import select
-from sqlmodel.sql import expression
+from sqlmodel.engine.result import Result
+from sqlmodel.ext.asyncio.session import AsyncSession
 
-from app.inners.models.entities.document_process import DocumentProcess
-from app.outers.datastores.one_datastore import OneDatastore
+from app.inners.models.daos.document_process import DocumentProcess
 
 
 class DocumentProcessRepository:
 
-    def __init__(self, one_datastore: OneDatastore):
-        self.one_datastore: OneDatastore = one_datastore
+    def __init__(self):
+        pass
 
-    async def read_all(self) -> List[DocumentProcess]:
-        async with await self.one_datastore.create_session() as session:
-            statement: expression = select(DocumentProcess)
-            result = await session.execute(statement)
-            found_entities: List[DocumentProcess] = result.scalars().all()
-            return found_entities
+    async def find_one_by_id(self, session: AsyncSession, id: UUID) -> DocumentProcess:
+        found_document_process_result: Result = await session.execute(
+            select(DocumentProcess).where(DocumentProcess.id == id).limit(1)
+        )
+        found_document_process: DocumentProcess = found_document_process_result.scalars().one()
+        return found_document_process
 
-    async def read_one_by_id(self, id: UUID) -> DocumentProcess:
-        async with await self.one_datastore.create_session() as session:
-            statement: expression = select(DocumentProcess).where(DocumentProcess.id == id)
-            result = await session.execute(statement)
-            found_entity: DocumentProcess = result.scalars().one()
-            if found_entity is None:
-                raise Exception("Entity not found.")
-            return found_entity
+    async def create_one(self, session: AsyncSession, document_process_to_create: DocumentProcess) -> DocumentProcess:
+        session.add(document_process_to_create)
+        return document_process_to_create
 
-    async def create_one(self, entity: DocumentProcess) -> DocumentProcess:
-        async with await self.one_datastore.create_session() as session:
-            try:
-                session.add(entity)
-                await session.commit()
-                await session.refresh(entity)
-            except Exception as exception:
-                raise exception
-        return entity
+    async def patch_one_by_id(self, session: AsyncSession, id: UUID,
+                              document_process_to_patch: DocumentProcess) -> DocumentProcess:
+        found_document_process: DocumentProcess = await self.find_one_by_id(
+            session=session,
+            id=id
+        )
+        found_document_process.patch_from(document_process_to_patch.dict())
+        return found_document_process
 
-    async def patch_one_by_id(self, id: UUID, entity: DocumentProcess) -> DocumentProcess:
-        async with await self.one_datastore.create_session() as session:
-            try:
-                statement: expression = select(DocumentProcess).where(DocumentProcess.id == id)
-                result = await session.execute(statement)
-                found_entity: DocumentProcess = result.scalars().one()
-                if found_entity is None:
-                    raise Exception("Entity not found.")
-                found_entity.patch_from(entity.dict())
-                await session.commit()
-                await session.refresh(found_entity)
-            except Exception as exception:
-                raise exception
-            return found_entity
-
-    async def delete_one_by_id(self, id: UUID) -> DocumentProcess:
-        async with await self.one_datastore.create_session() as session:
-            try:
-                statement: expression = select(DocumentProcess).where(DocumentProcess.id == id)
-                result = await session.execute(statement)
-                found_entity: DocumentProcess = result.scalars().one()
-                if found_entity is None:
-                    raise Exception("Entity not found.")
-                await session.delete(found_entity)
-                await session.commit()
-            except Exception as exception:
-                raise exception
-            return found_entity
+    async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> DocumentProcess:
+        found_document_process: DocumentProcess = await self.find_one_by_id(
+            session=session,
+            id=id
+        )
+        await session.delete(found_document_process)
+        return found_document_process

@@ -1,69 +1,41 @@
-from typing import List
 from uuid import UUID
 
 from sqlmodel import select
-from sqlmodel.sql import expression
+from sqlmodel.engine.result import Result
+from sqlmodel.ext.asyncio.session import AsyncSession
 
-from app.inners.models.entities.document import Document
-from app.outers.datastores.one_datastore import OneDatastore
+from app.inners.models.daos.document import Document
 
 
 class DocumentRepository:
 
-    def __init__(self, one_datastore: OneDatastore):
-        self.one_datastore: OneDatastore = one_datastore
+    def __init__(self):
+        pass
 
-    async def read_all(self) -> List[Document]:
-        async with await self.one_datastore.create_session() as session:
-            statement: expression = select(Document)
-            result = await session.execute(statement)
-            found_entities: List[Document] = result.scalars().all()
-            return found_entities
+    async def find_one_by_id(self, session: AsyncSession, id: UUID) -> Document:
+        found_document_result: Result = await session.execute(
+            select(Document).where(Document.id == id).limit(1)
+        )
+        found_document: Document = found_document_result.scalars().one()
+        return found_document
 
-    async def read_one_by_id(self, id: UUID) -> Document:
-        async with await self.one_datastore.create_session() as session:
-            statement: expression = select(Document).where(Document.id == id)
-            result = await session.execute(statement)
-            found_entity: Document = result.scalars().one()
-            if found_entity is None:
-                raise Exception("Entity not found.")
-            return found_entity
+    async def create_one(self, session: AsyncSession, document_to_create: Document) -> Document:
+        session.add(document_to_create)
+        return document_to_create
 
-    async def create_one(self, entity: Document) -> Document:
-        async with await self.one_datastore.create_session() as session:
-            try:
-                session.add(entity)
-                await session.commit()
-                await session.refresh(entity)
-            except Exception as exception:
-                raise exception
-        return entity
+    async def patch_one_by_id(self, session: AsyncSession, id: UUID,
+                              document_to_patch: Document) -> Document:
+        found_document: Document = await self.find_one_by_id(
+            session=session,
+            id=id
+        )
+        found_document.patch_from(document_to_patch.dict())
+        return found_document
 
-    async def patch_one_by_id(self, id: UUID, entity: Document) -> Document:
-        async with await self.one_datastore.create_session() as session:
-            try:
-                statement: expression = select(Document).where(Document.id == id)
-                result = await session.execute(statement)
-                found_entity: Document = result.scalars().one()
-                if found_entity is None:
-                    raise Exception("Entity not found.")
-                found_entity.patch_from(entity.dict())
-                await session.commit()
-                await session.refresh(found_entity)
-            except Exception as exception:
-                raise exception
-            return found_entity
-
-    async def delete_one_by_id(self, id: UUID) -> Document:
-        async with await self.one_datastore.create_session() as session:
-            try:
-                statement: expression = select(Document).where(Document.id == id)
-                result = await session.execute(statement)
-                found_entity: Document = result.scalars().one()
-                if found_entity is None:
-                    raise Exception("Entity not found.")
-                await session.delete(found_entity)
-                await session.commit()
-            except Exception as exception:
-                raise exception
-            return found_entity
+    async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> Document:
+        found_document: Document = await self.find_one_by_id(
+            session=session,
+            id=id
+        )
+        await session.delete(found_document)
+        return found_document

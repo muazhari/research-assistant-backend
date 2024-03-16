@@ -1,19 +1,11 @@
-import uuid
-from typing import List
+from sqlalchemy import exc
+from sqlmodel.ext.asyncio.session import AsyncSession
+from starlette import status
 
-from app.inners.models.entities.document_type import DocumentType
-from app.inners.models.value_objects.contracts.requests.managements.document_types.create_one_request import \
-    CreateOneRequest
-from app.inners.models.value_objects.contracts.requests.managements.document_types.delete_one_by_id_request import \
-    DeleteOneByIdRequest
-from app.inners.models.value_objects.contracts.requests.managements.document_types.patch_one_by_id_request import \
-    PatchOneByIdRequest
-from app.inners.models.value_objects.contracts.requests.managements.document_types.read_all_request import \
-    ReadAllRequest
-from app.inners.models.value_objects.contracts.requests.managements.document_types.read_one_by_id_request import \
-    ReadOneByIdRequest
-from app.inners.models.value_objects.contracts.responses.content import Content
-from app.inners.use_cases.utilities.management_utility import ManagementUtility
+from app.inners.models.daos.document_type import DocumentType
+from app.inners.models.dtos.contracts.requests.managements.document_types.create_one_body import CreateOneBody
+from app.inners.models.dtos.contracts.requests.managements.document_types.patch_one_body import PatchOneBody
+from app.inners.models.dtos.contracts.result import Result
 from app.outers.repositories.document_type_repository import DocumentTypeRepository
 
 
@@ -21,95 +13,104 @@ class DocumentTypeManagement:
     def __init__(
             self,
             document_type_repository: DocumentTypeRepository,
-            management_utility: ManagementUtility
     ):
         self.document_type_repository: DocumentTypeRepository = document_type_repository
-        self.management_utility: ManagementUtility = management_utility
 
-    async def read_all(self, request: ReadAllRequest) -> Content[List[DocumentType]]:
+    async def find_one_by_id(self, session: AsyncSession, id: str) -> Result[DocumentType]:
         try:
-            found_entities: List[DocumentType] = await self.document_type_repository.read_all()
-
-            if len(request.query_parameter.keys()) > 0:
-                found_entities = list(
-                    filter(
-                        lambda entity: self.management_utility.filter(request.query_parameter, entity),
-                        found_entities
-                    )
-                )
-
-            content: Content[List[DocumentType]] = Content(
-                data=found_entities,
-                message="DocumentType read all succeed."
+            found_document_type: DocumentType = await self.document_type_repository.find_one_by_id(
+                session=session,
+                id=id
             )
-        except Exception as exception:
-            content: Content[List[DocumentType]] = Content(
+            result: Result[DocumentType] = Result(
+                status_code=status.HTTP_200_OK,
+                message="DocumentTypeManagement.find_one_by_id: Succeed.",
+                data=found_document_type,
+            )
+        except exc.NoResultFound:
+            result: Result[DocumentType] = Result(
+                status_code=status.HTTP_404_NOT_FOUND,
+                message="DocumentTypeManagement.find_one_by_id: Failed, document_type is not found.",
                 data=None,
-                message=f"DocumentType read all failed: {exception}"
             )
-        return content
+        return result
 
-    async def read_one_by_id(self, request: ReadOneByIdRequest) -> Content[DocumentType]:
+    async def create_one(self, session: AsyncSession, body: CreateOneBody) -> Result[DocumentType]:
+        document_type_to_create: DocumentType = DocumentType(**body.dict())
+        created_document_type: DocumentType = await self.document_type_repository.create_one(
+            session=session,
+            document_type_to_create=document_type_to_create
+        )
+        result: Result[DocumentType] = Result(
+            status_code=status.HTTP_201_CREATED,
+            message="DocumentTypeManagement.create_one: Succeed.",
+            data=created_document_type,
+        )
+        return result
+
+    async def create_one_raw(self, session: AsyncSession, document_type_to_create: DocumentType) -> Result[
+        DocumentType]:
+        created_document_type: DocumentType = await self.document_type_repository.create_one(
+            session=session,
+            document_type_to_create=document_type_to_create
+        )
+        result: Result[DocumentType] = Result(
+            status_code=status.HTTP_201_CREATED,
+            message="DocumentTypeManagement.create_one_raw: Succeed.",
+            data=created_document_type,
+        )
+        return result
+
+    async def patch_one_by_id(self, session: AsyncSession, id: str, body: PatchOneBody) -> Result[DocumentType]:
         try:
-            found_entity: DocumentType = await self.document_type_repository.read_one_by_id(request.id)
-            content: Content[DocumentType] = Content(
-                data=found_entity,
-                message="DocumentType read one by id succeed."
+            document_type_to_patch: DocumentType = DocumentType(**body.dict())
+            patched_document_type: DocumentType = await self.document_type_repository.patch_one_by_id(
+                session=session,
+                id=id,
+                document_type_to_patch=document_type_to_patch
             )
-        except Exception as exception:
-            content: Content[DocumentType] = Content(
+            result: Result[DocumentType] = Result(
+                status_code=status.HTTP_200_OK,
+                message="DocumentTypeManagement.patch_one_by_id: Succeed.",
+                data=patched_document_type,
+            )
+        except exc.NoResultFound:
+            result: Result[DocumentType] = Result(
+                status_code=status.HTTP_404_NOT_FOUND,
+                message="DocumentTypeManagement.patch_one_by_id: Failed, document_type is not found.",
                 data=None,
-                message=f"DocumentType read one by id failed: {exception}"
             )
-        return content
+        return result
 
-    async def create_one(self, request: CreateOneRequest) -> Content[DocumentType]:
-        try:
-            entity_to_create: DocumentType = DocumentType(
-                **request.body.dict(),
-                id=uuid.uuid4(),
-            )
-            created_entity: DocumentType = await self.document_type_repository.create_one(entity_to_create)
-            content: Content[DocumentType] = Content(
-                data=created_entity,
-                message="DocumentType create one succeed."
-            )
-        except Exception as exception:
-            content: Content[DocumentType] = Content(
-                data=None,
-                message=f"DocumentType create one failed: {exception}"
-            )
-        return content
+    async def patch_one_by_id_raw(self, session: AsyncSession, id: str, document_type_to_patch: DocumentType) -> \
+            Result[DocumentType]:
+        patched_document_type: DocumentType = await self.document_type_repository.patch_one_by_id(
+            session=session,
+            id=id,
+            document_type_to_patch=document_type_to_patch
+        )
+        result: Result[DocumentType] = Result(
+            status_code=status.HTTP_200_OK,
+            message="DocumentTypeManagement.patch_one_by_id_raw: Succeed.",
+            data=patched_document_type,
+        )
+        return result
 
-    async def patch_one_by_id(self, request: PatchOneByIdRequest) -> Content[DocumentType]:
+    async def delete_one_by_id(self, session: AsyncSession, id: str) -> Result[DocumentType]:
         try:
-            entity_to_patch: DocumentType = DocumentType(
-                **request.body.dict(),
-                id=request.id,
+            deleted_document_type: DocumentType = await self.document_type_repository.delete_one_by_id(
+                session=session,
+                id=id
             )
-            patched_entity: DocumentType = await self.document_type_repository.patch_one_by_id(request.id,
-                                                                                               entity_to_patch)
-            content: Content[DocumentType] = Content(
-                data=patched_entity,
-                message="DocumentType patch one by id succeed."
+            result: Result[DocumentType] = Result(
+                status_code=status.HTTP_200_OK,
+                message="DocumentTypeManagement.delete_one_by_id: Succeed.",
+                data=deleted_document_type,
             )
-        except Exception as exception:
-            content: Content[DocumentType] = Content(
+        except exc.NoResultFound:
+            result: Result[DocumentType] = Result(
+                status_code=status.HTTP_404_NOT_FOUND,
+                message="DocumentTypeManagement.delete_one_by_id: Failed, document_type is not found.",
                 data=None,
-                message=f"DocumentType patch one by id failed: {exception}"
             )
-        return content
-
-    async def delete_one_by_id(self, request: DeleteOneByIdRequest) -> Content[DocumentType]:
-        try:
-            deleted_entity: DocumentType = await self.document_type_repository.delete_one_by_id(request.id)
-            content: Content[DocumentType] = Content(
-                data=deleted_entity,
-                message="DocumentType delete one by id succeed."
-            )
-        except Exception as exception:
-            content: Content[DocumentType] = Content(
-                data=None,
-                message=f"DocumentType delete one by id failed: {exception}"
-            )
-        return content
+        return result

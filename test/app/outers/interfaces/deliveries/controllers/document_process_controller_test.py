@@ -3,23 +3,23 @@ from typing import List
 
 import pytest as pytest
 import pytest_asyncio
+from test.utilities.test_client_utility import get_async_client
 
-from app.inners.models.entities.account import Account
-from app.inners.models.entities.document import Document
-from app.inners.models.entities.document_process import DocumentProcess
-from app.inners.models.entities.document_type import DocumentType
-from app.inners.models.value_objects.contracts.requests.managements.document_processes.create_body import CreateBody
-from app.inners.models.value_objects.contracts.requests.managements.document_processes.patch_body import PatchBody
-from app.inners.models.value_objects.contracts.responses.content import Content
+from app.inners.models.daos.account import Account
+from app.inners.models.daos.document import Document
+from app.inners.models.daos.document_process import DocumentProcess
+from app.inners.models.daos.document_type import DocumentType
+from app.inners.models.dtos.contracts.requests.managements.document_processes.create_one_body import CreateOneBody
+from app.inners.models.dtos.contracts.requests.managements.document_processes.patch_one_body import PatchOneBody
+from app.inners.models.dtos.contracts.result import Result
 from app.outers.repositories.document_process_repository import DocumentProcessRepository
 from test.app.outers.interfaces.deliveries.controllers.account_controller_test import account_repository
 from test.app.outers.interfaces.deliveries.controllers.document_controller_test import document_repository
 from test.app.outers.interfaces.deliveries.controllers.document_type_controller_test import document_type_repository
-from test.mock_data.document_process_mock_data import DocumentProcessMockData
-from test.utilities.test_client_utility import get_async_client
+from test.mocks.document_process_mock import DocumentProcessMock
 
 document_process_repository = DocumentProcessRepository()
-document_process_mock_data = DocumentProcessMockData()
+document_process_mock_data = DocumentProcessMock()
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
@@ -49,30 +49,30 @@ async def run_around(request: pytest.FixtureRequest):
 
 
 @pytest.mark.asyncio
-async def test__read_all__should_return_all_document_process__success():
+async def test__find_many__should_return_all_document_process__success():
     async with get_async_client() as client:
         response = await client.get(
             url="api/v1/document-processes"
         )
     assert response.status_code == 200
-    content: Content[List[DocumentProcess]] = Content[List[DocumentProcess]](**response.json())
+    result: Result[List[DocumentProcess]] = Result[List[DocumentProcess]](**response.json())
     assert all(document_process in content.data for document_process in document_process_mock_data.data)
 
 
 @pytest.mark.asyncio
-async def test__read_one_by_id__should_return_one_document_process__success():
+async def test__find_one_by_id__should_return_one_document_process__success():
     async with get_async_client() as client:
         response = await client.get(
             url=f"api/v1/document-processes/{document_process_mock_data.data[0].id}"
         )
         assert response.status_code == 200
-        content: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
+        result: Result[DocumentProcess] = Result[DocumentProcess](**response.json())
         assert content.data == document_process_mock_data.data[0]
 
 
 @pytest.mark.asyncio
 async def test__create_one__should_create_one_document_process__success():
-    body: CreateBody = CreateBody(
+    body: CreateOneBody = CreateOneBody(
         initial_document_id=document_process_mock_data.document_mock_data.data[0].id,
         final_document_id=document_process_mock_data.document_mock_data.data[1].id,
         process_duration=2,
@@ -83,7 +83,7 @@ async def test__create_one__should_create_one_document_process__success():
             json=json.loads(body.json())
         )
         assert response.status_code == 200
-        content: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
+        result: Result[DocumentProcess] = Result[DocumentProcess](**response.json())
         assert content.data.initial_document_id == body.initial_document_id
         assert content.data.final_document_id == body.final_document_id
         assert content.data.process_duration == body.process_duration
@@ -92,7 +92,7 @@ async def test__create_one__should_create_one_document_process__success():
 
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_document_process__success():
-    body: PatchBody = PatchBody(
+    body: PatchOneBody = PatchOneBody(
         initial_document_id=document_process_mock_data.document_mock_data.data[1].id,
         final_document_id=document_process_mock_data.document_mock_data.data[0].id,
         process_duration=3,
@@ -103,7 +103,7 @@ async def test__patch_one_by_id__should_patch_one_document_process__success():
             json=json.loads(body.json())
         )
         assert response.status_code == 200
-        content: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
+        result: Result[DocumentProcess] = Result[DocumentProcess](**response.json())
         assert content.data.initial_document_id == body.initial_document_id
         assert content.data.final_document_id == body.final_document_id
         assert content.data.process_duration == body.process_duration
@@ -117,5 +117,5 @@ async def test__delete_one_by_id__should_delete_one_document_process__success():
             url=f"api/v1/document-processes/{document_process_mock_data.data[0].id}"
         )
         assert response.status_code == 200
-        content: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
+        result: Result[DocumentProcess] = Result[DocumentProcess](**response.json())
         assert content.data == document_process_mock_data.data[0]

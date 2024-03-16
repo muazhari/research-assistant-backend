@@ -44,7 +44,7 @@ create table file_document
     document_id    uuid  not null references document (id) on delete cascade on update cascade,
     file_name      text  not null,
     file_extension text  not null,
-    file_bytes     bytea not null
+    file_data      bytea not null
 );
 
 drop table if exists web_document cascade;
@@ -66,11 +66,11 @@ create table text_document
 drop table if exists event cascade;
 create table event
 (
-    id          uuid primary key,
-    entity_id   uuid        not null,
-    entity_name text        not null,
-    operation   text        not null,
-    timestamp   timestamptz not null
+    id        uuid primary key,
+    dao_id    uuid        not null,
+    dao_name  text        not null,
+    operation text        not null,
+    timestamp timestamptz not null
 );
 
 -- populate all table accounts
@@ -97,7 +97,7 @@ values ('fb5adc50-df69-4bd0-b4d0-e300d3ff7560', 'text document', 'text descripti
 insert into text_document (id, document_id, text_content)
 values ('4c3a1539-df81-4817-a224-05158ce6fd3a', 'fb5adc50-df69-4bd0-b4d0-e300d3ff7560',
         'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a documents or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available. It is also used to temporarily replace text in a process called greeking, which allows designers to consider the form of a webpage or publication, without the meaning of the text influencing the design. Lorem ipsum is typically a corrupted version of De finibus bonorum et malorum, a 1st-century BC text by the Roman statesman and philosopher Cicero, with words altered, added, and removed to make it nonsensical and improper Latin. Versions of the Lorem ipsum text have been used in typesetting at least since the 1960s, when it was popularized by advertisements for Letraset transfer sheets.[1] Lorem ipsum was introduced to the digital world in the mid-1980s, when Aldus employed it in graphic and word-processing templates for its desktop publishing program PageMaker. Other popular word processors, including Pages and Microsoft Word, have since adopted Lorem ipsum,[2] as have many LaTeX packages,[3][4][5] web content managers such as Joomla! and WordPress, and CSS libraries such as Semantic UI.[6]');
-insert into file_document (id, document_id, file_name, file_extension, file_bytes)
+insert into file_document (id, document_id, file_name, file_extension, file_data)
 values ('4c3a1539-df81-4817-a224-05158ce6fd3b', 'fb5adc50-df69-4bd0-b4d0-e300d3ff7561', 'file', '.pdf',
         'file_byte_35tv4c36vyv5etrgf');
 insert into web_document (id, document_id, web_url)
@@ -109,7 +109,7 @@ values ('63624e7e-a1bd-418f-a97d-241490240f1a', 'fb5adc50-df69-4bd0-b4d0-e300d3f
         'fb5adc50-df69-4bd0-b4d0-e300d3ff7561', 0.1);
 
 -- populate table events
-insert into event (id, entity_id, entity_name, operation, timestamp)
+insert into event (id, dao_id, dao_name, operation, timestamp)
 values ('3ea947bf-8cf8-43e3-b69c-112b8503f4a0', 'fb5adc50-df69-4bd0-b4d0-e300d3ff7560', 'document',
         'create', now()::timestamptz),
        ('3ea947bf-8cf8-43e3-b69c-112b8503f4a1', '63624e7e-a1bd-418f-a97d-241490240f1a', 'document_process',
@@ -154,7 +154,7 @@ select *
 from account;
 
 
-select encode(fd.file_bytes, 'escape'), *
+select encode(fd.file_data, 'escape'), *
 from file_document fd;
 
 select *

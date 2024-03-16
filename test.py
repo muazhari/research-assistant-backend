@@ -1,3 +1,4 @@
+import pathlib
 from pathlib import Path
 
 import torch
@@ -14,3 +15,6 @@ print(file_path_2)
 print(file_path_1 == file_path_2)
 print(file_path_1.exists())
 print(file_path_2.exists())
+
+file_path_3 = pathlib.Path()
+print(file_path_3)

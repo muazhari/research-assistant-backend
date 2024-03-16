@@ -1,69 +1,39 @@
-from typing import List
-from uuid import UUID
-
 from sqlmodel import select
-from sqlmodel.sql import expression
+from sqlmodel.engine.result import Result
+from sqlmodel.ext.asyncio.session import AsyncSession
 
-from app.inners.models.entities.document_type import DocumentType
-from app.outers.datastores.one_datastore import OneDatastore
+from app.inners.models.daos.document_type import DocumentType
 
 
 class DocumentTypeRepository:
 
-    def __init__(self, one_datastore: OneDatastore):
-        self.one_datastore: OneDatastore = one_datastore
+    def __init__(self):
+        pass
 
-    async def read_all(self) -> List[DocumentType]:
-        async with await self.one_datastore.create_session() as session:
-            statement: expression = select(DocumentType)
-            result = await session.execute(statement)
-            found_entities: List[DocumentType] = result.scalars().all()
-            return found_entities
+    async def find_one_by_id(self, session: AsyncSession, id: str) -> DocumentType:
+        found_document_type_result: Result = await session.execute(
+            select(DocumentType).where(DocumentType.id == id).limit(1)
+        )
+        found_document_type: DocumentType = found_document_type_result.scalars().one()
+        return found_document_type
 
-    async def read_one_by_id(self, id: UUID) -> DocumentType:
-        async with await self.one_datastore.create_session() as session:
-            statement: expression = select(DocumentType).where(DocumentType.id == id)
-            result = await session.execute(statement)
-            found_entity: DocumentType = result.scalars().one()
-            if found_entity is None:
-                raise Exception("Entity not found.")
-            return found_entity
+    async def create_one(self, session: AsyncSession, document_type_to_create: DocumentType) -> DocumentType:
+        session.add(document_type_to_create)
+        return document_type_to_create
 
-    async def create_one(self, entity: DocumentType) -> DocumentType:
-        async with await self.one_datastore.create_session() as session:
-            try:
-                session.add(entity)
-                await session.commit()
-                await session.refresh(entity)
-            except Exception as exception:
-                raise exception
-        return entity
+    async def patch_one_by_id(self, session: AsyncSession, id: str,
+                              document_type_to_patch: DocumentType) -> DocumentType:
+        found_document_type: DocumentType = await self.find_one_by_id(
+            session=session,
+            id=id
+        )
+        found_document_type.patch_from(document_type_to_patch.dict())
+        return found_document_type
 
-    async def patch_one_by_id(self, id: UUID, entity: DocumentType) -> DocumentType:
-        async with await self.one_datastore.create_session() as session:
-            try:
-                statement: expression = select(DocumentType).where(DocumentType.id == id)
-                result = await session.execute(statement)
-                found_entity: DocumentType = result.scalars().one()
-                if found_entity is None:
-                    raise Exception("Entity not found.")
-                found_entity.patch_from(entity.dict())
-                await session.commit()
-                await session.refresh(found_entity)
-            except Exception as exception:
-                raise exception
-            return found_entity
-
-    async def delete_one_by_id(self, id: UUID) -> DocumentType:
-        async with await self.one_datastore.create_session() as session:
-            try:
-                statement: expression = select(DocumentType).where(DocumentType.id == id)
-                result = await session.execute(statement)
-                found_entity: DocumentType = result.scalars().one()
-                if found_entity is None:
-                    raise Exception("Entity not found.")
-                await session.delete(found_entity)
-                await session.commit()
-            except Exception as exception:
-                raise exception
-            return found_entity
+    async def delete_one_by_id(self, session: AsyncSession, id: str) -> DocumentType:
+        found_document_type: DocumentType = await self.find_one_by_id(
+            session=session,
+            id=id
+        )
+        await session.delete(found_document_type)
+        return found_document_type
