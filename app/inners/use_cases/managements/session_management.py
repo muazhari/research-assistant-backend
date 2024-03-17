@@ -1,3 +1,4 @@
+import uuid
 from uuid import UUID
 
 from sqlalchemy import exc
@@ -96,6 +97,7 @@ class SessionManagement:
 
     async def create_one(self, state: State, body: CreateOneBody) -> Result[Session]:
         session_to_create: Session = Session(**body.dict())
+        session_to_create.id = uuid.uuid4()
         created_session: Session = await self.session_repository.create_one(
             session=state.session,
             session_to_create=session_to_create

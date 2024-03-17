@@ -42,7 +42,7 @@ class AccountRepository:
             session=session,
             id=id
         )
-        found_account.patch_from(account_to_patch.dict())
+        found_account.patch_from(account_to_patch.dict(exclude_none=True))
         return found_account
 
     async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> Account:

@@ -64,6 +64,9 @@ class DocumentMock:
     def data(self) -> List[Document]:
         return [Document(**document.dict()) for document in self._data]
 
+    def create_one(self, document: Document):
+        self._data.append(document)
+
     def delete_by_id(self, id: uuid.UUID):
         is_found: bool = False
         for document in self._data:

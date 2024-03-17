@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import List
 
 from app.inners.models.daos.document_process import DocumentProcess
@@ -13,21 +13,23 @@ class DocumentProcessMock:
             document_mock: DocumentMock
     ):
         self.document_mock: DocumentMock = document_mock
-        current_time: datetime = datetime.now()
+        current_time: datetime = datetime.now(tz=timezone.utc)
+        started_at: datetime = current_time + timedelta(minutes=0)
+        finished_at: datetime = current_time + timedelta(minutes=1)
         self._data: List[DocumentProcess] = [
             DocumentProcess(
                 id=uuid.uuid4(),
                 initial_document_id=self.document_mock.data[0].id,
                 final_document_id=self.document_mock.data[1].id,
-                started_at=current_time + timedelta(seconds=0),
-                finished_at=current_time + timedelta(seconds=1)
+                started_at=started_at,
+                finished_at=finished_at
             ),
             DocumentProcess(
                 id=uuid.uuid4(),
                 initial_document_id=self.document_mock.data[3].id,
                 final_document_id=self.document_mock.data[4].id,
-                started_at=current_time + timedelta(seconds=0),
-                finished_at=current_time + timedelta(seconds=1)
+                started_at=started_at,
+                finished_at=finished_at
             ),
         ]
 

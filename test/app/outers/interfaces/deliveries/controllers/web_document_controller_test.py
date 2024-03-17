@@ -8,6 +8,7 @@ from httpx import Response
 
 from app.inners.models.daos.account import Account
 from app.inners.models.daos.document import Document
+from app.inners.models.daos.document_type import DocumentType
 from app.inners.models.daos.web_document import WebDocument
 from app.inners.models.dtos.contracts.content import Content
 from app.inners.models.dtos.contracts.requests.managements.web_documents.create_one_body import \
@@ -18,7 +19,7 @@ from app.inners.models.dtos.contracts.responses.managements.documents.web_docume
 from test.containers.test_container import TestContainer
 from test.main import MainTest
 
-url_path: str = "api/web-documents"
+url_path: str = "/api/documents/webs"
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
@@ -34,7 +35,7 @@ async def run_around(request: pytest.FixtureRequest):
 
 @pytest.mark.asyncio
 async def test__find_one_by_id__should_return_one_web_document__succeed(run_around: MainTest):
-    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
+    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[2]
     selected_web_document_mock: WebDocument = run_around.all_seeder.web_document_seeder.web_document_mock.data[0]
     response: Response = await run_around.client.get(
         url=f"{url_path}/{selected_web_document_mock.id}"
@@ -52,8 +53,8 @@ async def test__find_one_by_id__should_return_one_web_document__succeed(run_arou
 
 @pytest.mark.asyncio
 async def test__create_one__should_create_one_web_document__succeed(run_around: MainTest):
-    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
-    selected_document_type_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
+    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[2]
+    selected_document_type_mock: DocumentType = run_around.all_seeder.document_type_seeder.document_type_mock.data[0]
     selected_account_mock: Account = run_around.all_seeder.document_seeder.document_mock.account_mock.data[0]
     selected_web_document_mock: WebDocument = run_around.all_seeder.web_document_seeder.web_document_mock.data[0]
     web_document_to_create_body: CreateOneBody = CreateOneBody(
@@ -81,9 +82,9 @@ async def test__create_one__should_create_one_web_document__succeed(run_around: 
 
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_web_document__succeed(run_around: MainTest):
+    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[2]
     selected_web_document_mock: WebDocument = run_around.all_seeder.web_document_seeder.web_document_mock.data[0]
-    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
-    selected_document_type_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
+    selected_document_type_mock: DocumentType = run_around.all_seeder.document_type_seeder.document_type_mock.data[0]
     selected_account_mock: Account = run_around.all_seeder.document_seeder.document_mock.account_mock.data[0]
     web_document_to_patch_body: PatchOneBody = PatchOneBody(
         name=f"patched.name{uuid.uuid4()}",
@@ -110,7 +111,7 @@ async def test__patch_one_by_id__should_patch_one_web_document__succeed(run_arou
 
 @pytest.mark.asyncio
 async def test__delete_one_by_id__should_delete_one_web_document__succeed(run_around: MainTest):
-    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
+    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[2]
     selected_web_document_mock: WebDocument = run_around.all_seeder.web_document_seeder.web_document_mock.data[0]
     response: Response = await run_around.client.delete(
         url=f"{url_path}/{selected_web_document_mock.id}"

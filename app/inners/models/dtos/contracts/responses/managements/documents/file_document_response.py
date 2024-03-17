@@ -9,7 +9,6 @@ class FileDocumentResponse(BaseResponse):
     document_account_id: UUID
     document_name: str
     document_description: str
-    file_document_id: UUID
     file_name: str
     file_extension: str
     file_data_hash: str

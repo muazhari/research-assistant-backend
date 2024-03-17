@@ -29,7 +29,7 @@ class TextDocumentRepository:
             session=session,
             id=id
         )
-        found_text_document.patch_from(text_document_to_patch.dict())
+        found_text_document.patch_from(text_document_to_patch.dict(exclude_none=True))
         return found_text_document
 
     async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> TextDocument:

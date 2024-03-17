@@ -29,7 +29,7 @@ class DocumentProcessRepository:
             session=session,
             id=id
         )
-        found_document_process.patch_from(document_process_to_patch.dict())
+        found_document_process.patch_from(document_process_to_patch.dict(exclude_none=True))
         return found_document_process
 
     async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> DocumentProcess:

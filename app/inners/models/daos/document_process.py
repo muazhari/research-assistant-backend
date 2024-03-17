@@ -15,5 +15,5 @@ class DocumentProcess(BaseDao, table=True):
     id: UUID = Field(sa_column=Column(postgresql.UUID(as_uuid=True), primary_key=True))
     initial_document_id: UUID = Field(sa_column=Column(postgresql.UUID(as_uuid=True), ForeignKey("document.id")))
     final_document_id: UUID = Field(sa_column=Column(postgresql.UUID(as_uuid=True), ForeignKey("document.id")))
-    started_at: datetime
-    finished_at: datetime
+    started_at: datetime = Field(sa_column=Column(postgresql.TIMESTAMP(timezone=True)))
+    finished_at: datetime = Field(sa_column=Column(postgresql.TIMESTAMP(timezone=True)))

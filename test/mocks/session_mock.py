@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import List
 
 from app.inners.models.daos.session import Session
@@ -13,25 +13,23 @@ class SessionMock:
             account_mock: AccountMock
     ):
         self.account_mock: AccountMock = account_mock
-        current_time: datetime = datetime.now()
-        current_time_iso_string: str = current_time.isoformat()
-        current_time_iso = datetime.fromisoformat(current_time_iso_string)
+        current_time: datetime = datetime.now(tz=timezone.utc)
         self._data: List[Session] = [
             Session(
                 id=uuid.uuid4(),
                 account_id=self.account_mock.data[0].id,
                 access_token=uuid.uuid4(),
                 refresh_token=uuid.uuid4(),
-                access_token_expired_at=current_time_iso + timedelta(minutes=10),
-                refresh_token_expired_at=current_time_iso + timedelta(days=15),
+                access_token_expired_at=current_time + timedelta(minutes=10),
+                refresh_token_expired_at=current_time + timedelta(days=15),
             ),
             Session(
                 id=uuid.uuid4(),
                 account_id=self.account_mock.data[1].id,
                 access_token=uuid.uuid4(),
                 refresh_token=uuid.uuid4(),
-                access_token_expired_at=current_time_iso + timedelta(minutes=10),
-                refresh_token_expired_at=current_time_iso + timedelta(days=15),
+                access_token_expired_at=current_time + timedelta(minutes=10),
+                refresh_token_expired_at=current_time + timedelta(days=15),
             )
         ]
 

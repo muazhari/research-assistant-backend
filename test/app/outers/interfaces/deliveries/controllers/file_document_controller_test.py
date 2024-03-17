@@ -6,7 +6,6 @@ import pytest as pytest
 import pytest_asyncio
 from httpx import Response
 
-from app.inners.models.daos.account import Account
 from app.inners.models.daos.document import Document
 from app.inners.models.daos.file_document import FileDocument
 from app.inners.models.dtos.contracts.content import Content
@@ -18,7 +17,7 @@ from app.inners.models.dtos.contracts.responses.managements.documents.file_docum
 from test.containers.test_container import TestContainer
 from test.main import MainTest
 
-url_path: str = "api/file-documents"
+url_path: str = "/api/documents/files"
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
@@ -55,15 +54,12 @@ async def test__find_one_by_id__should_return_one_file_document__succeed(run_aro
 @pytest.mark.asyncio
 async def test__create_one__should_create_one_file_document__succeed(run_around: MainTest):
     selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
-    selected_document_type_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
-    selected_account_mock: Account = run_around.all_seeder.document_seeder.document_mock.account_mock.data[0]
     selected_file_document_mock: FileDocument = run_around.all_seeder.file_document_seeder.file_document_mock.data[0]
     file_document_to_create_body: CreateOneBody = CreateOneBody(
-        name=f"name{uuid.uuid4()}",
-        description=f"description{uuid.uuid4()}",
-        document_id=selected_document_mock.id,
-        document_type_id=selected_document_type_mock.id,
-        account_id=selected_account_mock.id,
+        document_name=f"name{uuid.uuid4()}",
+        document_description=f"description{uuid.uuid4()}",
+        document_type_id=selected_document_mock.document_type_id,
+        document_account_id=selected_document_mock.account_id,
         file_name=f"file_name{uuid.uuid4()}",
         file_extension=selected_file_document_mock.file_extension,
         file_data=selected_file_document_mock.file_data
@@ -74,10 +70,10 @@ async def test__create_one__should_create_one_file_document__succeed(run_around:
     )
     assert response.status_code == 201
     response_body: Content[FileDocumentResponse] = Content[FileDocumentResponse](**response.json())
-    assert response_body.data.document_name == file_document_to_create_body.name
-    assert response_body.data.document_description == file_document_to_create_body.description
+    assert response_body.data.document_name == file_document_to_create_body.document_name
+    assert response_body.data.document_description == file_document_to_create_body.document_description
     assert response_body.data.document_type_id == file_document_to_create_body.document_type_id
-    assert response_body.data.document_account_id == file_document_to_create_body.account_id
+    assert response_body.data.document_account_id == file_document_to_create_body.document_account_id
     assert response_body.data.file_name == file_document_to_create_body.file_name
     assert response_body.data.file_extension == file_document_to_create_body.file_extension
     assert response_body.data.file_data_hash == hashlib.sha256(file_document_to_create_body.file_data).hexdigest()
@@ -88,14 +84,11 @@ async def test__create_one__should_create_one_file_document__succeed(run_around:
 async def test__patch_one_by_id__should_patch_one_file_document__succeed(run_around: MainTest):
     selected_file_document_mock: FileDocument = run_around.all_seeder.file_document_seeder.file_document_mock.data[0]
     selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
-    selected_document_type_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
-    selected_account_mock: Account = run_around.all_seeder.document_seeder.document_mock.account_mock.data[0]
     file_document_to_patch_body: PatchOneBody = PatchOneBody(
-        name=f"patched.name{uuid.uuid4()}",
-        description=f"patched.description{uuid.uuid4()}",
-        document_id=selected_document_mock.id,
-        document_type_id=selected_document_type_mock.id,
-        account_id=selected_account_mock.id,
+        document_name=f"patched.name{uuid.uuid4()}",
+        document_description=f"patched.description{uuid.uuid4()}",
+        document_type_id=selected_document_mock.document_type_id,
+        document_account_id=selected_document_mock.account_id,
         file_name=f"patched.file_name{uuid.uuid4()}",
         file_extension=selected_file_document_mock.file_extension,
         file_data=selected_file_document_mock.file_data
@@ -106,10 +99,10 @@ async def test__patch_one_by_id__should_patch_one_file_document__succeed(run_aro
     )
     assert response.status_code == 200
     response_body: Content[FileDocumentResponse] = Content[FileDocumentResponse](**response.json())
-    assert response_body.data.document_name == file_document_to_patch_body.name
-    assert response_body.data.document_description == file_document_to_patch_body.description
+    assert response_body.data.document_name == file_document_to_patch_body.document_name
+    assert response_body.data.document_description == file_document_to_patch_body.document_description
     assert response_body.data.document_type_id == file_document_to_patch_body.document_type_id
-    assert response_body.data.document_account_id == file_document_to_patch_body.account_id
+    assert response_body.data.document_account_id == file_document_to_patch_body.document_account_id
     assert response_body.data.file_name == file_document_to_patch_body.file_name
     assert response_body.data.file_extension == file_document_to_patch_body.file_extension
     assert response_body.data.file_data_hash == hashlib.sha256(file_document_to_patch_body.file_data).hexdigest()

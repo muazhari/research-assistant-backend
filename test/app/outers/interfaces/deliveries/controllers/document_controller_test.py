@@ -7,13 +7,14 @@ from httpx import Response
 
 from app.inners.models.daos.account import Account
 from app.inners.models.daos.document import Document
+from app.inners.models.daos.document_type import DocumentType
 from app.inners.models.dtos.contracts.content import Content
 from app.inners.models.dtos.contracts.requests.managements.documents.create_one_body import \
     CreateOneBody
 from test.containers.test_container import TestContainer
 from test.main import MainTest
 
-url_path = "api/documents"
+url_path: str = "/api/documents"
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
@@ -40,7 +41,7 @@ async def test__find_one_by_id__should_return_one_document__succeed(run_around: 
 
 @pytest.mark.asyncio
 async def test__create_one__should_create_one_document__succeed(run_around: MainTest):
-    selected_document_type_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
+    selected_document_type_mock: DocumentType = run_around.all_seeder.document_type_seeder.document_type_mock.data[0]
     selected_account_mock: Account = run_around.all_seeder.document_seeder.document_mock.account_mock.data[0]
     document_to_create_body: CreateOneBody = CreateOneBody(
         name=f"name{uuid.uuid4()}",
@@ -63,7 +64,7 @@ async def test__create_one__should_create_one_document__succeed(run_around: Main
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_document__succeed(run_around: MainTest):
     selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
-    selected_document_type_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
+    selected_document_type_mock: DocumentType = run_around.all_seeder.document_type_seeder.document_type_mock.data[0]
     selected_account_mock: Account = run_around.all_seeder.document_seeder.document_mock.account_mock.data[0]
     document_to_patch_body: CreateOneBody = CreateOneBody(
         name=f"patched.name{uuid.uuid4()}",

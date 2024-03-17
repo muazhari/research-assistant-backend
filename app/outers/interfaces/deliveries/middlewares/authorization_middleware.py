@@ -10,7 +10,6 @@ from starlette.responses import Response
 
 from app.inners.models.daos.session import Session
 from app.inners.models.dtos.contracts.content import Content
-from app.outers.datastores.one_datastore import OneDatastore
 
 
 class AuthorizationMiddleware(BaseHTTPMiddleware):

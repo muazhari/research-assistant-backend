@@ -29,7 +29,7 @@ class FileDocumentRepository:
             session=session,
             id=id
         )
-        found_file_document.patch_from(file_document_to_patch.dict())
+        found_file_document.patch_from(file_document_to_patch.dict(exclude_none=True))
         return found_file_document
 
     async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> FileDocument:

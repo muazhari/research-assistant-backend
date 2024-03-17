@@ -49,7 +49,7 @@ class SessionRepository:
             session=session,
             id=id
         )
-        found_session.patch_from(session_to_patch.dict())
+        found_session.patch_from(session_to_patch.dict(exclude_none=True))
         return found_session
 
     async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> Session:

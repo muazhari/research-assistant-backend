@@ -15,7 +15,7 @@ from app.inners.models.dtos.contracts.requests.managements.accounts.patch_one_bo
 from test.containers.test_container import TestContainer
 from test.main import MainTest
 
-url_path = "api/accounts"
+url_path: str = "/api/accounts"
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)

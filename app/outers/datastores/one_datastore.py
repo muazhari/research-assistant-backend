@@ -43,6 +43,7 @@ class OneDatastore:
                 if isinstance(exception, sqlalchemy.exc.DBAPIError):
                     if exception.orig.pgcode == asyncpg.exceptions.SerializationError.sqlstate:
                         retry_count += 1
+                        await session.close()
                         continue
                 await session.rollback()
                 raise exception

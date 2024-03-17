@@ -46,7 +46,7 @@ class FileDocumentManagement:
                 id=found_document.data.id,
                 document_name=found_document.data.name,
                 document_description=found_document.data.description,
-                document_document_type_id=found_document.data.document_type_id,
+                document_type_id=found_document.data.document_type_id,
                 document_account_id=found_document.data.account_id,
                 file_name=found_file_document.file_name,
                 file_extension=found_file_document.file_extension,
@@ -69,10 +69,10 @@ class FileDocumentManagement:
     async def create_one(self, state: State, body: CreateOneBody) -> Result[FileDocumentResponse]:
         document_to_create: Document = Document(
             id=uuid.uuid4(),
-            name=body.name,
-            description=body.description,
+            name=body.document_name,
+            description=body.document_description,
             document_type_id=body.document_type_id,
-            account_id=body.account_id
+            account_id=body.document_account_id
         )
         created_document: Result[Document] = await self.document_management.create_one_raw(
             state=state,
@@ -89,9 +89,11 @@ class FileDocumentManagement:
             )
 
         file_document_to_create: FileDocument = FileDocument(
+            id=created_document.data.id,
             file_name=body.file_name,
             file_extension=body.file_extension,
-            file_data=body.file_data
+            file_data=body.file_data,
+            file_data_hash=hashlib.sha256(body.file_data).hexdigest()
         )
         created_file_document: FileDocument = await self.file_document_repository.create_one(
             session=state.session,
@@ -133,10 +135,10 @@ class FileDocumentManagement:
         try:
             document_to_patch: Document = Document(
                 id=id,
-                name=body.name,
-                description=body.description,
+                name=body.document_name,
+                description=body.document_description,
                 document_type_id=body.document_type_id,
-                account_id=body.account_id
+                account_id=body.document_account_id
             )
             patched_document: Result[Document] = await self.document_management.patch_one_by_id_raw(
                 state=state,

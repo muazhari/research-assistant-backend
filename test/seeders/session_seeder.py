@@ -21,7 +21,6 @@ class SessionSeeder:
         for session_dao in self.session_mock.data:
             session.add(session_dao)
 
-
     async def down(self, session: AsyncSession):
         for session_dao in self.session_mock.data:
             found_session_result: Result = await session.execute(
@@ -29,4 +28,3 @@ class SessionSeeder:
             )
             found_session: Session = found_session_result.scalars().one()
             await session.delete(found_session)
-

@@ -1,3 +1,4 @@
+import uuid
 from uuid import UUID
 
 from sqlalchemy import exc
@@ -38,9 +39,11 @@ class DocumentManagement:
         return result
 
     async def create_one(self, state: State, body: CreateOneBody) -> Result[Document]:
+        document_to_create: Document = Document(**body.dict())
+        document_to_create.id = uuid.uuid4()
         created_document: Document = await self.document_repository.create_one(
             session=state.session,
-            document_to_create=Document(**body.dict())
+            document_to_create=document_to_create
         )
         result: Result[Document] = Result(
             status_code=status.HTTP_201_CREATED,

@@ -1,3 +1,4 @@
+import uuid
 from uuid import UUID
 
 from sqlalchemy import exc
@@ -39,6 +40,7 @@ class DocumentProcessManagement:
 
     async def create_one(self, state: State, body: CreateOneBody) -> Result[DocumentProcess]:
         document_process_to_create: DocumentProcess = DocumentProcess(**body.dict())
+        document_process_to_create.id = uuid.uuid4()
         created_document_process: DocumentProcess = await self.document_process_repository.create_one(
             session=state.session,
             document_process_to_create=document_process_to_create

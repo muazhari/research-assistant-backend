@@ -1,7 +1,6 @@
 from typing import Any
 
 from sqlmodel.ext.asyncio.session import AsyncSession
-from starlette import status
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 from starlette.requests import Request
 from starlette.responses import Response
@@ -48,12 +47,13 @@ class SessionMiddleware(BaseHTTPMiddleware):
 
             response: Response = await self.one_datastore.retryable(handler)
         except Exception as exception:
-            response: Response = Response(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                content=Content(
-                    message=f"SessionMiddleware.dispatch: Failed, {exception}",
-                    data=None
-                ).json()
-            )
+            # response: Response = Response(
+            #     status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            #     content=Content(
+            #         message=f"SessionMiddleware.dispatch: Failed, {exception}",
+            #         data=None
+            #     ).json()
+            # )
+            raise exception
 
         return response

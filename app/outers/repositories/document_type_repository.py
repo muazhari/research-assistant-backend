@@ -27,7 +27,7 @@ class DocumentTypeRepository:
             session=session,
             id=id
         )
-        found_document_type.patch_from(document_type_to_patch.dict())
+        found_document_type.patch_from(document_type_to_patch.dict(exclude_none=True))
         return found_document_type
 
     async def delete_one_by_id(self, session: AsyncSession, id: str) -> DocumentType:

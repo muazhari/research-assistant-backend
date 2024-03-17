@@ -1,4 +1,4 @@
-import json
+import hashlib
 import json
 import uuid
 
@@ -8,6 +8,7 @@ from httpx import Response
 
 from app.inners.models.daos.account import Account
 from app.inners.models.daos.document import Document
+from app.inners.models.daos.document_type import DocumentType
 from app.inners.models.daos.text_document import TextDocument
 from app.inners.models.dtos.contracts.content import Content
 from app.inners.models.dtos.contracts.requests.managements.text_documents.create_one_body import \
@@ -18,7 +19,7 @@ from app.inners.models.dtos.contracts.responses.managements.documents.text_docum
 from test.containers.test_container import TestContainer
 from test.main import MainTest
 
-url_path: str = "api/text-documents"
+url_path: str = "/api/documents/texts"
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
@@ -34,7 +35,7 @@ async def run_around(request: pytest.FixtureRequest):
 
 @pytest.mark.asyncio
 async def test__find_one_by_id__should_return_one_text_document__succeed(run_around: MainTest):
-    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
+    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[1]
     selected_text_document_mock: TextDocument = run_around.all_seeder.text_document_seeder.text_document_mock.data[0]
     response: Response = await run_around.client.get(
         url=f"{url_path}/{selected_text_document_mock.id}"
@@ -52,8 +53,8 @@ async def test__find_one_by_id__should_return_one_text_document__succeed(run_aro
 
 @pytest.mark.asyncio
 async def test__create_one__should_create_one_text_document__succeed(run_around: MainTest):
-    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
-    selected_document_type_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
+    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[1]
+    selected_document_type_mock: DocumentType = run_around.all_seeder.document_type_seeder.document_type_mock.data[0]
     selected_account_mock: Account = run_around.all_seeder.document_seeder.document_mock.account_mock.data[0]
     selected_text_document_mock: TextDocument = run_around.all_seeder.text_document_seeder.text_document_mock.data[0]
     text_document_to_create_body: CreateOneBody = CreateOneBody(
@@ -81,9 +82,9 @@ async def test__create_one__should_create_one_text_document__succeed(run_around:
 
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_text_document__succeed(run_around: MainTest):
-    selected_text_document_mock: TextDocument = run_around.all_seeder.text_document_seeder.text_document_mock.data[0]
+    selected_text_document_mock: TextDocument = run_around.all_seeder.text_document_seeder.text_document_mock.data[1]
     selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
-    selected_document_type_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
+    selected_document_type_mock: DocumentType = run_around.all_seeder.document_type_seeder.document_type_mock.data[0]
     selected_account_mock: Account = run_around.all_seeder.document_seeder.document_mock.account_mock.data[0]
     text_document_to_patch_body: PatchOneBody = PatchOneBody(
         name=f"patched.name{uuid.uuid4()}",
@@ -92,7 +93,6 @@ async def test__patch_one_by_id__should_patch_one_text_document__succeed(run_aro
         document_type_id=selected_document_type_mock.id,
         account_id=selected_account_mock.id,
         text_content=selected_text_document_mock.text_content,
-        text_content_hash=selected_text_document_mock.text_content_hash
     )
     response: Response = await run_around.client.patch(
         url=f"{url_path}/{selected_text_document_mock.id}",
@@ -105,12 +105,13 @@ async def test__patch_one_by_id__should_patch_one_text_document__succeed(run_aro
     assert response_body.data.document_type_id == text_document_to_patch_body.document_type_id
     assert response_body.data.document_account_id == text_document_to_patch_body.account_id
     assert response_body.data.text_content == text_document_to_patch_body.text_content
-    assert response_body.data.text_content_hash == text_document_to_patch_body.text_content_hash
+    assert response_body.data.text_content_hash == hashlib.sha256(
+        text_document_to_patch_body.text_content.encode()).hexdigest()
 
 
 @pytest.mark.asyncio
 async def test__delete_one_by_id__should_delete_one_text_document__succeed(run_around: MainTest):
-    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
+    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[1]
     selected_text_document_mock: TextDocument = run_around.all_seeder.text_document_seeder.text_document_mock.data[0]
     response: Response = await run_around.client.delete(
         url=f"{url_path}/{selected_text_document_mock.id}"
