@@ -1,11 +1,12 @@
 from typing import Any
 
-from sqlmodel.ext.asyncio.session import AsyncSession
+from starlette.datastructures import State
 from starlette import status
 
 from app.inners.models.daos.session import Session
 from app.inners.models.dtos.contracts.result import Result
 from app.inners.use_cases.managements.session_management import SessionManagement
+from app.outers.interfaces.deliveries.middlewares.session_middleware import SessionMiddleware
 
 
 class LogoutAuthentication:
@@ -15,9 +16,9 @@ class LogoutAuthentication:
     ):
         self.session_management = session_management
 
-    async def logout(self, session: AsyncSession, access_token: str) -> Result[Any]:
+    async def logout(self, state: State, access_token: str) -> Result[Any]:
         found_session: Result[Session] = await self.session_management.find_one_by_access_token(
-            session=session,
+            state=state,
             access_token=access_token
         )
 
@@ -30,7 +31,7 @@ class LogoutAuthentication:
             return result
 
         deleted_session: Result[Session] = await self.session_management.delete_one_by_id(
-            session=session,
+            state=state,
             id=found_session.data.id
         )
 
@@ -40,7 +41,9 @@ class LogoutAuthentication:
                 message=f"LogoutAuthentication.logout: Failed, {deleted_session.message}",
                 data=None
             )
-            return result
+            raise SessionMiddleware.HandlerException(
+                result=result
+            )
 
         result: Result[Any] = Result(
             status_code=status.HTTP_200_OK,

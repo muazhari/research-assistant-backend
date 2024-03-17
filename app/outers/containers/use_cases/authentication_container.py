@@ -12,6 +12,7 @@ class AuthenticationContainer(DeclarativeContainer):
     login = providers.Singleton(
         LoginAuthentication,
         account_management=managements.account,
+        session_management=managements.session,
     )
     register = providers.Singleton(
         RegisterAuthentication,

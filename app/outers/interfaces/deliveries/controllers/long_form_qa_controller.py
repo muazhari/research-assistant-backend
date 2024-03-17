@@ -28,7 +28,7 @@ class PassageSearchController:
     @router.post("/long-form-qas")
     async def search(self, request: Request, body: ProcessBody) -> Response:
         result: Result[ProcessResponse] = await self.long_form_qa.process(
-            session=request.state.session,
+            state=request.state,
             body=body
         )
         response: Response = Response(

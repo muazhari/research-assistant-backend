@@ -1,5 +1,4 @@
 import hashlib
-import uuid
 from typing import List
 
 from app.inners.models.daos.web_document import WebDocument
@@ -17,16 +16,14 @@ class WebDocumentMock:
         web_url_1 = "https://www.bing.com"
         self._data: List[WebDocument] = [
             WebDocument(
-                id=uuid.uuid4(),
-                document_id=self.document_mock.data[0].id,
+                id=self.document_mock.data[2].id,
                 web_url=web_url_0,
-                web_url_hash=hashlib.sha256(web_url_0.encode()).digest()
+                web_url_hash=hashlib.sha256(web_url_0.encode()).hexdigest()
             ),
             WebDocument(
-                id=uuid.uuid4(),
-                document_id=self.document_mock.data[3].id,
+                id=self.document_mock.data[5].id,
                 web_url=web_url_1,
-                web_url_hash=hashlib.sha256(web_url_1.encode()).digest()
+                web_url_hash=hashlib.sha256(web_url_1.encode()).hexdigest()
             ),
         ]
 

@@ -19,6 +19,13 @@ class SessionRepository:
         found_session: Session = found_session_result.scalars().one()
         return found_session
 
+    async def find_one_by_account_id(self, session: AsyncSession, account_id: UUID) -> Session:
+        found_session_result: Result = await session.execute(
+            select(Session).where(Session.account_id == account_id).limit(1)
+        )
+        found_session: Session = found_session_result.scalars().one()
+        return found_session
+
     async def find_one_by_access_token(self, session: AsyncSession, access_token: str) -> Session:
         found_session_result: Result = await session.execute(
             select(Session).where(Session.access_token == access_token).limit(1)

@@ -1,8 +1,8 @@
 from uuid import UUID
 
 from sqlalchemy import exc
-from sqlmodel.ext.asyncio.session import AsyncSession
 from starlette import status
+from starlette.datastructures import State
 
 from app.inners.models.daos.document import Document
 from app.inners.models.dtos.contracts.requests.managements.documents.create_one_body import CreateOneBody
@@ -18,10 +18,10 @@ class DocumentManagement:
     ):
         self.document_repository: DocumentRepository = document_repository
 
-    async def find_one_by_id(self, session: AsyncSession, id: UUID) -> Result[Document]:
+    async def find_one_by_id(self, state: State, id: UUID) -> Result[Document]:
         try:
             found_document: Document = await self.document_repository.find_one_by_id(
-                session=session,
+                session=state.session,
                 id=id
             )
             result: Result[Document] = Result(
@@ -37,9 +37,9 @@ class DocumentManagement:
             )
         return result
 
-    async def create_one(self, session: AsyncSession, body: CreateOneBody) -> Result[Document]:
+    async def create_one(self, state: State, body: CreateOneBody) -> Result[Document]:
         created_document: Document = await self.document_repository.create_one(
-            session=session,
+            session=state.session,
             document_to_create=Document(**body.dict())
         )
         result: Result[Document] = Result(
@@ -49,9 +49,9 @@ class DocumentManagement:
         )
         return result
 
-    async def create_one_raw(self, session: AsyncSession, document_to_create: Document) -> Result[Document]:
+    async def create_one_raw(self, state: State, document_to_create: Document) -> Result[Document]:
         created_document: Document = await self.document_repository.create_one(
-            session=session,
+            session=state.session,
             document_to_create=document_to_create
         )
         result: Result[Document] = Result(
@@ -61,11 +61,11 @@ class DocumentManagement:
         )
         return result
 
-    async def patch_one_by_id(self, session: AsyncSession, id: UUID, body: PatchOneBody) -> Result[Document]:
+    async def patch_one_by_id(self, state: State, id: UUID, body: PatchOneBody) -> Result[Document]:
         try:
             document_to_patch: Document = Document(**body.dict())
             patched_document: Document = await self.document_repository.patch_one_by_id(
-                session=session,
+                session=state.session,
                 id=id,
                 document_to_patch=document_to_patch
             )
@@ -82,10 +82,10 @@ class DocumentManagement:
             )
         return result
 
-    async def patch_one_by_id_raw(self, session: AsyncSession, id: UUID, document_to_patch: Document) -> Result[
+    async def patch_one_by_id_raw(self, state: State, id: UUID, document_to_patch: Document) -> Result[
         Document]:
         patched_document: Document = await self.document_repository.patch_one_by_id(
-            session=session,
+            session=state.session,
             id=id,
             document_to_patch=document_to_patch
         )
@@ -96,10 +96,10 @@ class DocumentManagement:
         )
         return result
 
-    async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> Result[Document]:
+    async def delete_one_by_id(self, state: State, id: UUID) -> Result[Document]:
         try:
             deleted_document: Document = await self.document_repository.delete_one_by_id(
-                session=session,
+                session=state.session,
                 id=id
             )
             result: Result[Document] = Result(

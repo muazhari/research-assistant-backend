@@ -11,7 +11,12 @@ from app.inners.models.daos.base_dao import BaseDao
 
 class TextDocument(BaseDao, table=True):
     __tablename__ = "text_document"
-    id: UUID = Field(sa_column=Column(postgresql.UUID(as_uuid=True), primary_key=True))
-    document_id: UUID = Field(sa_column=Column(postgresql.UUID(as_uuid=True), ForeignKey("document.id")))
+    id: UUID = Field(
+        sa_column=Column(
+            postgresql.UUID(as_uuid=True),
+            ForeignKey("document.id"),
+            primary_key=True,
+        )
+    )
     text_content: str
-    text_content_hash: bytes
+    text_content_hash: str

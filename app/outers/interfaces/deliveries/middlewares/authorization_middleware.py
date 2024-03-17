@@ -1,11 +1,11 @@
 from datetime import datetime
 
-from dependency_injector.wiring import inject
 from sqlmodel import select
 from sqlmodel.engine.result import Result
 from sqlmodel.ext.asyncio.session import AsyncSession
 from starlette import status
-from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
+from starlette.requests import Request
 from starlette.responses import Response
 
 from app.inners.models.daos.session import Session
@@ -14,16 +14,18 @@ from app.outers.datastores.one_datastore import OneDatastore
 
 
 class AuthorizationMiddleware(BaseHTTPMiddleware):
-    @inject
     def __init__(
             self,
-            app,
-            one_datastore: OneDatastore
+            app
     ):
         super().__init__(app)
-        self.one_datastore = one_datastore
+        pass
 
-    async def dispatch(self, request, call_next):
+    async def dispatch(
+            self,
+            request: Request,
+            call_next: RequestResponseEndpoint
+    ) -> Response:
         session: AsyncSession = request.state.session
 
         authorization_header = request.headers.get("Authorization")
@@ -31,7 +33,6 @@ class AuthorizationMiddleware(BaseHTTPMiddleware):
             response: Response = Response(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 content=Content(
-                    status_code=status.HTTP_401_UNAUTHORIZED,
                     message="AuthorizationMiddleware.dispatch: Authorization header is missing.",
                     data=None
                 )
@@ -48,7 +49,6 @@ class AuthorizationMiddleware(BaseHTTPMiddleware):
             response: Response = Response(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 content=Content(
-                    status_code=status.HTTP_401_UNAUTHORIZED,
                     message="AuthorizationMiddleware.dispatch: Session is not found by access token.",
                     data=None
                 )
@@ -61,7 +61,6 @@ class AuthorizationMiddleware(BaseHTTPMiddleware):
             response: Response = Response(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 content=Content(
-                    status_code=status.HTTP_401_UNAUTHORIZED,
                     message="AuthorizationMiddleware.dispatch: Session is expired.",
                     data=None
                 )

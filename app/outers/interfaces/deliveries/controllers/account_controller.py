@@ -34,7 +34,7 @@ class AccountController:
     @router.get("/accounts/{id}")
     async def find_one_by_id(self, request: Request, id: UUID) -> Response:
         result: Result[Account] = await self.account_management.find_one_by_id(
-            session=request.state.session,
+            state=request.state,
             id=id
         )
         response: Response = Response(
@@ -49,7 +49,7 @@ class AccountController:
     @router.post("/accounts")
     async def create_one(self, request: Request, body: CreateOneBody) -> Response:
         result: Result[Account] = await self.account_management.create_one(
-            session=request.state.session,
+            state=request.state,
             body=body
         )
         response: Response = Response(
@@ -64,7 +64,7 @@ class AccountController:
     @router.patch("/accounts/{id}")
     async def patch_one_by_id(self, request: Request, id: UUID, body: PatchOneBody) -> Response:
         result: Result[Account] = await self.account_management.patch_one_by_id(
-            session=request.state.session,
+            state=request.state,
             id=id,
             body=body
         )
@@ -80,7 +80,7 @@ class AccountController:
     @router.delete("/accounts/{id}")
     async def delete_one_by_id(self, request: Request, id: UUID) -> Response:
         result: Result[Account] = await self.account_management.delete_one_by_id(
-            session=request.state.session,
+            state=request.state,
             id=id
         )
         response: Response = Response(

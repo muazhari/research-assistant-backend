@@ -28,7 +28,7 @@ class PassageSearchController:
     @router.post("/passage-searches")
     async def search(self, request: Request, body: ProcessBody) -> Response:
         result: Result[ProcessResponse] = await self.passage_search.process(
-            session=request.state.session,
+            state=request.state,
             body=body
         )
         response: Response = Response(

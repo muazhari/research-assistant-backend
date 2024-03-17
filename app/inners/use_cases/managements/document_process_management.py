@@ -1,8 +1,8 @@
 from uuid import UUID
 
 from sqlalchemy import exc
-from sqlmodel.ext.asyncio.session import AsyncSession
 from starlette import status
+from starlette.datastructures import State
 
 from app.inners.models.daos.document_process import DocumentProcess
 from app.inners.models.dtos.contracts.requests.managements.document_processes.create_one_body import CreateOneBody
@@ -18,10 +18,10 @@ class DocumentProcessManagement:
     ):
         self.document_process_repository: DocumentProcessRepository = document_process_repository
 
-    async def find_one_by_id(self, session: AsyncSession, id: UUID) -> Result[DocumentProcess]:
+    async def find_one_by_id(self, state: State, id: UUID) -> Result[DocumentProcess]:
         try:
             found_document_process: DocumentProcess = await self.document_process_repository.find_one_by_id(
-                session=session,
+                session=state.session,
                 id=id
             )
             result: Result[DocumentProcess] = Result(
@@ -37,10 +37,10 @@ class DocumentProcessManagement:
             )
         return result
 
-    async def create_one(self, session: AsyncSession, body: CreateOneBody) -> Result[DocumentProcess]:
+    async def create_one(self, state: State, body: CreateOneBody) -> Result[DocumentProcess]:
         document_process_to_create: DocumentProcess = DocumentProcess(**body.dict())
         created_document_process: DocumentProcess = await self.document_process_repository.create_one(
-            session=session,
+            session=state.session,
             document_process_to_create=document_process_to_create
         )
         result: Result[DocumentProcess] = Result(
@@ -50,10 +50,10 @@ class DocumentProcessManagement:
         )
         return result
 
-    async def create_one_raw(self, session: AsyncSession, document_process_to_create: DocumentProcess) -> Result[
+    async def create_one_raw(self, state: State, document_process_to_create: DocumentProcess) -> Result[
         DocumentProcess]:
         created_document_process: DocumentProcess = await self.document_process_repository.create_one(
-            session=session,
+            session=state.session,
             document_process_to_create=document_process_to_create
         )
         result: Result[DocumentProcess] = Result(
@@ -63,11 +63,11 @@ class DocumentProcessManagement:
         )
         return result
 
-    async def patch_one_by_id(self, session: AsyncSession, id: UUID, body: PatchOneBody) -> Result[DocumentProcess]:
+    async def patch_one_by_id(self, state: State, id: UUID, body: PatchOneBody) -> Result[DocumentProcess]:
         try:
             document_process_to_patch: DocumentProcess = DocumentProcess(**body.dict())
             patched_document_process: DocumentProcess = await self.document_process_repository.patch_one_by_id(
-                session=session,
+                session=state.session,
                 id=id,
                 document_process_to_patch=document_process_to_patch
             )
@@ -84,11 +84,11 @@ class DocumentProcessManagement:
             )
         return result
 
-    async def patch_one_by_id_raw(self, session: AsyncSession, id: UUID, document_process_to_patch: DocumentProcess) -> \
+    async def patch_one_by_id_raw(self, state: State, id: UUID, document_process_to_patch: DocumentProcess) -> \
             Result[DocumentProcess]:
         try:
             patched_document_process: DocumentProcess = await self.document_process_repository.patch_one_by_id(
-                session=session,
+                session=state.session,
                 id=id,
                 document_process_to_patch=document_process_to_patch
             )
@@ -105,10 +105,10 @@ class DocumentProcessManagement:
             )
         return result
 
-    async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> Result[DocumentProcess]:
+    async def delete_one_by_id(self, state: State, id: UUID) -> Result[DocumentProcess]:
         try:
             deleted_document_process: DocumentProcess = await self.document_process_repository.delete_one_by_id(
-                session=session,
+                session=state.session,
                 id=id
             )
             result: Result[DocumentProcess] = Result(

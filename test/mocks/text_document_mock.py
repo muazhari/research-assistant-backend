@@ -1,5 +1,4 @@
 import hashlib
-import uuid
 from typing import List
 
 from app.inners.models.daos.text_document import TextDocument
@@ -17,16 +16,14 @@ class TextDocumentMock:
         text_content_1 = "text1"
         self._data: List[TextDocument] = [
             TextDocument(
-                id=uuid.uuid4(),
-                document_id=self.document_mock.data[0].id,
+                id=self.document_mock.data[1].id,
                 text_content=text_content_0,
-                text_content_hash=hashlib.sha256(text_content_0.encode()).digest()
+                text_content_hash=hashlib.sha256(text_content_0.encode()).hexdigest()
             ),
             TextDocument(
-                id=uuid.uuid4(),
-                document_id=self.document_mock.data[3].id,
+                id=self.document_mock.data[4].id,
                 text_content=text_content_1,
-                text_content_hash=hashlib.sha256(text_content_1.encode()).digest()
+                text_content_hash=hashlib.sha256(text_content_1.encode()).hexdigest()
             ),
         ]
 

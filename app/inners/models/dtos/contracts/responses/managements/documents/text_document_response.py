@@ -4,10 +4,10 @@ from app.inners.models.dtos.contracts.responses.base_response import BaseRespons
 
 
 class TextDocumentResponse(BaseResponse):
-    document_id: UUID
+    id: UUID
     document_type_id: str
-    account_id: UUID
+    document_account_id: UUID
     document_name: str
     document_description: str
     text_content: str
-    text_content_hash: bytes
+    text_content_hash: str

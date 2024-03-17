@@ -35,7 +35,7 @@ class ApplicationContainer(DeclarativeContainer):
         gateways=gateways,
     )
 
-    middleware = providers.Container(
+    middlewares = providers.Container(
         MiddlewareContainer,
         datastores=datastores
     )

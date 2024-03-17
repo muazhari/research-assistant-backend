@@ -11,9 +11,14 @@ from app.inners.models.daos.base_dao import BaseDao
 
 class FileDocument(BaseDao, table=True):
     __tablename__ = "file_document"
-    id: UUID = Field(sa_column=Column(postgresql.UUID(as_uuid=True), primary_key=True))
-    document_id: UUID = Field(sa_column=Column(postgresql.UUID(as_uuid=True), ForeignKey("document.id")))
+    id: UUID = Field(
+        sa_column=Column(
+            postgresql.UUID(as_uuid=True),
+            ForeignKey("document.id"),
+            primary_key=True,
+        )
+    )
     file_name: str
     file_extension: str
     file_data: bytes
-    file_data_hash: bytes
+    file_data_hash: str

@@ -4,13 +4,13 @@ from app.inners.models.dtos.contracts.responses.base_response import BaseRespons
 
 
 class FileDocumentResponse(BaseResponse):
-    document_id: UUID
+    id: UUID
     document_type_id: str
-    account_id: UUID
+    document_account_id: UUID
     document_name: str
     document_description: str
     file_document_id: UUID
     file_name: str
     file_extension: str
-    file_content_hash: bytes
+    file_data_hash: str
     file_meta: dict

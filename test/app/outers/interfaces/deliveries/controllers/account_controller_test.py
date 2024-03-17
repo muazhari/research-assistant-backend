@@ -21,7 +21,7 @@ url_path = "api/v1/accounts"
 @pytest_asyncio.fixture(scope="function", autouse=True)
 async def run_around(request: pytest.FixtureRequest):
     test_container: TestContainer = TestContainer()
-    main_test: MainTest = MainTest(
+    main_test = MainTest(
         all_seeder=test_container.seeders.all_seeder()
     )
     await main_test.all_seeder.up()
@@ -30,9 +30,9 @@ async def run_around(request: pytest.FixtureRequest):
 
 
 @pytest.mark.asyncio
-async def test__find_one_by_id__should_return_one_account__success(main_test: MainTest):
-    selected_account_mock: Account = main_test.all_seeder.account_seeder.account_mock.data[0]
-    response: Response = main_test.client.get(
+async def test__find_one_by_id__should_return_one_account__succeed(run_around: MainTest):
+    selected_account_mock: Account = run_around.all_seeder.account_seeder.account_mock.data[0]
+    response: Response = await run_around.client.get(
         url=f"{url_path}/{selected_account_mock.id}"
     )
     assert response.status_code == 200
@@ -41,12 +41,12 @@ async def test__find_one_by_id__should_return_one_account__success(main_test: Ma
 
 
 @pytest.mark.asyncio
-async def test__create_one__should_create_one_account__success(main_test: MainTest):
+async def test__create_one__should_create_one_account__succeed(run_around: MainTest):
     account_to_create_body: CreateOneBody = CreateOneBody(
         email=f"email{uuid.uuid4()}@mail.com",
         password="password0",
     )
-    response: Response = main_test.client.post(
+    response: Response = await run_around.client.post(
         url=url_path,
         data=json.loads(account_to_create_body.json())
     )
@@ -57,13 +57,13 @@ async def test__create_one__should_create_one_account__success(main_test: MainTe
 
 
 @pytest.mark.asyncio
-async def test__patch_one_by_id__should_patch_one_account__success(main_test: MainTest):
-    selected_account_mock: Account = main_test.all_seeder.account_seeder.account_mock.data[0]
+async def test__patch_one_by_id__should_patch_one_account__succeed(run_around: MainTest):
+    selected_account_mock: Account = run_around.all_seeder.account_seeder.account_mock.data[0]
     account_to_patch_body: PatchOneBody = PatchOneBody(
         email=f"patched.email{uuid.uuid4()}@mail.com",
         password="patched.password1",
     )
-    response: Response = main_test.client.patch(
+    response: Response = await run_around.client.patch(
         url=f"{url_path}/{selected_account_mock.id}",
         data=json.loads(account_to_patch_body.json())
     )
@@ -74,9 +74,9 @@ async def test__patch_one_by_id__should_patch_one_account__success(main_test: Ma
 
 
 @pytest.mark.asyncio
-async def test__delete_one_by_id__should_delete_one_account__success(main_test: MainTest):
-    selected_account_mock: Account = main_test.all_seeder.account_seeder.account_mock.data[0]
-    response: Response = main_test.client.delete(
+async def test__delete_one_by_id__should_delete_one_account__succeed(run_around: MainTest):
+    selected_account_mock: Account = run_around.all_seeder.account_seeder.account_mock.data[0]
+    response: Response = await run_around.client.delete(
         url=f"{url_path}/{selected_account_mock.id}"
     )
     assert response.status_code == 200

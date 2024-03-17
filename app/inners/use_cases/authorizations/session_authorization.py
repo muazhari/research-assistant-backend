@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime, timedelta
 
-from sqlmodel.ext.asyncio.session import AsyncSession
+from starlette.datastructures import State
 from starlette import status
 
 from app.inners.models.daos.session import Session
@@ -19,9 +19,9 @@ class SessionAuthorization:
         self.session_management = session_management
         self.account_management = account_management
 
-    async def refresh_access_token(self, session: AsyncSession, refresh_token: str) -> Result[Session]:
+    async def refresh_access_token(self, state: State, refresh_token: str) -> Result[Session]:
         found_session: Result[Session] = await self.session_management.find_one_by_refresh_token(
-            session=session,
+            state=state,
             refresh_token=refresh_token
         )
 
@@ -34,11 +34,11 @@ class SessionAuthorization:
             return result
 
         current_time = datetime.now()
-        found_session.data.access_token = uuid.uuid4()
+        found_session.data.access_token = str(uuid.uuid4())
         found_session.data.access_token_expired_at = current_time + timedelta(minutes=15)
 
         patched_session: Result[Session] = await self.session_management.patch_one_by_id_raw(
-            session=session,
+            state=state,
             id=found_session.data.id,
             session_to_patch=found_session.data
         )

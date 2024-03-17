@@ -16,7 +16,7 @@ from app.inners.models.dtos.contracts.result import Result
 from app.inners.use_cases.managements.document_process_management import DocumentProcessManagement
 from app.outers.containers.application_container import ApplicationContainer
 
-router: APIRouter = APIRouter(tags=["document_processes"])
+router: APIRouter = APIRouter(tags=["document-processes"])
 
 
 @cbv(router)
@@ -31,10 +31,10 @@ class DocumentProcessController:
     ) -> None:
         self.document_process_management: DocumentProcessManagement = document_process_management
 
-    @router.get("/document_processes/{id}")
+    @router.get("/document-processes/{id}")
     async def find_one_by_id(self, request: Request, id: UUID) -> Response:
         result: Result[DocumentProcess] = await self.document_process_management.find_one_by_id(
-            session=request.state.session,
+            state=request.state,
             id=id
         )
         response: Response = Response(
@@ -46,10 +46,10 @@ class DocumentProcessController:
         )
         return response
 
-    @router.post("/document_processes")
+    @router.post("/document-processes")
     async def create_one(self, request: Request, body: CreateOneBody) -> Response:
         result: Result[DocumentProcess] = await self.document_process_management.create_one(
-            session=request.state.session,
+            state=request.state,
             body=body
         )
         response: Response = Response(
@@ -61,10 +61,10 @@ class DocumentProcessController:
         )
         return response
 
-    @router.patch("/document_processes/{id}")
+    @router.patch("/document-processes/{id}")
     async def patch_one_by_id(self, request: Request, id: UUID, body: PatchOneBody) -> Response:
         result: Result[DocumentProcess] = await self.document_process_management.patch_one_by_id(
-            session=request.state.session,
+            state=request.state,
             id=id,
             body=body
         )
@@ -77,10 +77,10 @@ class DocumentProcessController:
         )
         return response
 
-    @router.delete("/document_processes/{id}")
+    @router.delete("/document-processes/{id}")
     async def delete_one_by_id(self, request: Request, id: UUID) -> Response:
         result: Result[DocumentProcess] = await self.document_process_management.delete_one_by_id(
-            session=request.state.session,
+            state=request.state,
             id=id
         )
         response: Response = Response(

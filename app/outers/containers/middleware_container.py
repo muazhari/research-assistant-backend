@@ -14,6 +14,5 @@ class MiddlewareContainer(DeclarativeContainer):
     )
 
     authorization_middleware = providers.Singleton(
-        AuthorizationMiddleware,
-        one_datastore=datastores.one_datastore,
+        AuthorizationMiddleware
     )

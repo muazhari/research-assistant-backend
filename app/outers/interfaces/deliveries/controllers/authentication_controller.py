@@ -51,7 +51,7 @@ class AuthenticationController:
 
         if method == "email_and_password":
             result: Result[LoginResponse] = await self.login_authentication.login_by_email_and_password(
-                session=request.state.session,
+                state=request.state,
                 body=body
             )
             response: Response = Response(
@@ -86,7 +86,7 @@ class AuthenticationController:
 
         if method == "email_and_password":
             result: Result[RegisterResponse] = await self.register_authentication.register_by_email_and_password(
-                session=request.state.session,
+                state=request.state,
                 body=body
             )
             response: Response = Response(

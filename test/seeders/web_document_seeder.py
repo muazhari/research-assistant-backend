@@ -19,6 +19,7 @@ class WebDocumentSeeder:
             session.add(web_document)
 
     async def down(self, session: AsyncSession):
+
         for web_document in self.web_document_mock.data:
             found_web_document_result: Result = await session.execute(
                 select(WebDocument).where(WebDocument.id == web_document.dict().get("id")).limit(1)

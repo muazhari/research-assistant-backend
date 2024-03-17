@@ -3,8 +3,8 @@ from uuid import UUID
 
 import bcrypt
 from sqlalchemy import exc
-from sqlmodel.ext.asyncio.session import AsyncSession
 from starlette import status
+from starlette.datastructures import State
 
 from app.inners.models.daos.account import Account
 from app.inners.models.dtos.contracts.requests.managements.accounts.create_one_body import CreateOneBody
@@ -20,10 +20,10 @@ class AccountManagement:
     ):
         self.account_repository: AccountRepository = account_repository
 
-    async def find_one_by_id(self, session: AsyncSession, id: UUID) -> Result[Account]:
+    async def find_one_by_id(self, state: State, id: UUID) -> Result[Account]:
         try:
             found_account: Account = await self.account_repository.find_one_by_id(
-                session=session,
+                session=state.session,
                 id=id
             )
             result: Result[Account] = Result(
@@ -39,10 +39,10 @@ class AccountManagement:
             )
         return result
 
-    async def find_one_by_email(self, session: AsyncSession, email: str) -> Result[Account]:
+    async def find_one_by_email(self, state: State, email: str) -> Result[Account]:
         try:
             found_account: Account = await self.account_repository.find_one_by_email(
-                session=session,
+                session=state.session,
                 email=email
             )
             result: Result[Account] = Result(
@@ -58,10 +58,10 @@ class AccountManagement:
             )
         return result
 
-    async def find_one_by_email_and_password(self, session: AsyncSession, email: str, password: str) -> Result[Account]:
+    async def find_one_by_email_and_password(self, state: State, email: str, password: str) -> Result[Account]:
         try:
             found_account: Account = await self.account_repository.find_one_by_email_and_password(
-                session=session,
+                session=state.session,
                 email=email,
                 password=password
             )
@@ -78,12 +78,12 @@ class AccountManagement:
             )
         return result
 
-    async def create_one(self, session: AsyncSession, body: CreateOneBody) -> Result[Account]:
+    async def create_one(self, state: State, body: CreateOneBody) -> Result[Account]:
         account_to_create: Account = Account(**body.dict())
         account_to_create.id = uuid.uuid4()
         account_to_create.password = bcrypt.hashpw(account_to_create.password.encode(), bcrypt.gensalt()).decode()
         created_account: Account = await self.account_repository.create_one(
-            session=session,
+            session=state.session,
             account_to_create=account_to_create
         )
         result: Result[Account] = Result(
@@ -93,9 +93,9 @@ class AccountManagement:
         )
         return result
 
-    async def create_one_raw(self, session: AsyncSession, account_to_create: Account) -> Result[Account]:
+    async def create_one_raw(self, state: State, account_to_create: Account) -> Result[Account]:
         created_account: Account = await self.account_repository.create_one(
-            session=session,
+            session=state.session,
             account_to_create=account_to_create
         )
         result: Result[Account] = Result(
@@ -105,12 +105,12 @@ class AccountManagement:
         )
         return result
 
-    async def patch_one_by_id(self, session: AsyncSession, id: UUID, body: PatchOneBody) -> Result[Account]:
+    async def patch_one_by_id(self, state: State, id: UUID, body: PatchOneBody) -> Result[Account]:
         try:
             account_to_patch: Account = Account(**body.dict())
             account_to_patch.password = bcrypt.hashpw(account_to_patch.password.encode(), bcrypt.gensalt()).decode()
             patched_account: Account = await self.account_repository.patch_one_by_id(
-                session=session,
+                session=state.session,
                 id=id,
                 account_to_patch=account_to_patch
             )
@@ -127,9 +127,9 @@ class AccountManagement:
             )
         return result
 
-    async def patch_one_by_id_raw(self, session: AsyncSession, id: UUID, account_to_patch: Account) -> Result[Account]:
+    async def patch_one_by_id_raw(self, state: State, id: UUID, account_to_patch: Account) -> Result[Account]:
         patched_account: Account = await self.account_repository.patch_one_by_id(
-            session=session,
+            session=state.session,
             id=id,
             account_to_patch=account_to_patch
         )
@@ -140,10 +140,10 @@ class AccountManagement:
         )
         return result
 
-    async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> Result[Account]:
+    async def delete_one_by_id(self, state: State, id: UUID) -> Result[Account]:
         try:
             deleted_account: Account = await self.account_repository.delete_one_by_id(
-                session=session,
+                session=state.session,
                 id=id
             )
             result: Result[Account] = Result(
