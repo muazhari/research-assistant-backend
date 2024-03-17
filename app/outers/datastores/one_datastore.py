@@ -17,7 +17,8 @@ class OneDatastore:
     ):
         self.one_datastore_setting: OneDatastoreSetting = one_datastore_setting
         self.engine: AsyncEngine = create_async_engine(
-            url=self.one_datastore_setting.URL
+            url=self.one_datastore_setting.URL,
+            isolation_level="SERIALIZABLE"
         )
 
     async def get_session(self):

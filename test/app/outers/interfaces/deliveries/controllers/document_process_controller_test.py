@@ -3,7 +3,6 @@ import uuid
 from datetime import datetime, timedelta
 
 import pytest as pytest
-import pytest_asyncio
 from httpx import Response
 
 from app.inners.models.daos.account import Account
@@ -14,21 +13,25 @@ from app.inners.models.dtos.contracts.requests.managements.document_processes.cr
     CreateOneBody
 from app.inners.models.dtos.contracts.requests.managements.document_processes.patch_one_body import \
     PatchOneBody
-from test.containers.test_container import TestContainer
-from test.main import MainTest
+from test.conftest import MainTest
+import json
+import uuid
+from datetime import datetime, timedelta
+
+import pytest as pytest
+from httpx import Response
+
+from app.inners.models.daos.account import Account
+from app.inners.models.daos.document import Document
+from app.inners.models.daos.document_process import DocumentProcess
+from app.inners.models.dtos.contracts.content import Content
+from app.inners.models.dtos.contracts.requests.managements.document_processes.create_one_body import \
+    CreateOneBody
+from app.inners.models.dtos.contracts.requests.managements.document_processes.patch_one_body import \
+    PatchOneBody
+from test.conftest import MainTest
 
 url_path: str = "/api/document-processes"
-
-
-@pytest_asyncio.fixture(scope="function", autouse=True)
-async def run_around(request: pytest.FixtureRequest):
-    test_container: TestContainer = TestContainer()
-    main_test = MainTest(
-        all_seeder=test_container.seeders.all_seeder()
-    )
-    await main_test.all_seeder.up()
-    yield main_test
-    await main_test.all_seeder.down()
 
 
 @pytest.mark.asyncio

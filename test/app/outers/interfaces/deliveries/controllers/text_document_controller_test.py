@@ -1,9 +1,9 @@
 import hashlib
+import hashlib
 import json
 import uuid
 
 import pytest as pytest
-import pytest_asyncio
 from httpx import Response
 
 from app.inners.models.daos.account import Account
@@ -16,21 +16,9 @@ from app.inners.models.dtos.contracts.requests.managements.text_documents.create
 from app.inners.models.dtos.contracts.requests.managements.text_documents.patch_one_body import \
     PatchOneBody
 from app.inners.models.dtos.contracts.responses.managements.documents.text_document_response import TextDocumentResponse
-from test.containers.test_container import TestContainer
-from test.main import MainTest
+from test.conftest import MainTest
 
 url_path: str = "/api/documents/texts"
-
-
-@pytest_asyncio.fixture(scope="function", autouse=True)
-async def run_around(request: pytest.FixtureRequest):
-    test_container: TestContainer = TestContainer()
-    main_test = MainTest(
-        all_seeder=test_container.seeders.all_seeder()
-    )
-    await main_test.all_seeder.up()
-    yield main_test
-    await main_test.all_seeder.down()
 
 
 @pytest.mark.asyncio
