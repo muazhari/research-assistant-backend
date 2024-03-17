@@ -15,7 +15,7 @@ from app.inners.models.dtos.contracts.requests.managements.accounts.patch_one_bo
 from test.containers.test_container import TestContainer
 from test.main import MainTest
 
-url_path = "api/v1/accounts"
+url_path = "api/accounts"
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
@@ -48,7 +48,7 @@ async def test__create_one__should_create_one_account__succeed(run_around: MainT
     )
     response: Response = await run_around.client.post(
         url=url_path,
-        data=json.loads(account_to_create_body.json())
+        json=json.loads(account_to_create_body.json())
     )
     assert response.status_code == 201
     response_body: Content[Account] = Content[Account](**response.json())
@@ -65,7 +65,7 @@ async def test__patch_one_by_id__should_patch_one_account__succeed(run_around: M
     )
     response: Response = await run_around.client.patch(
         url=f"{url_path}/{selected_account_mock.id}",
-        data=json.loads(account_to_patch_body.json())
+        json=json.loads(account_to_patch_body.json())
     )
     assert response.status_code == 200
     response_body: Content[Account] = Content[Account](**response.json())
@@ -82,3 +82,4 @@ async def test__delete_one_by_id__should_delete_one_account__succeed(run_around:
     assert response.status_code == 200
     response_body: Content[Account] = Content[Account](**response.json())
     assert response_body.data == selected_account_mock
+    run_around.all_seeder.delete_account_by_id_cascade(selected_account_mock.id)

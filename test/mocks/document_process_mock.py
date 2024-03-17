@@ -34,3 +34,13 @@ class DocumentProcessMock:
     @property
     def data(self) -> List[DocumentProcess]:
         return [DocumentProcess(**document_process.dict()) for document_process in self._data]
+
+    def delete_by_id(self, id: uuid.UUID):
+        is_found: bool = False
+        for document_process in self._data:
+            if document_process.id == id:
+                is_found = True
+                self._data.remove(document_process)
+
+        if not is_found:
+            raise ValueError(f"DocumentProcess with id {id} is not found.")

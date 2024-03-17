@@ -1,4 +1,5 @@
 import hashlib
+import uuid
 from typing import List
 
 from app.inners.models.daos.web_document import WebDocument
@@ -30,3 +31,13 @@ class WebDocumentMock:
     @property
     def data(self) -> List[WebDocument]:
         return [WebDocument(**web_document.dict()) for web_document in self._data]
+
+    def delete_by_id(self, id: uuid.UUID):
+        is_found: bool = False
+        for web_document in self._data:
+            if web_document.id == id:
+                is_found = True
+                self._data.remove(web_document)
+
+        if not is_found:
+            raise ValueError(f"WebDocument with id {id} is not found.")

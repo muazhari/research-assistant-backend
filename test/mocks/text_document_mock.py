@@ -1,4 +1,5 @@
 import hashlib
+import uuid
 from typing import List
 
 from app.inners.models.daos.text_document import TextDocument
@@ -30,3 +31,13 @@ class TextDocumentMock:
     @property
     def data(self) -> List[TextDocument]:
         return [TextDocument(**text_document.dict()) for text_document in self._data]
+
+    def delete_by_id(self, id: uuid.UUID):
+        is_found: bool = False
+        for text_document in self._data:
+            if text_document.id == id:
+                is_found = True
+                self._data.remove(text_document)
+
+        if not is_found:
+            raise ValueError(f"TextDocument with id {id} is not found.")

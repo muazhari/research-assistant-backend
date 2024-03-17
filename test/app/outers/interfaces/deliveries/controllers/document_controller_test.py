@@ -13,7 +13,7 @@ from app.inners.models.dtos.contracts.requests.managements.documents.create_one_
 from test.containers.test_container import TestContainer
 from test.main import MainTest
 
-url_path = "api/v1/documents"
+url_path = "api/documents"
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
@@ -50,7 +50,7 @@ async def test__create_one__should_create_one_document__succeed(run_around: Main
     )
     response: Response = await run_around.client.post(
         url=url_path,
-        data=json.loads(document_to_create_body.json())
+        json=json.loads(document_to_create_body.json())
     )
     assert response.status_code == 201
     response_body: Content[Document] = Content[Document](**response.json())
@@ -73,7 +73,7 @@ async def test__patch_one_by_id__should_patch_one_document__succeed(run_around: 
     )
     response: Response = await run_around.client.patch(
         url=f"{url_path}/{selected_document_mock.id}",
-        data=json.loads(document_to_patch_body.json())
+        json=json.loads(document_to_patch_body.json())
     )
     assert response.status_code == 200
     response_body: Content[Document] = Content[Document](**response.json())
@@ -93,3 +93,4 @@ async def test__delete_one_by_id__should_delete_one_document__succeed(run_around
     assert response.status_code == 200
     response_body: Content[Document] = Content[Document](**response.json())
     assert response_body.data == selected_document_mock
+    run_around.all_seeder.delete_document_by_id_cascade(selected_document_mock.id)

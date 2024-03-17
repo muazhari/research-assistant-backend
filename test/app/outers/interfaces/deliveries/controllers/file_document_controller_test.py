@@ -18,7 +18,7 @@ from app.inners.models.dtos.contracts.responses.managements.documents.file_docum
 from test.containers.test_container import TestContainer
 from test.main import MainTest
 
-url_path = "api/v1/file_documents"
+url_path: str = "api/file-documents"
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
@@ -70,7 +70,7 @@ async def test__create_one__should_create_one_file_document__succeed(run_around:
     )
     response: Response = await run_around.client.post(
         url=url_path,
-        data=json.loads(file_document_to_create_body.json())
+        json=json.loads(file_document_to_create_body.json())
     )
     assert response.status_code == 201
     response_body: Content[FileDocumentResponse] = Content[FileDocumentResponse](**response.json())
@@ -102,7 +102,7 @@ async def test__patch_one_by_id__should_patch_one_file_document__succeed(run_aro
     )
     response: Response = await run_around.client.patch(
         url=f"{url_path}/{selected_file_document_mock.id}",
-        data=json.loads(file_document_to_patch_body.json())
+        json=json.loads(file_document_to_patch_body.json())
     )
     assert response.status_code == 200
     response_body: Content[FileDocumentResponse] = Content[FileDocumentResponse](**response.json())
@@ -134,3 +134,4 @@ async def test__delete_one_by_id__should_delete_one_file_document__succeed(run_a
     assert response_body.data.file_extension == selected_file_document_mock.file_extension
     assert response_body.data.file_data_hash == selected_file_document_mock.file_data_hash
     assert response_body.data.file_meta == dict()
+    run_around.all_seeder.delete_file_document_by_id_cascade(selected_file_document_mock.id)

@@ -1,5 +1,6 @@
 import hashlib
 import pathlib
+import uuid
 from typing import List
 
 from app.inners.models.daos.file_document import FileDocument
@@ -41,3 +42,13 @@ class FileDocumentMock:
     @property
     def data(self) -> List[FileDocument]:
         return [FileDocument(**file_document.dict()) for file_document in self._data]
+
+    def delete_by_id(self, id: uuid.UUID):
+        is_found: bool = False
+        for file_document in self._data:
+            if file_document.id == id:
+                is_found = True
+                self._data.remove(file_document)
+
+        if not is_found:
+            raise ValueError(f"FileDocument with id {id} is not found.")

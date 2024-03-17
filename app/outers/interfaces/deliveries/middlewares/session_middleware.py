@@ -36,13 +36,13 @@ class SessionMiddleware(BaseHTTPMiddleware):
                 request.state.session = session
                 try:
                     handler_response: Response = await call_next(request)
-                except self.HandlerException as handler_exception:
+                except SessionMiddleware.HandlerException as handler_exception:
                     handler_response: Response = Response(
                         status_code=handler_exception.result.status_code,
                         content=Content(
                             message=f"SessionMiddleware.dispatch: Failed, {handler_exception.result.message}",
                             data=None
-                        )
+                        ).json()
                     )
                 return handler_response
 
@@ -53,7 +53,7 @@ class SessionMiddleware(BaseHTTPMiddleware):
                 content=Content(
                     message=f"SessionMiddleware.dispatch: Failed, {exception}",
                     data=None
-                )
+                ).json()
             )
 
         return response

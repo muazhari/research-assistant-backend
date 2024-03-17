@@ -63,3 +63,13 @@ class DocumentMock:
     @property
     def data(self) -> List[Document]:
         return [Document(**document.dict()) for document in self._data]
+
+    def delete_by_id(self, id: uuid.UUID):
+        is_found: bool = False
+        for document in self._data:
+            if document.id == id:
+                is_found = True
+                self._data.remove(document)
+
+        if not is_found:
+            raise ValueError(f"Document with id {id} is not found.")

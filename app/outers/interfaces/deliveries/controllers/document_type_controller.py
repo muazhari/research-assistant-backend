@@ -38,7 +38,7 @@ class DocumentTypeController:
             content=Content[DocumentType](
                 message=result.message,
                 data=result.data
-            )
+            ).json()
         )
         return response
 
@@ -54,6 +54,6 @@ class DocumentTypeController:
             content=Content[DocumentType](
                 message=result.message,
                 data=result.data
-            )
+            ).json()
         )
         return response

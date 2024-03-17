@@ -42,7 +42,7 @@ class FileDocumentController:
             content=Content[FileDocumentResponse](
                 message=result.message,
                 data=result.data
-            )
+            ).json()
         )
         return response
 
@@ -57,7 +57,7 @@ class FileDocumentController:
             content=Content[FileDocumentResponse](
                 message=result.message,
                 data=result.data
-            )
+            ).json()
         )
         return response
 
@@ -73,7 +73,7 @@ class FileDocumentController:
             content=Content[FileDocumentResponse](
                 message=result.message,
                 data=result.data
-            )
+            ).json()
         )
         return response
 
@@ -88,6 +88,6 @@ class FileDocumentController:
             content=Content[FileDocumentResponse](
                 message=result.message,
                 data=result.data
-            )
+            ).json()
         )
         return response

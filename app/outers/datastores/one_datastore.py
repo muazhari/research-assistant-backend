@@ -30,7 +30,7 @@ class OneDatastore:
         def __init__(self, *args):
             super().__init__(*args)
 
-    async def retryable(self, func, max_retries: int = 3):
+    async def retryable(self, func, max_retries: int = 10):
         retry_count = 0
         while retry_count < max_retries:
             session: AsyncSession = await self.get_session()
@@ -40,11 +40,11 @@ class OneDatastore:
                 await session.commit()
                 break
             except Exception as exception:
-                await session.rollback()
                 if isinstance(exception, sqlalchemy.exc.DBAPIError):
                     if exception.orig.pgcode == asyncpg.exceptions.SerializationError.sqlstate:
                         retry_count += 1
                         continue
+                await session.rollback()
                 raise exception
 
         if retry_count == max_retries:

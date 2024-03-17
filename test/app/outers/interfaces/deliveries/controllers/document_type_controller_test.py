@@ -12,7 +12,7 @@ from app.inners.models.dtos.contracts.requests.managements.document_types.patch_
 from test.containers.test_container import TestContainer
 from test.main import MainTest
 
-url_path = "api/v1/document_types"
+url_path: str = "api/document-types"
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
@@ -46,7 +46,7 @@ async def test__patch_one_by_id__should_patch_one_document_type__succeed(run_aro
     )
     response: Response = await run_around.client.patch(
         url=f"{url_path}/{selected_document_type_mock.id}",
-        data=json.loads(document_type_to_patch_body.json())
+        json=json.loads(document_type_to_patch_body.json())
     )
     assert response.status_code == 200
     response_body: Content[DocumentType] = Content[DocumentType](**response.json())

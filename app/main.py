@@ -7,8 +7,8 @@ from starlette.middleware.cors import CORSMiddleware
 
 from app import inners, outers
 from app.outers.containers.application_container import ApplicationContainer
-from app.outers.interfaces.deliveries.middlewares.authorization_middleware import AuthorizationMiddleware
 from app.outers.interfaces.deliveries.middlewares.session_middleware import SessionMiddleware
+from app.outers.interfaces.deliveries.routers.api_router import api_router
 
 BaseConfig.json_encoders = {
     UUID: jsonable_encoder,
@@ -17,28 +17,6 @@ BaseConfig.json_encoders = {
 app: FastAPI = FastAPI(
     title="research-assistant-backend",
     version="0.0.2"
-)
-
-app_protected = FastAPI(
-    title="research-assistant-backend-protected",
-    version="0.0.2"
-)
-
-app_unprotected = FastAPI(
-    title="research-assistant-backend-unprotected",
-    version="0.0.2"
-)
-
-path: str = "/api/v1"
-
-app.mount(
-    path=path,
-    app=app_protected
-)
-
-app.mount(
-    path=path,
-    app=app_unprotected
 )
 
 app.container = ApplicationContainer()
@@ -58,6 +36,10 @@ app.add_middleware(
 
 )
 
-app_protected.add_middleware(
-    middleware_class=AuthorizationMiddleware,
+# app.add_middleware(
+#     middleware_class=AuthorizationMiddleware,
+# )
+
+app.include_router(
+    router=api_router
 )

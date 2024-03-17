@@ -38,3 +38,13 @@ class SessionMock:
     @property
     def data(self) -> List[Session]:
         return [Session(**session.dict()) for session in self._data]
+
+    def delete_by_id(self, id: uuid.UUID):
+        is_found: bool = False
+        for session in self._data:
+            if session.id == id:
+                is_found = True
+                self._data.remove(session)
+
+        if not is_found:
+            raise ValueError(f"Session with id {id} is not found.")

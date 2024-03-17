@@ -18,7 +18,7 @@ from app.inners.models.dtos.contracts.responses.managements.documents.text_docum
 from test.containers.test_container import TestContainer
 from test.main import MainTest
 
-url_path = "api/v1/text_documents"
+url_path: str = "api/text-documents"
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
@@ -67,7 +67,7 @@ async def test__create_one__should_create_one_text_document__succeed(run_around:
     )
     response: Response = await run_around.client.post(
         url=url_path,
-        data=json.loads(text_document_to_create_body.json())
+        json=json.loads(text_document_to_create_body.json())
     )
     assert response.status_code == 201
     response_body: Content[TextDocumentResponse] = Content[TextDocumentResponse](**response.json())
@@ -96,7 +96,7 @@ async def test__patch_one_by_id__should_patch_one_text_document__succeed(run_aro
     )
     response: Response = await run_around.client.patch(
         url=f"{url_path}/{selected_text_document_mock.id}",
-        data=json.loads(text_document_to_patch_body.json())
+        json=json.loads(text_document_to_patch_body.json())
     )
     assert response.status_code == 200
     response_body: Content[TextDocumentResponse] = Content[TextDocumentResponse](**response.json())
@@ -124,3 +124,4 @@ async def test__delete_one_by_id__should_delete_one_text_document__succeed(run_a
     assert response_body.data.document_account_id == selected_document_mock.account_id
     assert response_body.data.text_content == selected_text_document_mock.text_content
     assert response_body.data.text_content_hash == selected_text_document_mock.text_content_hash
+    run_around.all_seeder.delete_text_document_by_id_cascade(selected_text_document_mock.id)

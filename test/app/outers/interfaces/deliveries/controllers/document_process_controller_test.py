@@ -15,7 +15,7 @@ from app.inners.models.dtos.contracts.requests.managements.document_processes.pa
 from test.containers.test_container import TestContainer
 from test.main import MainTest
 
-url_path = "api/v1/documents/processes"
+url_path = "api/documents/processes"
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)
@@ -56,7 +56,7 @@ async def test__create_one__should_create_one_document_process__succeed(run_arou
     )
     response: Response = await run_around.client.post(
         url=url_path,
-        data=json.loads(document_process_to_create_body.json())
+        json=json.loads(document_process_to_create_body.json())
     )
     assert response.status_code == 201
     response_body: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
@@ -83,7 +83,7 @@ async def test__patch_one_by_id__should_patch_one_document_process__succeed(run_
     )
     response: Response = await run_around.client.patch(
         url=f"{url_path}/{selected_document_process_mock.id}",
-        data=json.loads(document_process_to_patch_body.json())
+        json=json.loads(document_process_to_patch_body.json())
     )
     assert response.status_code == 200
     response_body: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
@@ -104,3 +104,4 @@ async def test__delete_one_by_id__should_delete_one_document_process__succeed(ru
     assert response.status_code == 200
     response_body: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
     assert response_body.data == selected_document_process_mock
+    run_around.all_seeder.delete_document_process_by_id_cascade(selected_document_process_mock.id)

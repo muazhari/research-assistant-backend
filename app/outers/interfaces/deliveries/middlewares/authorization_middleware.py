@@ -35,7 +35,7 @@ class AuthorizationMiddleware(BaseHTTPMiddleware):
                 content=Content(
                     message="AuthorizationMiddleware.dispatch: Authorization header is missing.",
                     data=None
-                )
+                ).json()
             )
             return response
 
@@ -51,7 +51,7 @@ class AuthorizationMiddleware(BaseHTTPMiddleware):
                 content=Content(
                     message="AuthorizationMiddleware.dispatch: Session is not found by access token.",
                     data=None
-                )
+                ).json()
             )
             return response
 
@@ -63,7 +63,7 @@ class AuthorizationMiddleware(BaseHTTPMiddleware):
                 content=Content(
                     message="AuthorizationMiddleware.dispatch: Session is expired.",
                     data=None
-                )
+                ).json()
             )
             return response
 
