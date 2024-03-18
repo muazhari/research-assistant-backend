@@ -20,10 +20,10 @@ url_path: str = "/api/documents/files"
 
 
 @pytest.mark.asyncio
-async def test__find_one_by_id__should_return_one_file_document__succeed(run_around: MainTest):
-    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
-    selected_file_document_mock: FileDocument = run_around.all_seeder.file_document_seeder.file_document_mock.data[0]
-    response: Response = await run_around.client.get(
+async def test__find_one_by_id__should__succeed(main_test: MainTest):
+    selected_document_mock: Document = main_test.all_seeder.document_seeder.document_mock.data[0]
+    selected_file_document_mock: FileDocument = main_test.all_seeder.file_document_seeder.file_document_mock.data[0]
+    response: Response = await main_test.client.get(
         url=f"{url_path}/{selected_file_document_mock.id}"
     )
     assert response.status_code == 200
@@ -40,9 +40,9 @@ async def test__find_one_by_id__should_return_one_file_document__succeed(run_aro
 
 
 @pytest.mark.asyncio
-async def test__create_one__should_create_one_file_document__succeed(run_around: MainTest):
-    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
-    selected_file_document_mock: FileDocument = run_around.all_seeder.file_document_seeder.file_document_mock.data[0]
+async def test__create_one__should_create_one_file_document__succeed(main_test: MainTest):
+    selected_document_mock: Document = main_test.all_seeder.document_seeder.document_mock.data[0]
+    selected_file_document_mock: FileDocument = main_test.all_seeder.file_document_seeder.file_document_mock.data[0]
     file_document_to_create_body: CreateOneBody = CreateOneBody(
         document_name=f"name{uuid.uuid4()}",
         document_description=f"description{uuid.uuid4()}",
@@ -52,7 +52,7 @@ async def test__create_one__should_create_one_file_document__succeed(run_around:
         file_extension=selected_file_document_mock.file_extension,
         file_data=selected_file_document_mock.file_data
     )
-    response: Response = await run_around.client.post(
+    response: Response = await main_test.client.post(
         url=url_path,
         json=json.loads(file_document_to_create_body.json())
     )
@@ -69,9 +69,9 @@ async def test__create_one__should_create_one_file_document__succeed(run_around:
 
 
 @pytest.mark.asyncio
-async def test__patch_one_by_id__should_patch_one_file_document__succeed(run_around: MainTest):
-    selected_file_document_mock: FileDocument = run_around.all_seeder.file_document_seeder.file_document_mock.data[0]
-    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
+async def test__patch_one_by_id__should_patch_one_file_document__succeed(main_test: MainTest):
+    selected_file_document_mock: FileDocument = main_test.all_seeder.file_document_seeder.file_document_mock.data[0]
+    selected_document_mock: Document = main_test.all_seeder.document_seeder.document_mock.data[0]
     file_document_to_patch_body: PatchOneBody = PatchOneBody(
         document_name=f"patched.name{uuid.uuid4()}",
         document_description=f"patched.description{uuid.uuid4()}",
@@ -81,7 +81,7 @@ async def test__patch_one_by_id__should_patch_one_file_document__succeed(run_aro
         file_extension=selected_file_document_mock.file_extension,
         file_data=selected_file_document_mock.file_data
     )
-    response: Response = await run_around.client.patch(
+    response: Response = await main_test.client.patch(
         url=f"{url_path}/{selected_file_document_mock.id}",
         json=json.loads(file_document_to_patch_body.json())
     )
@@ -98,10 +98,10 @@ async def test__patch_one_by_id__should_patch_one_file_document__succeed(run_aro
 
 
 @pytest.mark.asyncio
-async def test__delete_one_by_id__should_delete_one_file_document__succeed(run_around: MainTest):
-    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[0]
-    selected_file_document_mock: FileDocument = run_around.all_seeder.file_document_seeder.file_document_mock.data[0]
-    response: Response = await run_around.client.delete(
+async def test__delete_one_by_id__should_delete_one_file_document__succeed(main_test: MainTest):
+    selected_document_mock: Document = main_test.all_seeder.document_seeder.document_mock.data[0]
+    selected_file_document_mock: FileDocument = main_test.all_seeder.file_document_seeder.file_document_mock.data[0]
+    response: Response = await main_test.client.delete(
         url=f"{url_path}/{selected_file_document_mock.id}"
     )
     assert response.status_code == 200
@@ -115,4 +115,4 @@ async def test__delete_one_by_id__should_delete_one_file_document__succeed(run_a
     assert response_body.data.file_extension == selected_file_document_mock.file_extension
     assert response_body.data.file_data_hash == selected_file_document_mock.file_data_hash
     assert response_body.data.file_meta == dict()
-    run_around.all_seeder.delete_file_document_by_id_cascade(selected_file_document_mock.id)
+    main_test.all_seeder.delete_many_file_document_by_id_cascade(selected_file_document_mock.id)

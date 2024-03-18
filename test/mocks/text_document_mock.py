@@ -32,7 +32,7 @@ class TextDocumentMock:
     def data(self) -> List[TextDocument]:
         return [TextDocument(**text_document.dict()) for text_document in self._data]
 
-    def delete_by_id(self, id: uuid.UUID):
+    def delete_many_by_id(self, id: uuid.UUID):
         is_found: bool = False
         for text_document in self._data:
             if text_document.id == id:

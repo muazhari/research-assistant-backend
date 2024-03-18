@@ -43,7 +43,7 @@ class FileDocumentMock:
     def data(self) -> List[FileDocument]:
         return [FileDocument(**file_document.dict()) for file_document in self._data]
 
-    def delete_by_id(self, id: uuid.UUID):
+    def delete_many_by_id(self, id: uuid.UUID):
         is_found: bool = False
         for file_document in self._data:
             if file_document.id == id:

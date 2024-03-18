@@ -32,7 +32,7 @@ class WebDocumentMock:
     def data(self) -> List[WebDocument]:
         return [WebDocument(**web_document.dict()) for web_document in self._data]
 
-    def delete_by_id(self, id: uuid.UUID):
+    def delete_many_by_id(self, id: uuid.UUID):
         is_found: bool = False
         for web_document in self._data:
             if web_document.id == id:

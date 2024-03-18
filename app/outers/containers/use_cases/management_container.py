@@ -6,6 +6,7 @@ from app.inners.use_cases.managements.document_management import DocumentManagem
 from app.inners.use_cases.managements.document_process_management import DocumentProcessManagement
 from app.inners.use_cases.managements.document_type_management import DocumentTypeManagement
 from app.inners.use_cases.managements.file_document_management import FileDocumentManagement
+from app.inners.use_cases.managements.session_management import SessionManagement
 from app.inners.use_cases.managements.text_document_management import TextDocumentManagement
 from app.inners.use_cases.managements.web_document_management import WebDocumentManagement
 
@@ -16,6 +17,10 @@ class ManagementContainer(DeclarativeContainer):
     account = providers.Singleton(
         AccountManagement,
         account_repository=repositories.account,
+    )
+    session = providers.Singleton(
+        SessionManagement,
+        session_repository=repositories.session,
     )
     document = providers.Singleton(
         DocumentManagement,

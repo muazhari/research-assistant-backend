@@ -18,7 +18,7 @@ def event_loop():
 
 
 @pytest_asyncio.fixture(scope="function")
-async def run_around(request: pytest.FixtureRequest):
+async def main_test(request: pytest.FixtureRequest):
     test_container: TestContainer = TestContainer()
     main_test = MainTest(
         all_seeder=test_container.seeders.all_seeder()

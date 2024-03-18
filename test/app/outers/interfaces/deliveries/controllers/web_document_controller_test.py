@@ -22,10 +22,10 @@ url_path: str = "/api/documents/webs"
 
 
 @pytest.mark.asyncio
-async def test__find_one_by_id__should_return_one_web_document__succeed(run_around: MainTest):
-    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[2]
-    selected_web_document_mock: WebDocument = run_around.all_seeder.web_document_seeder.web_document_mock.data[0]
-    response: Response = await run_around.client.get(
+async def test__find_one_by_id__should__succeed(main_test: MainTest):
+    selected_document_mock: Document = main_test.all_seeder.document_seeder.document_mock.data[2]
+    selected_web_document_mock: WebDocument = main_test.all_seeder.web_document_seeder.web_document_mock.data[0]
+    response: Response = await main_test.client.get(
         url=f"{url_path}/{selected_web_document_mock.id}"
     )
     assert response.status_code == 200
@@ -40,11 +40,11 @@ async def test__find_one_by_id__should_return_one_web_document__succeed(run_arou
 
 
 @pytest.mark.asyncio
-async def test__create_one__should_create_one_web_document__succeed(run_around: MainTest):
-    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[2]
-    selected_document_type_mock: DocumentType = run_around.all_seeder.document_type_seeder.document_type_mock.data[0]
-    selected_account_mock: Account = run_around.all_seeder.document_seeder.document_mock.account_mock.data[0]
-    selected_web_document_mock: WebDocument = run_around.all_seeder.web_document_seeder.web_document_mock.data[0]
+async def test__create_one__should_create_one_web_document__succeed(main_test: MainTest):
+    selected_document_mock: Document = main_test.all_seeder.document_seeder.document_mock.data[2]
+    selected_document_type_mock: DocumentType = main_test.all_seeder.document_type_seeder.document_type_mock.data[0]
+    selected_account_mock: Account = main_test.all_seeder.document_seeder.document_mock.account_mock.data[0]
+    selected_web_document_mock: WebDocument = main_test.all_seeder.web_document_seeder.web_document_mock.data[0]
     web_document_to_create_body: CreateOneBody = CreateOneBody(
         name=f"name{uuid.uuid4()}",
         description=f"description{uuid.uuid4()}",
@@ -54,7 +54,7 @@ async def test__create_one__should_create_one_web_document__succeed(run_around: 
         web_url=selected_web_document_mock.web_url,
         web_url_hash=selected_web_document_mock.web_url_hash
     )
-    response: Response = await run_around.client.post(
+    response: Response = await main_test.client.post(
         url=url_path,
         json=json.loads(web_document_to_create_body.json())
     )
@@ -69,11 +69,11 @@ async def test__create_one__should_create_one_web_document__succeed(run_around: 
 
 
 @pytest.mark.asyncio
-async def test__patch_one_by_id__should_patch_one_web_document__succeed(run_around: MainTest):
-    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[2]
-    selected_web_document_mock: WebDocument = run_around.all_seeder.web_document_seeder.web_document_mock.data[0]
-    selected_document_type_mock: DocumentType = run_around.all_seeder.document_type_seeder.document_type_mock.data[0]
-    selected_account_mock: Account = run_around.all_seeder.document_seeder.document_mock.account_mock.data[0]
+async def test__patch_one_by_id__should_patch_one_web_document__succeed(main_test: MainTest):
+    selected_document_mock: Document = main_test.all_seeder.document_seeder.document_mock.data[2]
+    selected_web_document_mock: WebDocument = main_test.all_seeder.web_document_seeder.web_document_mock.data[0]
+    selected_document_type_mock: DocumentType = main_test.all_seeder.document_type_seeder.document_type_mock.data[0]
+    selected_account_mock: Account = main_test.all_seeder.document_seeder.document_mock.account_mock.data[0]
     web_document_to_patch_body: PatchOneBody = PatchOneBody(
         name=f"patched.name{uuid.uuid4()}",
         description=f"patched.description{uuid.uuid4()}",
@@ -83,7 +83,7 @@ async def test__patch_one_by_id__should_patch_one_web_document__succeed(run_arou
         web_url=selected_web_document_mock.web_url,
         web_url_hash=selected_web_document_mock.web_url_hash
     )
-    response: Response = await run_around.client.patch(
+    response: Response = await main_test.client.patch(
         url=f"{url_path}/{selected_web_document_mock.id}",
         json=json.loads(web_document_to_patch_body.json())
     )
@@ -98,10 +98,10 @@ async def test__patch_one_by_id__should_patch_one_web_document__succeed(run_arou
 
 
 @pytest.mark.asyncio
-async def test__delete_one_by_id__should_delete_one_web_document__succeed(run_around: MainTest):
-    selected_document_mock: Document = run_around.all_seeder.document_seeder.document_mock.data[2]
-    selected_web_document_mock: WebDocument = run_around.all_seeder.web_document_seeder.web_document_mock.data[0]
-    response: Response = await run_around.client.delete(
+async def test__delete_one_by_id__should_delete_one_web_document__succeed(main_test: MainTest):
+    selected_document_mock: Document = main_test.all_seeder.document_seeder.document_mock.data[2]
+    selected_web_document_mock: WebDocument = main_test.all_seeder.web_document_seeder.web_document_mock.data[0]
+    response: Response = await main_test.client.delete(
         url=f"{url_path}/{selected_web_document_mock.id}"
     )
     assert response.status_code == 200
@@ -113,4 +113,4 @@ async def test__delete_one_by_id__should_delete_one_web_document__succeed(run_ar
     assert response_body.data.document_account_id == selected_document_mock.account_id
     assert response_body.data.web_url == selected_web_document_mock.web_url
     assert response_body.data.web_url_hash == selected_web_document_mock.web_url_hash
-    run_around.all_seeder.delete_web_document_by_id_cascade(selected_web_document_mock.id)
+    main_test.all_seeder.delete_many_web_document_by_id_cascade(selected_web_document_mock.id)

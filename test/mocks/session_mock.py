@@ -18,16 +18,16 @@ class SessionMock:
             Session(
                 id=uuid.uuid4(),
                 account_id=self.account_mock.data[0].id,
-                access_token=uuid.uuid4(),
-                refresh_token=uuid.uuid4(),
+                access_token=str(uuid.uuid4()),
+                refresh_token=str(uuid.uuid4()),
                 access_token_expired_at=current_time + timedelta(minutes=10),
                 refresh_token_expired_at=current_time + timedelta(days=15),
             ),
             Session(
                 id=uuid.uuid4(),
                 account_id=self.account_mock.data[1].id,
-                access_token=uuid.uuid4(),
-                refresh_token=uuid.uuid4(),
+                access_token=str(uuid.uuid4()),
+                refresh_token=str(uuid.uuid4()),
                 access_token_expired_at=current_time + timedelta(minutes=10),
                 refresh_token_expired_at=current_time + timedelta(days=15),
             )
@@ -37,7 +37,7 @@ class SessionMock:
     def data(self) -> List[Session]:
         return [Session(**session.dict()) for session in self._data]
 
-    def delete_by_id(self, id: uuid.UUID):
+    def delete_many_by_id(self, id: uuid.UUID):
         is_found: bool = False
         for session in self._data:
             if session.id == id:

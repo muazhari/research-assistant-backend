@@ -67,7 +67,7 @@ class DocumentMock:
     def create_one(self, document: Document):
         self._data.append(document)
 
-    def delete_by_id(self, id: uuid.UUID):
+    def delete_many_by_id(self, id: uuid.UUID):
         is_found: bool = False
         for document in self._data:
             if document.id == id:

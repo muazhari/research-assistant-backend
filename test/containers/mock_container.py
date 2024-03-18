@@ -16,7 +16,8 @@ class MockContainer(DeclarativeContainer):
         AccountMock
     )
     session_mock = providers.Singleton(
-        SessionMock
+        SessionMock,
+        account_mock=account_mock
     )
     document_type_mock = providers.Singleton(
         DocumentTypeMock

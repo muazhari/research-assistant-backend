@@ -6,6 +6,7 @@ from app.outers.repositories.document_process_repository import DocumentProcessR
 from app.outers.repositories.document_repository import DocumentRepository
 from app.outers.repositories.document_type_repository import DocumentTypeRepository
 from app.outers.repositories.file_document_repository import FileDocumentRepository
+from app.outers.repositories.session_repository import SessionRepository
 from app.outers.repositories.text_document_repository import TextDocumentRepository
 from app.outers.repositories.web_document_repository import WebDocumentRepository
 
@@ -13,6 +14,9 @@ from app.outers.repositories.web_document_repository import WebDocumentRepositor
 class RepositoryContainer(DeclarativeContainer):
     account = providers.Singleton(
         AccountRepository
+    )
+    session = providers.Singleton(
+        SessionRepository
     )
     document_process = providers.Singleton(
         DocumentProcessRepository

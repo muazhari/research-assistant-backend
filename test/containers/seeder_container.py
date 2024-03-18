@@ -60,6 +60,7 @@ class SeederContainer(DeclarativeContainer):
         AllSeeder,
         one_datastore=datastores.one_datastore,
         account_seeder=account_seeder,
+        session_seeder=session_seeder,
         document_type_seeder=document_type_seeder,
         document_seeder=document_seeder,
         document_process_seeder=document_process_seeder,

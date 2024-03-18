@@ -25,7 +25,7 @@ class DocumentTypeMock:
     def data(self) -> List[DocumentType]:
         return [DocumentType(**document_type.dict()) for document_type in self._data]
 
-    def delete_by_id(self, id: str):
+    def delete_many_by_id(self, id: str):
         is_found: bool = False
         for document_type in self._data:
             if document_type.id == id:

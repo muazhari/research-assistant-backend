@@ -13,8 +13,8 @@ from app.inners.models.daos.base_dao import BaseDao
 class Session(BaseDao, table=True):
     __tablename__ = "session"
     id: UUID = Field(sa_column=Column(postgresql.UUID(as_uuid=True), primary_key=True))
-    account_id: UUID = Field(foreign_key="account.id")
+    account_id: UUID = Field(sa_column=Column(postgresql.UUID(as_uuid=True), foreign_key="account.id"))
     access_token: str
     refresh_token: str
-    access_token_expired_at: datetime
-    refresh_token_expired_at: datetime
+    access_token_expired_at: datetime = Field(sa_column=Column(postgresql.TIMESTAMP(timezone=True)))
+    refresh_token_expired_at: datetime = Field(sa_column=Column(postgresql.TIMESTAMP(timezone=True)))

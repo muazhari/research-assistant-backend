@@ -15,9 +15,9 @@ url_path: str = "/api/document-types"
 
 
 @pytest.mark.asyncio
-async def test__find_one_by_id__should_return_one_document_type__succeed(run_around: MainTest):
+async def test__find_one_by_id__should__succeed(main_test: MainTest):
     id: str = "text"
-    response: Response = await run_around.client.get(
+    response: Response = await main_test.client.get(
         url=f"{url_path}/{id}"
     )
     assert response.status_code == 200
@@ -26,13 +26,13 @@ async def test__find_one_by_id__should_return_one_document_type__succeed(run_aro
 
 
 @pytest.mark.asyncio
-async def test__patch_one_by_id__should_patch_one_document_type__succeed(run_around: MainTest):
-    selected_document_type_mock: DocumentType = run_around.all_seeder.document_type_seeder.document_type_mock.data[0]
+async def test__patch_one_by_id__should_patch_one_document_type__succeed(main_test: MainTest):
+    selected_document_type_mock: DocumentType = main_test.all_seeder.document_type_seeder.document_type_mock.data[0]
     document_type_to_patch_body: PatchOneBody = PatchOneBody(
         id=selected_document_type_mock.id,
         description=f"description{uuid.uuid4()}",
     )
-    response: Response = await run_around.client.patch(
+    response: Response = await main_test.client.patch(
         url=f"{url_path}/{selected_document_type_mock.id}",
         json=json.loads(document_type_to_patch_body.json())
     )

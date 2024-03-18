@@ -56,12 +56,12 @@ class RegisterAuthentication:
                 result=result
             )
 
+        register_response: RegisterResponse = RegisterResponse(
+            account=created_account.data
+        )
         result: Result[RegisterResponse] = Result(
             status_code=status.HTTP_201_CREATED,
             message="RegisterAuthentication.register_by_email_and_password: Succeed.",
-            data=RegisterResponse(
-                id=created_account.data.id,
-                email=created_account.data.email
-            )
+            data=register_response
         )
         return result

@@ -1,3 +1,4 @@
+import bcrypt
 from sqlmodel import select
 from sqlmodel.engine.result import Result
 from sqlmodel.ext.asyncio.session import AsyncSession
@@ -16,6 +17,7 @@ class AccountSeeder:
 
     async def up(self, session: AsyncSession):
         for account in self.account_mock.data:
+            account.password = bcrypt.hashpw(account.password.encode(), bcrypt.gensalt()).decode()
             session.add(account)
 
     async def down(self, session: AsyncSession):

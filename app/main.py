@@ -1,18 +1,10 @@
-from uuid import UUID
-
 from fastapi import FastAPI
-from fastapi.encoders import jsonable_encoder
-from pydantic import BaseConfig
 from starlette.middleware.cors import CORSMiddleware
 
 from app import inners, outers
 from app.outers.containers.application_container import ApplicationContainer
 from app.outers.interfaces.deliveries.middlewares.session_middleware import SessionMiddleware
 from app.outers.interfaces.deliveries.routers.api_router import api_router
-
-BaseConfig.json_encoders = {
-    UUID: jsonable_encoder,
-}
 
 app: FastAPI = FastAPI(
     title="research-assistant-backend",
