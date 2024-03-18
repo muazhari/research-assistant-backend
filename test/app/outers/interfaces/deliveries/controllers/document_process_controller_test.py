@@ -1,6 +1,6 @@
 import json
 import uuid
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import pytest as pytest
 from httpx import Response
@@ -59,10 +59,10 @@ async def test__create_one__should_create_one_document_process__succeed(main_tes
         account_id=selected_account_mock.id,
     )
     await main_test.all_seeder.up_one_document(selected_document_mock_final)
-    current_time = datetime.now()
+    current_time = datetime.now(tz=timezone.utc)
     started_at = current_time + timedelta(minutes=0)
     finished_at = current_time + timedelta(minutes=1)
-    document_process_to_create_body: CreateOneBody = CreateOneBody(
+    document_process_creator_body: CreateOneBody = CreateOneBody(
         initial_document_id=selected_document_mock_initial.id,
         final_document_id=selected_document_mock_final.id,
         started_at=started_at,
@@ -73,16 +73,16 @@ async def test__create_one__should_create_one_document_process__succeed(main_tes
     }
     response: Response = await main_test.client.post(
         url=url_path,
-        json=json.loads(document_process_to_create_body.json()),
+        json=json.loads(document_process_creator_body.json()),
         headers=headers
     )
 
     assert response.status_code == 201
     response_body: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
-    assert response_body.data.initial_document_id == document_process_to_create_body.initial_document_id
-    assert response_body.data.final_document_id == document_process_to_create_body.final_document_id
-    assert response_body.data.started_at == document_process_to_create_body.started_at
-    assert response_body.data.finished_at == document_process_to_create_body.finished_at
+    assert response_body.data.initial_document_id == document_process_creator_body.initial_document_id
+    assert response_body.data.final_document_id == document_process_creator_body.final_document_id
+    assert response_body.data.started_at == document_process_creator_body.started_at
+    assert response_body.data.finished_at == document_process_creator_body.finished_at
 
 
 @pytest.mark.asyncio
@@ -92,10 +92,10 @@ async def test__patch_one_by_id__should_patch_one_document_process__succeed(main
         main_test.all_seeder.document_process_seeder.document_process_mock.data[0]
     selected_document_mock_initial: Document = main_test.all_seeder.document_seeder.document_mock.data[0]
     selected_document_mock_final: Document = main_test.all_seeder.document_seeder.document_mock.data[1]
-    current_time = datetime.now()
+    current_time = datetime.now(tz=timezone.utc)
     started_at = current_time + timedelta(minutes=0)
     finished_at = current_time + timedelta(minutes=1)
-    document_process_to_patch_body: PatchOneBody = PatchOneBody(
+    document_process_patcher_body: PatchOneBody = PatchOneBody(
         initial_document_id=selected_document_mock_final.id,
         final_document_id=selected_document_mock_initial.id,
         started_at=started_at,
@@ -106,17 +106,17 @@ async def test__patch_one_by_id__should_patch_one_document_process__succeed(main
     }
     response: Response = await main_test.client.patch(
         url=f"{url_path}/{selected_document_process_mock.id}",
-        json=json.loads(document_process_to_patch_body.json()),
+        json=json.loads(document_process_patcher_body.json()),
         headers=headers
     )
 
     assert response.status_code == 200
     response_body: Content[DocumentProcess] = Content[DocumentProcess](**response.json())
     assert response_body.data.id == selected_document_process_mock.id
-    assert response_body.data.initial_document_id == document_process_to_patch_body.initial_document_id
-    assert response_body.data.final_document_id == document_process_to_patch_body.final_document_id
-    assert response_body.data.started_at == document_process_to_patch_body.started_at
-    assert response_body.data.finished_at == document_process_to_patch_body.finished_at
+    assert response_body.data.initial_document_id == document_process_patcher_body.initial_document_id
+    assert response_body.data.final_document_id == document_process_patcher_body.final_document_id
+    assert response_body.data.started_at == document_process_patcher_body.started_at
+    assert response_body.data.finished_at == document_process_patcher_body.finished_at
 
 
 @pytest.mark.asyncio

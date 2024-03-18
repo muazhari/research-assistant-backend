@@ -65,7 +65,7 @@ class WebDocumentManagement:
         return result
 
     async def create_one(self, state: State, body: CreateOneBody) -> Result[WebDocumentResponse]:
-        document_to_create: Document = Document(
+        document_creator: Document = Document(
             id=uuid.uuid4(),
             name=body.name,
             description=body.description,
@@ -74,7 +74,7 @@ class WebDocumentManagement:
         )
         created_document: Result[Document] = await self.document_management.create_one_raw(
             state=state,
-            document_to_create=document_to_create
+            document_creator=document_creator
         )
         if created_document.status_code != status.HTTP_201_CREATED:
             result: Result[WebDocumentResponse] = Result(
@@ -86,14 +86,14 @@ class WebDocumentManagement:
                 result=result
             )
 
-        web_document_to_create: WebDocument = WebDocument(
+        web_document_creator: WebDocument = WebDocument(
             id=created_document.data.id,
             web_url=body.web_url,
             web_url_hash=hashlib.sha256(body.web_url.encode()).hexdigest()
         )
         created_web_document: WebDocument = await self.web_document_repository.create_one(
             session=state.session,
-            web_document_to_create=web_document_to_create
+            web_document_creator=web_document_creator
         )
         web_document_response: WebDocumentResponse = WebDocumentResponse(
             id=created_document.data.id,
@@ -111,11 +111,11 @@ class WebDocumentManagement:
         )
         return result
 
-    async def create_one_raw(self, state: State, web_document_to_create: WebDocument) -> Result[
+    async def create_one_raw(self, state: State, web_document_creator: WebDocument) -> Result[
         WebDocumentResponse]:
         created_web_document: WebDocument = await self.web_document_repository.create_one(
             session=state.session,
-            web_document_to_create=web_document_to_create
+            web_document_creator=web_document_creator
         )
         result: Result[WebDocumentResponse] = Result(
             status_code=status.HTTP_201_CREATED,
@@ -127,7 +127,7 @@ class WebDocumentManagement:
     async def patch_one_by_id(self, state: State, id: UUID, body: PatchOneBody) -> Result[
         WebDocumentResponse]:
         try:
-            document_to_patch: Document = Document(
+            document_patcher: Document = Document(
                 id=id,
                 name=body.name,
                 description=body.description,
@@ -137,7 +137,7 @@ class WebDocumentManagement:
             patched_document: Result[Document] = await self.document_management.patch_one_by_id_raw(
                 state=state,
                 id=id,
-                document_to_patch=document_to_patch
+                document_patcher=document_patcher
             )
             if patched_document.status_code != status.HTTP_200_OK:
                 result: Result[WebDocumentResponse] = Result(
@@ -149,7 +149,7 @@ class WebDocumentManagement:
                     result=result
                 )
 
-            web_document_to_patch: WebDocument = WebDocument(
+            web_document_patcher: WebDocument = WebDocument(
                 id=id,
                 web_url=body.web_url,
                 web_url_hash=hashlib.sha256(body.web_url.encode()).hexdigest()
@@ -157,7 +157,7 @@ class WebDocumentManagement:
             patched_web_document: WebDocument = await self.web_document_repository.patch_one_by_id(
                 session=state.session,
                 id=id,
-                web_document_to_patch=web_document_to_patch
+                web_document_patcher=web_document_patcher
             )
             patched_web_document_response: WebDocumentResponse = WebDocumentResponse(
                 id=patched_document.data.id,
@@ -181,13 +181,13 @@ class WebDocumentManagement:
             )
         return result
 
-    async def patch_one_by_id_raw(self, state: State, id: UUID, web_document_to_patch: WebDocument) -> \
+    async def patch_one_by_id_raw(self, state: State, id: UUID, web_document_patcher: WebDocument) -> \
             Result[
                 WebDocumentResponse]:
         patched_web_document: WebDocument = await self.web_document_repository.patch_one_by_id(
             session=state.session,
             id=id,
-            web_document_to_patch=web_document_to_patch
+            web_document_patcher=web_document_patcher
         )
         result: Result[WebDocumentResponse] = Result(
             status_code=status.HTTP_200_OK,

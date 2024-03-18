@@ -39,11 +39,11 @@ class DocumentProcessManagement:
         return result
 
     async def create_one(self, state: State, body: CreateOneBody) -> Result[DocumentProcess]:
-        document_process_to_create: DocumentProcess = DocumentProcess(**body.dict())
-        document_process_to_create.id = uuid.uuid4()
+        document_process_creator: DocumentProcess = DocumentProcess(**body.dict())
+        document_process_creator.id = uuid.uuid4()
         created_document_process: DocumentProcess = await self.document_process_repository.create_one(
             session=state.session,
-            document_process_to_create=document_process_to_create
+            document_process_creator=document_process_creator
         )
         result: Result[DocumentProcess] = Result(
             status_code=status.HTTP_201_CREATED,
@@ -52,11 +52,11 @@ class DocumentProcessManagement:
         )
         return result
 
-    async def create_one_raw(self, state: State, document_process_to_create: DocumentProcess) -> Result[
+    async def create_one_raw(self, state: State, document_process_creator: DocumentProcess) -> Result[
         DocumentProcess]:
         created_document_process: DocumentProcess = await self.document_process_repository.create_one(
             session=state.session,
-            document_process_to_create=document_process_to_create
+            document_process_creator=document_process_creator
         )
         result: Result[DocumentProcess] = Result(
             status_code=status.HTTP_201_CREATED,
@@ -67,11 +67,11 @@ class DocumentProcessManagement:
 
     async def patch_one_by_id(self, state: State, id: UUID, body: PatchOneBody) -> Result[DocumentProcess]:
         try:
-            document_process_to_patch: DocumentProcess = DocumentProcess(**body.dict())
+            document_process_patcher: DocumentProcess = DocumentProcess(**body.dict())
             patched_document_process: DocumentProcess = await self.document_process_repository.patch_one_by_id(
                 session=state.session,
                 id=id,
-                document_process_to_patch=document_process_to_patch
+                document_process_patcher=document_process_patcher
             )
             result: Result[DocumentProcess] = Result(
                 status_code=status.HTTP_200_OK,
@@ -86,13 +86,13 @@ class DocumentProcessManagement:
             )
         return result
 
-    async def patch_one_by_id_raw(self, state: State, id: UUID, document_process_to_patch: DocumentProcess) -> \
+    async def patch_one_by_id_raw(self, state: State, id: UUID, document_process_patcher: DocumentProcess) -> \
             Result[DocumentProcess]:
         try:
             patched_document_process: DocumentProcess = await self.document_process_repository.patch_one_by_id(
                 session=state.session,
                 id=id,
-                document_process_to_patch=document_process_to_patch
+                document_process_patcher=document_process_patcher
             )
             result: Result[DocumentProcess] = Result(
                 status_code=status.HTTP_200_OK,

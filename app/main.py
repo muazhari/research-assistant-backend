@@ -11,7 +11,8 @@ app: FastAPI = FastAPI(
     version="0.0.2"
 )
 
-app.container = ApplicationContainer()
+application_container: ApplicationContainer = ApplicationContainer()
+app.container = application_container
 app.container.wire(packages=[inners, outers])
 
 app.add_middleware(

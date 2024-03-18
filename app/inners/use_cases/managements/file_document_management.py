@@ -67,7 +67,7 @@ class FileDocumentManagement:
         return result
 
     async def create_one(self, state: State, body: CreateOneBody) -> Result[FileDocumentResponse]:
-        document_to_create: Document = Document(
+        document_creator: Document = Document(
             id=uuid.uuid4(),
             name=body.document_name,
             description=body.document_description,
@@ -76,7 +76,7 @@ class FileDocumentManagement:
         )
         created_document: Result[Document] = await self.document_management.create_one_raw(
             state=state,
-            document_to_create=document_to_create
+            document_creator=document_creator
         )
         if created_document.status_code != status.HTTP_201_CREATED:
             result: Result[FileDocumentResponse] = Result(
@@ -88,7 +88,7 @@ class FileDocumentManagement:
                 result=result
             )
 
-        file_document_to_create: FileDocument = FileDocument(
+        file_document_creator: FileDocument = FileDocument(
             id=created_document.data.id,
             file_name=body.file_name,
             file_extension=body.file_extension,
@@ -97,7 +97,7 @@ class FileDocumentManagement:
         )
         created_file_document: FileDocument = await self.file_document_repository.create_one(
             session=state.session,
-            file_document_to_create=file_document_to_create
+            file_document_creator=file_document_creator
         )
         file_document_response: FileDocumentResponse = FileDocumentResponse(
             id=created_document.data.id,
@@ -117,11 +117,11 @@ class FileDocumentManagement:
         )
         return result
 
-    async def create_one_raw(self, state: State, file_document_to_create: FileDocument) -> Result[
+    async def create_one_raw(self, state: State, file_document_creator: FileDocument) -> Result[
         FileDocumentResponse]:
         created_file_document: FileDocument = await self.file_document_repository.create_one(
             session=state.session,
-            file_document_to_create=file_document_to_create
+            file_document_creator=file_document_creator
         )
         result: Result[FileDocumentResponse] = Result(
             status_code=status.HTTP_201_CREATED,
@@ -133,7 +133,7 @@ class FileDocumentManagement:
     async def patch_one_by_id(self, state: State, id: UUID, body: PatchOneBody) -> Result[
         FileDocumentResponse]:
         try:
-            document_to_patch: Document = Document(
+            document_patcher: Document = Document(
                 id=id,
                 name=body.document_name,
                 description=body.document_description,
@@ -143,7 +143,7 @@ class FileDocumentManagement:
             patched_document: Result[Document] = await self.document_management.patch_one_by_id_raw(
                 state=state,
                 id=id,
-                document_to_patch=document_to_patch
+                document_patcher=document_patcher
             )
             if patched_document.status_code != status.HTTP_200_OK:
                 result: Result[FileDocumentResponse] = Result(
@@ -155,7 +155,7 @@ class FileDocumentManagement:
                     result=result
                 )
 
-            file_document_to_patch: FileDocument = FileDocument(
+            file_document_patcher: FileDocument = FileDocument(
                 file_name=body.file_name,
                 file_extension=body.file_extension,
                 file_data=body.file_data,
@@ -164,7 +164,7 @@ class FileDocumentManagement:
             patched_file_document: FileDocument = await self.file_document_repository.patch_one_by_id(
                 session=state.session,
                 id=id,
-                file_document_to_patch=file_document_to_patch
+                file_document_patcher=file_document_patcher
             )
             patched_file_document_response: FileDocumentResponse = FileDocumentResponse(
                 id=patched_document.data.id,
@@ -190,13 +190,13 @@ class FileDocumentManagement:
             )
         return result
 
-    async def patch_one_by_id_raw(self, state: State, id: UUID, file_document_to_patch: FileDocument) -> \
+    async def patch_one_by_id_raw(self, state: State, id: UUID, file_document_patcher: FileDocument) -> \
             Result[
                 FileDocumentResponse]:
         patched_file_document: FileDocument = await self.file_document_repository.patch_one_by_id(
             session=state.session,
             id=id,
-            file_document_to_patch=file_document_to_patch
+            file_document_patcher=file_document_patcher
         )
         result: Result[FileDocumentResponse] = Result(
             status_code=status.HTTP_200_OK,

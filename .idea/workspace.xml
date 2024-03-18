@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.coverage" beforeDir="false" afterPath="$PROJECT_DIR$/.coverage" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/account_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/account_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_process_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_process_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_type_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_type_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/file_document_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/file_document_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/text_document_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/text_document_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/web_document_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/web_document_controller_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/containers/test_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/containers/test_container.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,59 +56,59 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "FastAPI.run-1.executor": "Debug",
-    "Python tests.Python tests for document_controller_test.test__patch_one_by_id__should_patch_one_document__succeed.executor": "Debug",
-    "Python tests.Python tests for document_process_controller_test.test__patch_one_by_id__should_patch_one_document_process__succeed.executor": "Debug",
-    "Python tests.Python tests in account_controller_test.py.executor": "Debug",
-    "Python tests.Python tests in authentication_controller_test.py.executor": "Debug",
-    "Python tests.Python tests in document_controller_test.py.executor": "Debug",
-    "Python tests.Python tests in document_process_controller_test.py.executor": "Debug",
-    "Python tests.Python tests in document_type_controller_test.py.executor": "Debug",
-    "Python tests.Python tests in file_document_controller_test.py.executor": "Debug",
-    "Python tests.Python tests in text_document_controller_test.py.executor": "Debug",
-    "Python tests.Python tests in web_document_controller_test.py.executor": "Debug",
-    "Python tests.pytest in test.executor": "Debug",
-    "Python.document_type_mock.executor": "Debug",
-    "Python.test (1).executor": "Debug",
-    "Python.test.executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Data/Apps/research-assistant-backend/app/inners/models/dtos/contracts/responses/authentications",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "ts.external.directory.path": "C:\\Users\\M Kharisma Azhari\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\231.9011.38\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;FastAPI.run-1.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests for document_controller_test.test__patch_one_by_id__should_patch_one_document__succeed.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests for document_process_controller_test.test__patch_one_by_id__should_patch_one_document_process__succeed.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests in account_controller_test.py.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests in authentication_controller_test.py.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests in document_controller_test.py.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests in document_process_controller_test.py.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests in document_type_controller_test.py.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests in file_document_controller_test.py.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests in text_document_controller_test.py.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests in web_document_controller_test.py.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.pytest in test.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.document_type_mock.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.test (1).executor&quot;: &quot;Debug&quot;,
+    &quot;Python.test.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Data/Apps/research-assistant-backend/app/outers/containers/use_cases&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\M Kharisma Azhari\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\231.9011.38\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\dtos\contracts\responses\authentications" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\outers\containers\use_cases" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\dtos\contracts\requests\authentications\registers" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\dtos\contracts\requests\authentications\logins" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\outers\interfaces\deliveries\controllers" />
       <recent name="C:\Data\Apps\research-assistant-backend\test\app\outers\interfaces\deliveries\controllers" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\outers" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\use_cases\authentications" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\dtos\contracts\requests\managements" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\dtos\contracts\requests" />
       <recent name="C:\Data\Apps\research-assistant-backend\test" />
       <recent name="C:\Data\Apps\research-assistant-backend\test\app" />
       <recent name="C:\Data\Apps\research-assistant-backend\test\containers" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\outers\containers" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\outers\settings" />
     </key>
   </component>
   <component name="RunManager" selected="Python tests.pytest in test">
@@ -413,7 +409,9 @@
       <workItem from="1710607257160" duration="50000" />
       <workItem from="1710607328017" duration="17013000" />
       <workItem from="1710677175790" duration="4357000" />
-      <workItem from="1710684921228" duration="36267000" />
+      <workItem from="1710684921228" duration="46319000" />
+      <workItem from="1710807951382" duration="5486000" />
+      <workItem from="1710868304589" duration="1542000" />
     </task>
     <servers />
   </component>
@@ -423,7 +421,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1710694924836" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_app_outers_interfaces_deliveries_controllers_file_document_controller_test.coverage" NAME="pytest for test.app.outers.interfaces.deliveries.controllers.file_document_controller_test Coverage Results" MODIFIED="1685532826646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1710724030464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1710876099191" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$document_type_mock.coverage" NAME="document_type_mock Coverage Results" MODIFIED="1710704219113" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/mocks" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1710594145961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/mock" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$.coverage" NAME=" Coverage Results" MODIFIED="1710722311979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

@@ -40,16 +40,16 @@ class SessionRepository:
         found_session: Session = found_session_result.scalars().one()
         return found_session
 
-    async def create_one(self, session: AsyncSession, session_to_create: Session) -> Session:
-        session.add(session_to_create)
-        return session_to_create
+    async def create_one(self, session: AsyncSession, session_creator: Session) -> Session:
+        session.add(session_creator)
+        return session_creator
 
-    async def patch_one_by_id(self, session: AsyncSession, id: UUID, session_to_patch: Session) -> Session:
+    async def patch_one_by_id(self, session: AsyncSession, id: UUID, session_patcher: Session) -> Session:
         found_session: Session = await self.find_one_by_id(
             session=session,
             id=id
         )
-        found_session.patch_from(session_to_patch.dict(exclude_none=True))
+        found_session.patch_from(session_patcher.dict(exclude_none=True))
         return found_session
 
     async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> Session:

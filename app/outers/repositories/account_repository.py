@@ -33,16 +33,16 @@ class AccountRepository:
         found_account: Account = found_account_result.scalars().one()
         return found_account
 
-    async def create_one(self, session: AsyncSession, account_to_create: Account) -> Account:
-        session.add(account_to_create)
-        return account_to_create
+    async def create_one(self, session: AsyncSession, account_creator: Account) -> Account:
+        session.add(account_creator)
+        return account_creator
 
-    async def patch_one_by_id(self, session: AsyncSession, id: UUID, account_to_patch: Account) -> Account:
+    async def patch_one_by_id(self, session: AsyncSession, id: UUID, account_patcher: Account) -> Account:
         found_account: Account = await self.find_one_by_id(
             session=session,
             id=id
         )
-        found_account.patch_from(account_to_patch.dict(exclude_none=True))
+        found_account.patch_from(account_patcher.dict(exclude_none=True))
         return found_account
 
     async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> Account:

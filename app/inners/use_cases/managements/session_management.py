@@ -96,11 +96,11 @@ class SessionManagement:
         return result
 
     async def create_one(self, state: State, body: CreateOneBody) -> Result[Session]:
-        session_to_create: Session = Session(**body.dict())
-        session_to_create.id = uuid.uuid4()
+        session_creator: Session = Session(**body.dict())
+        session_creator.id = uuid.uuid4()
         created_session: Session = await self.session_repository.create_one(
             session=state.session,
-            session_to_create=session_to_create
+            session_creator=session_creator
         )
         result: Result[Session] = Result(
             status_code=status.HTTP_201_CREATED,
@@ -109,10 +109,10 @@ class SessionManagement:
         )
         return result
 
-    async def create_one_raw(self, state: State, session_to_create: Session) -> Result[Session]:
+    async def create_one_raw(self, state: State, session_creator: Session) -> Result[Session]:
         created_session: Session = await self.session_repository.create_one(
             session=state.session,
-            session_to_create=session_to_create
+            session_creator=session_creator
         )
         result: Result[Session] = Result(
             status_code=status.HTTP_201_CREATED,
@@ -123,11 +123,11 @@ class SessionManagement:
 
     async def patch_one_by_id(self, state: State, id: UUID, body: PatchOneBody) -> Result[Session]:
         try:
-            session_to_patch: Session = Session(**body.dict())
+            session_patcher: Session = Session(**body.dict())
             patched_session: Session = await self.session_repository.patch_one_by_id(
                 session=state.session,
                 id=id,
-                session_to_patch=session_to_patch
+                session_patcher=session_patcher
             )
             result: Result[Session] = Result(
                 status_code=status.HTTP_200_OK,
@@ -142,12 +142,12 @@ class SessionManagement:
             )
         return result
 
-    async def patch_one_by_id_raw(self, state: State, id: UUID, session_to_patch: Session) -> Result[Session]:
+    async def patch_one_by_id_raw(self, state: State, id: UUID, session_patcher: Session) -> Result[Session]:
         try:
             patched_session: Session = await self.session_repository.patch_one_by_id(
                 session=state.session,
                 id=id,
-                session_to_patch=session_to_patch
+                session_patcher=session_patcher
             )
             result: Result[Session] = Result(
                 status_code=status.HTTP_200_OK,

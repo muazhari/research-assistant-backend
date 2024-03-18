@@ -19,17 +19,17 @@ class FileDocumentRepository:
         found_file_document: FileDocument = found_file_document_result.scalars().one()
         return found_file_document
 
-    async def create_one(self, session: AsyncSession, file_document_to_create: FileDocument) -> FileDocument:
-        session.add(file_document_to_create)
-        return file_document_to_create
+    async def create_one(self, session: AsyncSession, file_document_creator: FileDocument) -> FileDocument:
+        session.add(file_document_creator)
+        return file_document_creator
 
     async def patch_one_by_id(self, session: AsyncSession, id: UUID,
-                              file_document_to_patch: FileDocument) -> FileDocument:
+                              file_document_patcher: FileDocument) -> FileDocument:
         found_file_document: FileDocument = await self.find_one_by_id(
             session=session,
             id=id
         )
-        found_file_document.patch_from(file_document_to_patch.dict(exclude_none=True))
+        found_file_document.patch_from(file_document_patcher.dict(exclude_none=True))
         return found_file_document
 
     async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> FileDocument:

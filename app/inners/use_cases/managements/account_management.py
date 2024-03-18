@@ -79,12 +79,12 @@ class AccountManagement:
         return result
 
     async def create_one(self, state: State, body: CreateOneBody) -> Result[Account]:
-        account_to_create: Account = Account(**body.dict())
-        account_to_create.id = uuid.uuid4()
-        account_to_create.password = bcrypt.hashpw(account_to_create.password.encode(), bcrypt.gensalt()).decode()
+        account_creator: Account = Account(**body.dict())
+        account_creator.id = uuid.uuid4()
+        account_creator.password = bcrypt.hashpw(account_creator.password.encode(), bcrypt.gensalt()).decode()
         created_account: Account = await self.account_repository.create_one(
             session=state.session,
-            account_to_create=account_to_create
+            account_creator=account_creator
         )
         result: Result[Account] = Result(
             status_code=status.HTTP_201_CREATED,
@@ -93,10 +93,10 @@ class AccountManagement:
         )
         return result
 
-    async def create_one_raw(self, state: State, account_to_create: Account) -> Result[Account]:
+    async def create_one_raw(self, state: State, account_creator: Account) -> Result[Account]:
         created_account: Account = await self.account_repository.create_one(
             session=state.session,
-            account_to_create=account_to_create
+            account_creator=account_creator
         )
         result: Result[Account] = Result(
             status_code=status.HTTP_201_CREATED,
@@ -107,12 +107,12 @@ class AccountManagement:
 
     async def patch_one_by_id(self, state: State, id: UUID, body: PatchOneBody) -> Result[Account]:
         try:
-            account_to_patch: Account = Account(**body.dict())
-            account_to_patch.password = bcrypt.hashpw(account_to_patch.password.encode(), bcrypt.gensalt()).decode()
+            account_patcher: Account = Account(**body.dict())
+            account_patcher.password = bcrypt.hashpw(account_patcher.password.encode(), bcrypt.gensalt()).decode()
             patched_account: Account = await self.account_repository.patch_one_by_id(
                 session=state.session,
                 id=id,
-                account_to_patch=account_to_patch
+                account_patcher=account_patcher
             )
             result: Result[Account] = Result(
                 status_code=status.HTTP_200_OK,
@@ -127,11 +127,11 @@ class AccountManagement:
             )
         return result
 
-    async def patch_one_by_id_raw(self, state: State, id: UUID, account_to_patch: Account) -> Result[Account]:
+    async def patch_one_by_id_raw(self, state: State, id: UUID, account_patcher: Account) -> Result[Account]:
         patched_account: Account = await self.account_repository.patch_one_by_id(
             session=state.session,
             id=id,
-            account_to_patch=account_to_patch
+            account_patcher=account_patcher
         )
         result: Result[Account] = Result(
             status_code=status.HTTP_200_OK,

@@ -56,7 +56,7 @@ class AuthorizationMiddleware(BaseHTTPMiddleware):
 
         found_session: Session = found_sessions[0]
 
-        if found_session.access_token_expired_at < datetime.now():
+        if found_session.access_token_expired_at < datetime.now(tz=timezone.utc):
             response: Response = Response(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 content=Content(

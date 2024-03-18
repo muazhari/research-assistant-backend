@@ -2,6 +2,7 @@ from dependency_injector import providers
 from dependency_injector.containers import DeclarativeContainer
 
 from app.outers.containers.use_cases.authentication_container import AuthenticationContainer
+from app.outers.containers.use_cases.authorization_container import AuthorizationContainer
 from app.outers.containers.use_cases.longform_qa_container import LongFormQAContainer
 from app.outers.containers.use_cases.management_container import ManagementContainer
 from app.outers.containers.use_cases.passage_search_container import PassageSearchContainer
@@ -24,6 +25,10 @@ class UseCaseContainer(DeclarativeContainer):
     )
     authentications = providers.Container(
         AuthenticationContainer,
+        managements=managements,
+    )
+    authorizations = providers.Container(
+        AuthorizationContainer,
         managements=managements,
     )
     passage_searches = providers.Container(

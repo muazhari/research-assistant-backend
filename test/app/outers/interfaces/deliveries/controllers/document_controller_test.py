@@ -39,7 +39,7 @@ async def test__create_one__should_create_one_document__succeed(main_test: MainT
     selected_document_type_mock: DocumentType = main_test.all_seeder.document_type_seeder.document_type_mock.data[0]
     selected_account_mock: Account = main_test.all_seeder.document_seeder.document_mock.account_mock.data[0]
     selected_session_mock: Session = main_test.all_seeder.session_seeder.session_mock.data[0]
-    document_to_create_body: CreateOneBody = CreateOneBody(
+    document_creator_body: CreateOneBody = CreateOneBody(
         name=f"name{uuid.uuid4()}",
         description=f"description{uuid.uuid4()}",
         document_type_id=selected_document_type_mock.id,
@@ -50,16 +50,16 @@ async def test__create_one__should_create_one_document__succeed(main_test: MainT
     }
     response: Response = await main_test.client.post(
         url=url_path,
-        json=json.loads(document_to_create_body.json()),
+        json=json.loads(document_creator_body.json()),
         headers=headers
     )
 
     assert response.status_code == 201
     response_body: Content[Document] = Content[Document](**response.json())
-    assert response_body.data.name == document_to_create_body.name
-    assert response_body.data.description == document_to_create_body.description
-    assert response_body.data.document_type_id == document_to_create_body.document_type_id
-    assert response_body.data.account_id == document_to_create_body.account_id
+    assert response_body.data.name == document_creator_body.name
+    assert response_body.data.description == document_creator_body.description
+    assert response_body.data.document_type_id == document_creator_body.document_type_id
+    assert response_body.data.account_id == document_creator_body.account_id
 
 
 @pytest.mark.asyncio
@@ -68,7 +68,7 @@ async def test__patch_one_by_id__should_patch_one_document__succeed(main_test: M
     selected_document_type_mock: DocumentType = main_test.all_seeder.document_type_seeder.document_type_mock.data[0]
     selected_account_mock: Account = main_test.all_seeder.document_seeder.document_mock.account_mock.data[0]
     selected_session_mock: Session = main_test.all_seeder.session_seeder.session_mock.data[0]
-    document_to_patch_body: CreateOneBody = CreateOneBody(
+    document_patcher_body: CreateOneBody = CreateOneBody(
         name=f"patched.name{uuid.uuid4()}",
         description=f"patched.description{uuid.uuid4()}",
         document_type_id=selected_document_type_mock.id,
@@ -79,17 +79,17 @@ async def test__patch_one_by_id__should_patch_one_document__succeed(main_test: M
     }
     response: Response = await main_test.client.patch(
         url=f"{url_path}/{selected_document_mock.id}",
-        json=json.loads(document_to_patch_body.json()),
+        json=json.loads(document_patcher_body.json()),
         headers=headers
     )
 
     assert response.status_code == 200
     response_body: Content[Document] = Content[Document](**response.json())
     assert response_body.data.id == selected_document_mock.id
-    assert response_body.data.name == document_to_patch_body.name
-    assert response_body.data.description == document_to_patch_body.description
-    assert response_body.data.document_type_id == document_to_patch_body.document_type_id
-    assert response_body.data.account_id == document_to_patch_body.account_id
+    assert response_body.data.name == document_patcher_body.name
+    assert response_body.data.description == document_patcher_body.description
+    assert response_body.data.document_type_id == document_patcher_body.document_type_id
+    assert response_body.data.account_id == document_patcher_body.account_id
 
 
 @pytest.mark.asyncio

@@ -13,28 +13,23 @@ class ApplicationContainer(DeclarativeContainer):
     settings = providers.Container(
         SettingContainer
     )
-
     gateways = providers.Container(
         GatewayContainer,
         settings=settings
     )
-
     datastores = providers.Container(
         DatastoreContainer,
         settings=settings
     )
-
     repositories = providers.Container(
         RepositoryContainer,
     )
-
     use_cases = providers.Container(
         UseCaseContainer,
         settings=settings,
         repositories=repositories,
         gateways=gateways,
     )
-
     middlewares = providers.Container(
         MiddlewareContainer,
         datastores=datastores

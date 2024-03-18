@@ -37,13 +37,13 @@ class RegisterAuthentication:
             )
             return result
 
-        account_to_create_body: CreateOneBody = CreateOneBody(
+        account_creator_body: CreateOneBody = CreateOneBody(
             email=body.email,
             password=body.password
         )
         created_account: Result[Account] = await self.account_management.create_one(
             state=state,
-            body=account_to_create_body
+            body=account_creator_body
         )
 
         if created_account.status_code != status.HTTP_201_CREATED:

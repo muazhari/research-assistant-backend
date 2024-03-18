@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Union
 
 from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Depends
@@ -44,9 +44,9 @@ class AuthenticationController:
         self.logout_authentication = logout_authentication
 
     @router.post("/authentications/logins")
-    async def login(self, request: Request, body: LoginByEmailAndPasswordBody) -> Response:
-        method: str = request.query_params.get("method")
-        if method is None:
+    async def login(self, request: Request, body: Union[LoginByEmailAndPasswordBody]) -> Response:
+        method_param: str = request.query_params.get("method")
+        if method_param is None:
             response: Response = Response(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 content=Content[RegisterResponse](
@@ -56,7 +56,7 @@ class AuthenticationController:
             )
             return response
 
-        if method == "email_and_password":
+        if method_param == "email_and_password":
             result: Result[LoginResponse] = await self.login_authentication.login_by_email_and_password(
                 state=request.state,
                 body=body
@@ -72,16 +72,16 @@ class AuthenticationController:
             response: Response = Response(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 content=Content[LoginResponse](
-                    message=f"AuthenticationController.login: login method {method} is not supported.",
+                    message=f"AuthenticationController.login: login method_param {method_param} is not supported.",
                     data=None
                 ).json()
             )
         return response
 
     @router.post("/authentications/registers")
-    async def register(self, request: Request, body: RegisterByEmailAndPasswordBody) -> Response:
-        method = request.query_params.get("method")
-        if method is None:
+    async def register(self, request: Request, body: Union[RegisterByEmailAndPasswordBody]) -> Response:
+        method_param = request.query_params.get("method")
+        if method_param is None:
             response: Response = Response(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 content=Content[RegisterResponse](
@@ -91,7 +91,7 @@ class AuthenticationController:
             )
             return response
 
-        if method == "email_and_password":
+        if method_param == "email_and_password":
             result: Result[RegisterResponse] = await self.register_authentication.register_by_email_and_password(
                 state=request.state,
                 body=body
@@ -107,7 +107,7 @@ class AuthenticationController:
             response: Response = Response(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 content=Content[RegisterResponse](
-                    message=f"AuthenticationController.register: register method {method} is not supported.",
+                    message=f"AuthenticationController.register: register method_param {method_param} is not supported.",
                     data=None
                 ).json()
             )

@@ -65,7 +65,7 @@ class TextDocumentManagement:
         return result
 
     async def create_one(self, state: State, body: CreateOneBody) -> Result[TextDocumentResponse]:
-        document_to_create: Document = Document(
+        document_creator: Document = Document(
             id=uuid.uuid4(),
             name=body.name,
             description=body.description,
@@ -74,7 +74,7 @@ class TextDocumentManagement:
         )
         created_document: Result[Document] = await self.document_management.create_one_raw(
             state=state,
-            document_to_create=document_to_create
+            document_creator=document_creator
         )
         if created_document.status_code != status.HTTP_201_CREATED:
             result: Result[TextDocumentResponse] = Result(
@@ -86,14 +86,14 @@ class TextDocumentManagement:
                 result=result
             )
 
-        text_document_to_create: TextDocument = TextDocument(
+        text_document_creator: TextDocument = TextDocument(
             id=created_document.data.id,
             text_content=body.text_content,
             text_content_hash=hashlib.sha256(body.text_content.encode()).hexdigest()
         )
         created_text_document: TextDocument = await self.text_document_repository.create_one(
             session=state.session,
-            text_document_to_create=text_document_to_create
+            text_document_creator=text_document_creator
         )
         text_document_response: TextDocumentResponse = TextDocumentResponse(
             id=created_document.data.id,
@@ -111,11 +111,11 @@ class TextDocumentManagement:
         )
         return result
 
-    async def create_one_raw(self, state: State, text_document_to_create: TextDocument) -> Result[
+    async def create_one_raw(self, state: State, text_document_creator: TextDocument) -> Result[
         TextDocumentResponse]:
         created_text_document: TextDocument = await self.text_document_repository.create_one(
             session=state.session,
-            text_document_to_create=text_document_to_create
+            text_document_creator=text_document_creator
         )
         result: Result[TextDocumentResponse] = Result(
             status_code=status.HTTP_201_CREATED,
@@ -127,7 +127,7 @@ class TextDocumentManagement:
     async def patch_one_by_id(self, state: State, id: UUID, body: PatchOneBody) -> Result[
         TextDocumentResponse]:
         try:
-            document_to_patch: Document = Document(
+            document_patcher: Document = Document(
                 id=id,
                 name=body.name,
                 description=body.description,
@@ -137,7 +137,7 @@ class TextDocumentManagement:
             patched_document: Result[Document] = await self.document_management.patch_one_by_id_raw(
                 state=state,
                 id=id,
-                document_to_patch=document_to_patch
+                document_patcher=document_patcher
             )
             if patched_document.status_code != status.HTTP_200_OK:
                 result: Result[TextDocumentResponse] = Result(
@@ -149,7 +149,7 @@ class TextDocumentManagement:
                     result=result
                 )
 
-            text_document_to_patch: TextDocument = TextDocument(
+            text_document_patcher: TextDocument = TextDocument(
                 id=id,
                 text_content=body.text_content,
                 text_content_hash=hashlib.sha256(body.text_content.encode()).hexdigest()
@@ -157,7 +157,7 @@ class TextDocumentManagement:
             patched_text_document: TextDocument = await self.text_document_repository.patch_one_by_id(
                 session=state.session,
                 id=id,
-                text_document_to_patch=text_document_to_patch
+                text_document_patcher=text_document_patcher
             )
             patched_text_document_response: TextDocumentResponse = TextDocumentResponse(
                 id=patched_document.data.id,
@@ -181,13 +181,13 @@ class TextDocumentManagement:
             )
         return result
 
-    async def patch_one_by_id_raw(self, state: State, id: UUID, text_document_to_patch: TextDocument) -> \
+    async def patch_one_by_id_raw(self, state: State, id: UUID, text_document_patcher: TextDocument) -> \
             Result[
                 TextDocumentResponse]:
         patched_text_document: TextDocument = await self.text_document_repository.patch_one_by_id(
             session=state.session,
             id=id,
-            text_document_to_patch=text_document_to_patch
+            text_document_patcher=text_document_patcher
         )
         result: Result[TextDocumentResponse] = Result(
             status_code=status.HTTP_200_OK,
