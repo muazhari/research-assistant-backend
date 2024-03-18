@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/authentication_controller_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/models/daos/session.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/daos/session.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/authentications/register_authentication.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/authentications/register_authentication.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/containers/repository_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/repository_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/containers/use_cases/management_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/use_cases/management_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/authentication_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/authentication_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/account_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/account_controller_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_controller_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_process_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_process_controller_test.py" afterDir="false" />
@@ -20,20 +13,6 @@
       <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/file_document_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/file_document_controller_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/text_document_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/text_document_controller_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/web_document_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/web_document_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/conftest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/containers/mock_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/containers/mock_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/containers/seeder_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/containers/seeder_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mocks/account_mock.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/mocks/account_mock.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mocks/document_mock.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/mocks/document_mock.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mocks/document_process_mock.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/mocks/document_process_mock.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mocks/document_type_mock.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/mocks/document_type_mock.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mocks/file_document_mock.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/mocks/file_document_mock.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mocks/session_mock.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/mocks/session_mock.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mocks/text_document_mock.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/mocks/text_document_mock.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mocks/web_document_mock.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/mocks/web_document_mock.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/seeders/account_seeder.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/seeders/account_seeder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/seeders/all_seeder.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/seeders/all_seeder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/seeders/session_seeder.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/seeders/session_seeder.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -434,7 +413,7 @@
       <workItem from="1710607257160" duration="50000" />
       <workItem from="1710607328017" duration="17013000" />
       <workItem from="1710677175790" duration="4357000" />
-      <workItem from="1710684921228" duration="35087000" />
+      <workItem from="1710684921228" duration="36267000" />
     </task>
     <servers />
   </component>
@@ -444,7 +423,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1710694924836" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_app_outers_interfaces_deliveries_controllers_file_document_controller_test.coverage" NAME="pytest for test.app.outers.interfaces.deliveries.controllers.file_document_controller_test Coverage Results" MODIFIED="1685532826646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1710723914779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1710724030464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$document_type_mock.coverage" NAME="document_type_mock Coverage Results" MODIFIED="1710704219113" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/mocks" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1710594145961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/mock" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$.coverage" NAME=" Coverage Results" MODIFIED="1710722311979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
