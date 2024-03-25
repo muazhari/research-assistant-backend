@@ -41,12 +41,11 @@ class OneDatastore:
                 await session.commit()
                 break
             except Exception as exception:
+                await session.rollback()
                 if isinstance(exception, sqlalchemy.exc.DBAPIError):
                     if exception.orig.pgcode == asyncpg.exceptions.SerializationError.sqlstate:
                         retry_count += 1
-                        await session.close()
                         continue
-                await session.rollback()
                 raise exception
 
         if retry_count == max_retries:

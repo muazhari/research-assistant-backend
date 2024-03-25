@@ -1,7 +1,7 @@
 from dependency_injector import providers
 from dependency_injector.containers import DeclarativeContainer
 
-from app.inners.use_cases.long_form_qa.longform_qa import LongFormQA
+from app.inners.use_cases.long_form_qas.longform_qa import LongFormQA
 
 
 class LongFormQAContainer(DeclarativeContainer):

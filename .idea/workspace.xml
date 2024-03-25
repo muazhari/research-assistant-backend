@@ -5,10 +5,73 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.coverage" beforeDir="false" afterPath="$PROJECT_DIR$/.coverage" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inners/models/base_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inners/use_cases/long_form_qas/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_searches/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/datastores/four_datastore.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/datastores/three_datastore.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/datastores/two_datastore.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/settings/four_datastore_setting.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/settings/three_datastore_setting.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/outers/settings/two_datastore_setting.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/playground/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/playground/qa_playground.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.coverage" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/containers/test_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/containers/test_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/models/daos/base_dao.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/daos/base_dao.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/models/daos/file_document.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/daos/file_document.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/models/daos/session.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/daos/session.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/models/dtos/base_dto.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/dtos/base_dto.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/models/dtos/contracts/requests/managements/file_documents/create_one_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/dtos/contracts/requests/managements/file_documents/create_one_body.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/models/dtos/contracts/requests/managements/file_documents/patch_one_body.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/dtos/contracts/requests/managements/file_documents/patch_one_body.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/models/dtos/contracts/responses/managements/documents/file_document_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/models/dtos/contracts/responses/managements/documents/file_document_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_conversion/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_conversions/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_network/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_networks/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_search/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_searches/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_store/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_stores/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/document_transfer/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/document_transfers/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/embeddings/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/long_form_qas/longform_qa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/managements/file_document_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/managements/file_document_management.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/embeddings/hugging_face_e5_instruct_embedding.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/passage_search/passage_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/passage_searches/passage_search.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/containers/application_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/application_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/containers/datastore_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/datastore_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/containers/repository_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/repository_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/containers/setting_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/setting_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/containers/use_cases/longform_qa_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/use_cases/longform_qa_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/containers/use_cases/passage_search_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/containers/use_cases/passage_search_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/datastores/one_datastore.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/datastores/one_datastore.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/file_document_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/file_document_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/long_form_qa_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/long_form_qa_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/passage_search_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/controllers/passage_search_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/interfaces/deliveries/middlewares/authorization_middleware.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/interfaces/deliveries/middlewares/authorization_middleware.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/account_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/account_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/document_process_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/document_process_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/document_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/document_type_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/document_type_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/file_document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/file_document_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/session_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/session_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/text_document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/text_document_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/repositories/web_document_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/repositories/web_document_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/settings/one_datastore_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/settings/one_datastore_setting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/outers/settings/temp_datastore_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/outers/settings/temp_datastore_setting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds-1.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/playground/path_playground.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/file_document_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/file_document_controller_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/containers/seeder_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/containers/seeder_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/mocks/file_document_mock.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/mocks/file_document_mock.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/seeders/account_seeder.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/seeders/account_seeder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/seeders/document_process_seeder.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/seeders/document_process_seeder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/seeders/document_seeder.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/seeders/document_seeder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/seeders/document_type_seeder.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/seeders/document_type_seeder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/seeders/file_document_seeder.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/seeders/file_document_seeder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/seeders/session_seeder.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/seeders/session_seeder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/seeders/text_document_seeder.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/seeders/text_document_seeder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/seeders/web_document_seeder.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/seeders/web_document_seeder.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +134,7 @@
     &quot;Python tests.Python tests in web_document_controller_test.py.executor&quot;: &quot;Debug&quot;,
     &quot;Python tests.pytest in test.executor&quot;: &quot;Debug&quot;,
     &quot;Python.document_type_mock.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.path_playground.executor&quot;: &quot;Debug&quot;,
     &quot;Python.test (1).executor&quot;: &quot;Debug&quot;,
     &quot;Python.test.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
@@ -78,7 +142,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Data/Apps/research-assistant-backend/app/outers/containers/use_cases&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Data/Apps/research-assistant-backend/app/outers/settings&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -95,23 +159,49 @@
     ]
   }
 }</component>
+  <component name="PyCoverageOptionsProvider">
+    <option name="myUseBundledCoveragePy" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Data\Apps\research-assistant-backend\app\outers\settings" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\outers\datastores" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models" />
+      <recent name="C:\Data\Apps\research-assistant-backend\playground" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\outers\containers\use_cases" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\dtos\contracts\requests\authentications\registers" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\dtos\contracts\requests\authentications\logins" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\outers\interfaces\deliveries\controllers" />
-      <recent name="C:\Data\Apps\research-assistant-backend\test\app\outers\interfaces\deliveries\controllers" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Data\Apps\research-assistant-backend\playground" />
       <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\dtos\contracts\requests" />
       <recent name="C:\Data\Apps\research-assistant-backend\test" />
       <recent name="C:\Data\Apps\research-assistant-backend\test\app" />
       <recent name="C:\Data\Apps\research-assistant-backend\test\containers" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\outers\containers" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.pytest in test">
+  <component name="RunManager" selected="Python tests.Python tests in file_document_controller_test.py">
+    <configuration name="path_playground" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="research-assistant-backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/playground/path_playground.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="run-1" type="Python.FastAPI">
       <option name="additionalOptions" value="--reload --host=0.0.0.0 --workers=1" />
       <option name="file" value="C:\Data\Apps\research-assistant-backend\app\main.py" />
@@ -173,22 +263,6 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;-n\u003d3&quot;" />
       <option name="_new_target" value="&quot;$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/authentication_controller_test.py&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Python tests in document_controller_test.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="research-assistant-backend" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;-n\u003d4&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/document_controller_test.py&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
@@ -277,10 +351,9 @@
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="C:\ProgramData\anaconda3\envs\research-assistant\python.exe" />
-      <option name="SDK_NAME" value="research-assistant" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
@@ -294,6 +367,7 @@
     <list>
       <item itemvalue="Docker.compose-1" />
       <item itemvalue="FastAPI.run-1" />
+      <item itemvalue="Python.path_playground" />
       <item itemvalue="Python tests.Python tests in authentication_controller_test.py" />
       <item itemvalue="Python tests.Python tests in web_document_controller_test.py" />
       <item itemvalue="Python tests.Python tests in file_document_controller_test.py" />
@@ -301,7 +375,6 @@
       <item itemvalue="Python tests.Python tests in text_document_controller_test.py" />
       <item itemvalue="Python tests.Python tests in document_type_controller_test.py" />
       <item itemvalue="Python tests.Python tests in document_process_controller_test.py" />
-      <item itemvalue="Python tests.Python tests in document_controller_test.py" />
       <item itemvalue="Python tests.Python tests in account_controller_test.py" />
     </list>
     <recent_temporary>
@@ -310,7 +383,6 @@
         <item itemvalue="Python tests.Python tests in document_type_controller_test.py" />
         <item itemvalue="Python tests.Python tests in document_process_controller_test.py" />
         <item itemvalue="Python tests.Python tests in account_controller_test.py" />
-        <item itemvalue="Python tests.Python tests in document_controller_test.py" />
       </list>
     </recent_temporary>
   </component>
@@ -411,20 +483,47 @@
       <workItem from="1710677175790" duration="4357000" />
       <workItem from="1710684921228" duration="46319000" />
       <workItem from="1710807951382" duration="5486000" />
-      <workItem from="1710868304589" duration="1542000" />
+      <workItem from="1710868304589" duration="4290000" />
+      <workItem from="1710969678920" duration="3288000" />
+      <workItem from="1711022186213" duration="6783000" />
+      <workItem from="1711037423748" duration="10049000" />
+      <workItem from="1711054603681" duration="29883000" />
+      <workItem from="1711149930671" duration="18050000" />
+      <workItem from="1711325963225" duration="895000" />
+      <workItem from="1711326865795" duration="1368000" />
+      <workItem from="1711328242354" duration="1199000" />
+      <workItem from="1711346681145" duration="426000" />
+      <workItem from="1711347113838" duration="1998000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/file_document_controller_test.py</url>
+          <line>70</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test/app/outers/interfaces/deliveries/controllers/file_document_controller_test.py</url>
+          <line>104</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1710694924836" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_app_outers_interfaces_deliveries_controllers_file_document_controller_test.coverage" NAME="pytest for test.app.outers.interfaces.deliveries.controllers.file_document_controller_test Coverage Results" MODIFIED="1685532826646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1710876099191" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1711325849247" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$document_type_mock.coverage" NAME="document_type_mock Coverage Results" MODIFIED="1710704219113" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/mocks" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1710594145961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/mock" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$.coverage" NAME=" Coverage Results" MODIFIED="1710722311979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$path_playground.coverage" NAME="path_playground Coverage Results" MODIFIED="1711068490030" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$.coverage" NAME=" Coverage Results" MODIFIED="1711380763043" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$test.coverage" NAME="test Coverage Results" MODIFIED="1710594094112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

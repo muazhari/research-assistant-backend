@@ -1,7 +1,7 @@
 from uuid import UUID
 
 from dependency_injector.wiring import Provide, inject
-from fastapi import APIRouter, Request, Depends
+from fastapi import APIRouter, Request, Depends, UploadFile
 from fastapi_utils.cbv import cbv
 from starlette.responses import Response
 
@@ -47,10 +47,11 @@ class FileDocumentController:
         return response
 
     @router.post("/documents/files")
-    async def create_one(self, request: Request, body: CreateOneBody) -> Response:
+    async def create_one(self, request: Request, file: UploadFile, body: CreateOneBody) -> Response:
+        body.file_upload = file
         result: Result[FileDocumentResponse] = await self.file_document_management.create_one(
             state=request.state,
-            body=body
+            body=body,
         )
         response: Response = Response(
             status_code=result.status_code,
@@ -62,7 +63,8 @@ class FileDocumentController:
         return response
 
     @router.patch("/documents/files/{id}")
-    async def patch_one_by_id(self, request: Request, id: UUID, body: PatchOneBody) -> Response:
+    async def patch_one_by_id(self, request: Request, file: UploadFile, id: UUID, body: PatchOneBody) -> Response:
+        body.file_upload = file
         result: Result[FileDocumentResponse] = await self.file_document_management.patch_one_by_id(
             state=request.state,
             id=id,

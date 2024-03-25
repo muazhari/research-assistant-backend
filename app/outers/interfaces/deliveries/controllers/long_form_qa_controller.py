@@ -7,7 +7,7 @@ from starlette.responses import Response
 from app.inners.models.dtos.contracts.requests.long_form_qas.process_body import ProcessBody
 from app.inners.models.dtos.contracts.responses.long_form_qas.process_response import ProcessResponse
 from app.inners.models.dtos.contracts.result import Result
-from app.inners.use_cases.long_form_qa.longform_qa import LongFormQA
+from app.inners.use_cases.long_form_qas.longform_qa import LongFormQA
 from app.outers.containers.application_container import ApplicationContainer
 
 router: APIRouter = APIRouter(tags=["long-form-qa"])

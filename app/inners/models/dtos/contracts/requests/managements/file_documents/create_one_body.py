@@ -1,4 +1,7 @@
+from typing import Optional
 from uuid import UUID
+
+from fastapi import UploadFile
 
 from app.inners.models.dtos.contracts.requests.base_request import BaseRequest
 
@@ -9,5 +12,4 @@ class CreateOneBody(BaseRequest):
     document_type_id: str
     document_account_id: UUID
     file_name: str
-    file_extension: str
-    file_data: bytes
+    file_upload: Optional[UploadFile]

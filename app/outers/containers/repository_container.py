@@ -12,6 +12,8 @@ from app.outers.repositories.web_document_repository import WebDocumentRepositor
 
 
 class RepositoryContainer(DeclarativeContainer):
+    datastores = providers.DependenciesContainer()
+
     account = providers.Singleton(
         AccountRepository
     )
@@ -28,7 +30,8 @@ class RepositoryContainer(DeclarativeContainer):
         DocumentTypeRepository
     )
     file_document = providers.Singleton(
-        FileDocumentRepository
+        FileDocumentRepository,
+        three_datastore=datastores.three_datastore
     )
     text_document = providers.Singleton(
         TextDocumentRepository

@@ -19,6 +19,4 @@ class FileDocument(BaseDao, table=True):
         )
     )
     file_name: str
-    file_extension: str
-    file_data: bytes
     file_data_hash: str

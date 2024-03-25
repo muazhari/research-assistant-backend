@@ -49,7 +49,6 @@ class FileDocumentManagement:
                 document_type_id=found_document.data.document_type_id,
                 document_account_id=found_document.data.account_id,
                 file_name=found_file_document.file_name,
-                file_extension=found_file_document.file_extension,
                 file_data_hash=found_file_document.file_data_hash,
                 file_meta=dict()
             )
@@ -88,16 +87,17 @@ class FileDocumentManagement:
                 result=result
             )
 
+        file_data: bytes = await body.file_upload.read()
+        await body.file_upload.close()
         file_document_creator: FileDocument = FileDocument(
             id=created_document.data.id,
             file_name=body.file_name,
-            file_extension=body.file_extension,
-            file_data=body.file_data,
-            file_data_hash=hashlib.sha256(body.file_data).hexdigest()
+            file_data_hash=hashlib.sha256(file_data).hexdigest()
         )
         created_file_document: FileDocument = await self.file_document_repository.create_one(
             session=state.session,
-            file_document_creator=file_document_creator
+            file_document_creator=file_document_creator,
+            file_data=file_data
         )
         file_document_response: FileDocumentResponse = FileDocumentResponse(
             id=created_document.data.id,
@@ -106,7 +106,6 @@ class FileDocumentManagement:
             document_type_id=created_document.data.document_type_id,
             document_account_id=created_document.data.account_id,
             file_name=created_file_document.file_name,
-            file_extension=created_file_document.file_extension,
             file_data_hash=created_file_document.file_data_hash,
             file_meta=dict()
         )
@@ -117,11 +116,12 @@ class FileDocumentManagement:
         )
         return result
 
-    async def create_one_raw(self, state: State, file_document_creator: FileDocument) -> Result[
+    async def create_one_raw(self, state: State, file_document_creator: FileDocument, file_data: bytes) -> Result[
         FileDocumentResponse]:
         created_file_document: FileDocument = await self.file_document_repository.create_one(
             session=state.session,
-            file_document_creator=file_document_creator
+            file_document_creator=file_document_creator,
+            file_data=file_data
         )
         result: Result[FileDocumentResponse] = Result(
             status_code=status.HTTP_201_CREATED,
@@ -155,16 +155,17 @@ class FileDocumentManagement:
                     result=result
                 )
 
+            file_data: bytes = await body.file_upload.read()
+            await body.file_upload.close()
             file_document_patcher: FileDocument = FileDocument(
                 file_name=body.file_name,
-                file_extension=body.file_extension,
-                file_data=body.file_data,
-                file_data_hash=hashlib.sha256(body.file_data).hexdigest()
+                file_data_hash=hashlib.sha256(file_data).hexdigest()
             )
             patched_file_document: FileDocument = await self.file_document_repository.patch_one_by_id(
                 session=state.session,
                 id=id,
-                file_document_patcher=file_document_patcher
+                file_document_patcher=file_document_patcher,
+                file_data=file_data
             )
             patched_file_document_response: FileDocumentResponse = FileDocumentResponse(
                 id=patched_document.data.id,
@@ -173,7 +174,6 @@ class FileDocumentManagement:
                 document_type_id=patched_document.data.document_type_id,
                 document_account_id=patched_document.data.account_id,
                 file_name=patched_file_document.file_name,
-                file_extension=patched_file_document.file_extension,
                 file_data_hash=patched_file_document.file_data_hash,
                 file_meta=dict()
             )
@@ -190,13 +190,15 @@ class FileDocumentManagement:
             )
         return result
 
-    async def patch_one_by_id_raw(self, state: State, id: UUID, file_document_patcher: FileDocument) -> \
+    async def patch_one_by_id_raw(self, state: State, id: UUID, file_document_patcher: FileDocument,
+                                  file_data: bytes) -> \
             Result[
                 FileDocumentResponse]:
         patched_file_document: FileDocument = await self.file_document_repository.patch_one_by_id(
             session=state.session,
             id=id,
-            file_document_patcher=file_document_patcher
+            file_document_patcher=file_document_patcher,
+            file_data=file_data
         )
         result: Result[FileDocumentResponse] = Result(
             status_code=status.HTTP_200_OK,
@@ -232,7 +234,6 @@ class FileDocumentManagement:
                 document_type_id=deleted_document.data.document_type_id,
                 document_account_id=deleted_document.data.account_id,
                 file_name=deleted_file_document.file_name,
-                file_extension=deleted_file_document.file_extension,
                 file_data_hash=deleted_file_document.file_data_hash,
                 file_meta=dict()
             )

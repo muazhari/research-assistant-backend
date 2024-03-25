@@ -23,6 +23,7 @@ class ApplicationContainer(DeclarativeContainer):
     )
     repositories = providers.Container(
         RepositoryContainer,
+        datastores=datastores
     )
     use_cases = providers.Container(
         UseCaseContainer,

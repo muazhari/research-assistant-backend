@@ -3,6 +3,7 @@ import pathlib
 import uuid
 from typing import List
 
+import test
 from app.inners.models.daos.file_document import FileDocument
 from test.mocks.document_mock import DocumentMock
 
@@ -14,28 +15,25 @@ class FileDocumentMock:
             document_mock: DocumentMock
     ):
         self.document_mock: DocumentMock = document_mock
-        file_0_path = pathlib.Path("test/mocks") / "files" / "file.txt"
+        file_0_path = pathlib.Path(test.__name__) / "mocks" / "files" / "file.txt"
         file_0 = open(file_0_path, "rb")
         file_0_data = file_0.read()
         file_0.close()
-        file_1_path = pathlib.Path("test/mocks") / "files" / "file.pdf"
+        file_1_path = pathlib.Path(test.__name__) / "mocks" / "files" / "file.pdf"
         file_1 = open(file_1_path, "rb")
         file_1_data = file_1.read()
         file_1.close()
+        self.file_data: List[bytes] = list(map(bytes, [file_0_data, file_1_data]))
         self._data: List[FileDocument] = [
             FileDocument(
                 id=self.document_mock.data[0].id,
-                file_name=file_0.name,
-                file_extension=file_0_path.suffix,
-                file_data=file_0_data.hex(),
-                file_data_hash=hashlib.sha256(file_0_data).hexdigest()
+                file_name=f"{uuid.uuid4()}{file_0_path.suffix}",
+                file_data_hash=hashlib.sha256(bytes(file_0_data)).hexdigest()
             ),
             FileDocument(
                 id=self.document_mock.data[3].id,
-                file_name=file_0.name,
-                file_extension=file_0_path.suffix,
-                file_data=file_0_data.hex(),
-                file_data_hash=hashlib.sha256(file_1_data).hexdigest()
+                file_name=f"{uuid.uuid4()}{file_1_path.suffix}",
+                file_data_hash=hashlib.sha256(bytes(file_1_data)).hexdigest()
             ),
         ]
 

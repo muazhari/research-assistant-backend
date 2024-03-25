@@ -48,7 +48,8 @@ class SeederContainer(DeclarativeContainer):
 
     file_document_seeder = providers.Singleton(
         FileDocumentSeeder,
-        file_document_mock=mocks.file_document_mock
+        file_document_mock=mocks.file_document_mock,
+        three_datastore=datastores.three_datastore
     )
 
     web_document_seeder = providers.Singleton(

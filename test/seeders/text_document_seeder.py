@@ -1,5 +1,5 @@
 from sqlmodel import select
-from sqlmodel.engine.result import Result
+from sqlalchemy import Result
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.inners.models.daos.text_document import TextDocument

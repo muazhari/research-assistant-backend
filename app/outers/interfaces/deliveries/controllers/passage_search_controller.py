@@ -7,7 +7,7 @@ from starlette.responses import Response
 from app.inners.models.dtos.contracts.requests.passage_searches.process_body import ProcessBody
 from app.inners.models.dtos.contracts.responses.passage_searches.process_response import ProcessResponse
 from app.inners.models.dtos.contracts.result import Result
-from app.inners.use_cases.passage_search.passage_search import PassageSearch
+from app.inners.use_cases.passage_searches.passage_search import PassageSearch
 from app.outers.containers.application_container import ApplicationContainer
 
 router: APIRouter = APIRouter(tags=["long-form-qa"])

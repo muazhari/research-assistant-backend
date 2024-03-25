@@ -5,11 +5,11 @@ from pydantic import BaseSettings
 
 
 class OneDatastoreSetting(BaseSettings):
-    DS_1_HOST: str
-    DS_1_PORT: str
-    DS_1_USER: str
-    DS_1_PASSWORD: str
-    DS_1_DATABASE: str
+    DS_ONE_HOST: str
+    DS_ONE_PORT: str
+    DS_ONE_USER: str
+    DS_ONE_PASSWORD: str
+    DS_ONE_DATABASE: str
     URL: Optional[str] = None
 
     class Config:
@@ -17,7 +17,7 @@ class OneDatastoreSetting(BaseSettings):
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
-        if self.DS_1_PASSWORD == "":
-            self.URL = f"cockroachdb+asyncpg://{self.DS_1_USER}@{self.DS_1_HOST}:{self.DS_1_PORT}/{self.DS_1_DATABASE}"
+        if self.DS_ONE_PASSWORD == "":
+            self.URL = f"cockroachdb+asyncpg://{self.DS_ONE_USER}@{self.DS_ONE_HOST}:{self.DS_ONE_PORT}/{self.DS_ONE_DATABASE}"
         else:
-            self.URL = f"cockroachdb+asyncpg://{self.DS_1_USER}:{self.DS_1_PASSWORD}@{self.DS_1_HOST}:{self.DS_1_PORT}/{self.DS_1_DATABASE}"
+            self.URL = f"cockroachdb+asyncpg://{self.DS_ONE_USER}:{self.DS_ONE_PASSWORD}@{self.DS_ONE_HOST}:{self.DS_ONE_PORT}/{self.DS_ONE_DATABASE}"

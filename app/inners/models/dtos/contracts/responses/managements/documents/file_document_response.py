@@ -10,6 +10,5 @@ class FileDocumentResponse(BaseResponse):
     document_name: str
     document_description: str
     file_name: str
-    file_extension: str
     file_data_hash: str
     file_meta: dict
