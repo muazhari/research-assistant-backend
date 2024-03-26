@@ -12,4 +12,4 @@ class PatchOneBody(BaseRequest):
     document_type_id: str
     document_account_id: UUID
     file_name: str
-    file_upload: Optional[UploadFile]
+    file_data: Optional[UploadFile]

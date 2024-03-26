@@ -1,3 +1,4 @@
+import io
 from uuid import UUID
 
 from sqlalchemy import Result
@@ -20,7 +21,7 @@ class FileDocumentRepository:
         await self.three_datastore.client.put_object(
             bucket_name="research-assistant-backend.file-documents",
             object_name=object_name,
-            data=data,
+            data=io.BytesIO(data),
             length=len(data)
         )
 

@@ -1,15 +1,13 @@
 from uuid import UUID
 
 from dependency_injector.wiring import Provide, inject
-from fastapi import APIRouter, Request, Depends, UploadFile
+from fastapi import APIRouter, Request, Depends, File, Form, UploadFile
 from fastapi_utils.cbv import cbv
 from starlette.responses import Response
 
 from app.inners.models.dtos.contracts.content import Content
-from app.inners.models.dtos.contracts.requests.managements.file_documents.create_one_body import \
-    CreateOneBody
-from app.inners.models.dtos.contracts.requests.managements.file_documents.patch_one_body import \
-    PatchOneBody
+from app.inners.models.dtos.contracts.requests.managements.file_documents.create_one_body import CreateOneBody
+from app.inners.models.dtos.contracts.requests.managements.file_documents.patch_one_body import PatchOneBody
 from app.inners.models.dtos.contracts.responses.managements.documents.file_document_response import \
     FileDocumentResponse
 from app.inners.models.dtos.contracts.result import Result
@@ -47,8 +45,24 @@ class FileDocumentController:
         return response
 
     @router.post("/documents/files")
-    async def create_one(self, request: Request, file: UploadFile, body: CreateOneBody) -> Response:
-        body.file_upload = file
+    async def create_one(
+            self,
+            request: Request,
+            document_name: str = Form(...),
+            document_description: str = Form(...),
+            document_type_id: str = Form(...),
+            document_account_id: UUID = Form(...),
+            file_name: str = Form(...),
+            file_data: UploadFile = File(...)
+    ) -> Response:
+        body: CreateOneBody = CreateOneBody(
+            document_name=document_name,
+            document_description=document_description,
+            document_type_id=document_type_id,
+            document_account_id=document_account_id,
+            file_name=file_name,
+            file_data=file_data
+        )
         result: Result[FileDocumentResponse] = await self.file_document_management.create_one(
             state=request.state,
             body=body,
@@ -63,8 +77,25 @@ class FileDocumentController:
         return response
 
     @router.patch("/documents/files/{id}")
-    async def patch_one_by_id(self, request: Request, file: UploadFile, id: UUID, body: PatchOneBody) -> Response:
-        body.file_upload = file
+    async def patch_one_by_id(
+            self,
+            request: Request,
+            id: UUID,
+            document_name: str = Form(...),
+            document_description: str = Form(...),
+            document_type_id: str = Form(...),
+            document_account_id: UUID = Form(...),
+            file_name: str = Form(...),
+            file_data: UploadFile = File(...)
+    ) -> Response:
+        body: PatchOneBody = PatchOneBody(
+            document_name=document_name,
+            document_description=document_description,
+            document_type_id=document_type_id,
+            document_account_id=document_account_id,
+            file_name=file_name,
+            file_data=file_data
+        )
         result: Result[FileDocumentResponse] = await self.file_document_management.patch_one_by_id(
             state=request.state,
             id=id,

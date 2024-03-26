@@ -87,8 +87,8 @@ class FileDocumentManagement:
                 result=result
             )
 
-        file_data: bytes = await body.file_upload.read()
-        await body.file_upload.close()
+        file_data: bytes = await body.file_data.read()
+        await body.file_data.close()
         file_document_creator: FileDocument = FileDocument(
             id=created_document.data.id,
             file_name=body.file_name,
@@ -155,8 +155,8 @@ class FileDocumentManagement:
                     result=result
                 )
 
-            file_data: bytes = await body.file_upload.read()
-            await body.file_upload.close()
+            file_data: bytes = await body.file_data.read()
+            await body.file_data.close()
             file_document_patcher: FileDocument = FileDocument(
                 file_name=body.file_name,
                 file_data_hash=hashlib.sha256(file_data).hexdigest()

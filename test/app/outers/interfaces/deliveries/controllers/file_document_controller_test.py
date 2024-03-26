@@ -4,6 +4,7 @@ import pathlib
 import uuid
 
 import pytest as pytest
+from fastapi import UploadFile
 from httpx import Response
 
 from app.inners.models.daos.document import Document
@@ -63,8 +64,8 @@ async def test__create_one__should_create_one_file_document__succeed(main_test: 
     }
     response: Response = await main_test.client.post(
         url=url_path,
-        json=json.loads(file_document_creator_body.json()),
         headers=headers,
+        data=json.loads(file_document_creator_body.json()),
         files={"file_data": selected_file_document_data_mock}
     )
 
@@ -90,15 +91,15 @@ async def test__patch_one_by_id__should_patch_one_file_document__succeed(main_te
         document_description=f"patched.description{uuid.uuid4()}",
         document_type_id=selected_document_mock.document_type_id,
         document_account_id=selected_document_mock.account_id,
-        file_name=f"patched.file_name{uuid.uuid4()}{pathlib.Path(selected_file_document_mock.file_name).suffix}"
+        file_name=f"patched.file_name{uuid.uuid4()}{pathlib.Path(selected_file_document_mock.file_name).suffix}",
     )
     headers: dict = {
         "Authorization": f"Bearer {selected_session_mock.access_token}"
     }
     response: Response = await main_test.client.patch(
         url=f"{url_path}/{selected_file_document_mock.id}",
-        json=json.loads(file_document_patcher_body.json()),
         headers=headers,
+        data=json.loads(file_document_patcher_body.json()),
         files={"file_data": selected_file_document_data_mock}
     )
 
