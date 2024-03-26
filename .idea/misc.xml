@@ -3,7 +3,7 @@
   <component name="Black">
     <option name="sdkName" value="research-assistant-backend" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="research-assistant" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Remote Python 3.10.12 Docker Compose (backend)" project-jdk-type="Python SDK" />
   <component name="PyPackaging">
     <option name="earlyReleasesAsUpgrades" value="true" />
   </component>

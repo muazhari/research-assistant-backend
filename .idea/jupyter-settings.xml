@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JupyterPersistentConnectionParameters">
+    <option name="knownRemoteServers">
+      <list>
+        <JupyterConnectionParameters>
+          <option name="authType" value="notebook" />
+          <option name="token" value="e4a693d2988032c3b3ec2579f2421786b71eb981972b5938" />
+          <option name="urlString" value="http://127.0.0.1:8888" />
+          <authParams2>
+            <map>
+              <entry key="token" value="e4a693d2988032c3b3ec2579f2421786b71eb981972b5938" />
+            </map>
+          </authParams2>
+        </JupyterConnectionParameters>
+      </list>
+    </option>
     <option name="moduleParameters">
       <map>
         <entry key="$PROJECT_DIR$/.idea/research-assistant-backend.iml">
           <value>
             <JupyterConnectionParameters>
-              <option name="managed" value="true" />
-              <option name="sdkName" value="" />
+              <option name="authType" value="notebook" />
+              <option name="token" value="e4a693d2988032c3b3ec2579f2421786b71eb981972b5938" />
+              <option name="urlString" value="http://127.0.0.1:8888" />
+              <authParams2>
+                <map>
+                  <entry key="token" value="e4a693d2988032c3b3ec2579f2421786b71eb981972b5938" />
+                </map>
+              </authParams2>
             </JupyterConnectionParameters>
           </value>
         </entry>
