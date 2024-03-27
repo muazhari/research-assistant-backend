@@ -21,7 +21,7 @@ def event_loop():
 async def main_test(request: pytest.FixtureRequest):
     test_container: TestContainer = TestContainer()
     main_test = MainTest(
-        all_seeder=test_container.seeders.all_seeder()
+        all_seeder=test_container.seeders.all()
     )
     await main_test.all_seeder.up()
     yield main_test

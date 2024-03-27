@@ -31,7 +31,8 @@ class RepositoryContainer(DeclarativeContainer):
     )
     file_document = providers.Singleton(
         FileDocumentRepository,
-        three_datastore=datastores.three_datastore
+        temp_datastore=datastores.temp,
+        three_datastore=datastores.three
     )
     text_document = providers.Singleton(
         TextDocumentRepository

@@ -25,7 +25,7 @@ app.add_middleware(
 
 app.add_middleware(
     middleware_class=SessionMiddleware,
-    one_datastore=app.container.datastores.one_datastore()
+    one_datastore=app.container.datastores.one()
 
 )
 

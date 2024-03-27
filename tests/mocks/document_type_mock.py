@@ -8,12 +8,12 @@ class DocumentTypeMock:
     def __init__(self):
         self._data: List[DocumentType] = [
             DocumentType(
-                id="text",
-                description="description0",
-            ),
-            DocumentType(
                 id="file",
                 description="description1",
+            ),
+            DocumentType(
+                id="text",
+                description="description0",
             ),
             DocumentType(
                 id="web",

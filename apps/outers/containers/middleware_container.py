@@ -8,10 +8,10 @@ from apps.outers.interfaces.deliveries.middlewares.session_middleware import Ses
 class MiddlewareContainer(DeclarativeContainer):
     datastores = providers.DependenciesContainer()
 
-    session_middleware = providers.Singleton(
+    session = providers.Singleton(
         SessionMiddleware,
         one_datastore=datastores.one_datastore,
     )
-    authorization_middleware = providers.Singleton(
+    authorization = providers.Singleton(
         AuthorizationMiddleware
     )

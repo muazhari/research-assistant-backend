@@ -13,8 +13,9 @@ dependency-injector
 langchain
 bcrypt
 redis
-miniopy-async
+minio
 unstructured[all-docs]
 litellm
 langgraph
 ragas
+paddleocr

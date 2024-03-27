@@ -31,6 +31,6 @@ file_path_6 = file_path_5 / file_path_1
 print(file_path_6)
 print(file_path_6.exists())
 
-file_path_7 = pathlib.Path("/mnt/c/Data/Apps/research-assistant-infrastructure/data/models/infloat/multilingual-e5-large-instruct")
-print(file_path_7)
-print(file_path_7.exists())
+from transformers import pipeline
+
+pipe = pipeline("feature-extraction", model="intfloat/multilingual-e5-large-instruct")

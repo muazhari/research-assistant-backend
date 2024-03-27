@@ -14,6 +14,3 @@ class TwoDatastore:
         self.client: Redis = Redis.from_url(
             url=self.two_datastore_setting.URL
         )
-        # loop = asyncio.get_event_loop()
-        # self.client = loop.run_until_complete(self.client.initialize())
-        # loop.close()

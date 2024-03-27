@@ -15,11 +15,11 @@ class FileDocumentMock:
             document_mock: DocumentMock
     ):
         self.document_mock: DocumentMock = document_mock
-        file_0_path = pathlib.Path(tests.__name__) / "mocks" / "files" / "file.txt"
+        file_0_path = pathlib.Path(tests.__name__) / "mocks" / "files" / "file.pdf"
         file_0 = open(file_0_path, "rb")
         file_0_data = file_0.read()
         file_0.close()
-        file_1_path = pathlib.Path(tests.__name__) / "mocks" / "files" / "file.pdf"
+        file_1_path = pathlib.Path(tests.__name__) / "mocks" / "files" / "file.txt"
         file_1 = open(file_1_path, "rb")
         file_1_data = file_1.read()
         file_1.close()

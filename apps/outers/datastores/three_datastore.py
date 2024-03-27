@@ -1,4 +1,4 @@
-from miniopy_async import Minio
+from minio import Minio
 
 from apps.outers.settings.three_datastore_setting import ThreeDatastoreSetting
 
@@ -14,5 +14,5 @@ class ThreeDatastore:
             endpoint=f"{self.three_datastore_setting.DS_THREE_HOST}:{self.three_datastore_setting.DS_THREE_PORT}",
             access_key=self.three_datastore_setting.DS_THREE_USER,
             secret_key=self.three_datastore_setting.DS_THREE_PASSWORD,
-            secure=False
+            secure=False,
         )

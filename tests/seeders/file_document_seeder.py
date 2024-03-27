@@ -21,7 +21,7 @@ class FileDocumentSeeder:
 
     async def up(self, session: AsyncSession):
         for index, file_document in enumerate(self.file_document_mock.data):
-            await self.three_datastore.client.put_object(
+            self.three_datastore.client.put_object(
                 bucket_name="research-assistant-backend.file-documents",
                 object_name=file_document.file_name,
                 data=io.BytesIO(self.file_document_mock.file_data[index]),
@@ -35,7 +35,7 @@ class FileDocumentSeeder:
                 select(FileDocument).where(FileDocument.id == file_document.id).limit(1)
             )
             found_file_document: FileDocument = found_file_document_result.scalars().one()
-            await self.three_datastore.client.remove_object(
+            self.three_datastore.client.remove_object(
                 bucket_name="research-assistant-backend.file-documents",
                 object_name=found_file_document.file_name
             )

@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from dotenv import find_dotenv
@@ -9,3 +10,6 @@ class TempDatastoreSetting(BaseSettings):
 
     class Config:
         env_file = find_dotenv(".env")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)

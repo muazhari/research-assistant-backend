@@ -10,7 +10,8 @@ from apps.inners.models.daos.document import Document
 from apps.inners.models.daos.file_document import FileDocument
 from apps.inners.models.dtos.contracts.requests.managements.file_documents.create_one_body import CreateOneBody
 from apps.inners.models.dtos.contracts.requests.managements.file_documents.patch_one_body import PatchOneBody
-from apps.inners.models.dtos.contracts.responses.managements.documents.file_document_response import FileDocumentResponse
+from apps.inners.models.dtos.contracts.responses.managements.documents.file_document_response import \
+    FileDocumentResponse
 from apps.inners.models.dtos.contracts.result import Result
 from apps.inners.use_cases.managements.document_management import DocumentManagement
 from apps.outers.interfaces.deliveries.middlewares.session_middleware import SessionMiddleware
@@ -94,7 +95,7 @@ class FileDocumentManagement:
             file_name=body.file_name,
             file_data_hash=hashlib.sha256(file_data).hexdigest()
         )
-        created_file_document: FileDocument = await self.file_document_repository.create_one(
+        created_file_document: FileDocument = self.file_document_repository.create_one(
             session=state.session,
             file_document_creator=file_document_creator,
             file_data=file_data
@@ -118,7 +119,7 @@ class FileDocumentManagement:
 
     async def create_one_raw(self, state: State, file_document_creator: FileDocument, file_data: bytes) -> Result[
         FileDocumentResponse]:
-        created_file_document: FileDocument = await self.file_document_repository.create_one(
+        created_file_document: FileDocument = self.file_document_repository.create_one(
             session=state.session,
             file_document_creator=file_document_creator,
             file_data=file_data

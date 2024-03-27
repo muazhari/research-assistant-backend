@@ -16,56 +16,56 @@ class SeederContainer(DeclarativeContainer):
     datastores = providers.DependenciesContainer()
     mocks = providers.DependenciesContainer()
 
-    account_seeder = providers.Singleton(
+    account = providers.Singleton(
         AccountSeeder,
-        account_mock=mocks.account_mock
+        account_mock=mocks.account
     )
 
-    session_seeder = providers.Singleton(
+    session = providers.Singleton(
         SessionSeeder,
-        session_mock=mocks.session_mock
+        session_mock=mocks.session
     )
 
-    document_type_seeder = providers.Singleton(
+    document_type = providers.Singleton(
         DocumentTypeSeeder,
-        document_type_mock=mocks.document_type_mock
+        document_type_mock=mocks.document_type
     )
 
-    document_seeder = providers.Singleton(
+    document = providers.Singleton(
         DocumentSeeder,
-        document_mock=mocks.document_mock
+        document_mock=mocks.document
     )
 
-    document_process_seeder = providers.Singleton(
+    document_process = providers.Singleton(
         DocumentProcessSeeder,
-        document_process_mock=mocks.document_process_mock
+        document_process_mock=mocks.document_process
     )
 
-    text_document_seeder = providers.Singleton(
+    text_document = providers.Singleton(
         TextDocumentSeeder,
-        text_document_mock=mocks.text_document_mock
+        text_document_mock=mocks.text_document
     )
 
-    file_document_seeder = providers.Singleton(
+    file_document = providers.Singleton(
         FileDocumentSeeder,
-        file_document_mock=mocks.file_document_mock,
-        three_datastore=datastores.three_datastore
+        file_document_mock=mocks.file_document,
+        three_datastore=datastores.three
     )
 
-    web_document_seeder = providers.Singleton(
+    web_document = providers.Singleton(
         WebDocumentSeeder,
-        web_document_mock=mocks.web_document_mock
+        web_document_mock=mocks.web_document
     )
 
-    all_seeder = providers.Singleton(
+    all = providers.Singleton(
         AllSeeder,
-        one_datastore=datastores.one_datastore,
-        account_seeder=account_seeder,
-        session_seeder=session_seeder,
-        document_type_seeder=document_type_seeder,
-        document_seeder=document_seeder,
-        document_process_seeder=document_process_seeder,
-        text_document_seeder=text_document_seeder,
-        file_document_seeder=file_document_seeder,
-        web_document_seeder=web_document_seeder
+        one_datastore=datastores.one,
+        account_seeder=account,
+        session_seeder=session,
+        document_type_seeder=document_type,
+        document_seeder=document,
+        document_process_seeder=document_process,
+        text_document_seeder=text_document,
+        file_document_seeder=file_document,
+        web_document_seeder=web_document
     )

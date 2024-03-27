@@ -12,34 +12,34 @@ from tests.mocks.web_document_mock import WebDocumentMock
 
 
 class MockContainer(DeclarativeContainer):
-    account_mock = providers.Singleton(
+    account = providers.Singleton(
         AccountMock
     )
-    session_mock = providers.Singleton(
+    session = providers.Singleton(
         SessionMock,
-        account_mock=account_mock
+        account_mock=account
     )
-    document_type_mock = providers.Singleton(
+    document_type = providers.Singleton(
         DocumentTypeMock
     )
-    document_mock = providers.Singleton(
+    document = providers.Singleton(
         DocumentMock,
-        account_mock=account_mock,
-        document_type_mock_data=document_type_mock
+        account_mock=account,
+        document_type_mock_data=document_type
     )
-    document_process_mock = providers.Singleton(
+    document_process = providers.Singleton(
         DocumentProcessMock,
-        document_mock=document_mock
+        document_mock=document
     )
-    text_document_mock = providers.Singleton(
+    text_document = providers.Singleton(
         TextDocumentMock,
-        document_mock=document_mock
+        document_mock=document
     )
-    file_document_mock = providers.Singleton(
+    file_document = providers.Singleton(
         FileDocumentMock,
-        document_mock=document_mock
+        document_mock=document
     )
-    web_document_mock = providers.Singleton(
+    web_document = providers.Singleton(
         WebDocumentMock,
-        document_mock=document_mock
+        document_mock=document
     )
