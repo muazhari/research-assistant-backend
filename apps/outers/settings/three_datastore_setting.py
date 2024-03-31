@@ -1,4 +1,4 @@
-from typing import Optional, Any
+from typing import Any
 
 from dotenv import find_dotenv
 from pydantic import BaseSettings

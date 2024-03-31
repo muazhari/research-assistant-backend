@@ -1,4 +1,3 @@
-import redis
 from redis.asyncio import Redis
 
 from apps.outers.settings.two_datastore_setting import TwoDatastoreSetting

@@ -1,5 +1,5 @@
-from sqlmodel import select
 from sqlalchemy.engine import Result
+from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from apps.inners.models.daos.document_type import DocumentType
@@ -10,15 +10,29 @@ class DocumentTypeRepository:
     def __init__(self):
         pass
 
+    class NotFound(BaseException):
+        pass
+
+    class IntegrityError(BaseException):
+        pass
+
     async def find_one_by_id(self, session: AsyncSession, id: str) -> DocumentType:
-        found_document_type_result: Result = await session.execute(
-            select(DocumentType).where(DocumentType.id == id).limit(1)
-        )
-        found_document_type: DocumentType = found_document_type_result.scalars().one()
+        try:
+            found_document_type_result: Result = await session.execute(
+                select(DocumentType).where(DocumentType.id == id).limit(1)
+            )
+            found_document_type: DocumentType = found_document_type_result.scalars().one()
+        except Exception:
+            raise repository_exception.NotFound()
+
         return found_document_type
 
-    async def create_one(self, session: AsyncSession, document_type_creator: DocumentType) -> DocumentType:
-        session.add(document_type_creator)
+    def create_one(self, session: AsyncSession, document_type_creator: DocumentType) -> DocumentType:
+        try:
+            session.add(document_type_creator)
+        except Exception:
+            raise repository_exception.IntegrityError()
+
         return document_type_creator
 
     async def patch_one_by_id(self, session: AsyncSession, id: str,

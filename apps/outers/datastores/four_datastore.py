@@ -1,7 +1,6 @@
 from typing import Any
 
 from langchain_community.vectorstores.milvus import Milvus
-from langchain_core.embeddings import Embeddings
 
 from apps.outers.settings.four_datastore_setting import FourDatastoreSetting
 

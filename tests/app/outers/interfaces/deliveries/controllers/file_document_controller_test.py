@@ -4,7 +4,6 @@ import pathlib
 import uuid
 
 import pytest as pytest
-from fastapi import UploadFile
 from httpx import Response
 
 from apps.inners.models.daos.document import Document
@@ -15,7 +14,8 @@ from apps.inners.models.dtos.contracts.requests.managements.file_documents.creat
     CreateOneBody
 from apps.inners.models.dtos.contracts.requests.managements.file_documents.patch_one_body import \
     PatchOneBody
-from apps.inners.models.dtos.contracts.responses.managements.documents.file_document_response import FileDocumentResponse
+from apps.inners.models.dtos.contracts.responses.managements.documents.file_document_response import \
+    FileDocumentResponse
 from tests.conftest import MainTest
 
 url_path: str = "/api/documents/files"

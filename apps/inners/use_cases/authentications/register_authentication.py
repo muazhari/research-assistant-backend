@@ -1,4 +1,3 @@
-from starlette import status
 from starlette.datastructures import State
 
 from apps.inners.models.daos.account import Account
@@ -7,9 +6,8 @@ from apps.inners.models.dtos.contracts.requests.authentications.registers.regist
 from apps.inners.models.dtos.contracts.requests.managements.accounts.create_one_body import CreateOneBody
 from apps.inners.models.dtos.contracts.responses.authentications.registers.register_response import \
     RegisterResponse
-from apps.inners.models.dtos.contracts.result import Result
 from apps.inners.use_cases.managements.account_management import AccountManagement
-from apps.outers.interfaces.deliveries.middlewares.session_middleware import SessionMiddleware
+from apps.outers.exceptions import use_case_exception, repository_exception
 
 
 class RegisterAuthentication:
@@ -23,45 +21,26 @@ class RegisterAuthentication:
             self,
             state: State,
             body: RegisterByEmailAndPasswordBody
-    ) -> Result[RegisterResponse]:
-        found_account_by_email: Result[Account] = await self.account_management.find_one_by_email(
-            state=state,
-            email=body.email
-        )
-
-        if found_account_by_email.status_code == status.HTTP_200_OK:
-            result: Result[RegisterResponse] = Result(
-                status_code=status.HTTP_409_CONFLICT,
-                message="RegisterAuthentication.register_by_email_and_password: Failed, email is already used.",
-                data=None
+    ) -> RegisterResponse:
+        try:
+            await self.account_management.find_one_by_email(
+                state=state,
+                email=body.email
             )
-            return result
+        except repository_exception.NotFound:
+            pass
+        else:
+            raise use_case_exception.EmailAlreadyExists()
 
         account_creator_body: CreateOneBody = CreateOneBody(
             email=body.email,
             password=body.password
         )
-        created_account: Result[Account] = await self.account_management.create_one(
+        created_account: Account = await self.account_management.create_one(
             state=state,
             body=account_creator_body
         )
-
-        if created_account.status_code != status.HTTP_201_CREATED:
-            result: Result[RegisterResponse] = Result(
-                status_code=created_account.status_code,
-                message=f"RegisterAuthentication.register_by_email_and_password: Failed, {created_account.message}",
-                data=None
-            )
-            raise SessionMiddleware.HandlerException(
-                result=result
-            )
-
         register_response: RegisterResponse = RegisterResponse(
-            account=created_account.data
+            account=created_account
         )
-        result: Result[RegisterResponse] = Result(
-            status_code=status.HTTP_201_CREATED,
-            message="RegisterAuthentication.register_by_email_and_password: Succeed.",
-            data=register_response
-        )
-        return result
+        return register_response

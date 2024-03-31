@@ -1,14 +1,11 @@
 import uuid
 from uuid import UUID
 
-from sqlalchemy import exc
-from starlette import status
 from starlette.datastructures import State
 
 from apps.inners.models.daos.session import Session
 from apps.inners.models.dtos.contracts.requests.managements.sessions.create_one_body import CreateOneBody
 from apps.inners.models.dtos.contracts.requests.managements.sessions.patch_one_body import PatchOneBody
-from apps.inners.models.dtos.contracts.result import Result
 from apps.outers.repositories.session_repository import SessionRepository
 
 
@@ -19,164 +16,70 @@ class SessionManagement:
     ):
         self.session_repository: SessionRepository = session_repository
 
-    async def find_one_by_id(self, state: State, id: UUID) -> Result[Session]:
-        try:
-            found_session: Session = await self.session_repository.find_one_by_id(
-                session=state.session,
-                id=id
-            )
-            result: Result[Session] = Result(
-                status_code=status.HTTP_200_OK,
-                message="SessionManagement.find_one_by_id: Succeed.",
-                data=found_session,
-            )
-        except exc.NoResultFound:
-            result: Result[Session] = Result(
-                status_code=status.HTTP_404_NOT_FOUND,
-                message="SessionManagement.find_one_by_id: Failed, session is not found.",
-                data=None,
-            )
-        return result
+    async def find_one_by_id(self, state: State, id: UUID) -> Session:
+        found_session: Session = await self.session_repository.find_one_by_id(
+            session=state.session,
+            id=id
+        )
+        return found_session
 
-    async def find_one_by_account_id(self, state: State, account_id: UUID) -> Result[Session]:
-        try:
-            found_session: Session = await self.session_repository.find_one_by_account_id(
-                session=state.session,
-                account_id=account_id
-            )
-            result: Result[Session] = Result(
-                status_code=status.HTTP_200_OK,
-                message="SessionManagement.find_one_by_account_id: Succeed.",
-                data=found_session,
-            )
-        except exc.NoResultFound:
-            result: Result[Session] = Result(
-                status_code=status.HTTP_404_NOT_FOUND,
-                message="SessionManagement.find_one_by_account_id: Failed, session is not found.",
-                data=None,
-            )
-        return result
+    async def find_one_by_account_id(self, state: State, account_id: UUID) -> Session:
+        found_session: Session = await self.session_repository.find_one_by_account_id(
+            session=state.session,
+            account_id=account_id
+        )
+        return found_session
 
-    async def find_one_by_access_token(self, state: State, access_token: str) -> Result[Session]:
-        try:
-            found_session: Session = await self.session_repository.find_one_by_access_token(
-                session=state.session,
-                access_token=access_token
-            )
-            result: Result[Session] = Result(
-                status_code=status.HTTP_200_OK,
-                message="SessionManagement.find_one_by_access_token: Succeed.",
-                data=found_session,
-            )
-        except exc.NoResultFound:
-            result: Result[Session] = Result(
-                status_code=status.HTTP_404_NOT_FOUND,
-                message="SessionManagement.find_one_by_access_token: Failed, session is not found.",
-                data=None,
-            )
-        return result
+    async def find_one_by_access_token(self, state: State, access_token: str) -> Session:
+        found_session: Session = await self.session_repository.find_one_by_access_token(
+            session=state.session,
+            access_token=access_token
+        )
+        return found_session
 
-    async def find_one_by_refresh_token(self, state: State, refresh_token: str) -> Result[Session]:
-        try:
-            found_session: Session = await self.session_repository.find_one_by_refresh_token(
-                session=state.session,
-                refresh_token=refresh_token
-            )
-            result: Result[Session] = Result(
-                status_code=status.HTTP_200_OK,
-                message="SessionManagement.find_one_by_refresh_token: Succeed.",
-                data=found_session,
-            )
-        except exc.NoResultFound:
-            result: Result[Session] = Result(
-                status_code=status.HTTP_404_NOT_FOUND,
-                message="SessionManagement.find_one_by_refresh_token: Failed, session is not found.",
-                data=None,
-            )
-        return result
+    async def find_one_by_refresh_token(self, state: State, refresh_token: str) -> Session:
+        found_session: Session = await self.session_repository.find_one_by_refresh_token(
+            session=state.session,
+            refresh_token=refresh_token
+        )
+        return found_session
 
-    async def create_one(self, state: State, body: CreateOneBody) -> Result[Session]:
+    async def create_one(self, state: State, body: CreateOneBody) -> Session:
         session_creator: Session = Session(**body.dict())
         session_creator.id = uuid.uuid4()
-        created_session: Session = await self.session_repository.create_one(
+        created_session: Session = self.create_one_raw(
+            state=state,
+            session_creator=session_creator
+        )
+        return created_session
+
+    def create_one_raw(self, state: State, session_creator: Session) -> Session:
+        created_session: Session = self.session_repository.create_one(
             session=state.session,
             session_creator=session_creator
         )
-        result: Result[Session] = Result(
-            status_code=status.HTTP_201_CREATED,
-            message="SessionManagement.create_one: Succeed.",
-            data=created_session,
-        )
-        return result
+        return created_session
 
-    async def create_one_raw(self, state: State, session_creator: Session) -> Result[Session]:
-        created_session: Session = await self.session_repository.create_one(
+    async def patch_one_by_id(self, state: State, id: UUID, body: PatchOneBody) -> Session:
+        session_patcher: Session = Session(**body.dict())
+        patched_session: Session = await self.patch_one_by_id_raw(
+            state=state,
+            id=id,
+            session_patcher=session_patcher
+        )
+        return patched_session
+
+    async def patch_one_by_id_raw(self, state: State, id: UUID, session_patcher: Session) -> Session:
+        patched_session: Session = await self.session_repository.patch_one_by_id(
             session=state.session,
-            session_creator=session_creator
+            id=id,
+            session_patcher=session_patcher
         )
-        result: Result[Session] = Result(
-            status_code=status.HTTP_201_CREATED,
-            message="SessionManagement.create_one_raw: Succeed.",
-            data=created_session,
+        return patched_session
+
+    async def delete_one_by_id(self, state: State, id: UUID) -> Session:
+        deleted_session: Session = await self.session_repository.delete_one_by_id(
+            session=state.session,
+            id=id
         )
-        return result
-
-    async def patch_one_by_id(self, state: State, id: UUID, body: PatchOneBody) -> Result[Session]:
-        try:
-            session_patcher: Session = Session(**body.dict())
-            patched_session: Session = await self.session_repository.patch_one_by_id(
-                session=state.session,
-                id=id,
-                session_patcher=session_patcher
-            )
-            result: Result[Session] = Result(
-                status_code=status.HTTP_200_OK,
-                message="SessionManagement.patch_one_by_id: Succeed.",
-                data=patched_session,
-            )
-        except exc.NoResultFound:
-            result: Result[Session] = Result(
-                status_code=status.HTTP_404_NOT_FOUND,
-                message="SessionManagement.patch_one_by_id: Failed, session is not found.",
-                data=None,
-            )
-        return result
-
-    async def patch_one_by_id_raw(self, state: State, id: UUID, session_patcher: Session) -> Result[Session]:
-        try:
-            patched_session: Session = await self.session_repository.patch_one_by_id(
-                session=state.session,
-                id=id,
-                session_patcher=session_patcher
-            )
-            result: Result[Session] = Result(
-                status_code=status.HTTP_200_OK,
-                message="SessionManagement.patch_one_by_id_raw: Succeed.",
-                data=patched_session,
-            )
-        except exc.NoResultFound:
-            result: Result[Session] = Result(
-                status_code=status.HTTP_404_NOT_FOUND,
-                message="SessionManagement.patch_one_by_id_raw: Failed, session is not found.",
-                data=None,
-            )
-        return result
-
-    async def delete_one_by_id(self, state: State, id: UUID) -> Result[Session]:
-        try:
-            deleted_session: Session = await self.session_repository.delete_one_by_id(
-                session=state.session,
-                id=id
-            )
-            result: Result[Session] = Result(
-                status_code=status.HTTP_200_OK,
-                message="SessionManagement.delete_one_by_id: Succeed.",
-                data=deleted_session,
-            )
-        except exc.NoResultFound:
-            result: Result[Session] = Result(
-                status_code=status.HTTP_404_NOT_FOUND,
-                message="SessionManagement.delete_one_by_id: Failed, session is not found.",
-                data=None,
-            )
-        return result
+        return deleted_session

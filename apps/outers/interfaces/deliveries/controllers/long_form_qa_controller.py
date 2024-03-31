@@ -6,7 +6,6 @@ from starlette.responses import Response
 
 from apps.inners.models.dtos.contracts.requests.long_form_qas.process_body import ProcessBody
 from apps.inners.models.dtos.contracts.responses.long_form_qas.process_response import ProcessResponse
-from apps.inners.models.dtos.contracts.result import Result
 from apps.inners.use_cases.long_form_qas.longform_qa import LongFormQA
 from apps.outers.containers.application_container import ApplicationContainer
 
@@ -27,15 +26,15 @@ class PassageSearchController:
 
     @router.post("/long-form-qas")
     async def search(self, request: Request, body: ProcessBody) -> Response:
-        result: Result[ProcessResponse] = await self.long_form_qa.process(
+        data: ProcessResponse = await self.long_form_qa.process(
             state=request.state,
             body=body
         )
         response: Response = Response(
-            status_code=result.status_code,
+            status_code=status_code,
             content=ProcessResponse(
-                message=result.message,
-                data=result.data
+                message=message,
+                data=data
             )
         )
         return response

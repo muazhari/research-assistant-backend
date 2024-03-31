@@ -16,7 +16,8 @@ from apps.inners.models.dtos.contracts.requests.managements.text_documents.creat
     CreateOneBody
 from apps.inners.models.dtos.contracts.requests.managements.text_documents.patch_one_body import \
     PatchOneBody
-from apps.inners.models.dtos.contracts.responses.managements.documents.text_document_response import TextDocumentResponse
+from apps.inners.models.dtos.contracts.responses.managements.documents.text_document_response import \
+    TextDocumentResponse
 from tests.conftest import MainTest
 
 url_path: str = "/api/documents/texts"

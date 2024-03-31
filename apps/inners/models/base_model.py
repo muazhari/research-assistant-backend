@@ -1,8 +1,4 @@
-import inspect
-from typing import Type
-
-from fastapi import Form
-from pydantic import BaseModel as PydanticBaseModel, BaseModel
+from pydantic import BaseModel as PydanticBaseModel
 
 
 class BaseModel(PydanticBaseModel):
@@ -15,4 +11,3 @@ class BaseModel(PydanticBaseModel):
                 raise AttributeError(f"Attribute {key} is not exist.")
             self.__setattr__(key, value)
         return self
-

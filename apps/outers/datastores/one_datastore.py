@@ -6,6 +6,7 @@ from sqlalchemy import exc
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from sqlmodel.ext.asyncio.session import AsyncSession
 
+from apps.outers.exceptions import datastore_exception
 from apps.outers.settings.one_datastore_setting import OneDatastoreSetting
 
 
@@ -27,10 +28,6 @@ class OneDatastore:
         )
         return session
 
-    class MaxRetriesException(Exception):
-        def __init__(self, *args):
-            super().__init__(*args)
-
     async def retryable(self, func, max_retries: int = 10):
         retry_count = 0
         while retry_count < max_retries:
@@ -40,15 +37,18 @@ class OneDatastore:
                 result: Any = await func(session)
                 await session.commit()
                 break
+            except sqlalchemy.exc.DBAPIError as exception:
+                await session.rollback()
+                if exception.orig.pgcode == asyncpg.exceptions.SerializationError.sqlstate:
+                    retry_count += 1
+                    continue
             except Exception as exception:
                 await session.rollback()
-                if isinstance(exception, sqlalchemy.exc.DBAPIError):
-                    if exception.orig.pgcode == asyncpg.exceptions.SerializationError.sqlstate:
-                        retry_count += 1
-                        continue
                 raise exception
+            finally:
+                await session.close()
 
         if retry_count == max_retries:
-            raise self.MaxRetriesException("OneDatastore.retryable: Retry count is equal to max retries.")
+            raise datastore_exception.MaxRetriesExceeded()
 
         return result
