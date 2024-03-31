@@ -20,3 +20,4 @@ ragas
 paddleocr
 sentence-transformers
 pydantic-settings
+pymilvus
