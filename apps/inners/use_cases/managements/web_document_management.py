@@ -22,8 +22,8 @@ class WebDocumentManagement:
         self.document_management: DocumentManagement = document_management
         self.web_document_repository: WebDocumentRepository = web_document_repository
 
-    async def find_one_by_id(self, state: State, id: UUID) -> WebDocumentResponse:
-        found_document: Document = await self.document_management.find_one_by_id(
+    async def find_one_by_id_with_authorization(self, state: State, id: UUID) -> WebDocumentResponse:
+        found_document: Document = await self.document_management.find_one_by_id_with_authorization(
             state=state,
             id=id
         )
@@ -82,7 +82,8 @@ class WebDocumentManagement:
         )
         return created_web_document
 
-    async def patch_one_by_id(self, state: State, id: UUID, body: PatchOneBody) -> WebDocumentResponse:
+    async def patch_one_by_id_with_authorization(self, state: State, id: UUID,
+                                                 body: PatchOneBody) -> WebDocumentResponse:
         document_patcher: Document = Document(
             id=id,
             name=body.name,
@@ -90,7 +91,7 @@ class WebDocumentManagement:
             document_type_id=body.document_type_id,
             account_id=body.account_id
         )
-        patched_document: Document = await self.document_management.patch_one_by_id_raw(
+        patched_document: Document = await self.document_management.patch_one_by_id_raw_with_authorization(
             state=state,
             id=id,
             document_patcher=document_patcher
@@ -100,7 +101,7 @@ class WebDocumentManagement:
             web_url=body.web_url,
             web_url_hash=hashlib.sha256(body.web_url.encode()).hexdigest()
         )
-        patched_web_document: WebDocument = await self.patch_one_by_id_raw(
+        patched_web_document: WebDocument = await self.patch_one_by_id_raw_with_authorization(
             state=state,
             id=id,
             web_document_patcher=web_document_patcher
@@ -116,7 +117,8 @@ class WebDocumentManagement:
         )
         return patched_web_document_response
 
-    async def patch_one_by_id_raw(self, state: State, id: UUID, web_document_patcher: WebDocument) -> WebDocument:
+    async def patch_one_by_id_raw_with_authorization(self, state: State, id: UUID,
+                                                     web_document_patcher: WebDocument) -> WebDocument:
         patched_web_document: WebDocument = await self.web_document_repository.patch_one_by_id_and_account_id(
             session=state.session,
             id=id,
@@ -125,13 +127,13 @@ class WebDocumentManagement:
         )
         return patched_web_document
 
-    async def delete_one_by_id(self, state: State, id: UUID) -> WebDocumentResponse:
+    async def delete_one_by_id_with_authorization(self, state: State, id: UUID) -> WebDocumentResponse:
         deleted_web_document: WebDocument = await self.web_document_repository.delete_one_by_id_and_account_id(
             session=state.session,
             id=id,
             account_id=state.authorized_session.account_id
         )
-        deleted_document: Document = await self.document_management.delete_one_by_id(
+        deleted_document: Document = await self.document_management.delete_one_by_id_with_authorization(
             state=state,
             id=id
         )

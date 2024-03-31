@@ -1,13 +1,13 @@
 from typing import Union
 
-from dependency_injector.wiring import Provide, inject
-from fastapi import APIRouter, Depends
-from fastapi_utils.cbv import cbv
+from fastapi import APIRouter
 from starlette import status
 from starlette.requests import Request
 from starlette.responses import Response
 
-from apps.inners.models.dtos.contracts.content import Content
+from apps.inners.exceptions import repository_exception
+from apps.inners.exceptions import use_case_exception
+from apps.inners.models.dtos.content import Content
 from apps.inners.models.dtos.contracts.requests.authentications.logins.login_by_email_and_password_body import \
     LoginByEmailAndPasswordBody
 from apps.inners.models.dtos.contracts.requests.authentications.registers.register_by_email_and_password_body import \
@@ -17,33 +17,39 @@ from apps.inners.models.dtos.contracts.responses.authentications.registers.regis
 from apps.inners.use_cases.authentications.login_authentication import LoginAuthentication
 from apps.inners.use_cases.authentications.logout_authentication import LogoutAuthentication
 from apps.inners.use_cases.authentications.register_authentication import RegisterAuthentication
-from apps.outers.containers.application_container import ApplicationContainer
-from apps.outers.exceptions import repository_exception, use_case_exception
-
-router: APIRouter = APIRouter(tags=["authentications"])
 
 
-@cbv(router)
 class AuthenticationController:
 
-    @inject
     def __init__(
             self,
-            login_authentication: LoginAuthentication = Depends(
-                Provide[ApplicationContainer.use_cases.authentications.login]
-            ),
-            register_authentication: RegisterAuthentication = Depends(
-                Provide[ApplicationContainer.use_cases.authentications.register]
-            ),
-            logout_authentication: LogoutAuthentication = Depends(
-                Provide[ApplicationContainer.use_cases.authentications.logout]
-            )
+            login_authentication: LoginAuthentication,
+            register_authentication: RegisterAuthentication,
+            logout_authentication: LogoutAuthentication
     ):
+        self.router: APIRouter = APIRouter(
+            tags=["authentications"],
+            prefix="/authentications",
+        )
+        self.router.add_api_route(
+            path="/logins",
+            endpoint=self.login,
+            methods=["POST"]
+        )
+        self.router.add_api_route(
+            path="/registers",
+            endpoint=self.register,
+            methods=["POST"]
+        )
+        self.router.add_api_route(
+            path="/logouts",
+            endpoint=self.logout,
+            methods=["POST"]
+        )
         self.login_authentication = login_authentication
         self.register_authentication = register_authentication
         self.logout_authentication = logout_authentication
 
-    @router.post("/authentications/logins")
     async def login(self, request: Request, body: Union[LoginByEmailAndPasswordBody]) -> Response:
         content: Content[LoginResponse] = Content[LoginResponse](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -75,7 +81,6 @@ class AuthenticationController:
 
         return content.to_response()
 
-    @router.post("/authentications/registers")
     async def register(self, request: Request, body: Union[RegisterByEmailAndPasswordBody]) -> Response:
         content: Content[RegisterResponse] = Content[RegisterResponse](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -110,7 +115,6 @@ class AuthenticationController:
 
         return content.to_response()
 
-    @router.post("/authentications/logouts")
     async def logout(self, request: Request) -> Response:
         content: Content[RegisterResponse] = Content[RegisterResponse](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

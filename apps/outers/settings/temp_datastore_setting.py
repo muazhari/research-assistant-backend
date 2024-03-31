@@ -1,14 +1,10 @@
 from pathlib import Path
 
-from dotenv import find_dotenv
-from pydantic import BaseSettings
+from apps.outers.settings.base_setting import BaseSetting
 
 
-class TempDatastoreSetting(BaseSettings):
+class TempDatastoreSetting(BaseSetting):
     TEMP_DATASTORE_PATH: Path
-
-    class Config:
-        env_file = find_dotenv(".env")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

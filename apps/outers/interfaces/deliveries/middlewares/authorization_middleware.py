@@ -6,10 +6,10 @@ from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoin
 from starlette.requests import Request
 from starlette.responses import Response
 
+from apps.inners.exceptions import repository_exception
 from apps.inners.models.daos.session import Session
-from apps.inners.models.dtos.contracts.content import Content
+from apps.inners.models.dtos.content import Content
 from apps.inners.use_cases.managements.session_management import SessionManagement
-from apps.outers.exceptions import repository_exception
 
 
 class AuthorizationMiddleware(BaseHTTPMiddleware):

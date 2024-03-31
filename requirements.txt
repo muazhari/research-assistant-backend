@@ -1,7 +1,6 @@
 httpx
 uvicorn
 fastapi
-fastapi-utils
 python-dotenv
 sqlalchemy
 sqlalchemy-cockroachdb
@@ -19,3 +18,5 @@ litellm
 langgraph
 ragas
 paddleocr
+sentence-transformers
+pydantic-settings

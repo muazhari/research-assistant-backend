@@ -4,7 +4,7 @@ from apps.inners.models.dtos.contracts.requests.long_form_qas.process_body impor
 from apps.inners.models.dtos.contracts.responses.long_form_qas.process_response import ProcessResponse
 
 
-class LongFormQA:
+class ProcessLongFormQA:
     def __init__(
             self,
     ):

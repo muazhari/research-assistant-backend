@@ -1,38 +1,52 @@
 from uuid import UUID
 
-from dependency_injector.wiring import Provide, inject
-from fastapi import APIRouter, Depends
-from fastapi_utils.cbv import cbv
+from fastapi import APIRouter
 from starlette import status
 from starlette.requests import Request
 from starlette.responses import Response
 
+from apps.inners.exceptions import repository_exception
 from apps.inners.models.daos.account import Account
-from apps.inners.models.dtos.contracts.content import Content
+from apps.inners.models.dtos.content import Content
 from apps.inners.models.dtos.contracts.requests.managements.accounts.create_one_body import \
     CreateOneBody
 from apps.inners.models.dtos.contracts.requests.managements.accounts.patch_one_body import \
     PatchOneBody
 from apps.inners.use_cases.managements.account_management import AccountManagement
-from apps.outers.containers.application_container import ApplicationContainer
-from apps.outers.exceptions import repository_exception
-
-router: APIRouter = APIRouter(tags=["accounts"])
 
 
-@cbv(router)
 class AccountController:
 
-    @inject
     def __init__(
             self,
-            account_management: AccountManagement = Depends(
-                Provide[ApplicationContainer.use_cases.managements.account]
-            )
+            account_management: AccountManagement
     ) -> None:
+        self.router: APIRouter = APIRouter(
+            tags=["accounts"],
+            prefix="/accounts"
+        )
+        self.router.add_api_route(
+            path="/{id}",
+            endpoint=self.find_one_by_id,
+            methods=["GET"]
+        )
+        self.router.add_api_route(
+            path="",
+            endpoint=self.create_one,
+            methods=["POST"]
+        )
+        self.router.add_api_route(
+            path="/{id}",
+            endpoint=self.patch_one_by_id,
+            methods=["PATCH"]
+        )
+        self.router.add_api_route(
+            path="/{id}",
+            endpoint=self.delete_one_by_id,
+            methods=["DELETE"]
+        )
         self.account_management: AccountManagement = account_management
 
-    @router.get("/accounts/{id}")
     async def find_one_by_id(self, request: Request, id: UUID) -> Response:
         content: Content[Account] = Content[Account](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -40,7 +54,7 @@ class AccountController:
             data=None
         )
         try:
-            data: Account = await self.account_management.find_one_by_id(
+            data: Account = await self.account_management.find_one_by_id_with_authorization(
                 state=request.state,
                 id=id
             )
@@ -53,7 +67,6 @@ class AccountController:
 
         return content.to_response()
 
-    @router.post("/accounts")
     async def create_one(self, request: Request, body: CreateOneBody) -> Response:
         content: Content[Account] = Content[Account](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -74,7 +87,6 @@ class AccountController:
 
         return content.to_response()
 
-    @router.patch("/accounts/{id}")
     async def patch_one_by_id(self, request: Request, id: UUID, body: PatchOneBody) -> Response:
         content: Content[Account] = Content[Account](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -82,7 +94,7 @@ class AccountController:
             data=None
         )
         try:
-            data: Account = await self.account_management.patch_one_by_id(
+            data: Account = await self.account_management.patch_one_by_id_with_authorization(
                 state=request.state,
                 id=id,
                 body=body
@@ -96,7 +108,6 @@ class AccountController:
 
         return content.to_response()
 
-    @router.delete("/accounts/{id}")
     async def delete_one_by_id(self, request: Request, id: UUID) -> Response:
         content: Content[Account] = Content[Account](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -104,7 +115,7 @@ class AccountController:
             data=None
         )
         try:
-            data: Account = await self.account_management.delete_one_by_id(
+            data: Account = await self.account_management.delete_one_by_id_with_authorization(
                 state=request.state,
                 id=id
             )

@@ -6,9 +6,9 @@ from sqlalchemy.engine import Result
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
+from apps.inners.exceptions import repository_exception
 from apps.inners.models.daos.document import Document
 from apps.inners.models.daos.text_document import TextDocument
-from apps.outers.exceptions import repository_exception
 
 
 class TextDocumentRepository:

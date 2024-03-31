@@ -1,4 +1,4 @@
-from apps.outers.exceptions.base_exception import BaseException
+from apps.inners.exceptions.base_exception import BaseException
 
 
 class NotFound(BaseException):

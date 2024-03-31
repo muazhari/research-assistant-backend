@@ -7,9 +7,9 @@ from sqlalchemy.orm import aliased
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
+from apps.inners.exceptions import repository_exception
 from apps.inners.models.daos.document import Document
 from apps.inners.models.daos.document_process import DocumentProcess
-from apps.outers.exceptions import repository_exception
 
 
 class DocumentProcessRepository:

@@ -4,7 +4,7 @@ from apps.inners.models.dtos.contracts.requests.passage_searches.process_body im
 from apps.inners.models.dtos.contracts.responses.passage_searches.process_response import ProcessResponse
 
 
-class PassageSearch:
+class ProcessPassageSearch:
 
     def __init__(
             self,

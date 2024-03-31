@@ -23,8 +23,8 @@ class FileDocumentManagement:
         self.document_management: DocumentManagement = document_management
         self.file_document_repository: FileDocumentRepository = file_document_repository
 
-    async def find_one_by_id(self, state: State, id: UUID) -> FileDocumentResponse:
-        found_document: Document = await self.document_management.find_one_by_id(
+    async def find_one_by_id_with_authorization(self, state: State, id: UUID) -> FileDocumentResponse:
+        found_document: Document = await self.document_management.find_one_by_id_with_authorization(
             state=state,
             id=id
         )
@@ -90,7 +90,8 @@ class FileDocumentManagement:
         )
         return created_file_document
 
-    async def patch_one_by_id(self, state: State, id: UUID, body: PatchOneBody) -> FileDocumentResponse:
+    async def patch_one_by_id_with_authorization(self, state: State, id: UUID,
+                                                 body: PatchOneBody) -> FileDocumentResponse:
         document_patcher: Document = Document(
             id=id,
             name=body.document_name,
@@ -98,7 +99,7 @@ class FileDocumentManagement:
             document_type_id=body.document_type_id,
             account_id=body.document_account_id
         )
-        patched_document: Document = await self.document_management.patch_one_by_id_raw(
+        patched_document: Document = await self.document_management.patch_one_by_id_raw_with_authorization(
             state=state,
             id=id,
             document_patcher=document_patcher
@@ -109,7 +110,7 @@ class FileDocumentManagement:
             file_name=body.file_name,
             file_data_hash=hashlib.sha256(file_data).hexdigest()
         )
-        patched_file_document: FileDocument = await self.patch_one_by_id_raw(
+        patched_file_document: FileDocument = await self.patch_one_by_id_raw_with_authorization(
             state=state,
             id=id,
             file_document_patcher=file_document_patcher,
@@ -127,8 +128,8 @@ class FileDocumentManagement:
         )
         return patched_file_document_response
 
-    async def patch_one_by_id_raw(self, state: State, id: UUID, file_document_patcher: FileDocument,
-                                  file_data: bytes) -> FileDocument:
+    async def patch_one_by_id_raw_with_authorization(self, state: State, id: UUID, file_document_patcher: FileDocument,
+                                                     file_data: bytes) -> FileDocument:
         patched_file_document: FileDocument = await self.file_document_repository.patch_one_by_id_and_account_id(
             session=state.session,
             id=id,
@@ -138,13 +139,13 @@ class FileDocumentManagement:
         )
         return patched_file_document
 
-    async def delete_one_by_id(self, state: State, id: UUID) -> FileDocumentResponse:
+    async def delete_one_by_id_with_authorization(self, state: State, id: UUID) -> FileDocumentResponse:
         deleted_file_document: FileDocument = await self.file_document_repository.delete_one_by_id_and_account_id(
             session=state.session,
             id=id,
             account_id=state.authorized_session.account_id
         )
-        deleted_document: Document = await self.document_management.delete_one_by_id(
+        deleted_document: Document = await self.document_management.delete_one_by_id_with_authorization(
             state=state,
             id=id
         )

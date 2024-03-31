@@ -6,7 +6,7 @@ from sqlalchemy import exc
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from apps.outers.exceptions import datastore_exception
+from apps.inners.exceptions import datastore_exception
 from apps.outers.settings.one_datastore_setting import OneDatastoreSetting
 
 

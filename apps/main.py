@@ -1,20 +1,16 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from apps import inners, outers
-from apps.outers.containers.application_container import ApplicationContainer
+from apps.container import application_container
 from apps.outers.interfaces.deliveries.middlewares.authorization_middleware import AuthorizationMiddleware
 from apps.outers.interfaces.deliveries.middlewares.session_middleware import SessionMiddleware
-from apps.outers.interfaces.deliveries.routers.api_router import api_router
 
 app: FastAPI = FastAPI(
     title="research-assistant-backend",
     version="0.0.2"
 )
 
-application_container: ApplicationContainer = ApplicationContainer()
 app.container = application_container
-app.container.wire(packages=[inners, outers])
 
 app.add_middleware(
     middleware_class=AuthorizationMiddleware,
@@ -35,5 +31,5 @@ app.add_middleware(
 )
 
 app.include_router(
-    router=api_router
+    router=application_container.routers.api().router
 )

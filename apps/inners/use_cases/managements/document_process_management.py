@@ -16,7 +16,7 @@ class DocumentProcessManagement:
     ):
         self.document_process_repository: DocumentProcessRepository = document_process_repository
 
-    async def find_one_by_id(self, state: State, id: UUID) -> DocumentProcess:
+    async def find_one_by_id_with_authorization(self, state: State, id: UUID) -> DocumentProcess:
         found_document_process: DocumentProcess = await self.document_process_repository.find_one_by_id_and_accound_id(
             session=state.session,
             id=id,
@@ -40,17 +40,17 @@ class DocumentProcessManagement:
         )
         return created_document_process
 
-    async def patch_one_by_id(self, state: State, id: UUID, body: PatchOneBody) -> DocumentProcess:
+    async def patch_one_by_id_with_authorization(self, state: State, id: UUID, body: PatchOneBody) -> DocumentProcess:
         document_process_patcher: DocumentProcess = DocumentProcess(**body.dict())
-        patched_document_process: DocumentProcess = await self.patch_one_by_id_raw(
+        patched_document_process: DocumentProcess = await self.patch_one_by_id_raw_with_authorization(
             state=state,
             id=id,
             document_process_patcher=document_process_patcher
         )
         return patched_document_process
 
-    async def patch_one_by_id_raw(self, state: State, id: UUID,
-                                  document_process_patcher: DocumentProcess) -> DocumentProcess:
+    async def patch_one_by_id_raw_with_authorization(self, state: State, id: UUID,
+                                                     document_process_patcher: DocumentProcess) -> DocumentProcess:
         patched_document_process: DocumentProcess = await self.document_process_repository.patch_one_by_id_and_account_id(
             session=state.session,
             id=id,
@@ -59,7 +59,7 @@ class DocumentProcessManagement:
         )
         return patched_document_process
 
-    async def delete_one_by_id(self, state: State, id: UUID) -> DocumentProcess:
+    async def delete_one_by_id_with_authorization(self, state: State, id: UUID) -> DocumentProcess:
         deleted_document_process: DocumentProcess = await self.document_process_repository.delete_one_by_id_and_account_id(
             session=state.session,
             id=id,

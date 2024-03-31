@@ -1,34 +1,38 @@
-from dependency_injector.wiring import Provide, inject
-from fastapi import APIRouter, Depends
-from fastapi_utils.cbv import cbv
+from fastapi import APIRouter
 from starlette import status
 from starlette.requests import Request
 from starlette.responses import Response
 
+from apps.inners.exceptions import repository_exception
 from apps.inners.models.daos.document_type import DocumentType
-from apps.inners.models.dtos.contracts.content import Content
+from apps.inners.models.dtos.content import Content
 from apps.inners.models.dtos.contracts.requests.managements.document_types.patch_one_body import \
     PatchOneBody
 from apps.inners.use_cases.managements.document_type_management import DocumentTypeManagement
-from apps.outers.containers.application_container import ApplicationContainer
-from apps.outers.exceptions import repository_exception
-
-router: APIRouter = APIRouter(tags=["document-types"])
 
 
-@cbv(router)
 class DocumentTypeController:
 
-    @inject
     def __init__(
             self,
-            document_type_management: DocumentTypeManagement = Depends(
-                Provide[ApplicationContainer.use_cases.managements.document_type]
-            )
+            document_type_management: DocumentTypeManagement
     ) -> None:
+        self.router = APIRouter(
+            tags=["document-types"],
+            prefix="/document-types"
+        )
+        self.router.add_api_route(
+            path="/{id}",
+            endpoint=self.find_one_by_id,
+            methods=["GET"]
+        )
+        self.router.add_api_route(
+            path="/{id}",
+            endpoint=self.patch_one_by_id,
+            methods=["PATCH"]
+        )
         self.document_type_management: DocumentTypeManagement = document_type_management
 
-    @router.get("/document-types/{id}")
     async def find_one_by_id(self, request: Request, id: str) -> Response:
         content: Content[DocumentType] = Content[DocumentType](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -49,7 +53,6 @@ class DocumentTypeController:
 
         return content.to_response()
 
-    @router.patch("/document-types/{id}")
     async def patch_one_by_id(self, request: Request, id: str, body: PatchOneBody) -> Response:
         content: Content[DocumentType] = Content[DocumentType](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

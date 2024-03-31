@@ -17,10 +17,11 @@ class AccountManagement:
     ):
         self.account_repository: AccountRepository = account_repository
 
-    async def find_one_by_id(self, state: State, id: UUID) -> Account:
-        found_account: Account = await self.account_repository.find_one_by_id(
+    async def find_one_by_id_with_authorization(self, state: State, id: UUID) -> Account:
+        found_account: Account = await self.account_repository.find_one_by_id_and_account_id(
             session=state.session,
-            id=id
+            id=id,
+            account_id=state.authorized_session.account_id
         )
         return found_account
 
@@ -28,14 +29,6 @@ class AccountManagement:
         found_account: Account = await self.account_repository.find_one_by_email(
             session=state.session,
             email=email
-        )
-        return found_account
-
-    async def find_one_by_email_and_password(self, state: State, email: str, password: str) -> Account:
-        found_account: Account = await self.account_repository.find_one_by_email_and_password(
-            session=state.session,
-            email=email,
-            password=password
         )
         return found_account
 
@@ -56,27 +49,29 @@ class AccountManagement:
         )
         return created_account
 
-    async def patch_one_by_id(self, state: State, id: UUID, body: PatchOneBody) -> Account:
+    async def patch_one_by_id_with_authorization(self, state: State, id: UUID, body: PatchOneBody) -> Account:
         account_patcher: Account = Account(**body.dict())
         account_patcher.password = bcrypt.hashpw(account_patcher.password.encode(), bcrypt.gensalt()).decode()
-        patched_account: Account = await self.patch_one_by_id_raw(
+        patched_account: Account = await self.patch_one_by_id_raw_with_authorization(
             state=state,
             id=id,
             account_patcher=account_patcher
         )
         return patched_account
 
-    async def patch_one_by_id_raw(self, state: State, id: UUID, account_patcher: Account) -> Account:
-        patched_account: Account = await self.account_repository.patch_one_by_id(
+    async def patch_one_by_id_raw_with_authorization(self, state: State, id: UUID, account_patcher: Account) -> Account:
+        patched_account: Account = await self.account_repository.patch_one_by_id_and_account_id(
             session=state.session,
             id=id,
+            account_id=state.authorized_session.account_id,
             account_patcher=account_patcher
         )
         return patched_account
 
-    async def delete_one_by_id(self, state: State, id: UUID) -> Account:
-        deleted_account: Account = await self.account_repository.delete_one_by_id(
+    async def delete_one_by_id_with_authorization(self, state: State, id: UUID) -> Account:
+        deleted_account: Account = await self.account_repository.delete_one_by_id_and_account_id(
             session=state.session,
-            id=id
+            id=id,
+            account_id=state.authorized_session.account_id
         )
         return deleted_account

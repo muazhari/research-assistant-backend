@@ -1,40 +1,39 @@
-from dependency_injector.wiring import Provide, inject
-from fastapi import APIRouter, Depends
-from fastapi_utils.cbv import cbv
+from fastapi import APIRouter
+from starlette import status
 from starlette.requests import Request
-from starlette.responses import Response
+from starlette.responses import Response, Content
 
 from apps.inners.models.dtos.contracts.requests.long_form_qas.process_body import ProcessBody
 from apps.inners.models.dtos.contracts.responses.long_form_qas.process_response import ProcessResponse
-from apps.inners.use_cases.long_form_qas.longform_qa import LongFormQA
-from apps.outers.containers.application_container import ApplicationContainer
-
-router: APIRouter = APIRouter(tags=["long-form-qa"])
+from apps.inners.use_cases.long_form_qas.process_longform_qa import ProcessLongFormQA
 
 
-@cbv(router)
-class PassageSearchController:
+class LongFormQaController:
 
-    @inject
     def __init__(
             self,
-            long_form_qa: LongFormQA = Depends(
-                Provide[ApplicationContainer.use_cases.longform_qas.longform_qa]
-            )
+            process_long_form_qa: ProcessLongFormQA
     ):
-        self.long_form_qa = long_form_qa
+        self.router: APIRouter = APIRouter(
+            tags=["long-form-qas"],
+            prefix="/long-form-qas"
+        )
+        self.router.add_api_route(
+            path="",
+            endpoint=self.search,
+            methods=["POST"]
+        )
+        self.process_long_form_qa = process_long_form_qa
 
-    @router.post("/long-form-qas")
     async def search(self, request: Request, body: ProcessBody) -> Response:
-        data: ProcessResponse = await self.long_form_qa.process(
+        data: ProcessResponse = await self.process_long_form_qa.process(
             state=request.state,
             body=body
         )
-        response: Response = Response(
-            status_code=status_code,
-            content=ProcessResponse(
-                message=message,
-                data=data
-            )
+        content: Content[ProcessResponse] = Content[ProcessResponse](
+            status_code=status.HTTP_200_OK,
+            message=f"{self.__class__.__name__}.{self.search.__name__}: Succeed.",
+            data=data
         )
-        return response
+
+        return content.to_response()

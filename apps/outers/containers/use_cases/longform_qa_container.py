@@ -1,7 +1,7 @@
 from dependency_injector import providers
 from dependency_injector.containers import DeclarativeContainer
 
-from apps.inners.use_cases.long_form_qas.longform_qa import LongFormQA
+from apps.inners.use_cases.long_form_qas.process_longform_qa import ProcessLongFormQA
 
 
 class LongFormQAContainer(DeclarativeContainer):
@@ -10,6 +10,6 @@ class LongFormQAContainer(DeclarativeContainer):
     utilities = providers.DependenciesContainer()
     managements = providers.DependenciesContainer()
 
-    longform_qa = providers.Singleton(
-        LongFormQA,
+    process = providers.Singleton(
+        ProcessLongFormQA,
     )

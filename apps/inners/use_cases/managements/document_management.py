@@ -16,7 +16,7 @@ class DocumentManagement:
     ):
         self.document_repository: DocumentRepository = document_repository
 
-    async def find_one_by_id(self, state: State, id: UUID) -> Document:
+    async def find_one_by_id_with_authorization(self, state: State, id: UUID) -> Document:
         found_document: Document = await self.document_repository.find_one_by_id_and_accound_id(
             session=state.session,
             id=id,
@@ -40,16 +40,17 @@ class DocumentManagement:
         )
         return created_document
 
-    async def patch_one_by_id(self, state: State, id: UUID, body: PatchOneBody) -> Document:
+    async def patch_one_by_id_with_authorization(self, state: State, id: UUID, body: PatchOneBody) -> Document:
         document_patcher: Document = Document(**body.dict())
-        patched_document: Document = await self.patch_one_by_id_raw(
+        patched_document: Document = await self.patch_one_by_id_raw_with_authorization(
             state=state,
             id=id,
             document_patcher=document_patcher
         )
         return patched_document
 
-    async def patch_one_by_id_raw(self, state: State, id: UUID, document_patcher: Document) -> Document:
+    async def patch_one_by_id_raw_with_authorization(self, state: State, id: UUID,
+                                                     document_patcher: Document) -> Document:
         patched_document: Document = await self.document_repository.patch_one_by_id_and_account_id(
             session=state.session,
             id=id,
@@ -58,7 +59,7 @@ class DocumentManagement:
         )
         return patched_document
 
-    async def delete_one_by_id(self, state: State, id: UUID) -> Document:
+    async def delete_one_by_id_with_authorization(self, state: State, id: UUID) -> Document:
         deleted_document: Document = await self.document_repository.delete_one_by_id_and_account_id(
             session=state.session,
             id=id,

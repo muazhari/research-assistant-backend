@@ -10,11 +10,11 @@ from sqlalchemy.engine import Result
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
+from apps.inners.exceptions import repository_exception
 from apps.inners.models.daos.document import Document
 from apps.inners.models.daos.file_document import FileDocument
 from apps.outers.datastores.temp_datastore import TempDatastore
 from apps.outers.datastores.three_datastore import ThreeDatastore
-from apps.outers.exceptions import repository_exception
 
 
 class FileDocumentRepository:

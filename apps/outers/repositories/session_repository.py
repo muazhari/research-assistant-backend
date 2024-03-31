@@ -6,8 +6,8 @@ from sqlalchemy.engine import Result
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
+from apps.inners.exceptions import repository_exception
 from apps.inners.models.daos.session import Session
-from apps.outers.exceptions import repository_exception
 
 
 class SessionRepository:

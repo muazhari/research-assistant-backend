@@ -1,39 +1,52 @@
 from uuid import UUID
 
-from dependency_injector.wiring import Provide, inject
-from fastapi import APIRouter, Depends
-from fastapi_utils.cbv import cbv
+from fastapi import APIRouter
 from starlette import status
 from starlette.requests import Request
 from starlette.responses import Response
 
+from apps.inners.exceptions import repository_exception
 from apps.inners.models.daos.document_process import DocumentProcess
-from apps.inners.models.dtos.contracts.content import Content
+from apps.inners.models.dtos.content import Content
 from apps.inners.models.dtos.contracts.requests.managements.document_processes.create_one_body import \
     CreateOneBody
 from apps.inners.models.dtos.contracts.requests.managements.document_processes.patch_one_body import \
     PatchOneBody
-from apps.inners.models.dtos.contracts.result import Result
 from apps.inners.use_cases.managements.document_process_management import DocumentProcessManagement
-from apps.outers.containers.application_container import ApplicationContainer
-from apps.outers.exceptions import repository_exception
-
-router: APIRouter = APIRouter(tags=["document-processes"])
 
 
-@cbv(router)
 class DocumentProcessController:
 
-    @inject
     def __init__(
             self,
-            document_process_management: DocumentProcessManagement = Depends(
-                Provide[ApplicationContainer.use_cases.managements.document_process]
-            )
+            document_process_management: DocumentProcessManagement
     ) -> None:
+        self.router = APIRouter(
+            tags=["document-processes"],
+            prefix="/document-processes"
+        )
+        self.router.add_api_route(
+            path="/{id}",
+            endpoint=self.find_one_by_id,
+            methods=["GET"]
+        )
+        self.router.add_api_route(
+            path="",
+            endpoint=self.create_one,
+            methods=["POST"]
+        )
+        self.router.add_api_route(
+            path="/{id}",
+            endpoint=self.patch_one_by_id,
+            methods=["PATCH"]
+        )
+        self.router.add_api_route(
+            path="/{id}",
+            endpoint=self.delete_one_by_id,
+            methods=["DELETE"]
+        )
         self.document_process_management: DocumentProcessManagement = document_process_management
 
-    @router.get("/document-processes/{id}")
     async def find_one_by_id(self, request: Request, id: UUID) -> Response:
         content: Content[DocumentProcess] = Content[DocumentProcess](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -41,7 +54,7 @@ class DocumentProcessController:
             data=None
         )
         try:
-            data: DocumentProcess = await self.document_process_management.find_one_by_id(
+            data: DocumentProcess = await self.document_process_management.find_one_by_id_with_authorization(
                 state=request.state,
                 id=id
             )
@@ -51,13 +64,9 @@ class DocumentProcessController:
         except repository_exception.NotFound as exception:
             content.status_code = status.HTTP_404_NOT_FOUND
             content.message += f" {exception.__class__.__name__}."
-        response: Response = Response(
-            status_code=content.status_code,
-            content=content.json()
-        )
-        return response
 
-    @router.post("/document-processes")
+        return content.to_response()
+
     async def create_one(self, request: Request, body: CreateOneBody) -> Response:
         content: Content[DocumentProcess] = Content[DocumentProcess](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -78,7 +87,6 @@ class DocumentProcessController:
 
         return content.to_response()
 
-    @router.patch("/document-processes/{id}")
     async def patch_one_by_id(self, request: Request, id: UUID, body: PatchOneBody) -> Response:
         content: Content[DocumentProcess] = Content[DocumentProcess](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -86,7 +94,7 @@ class DocumentProcessController:
             data=None
         )
         try:
-            data: DocumentProcess = await self.document_process_management.patch_one_by_id(
+            data: DocumentProcess = await self.document_process_management.patch_one_by_id_with_authorization(
                 state=request.state,
                 id=id,
                 body=body
@@ -100,15 +108,14 @@ class DocumentProcessController:
 
         return content.to_response()
 
-    @router.delete("/document-processes/{id}")
     async def delete_one_by_id(self, request: Request, id: UUID) -> Response:
-        content: Content[Result] = Content[Result](
+        content: Content[DocumentProcess] = Content[DocumentProcess](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             message=f"{self.__class__.__name__}.{self.delete_one_by_id.__name__}: Failed.",
             data=None
         )
         try:
-            data: DocumentProcess = await self.document_process_management.delete_one_by_id(
+            data: DocumentProcess = await self.document_process_management.delete_one_by_id_with_authorization(
                 state=request.state,
                 id=id
             )
