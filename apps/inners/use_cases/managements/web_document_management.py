@@ -27,9 +27,10 @@ class WebDocumentManagement:
             state=state,
             id=id
         )
-        found_web_document: WebDocument = await self.web_document_repository.find_one_by_id(
+        found_web_document: WebDocument = await self.web_document_repository.find_one_by_id_and_account_id(
             session=state.session,
-            id=id
+            id=id,
+            account_id=state.authorized_session.account_id
         )
         found_web_document_response: WebDocumentResponse = WebDocumentResponse(
             id=found_document.id,
@@ -116,17 +117,19 @@ class WebDocumentManagement:
         return patched_web_document_response
 
     async def patch_one_by_id_raw(self, state: State, id: UUID, web_document_patcher: WebDocument) -> WebDocument:
-        patched_web_document: WebDocument = await self.web_document_repository.patch_one_by_id(
+        patched_web_document: WebDocument = await self.web_document_repository.patch_one_by_id_and_account_id(
             session=state.session,
             id=id,
-            web_document_patcher=web_document_patcher
+            account_id=state.authorized_session.account_id,
+            web_document_patcher=web_document_patcher,
         )
         return patched_web_document
 
     async def delete_one_by_id(self, state: State, id: UUID) -> WebDocumentResponse:
-        deleted_web_document: WebDocument = await self.web_document_repository.delete_one_by_id(
+        deleted_web_document: WebDocument = await self.web_document_repository.delete_one_by_id_and_account_id(
             session=state.session,
-            id=id
+            id=id,
+            account_id=state.authorized_session.account_id
         )
         deleted_document: Document = await self.document_management.delete_one_by_id(
             state=state,

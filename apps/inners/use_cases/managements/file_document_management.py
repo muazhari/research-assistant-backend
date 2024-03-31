@@ -28,9 +28,10 @@ class FileDocumentManagement:
             state=state,
             id=id
         )
-        found_file_document: FileDocument = await self.file_document_repository.find_one_by_id(
+        found_file_document: FileDocument = await self.file_document_repository.find_one_by_id_and_account_id(
             session=state.session,
-            id=id
+            id=id,
+            account_id=state.authorized_session.account_id
         )
         found_file_document_response: FileDocumentResponse = FileDocumentResponse(
             id=found_document.id,
@@ -108,8 +109,8 @@ class FileDocumentManagement:
             file_name=body.file_name,
             file_data_hash=hashlib.sha256(file_data).hexdigest()
         )
-        patched_file_document: FileDocument = await self.file_document_repository.patch_one_by_id(
-            session=state.session,
+        patched_file_document: FileDocument = await self.patch_one_by_id_raw(
+            state=state,
             id=id,
             file_document_patcher=file_document_patcher,
             file_data=file_data
@@ -128,18 +129,20 @@ class FileDocumentManagement:
 
     async def patch_one_by_id_raw(self, state: State, id: UUID, file_document_patcher: FileDocument,
                                   file_data: bytes) -> FileDocument:
-        patched_file_document: FileDocument = await self.file_document_repository.patch_one_by_id(
+        patched_file_document: FileDocument = await self.file_document_repository.patch_one_by_id_and_account_id(
             session=state.session,
             id=id,
+            account_id=state.authorized_session.account_id,
             file_document_patcher=file_document_patcher,
             file_data=file_data
         )
         return patched_file_document
 
     async def delete_one_by_id(self, state: State, id: UUID) -> FileDocumentResponse:
-        deleted_file_document: FileDocument = await self.file_document_repository.delete_one_by_id(
+        deleted_file_document: FileDocument = await self.file_document_repository.delete_one_by_id_and_account_id(
             session=state.session,
-            id=id
+            id=id,
+            account_id=state.authorized_session.account_id
         )
         deleted_document: Document = await self.document_management.delete_one_by_id(
             state=state,

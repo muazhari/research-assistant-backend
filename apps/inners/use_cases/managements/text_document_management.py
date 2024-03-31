@@ -28,9 +28,10 @@ class TextDocumentManagement:
             state=state,
             id=id
         )
-        found_text_document: TextDocument = await self.text_document_repository.find_one_by_id(
+        found_text_document: TextDocument = await self.text_document_repository.find_one_by_id_and_account_id(
             session=state.session,
-            id=id
+            id=id,
+            account_id=state.authorized_session.account_id
         )
         found_text_document_response: TextDocumentResponse = TextDocumentResponse(
             id=found_document.id,
@@ -117,17 +118,19 @@ class TextDocumentManagement:
         return patched_text_document_response
 
     async def patch_one_by_id_raw(self, state: State, id: UUID, text_document_patcher: TextDocument) -> TextDocument:
-        patched_text_document: TextDocument = await self.text_document_repository.patch_one_by_id(
+        patched_text_document: TextDocument = await self.text_document_repository.patch_one_by_id_and_account_id(
             session=state.session,
             id=id,
+            account_id=state.authorized_session.account_id,
             text_document_patcher=text_document_patcher
         )
         return patched_text_document
 
     async def delete_one_by_id(self, state: State, id: UUID) -> TextDocumentResponse:
-        deleted_text_document: TextDocument = await self.text_document_repository.delete_one_by_id(
+        deleted_text_document: TextDocument = await self.text_document_repository.delete_one_by_id_and_account_id(
             session=state.session,
-            id=id
+            id=id,
+            account_id=state.authorized_session.account_id
         )
         deleted_document: Document = await self.document_management.delete_one_by_id(
             state=state,

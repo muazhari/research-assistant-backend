@@ -1,19 +1,15 @@
+import sqlalchemy.exc
 from sqlalchemy.engine import Result
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from apps.inners.models.daos.document_type import DocumentType
+from apps.outers.exceptions import repository_exception
 
 
 class DocumentTypeRepository:
 
     def __init__(self):
-        pass
-
-    class NotFound(BaseException):
-        pass
-
-    class IntegrityError(BaseException):
         pass
 
     async def find_one_by_id(self, session: AsyncSession, id: str) -> DocumentType:
@@ -22,18 +18,10 @@ class DocumentTypeRepository:
                 select(DocumentType).where(DocumentType.id == id).limit(1)
             )
             found_document_type: DocumentType = found_document_type_result.scalars().one()
-        except Exception:
+        except sqlalchemy.exc.NoResultFound:
             raise repository_exception.NotFound()
 
         return found_document_type
-
-    def create_one(self, session: AsyncSession, document_type_creator: DocumentType) -> DocumentType:
-        try:
-            session.add(document_type_creator)
-        except Exception:
-            raise repository_exception.IntegrityError()
-
-        return document_type_creator
 
     async def patch_one_by_id(self, session: AsyncSession, id: str,
                               document_type_patcher: DocumentType) -> DocumentType:
@@ -42,12 +30,4 @@ class DocumentTypeRepository:
             id=id
         )
         found_document_type.patch_from(document_type_patcher.dict(exclude_none=True))
-        return found_document_type
-
-    async def delete_one_by_id(self, session: AsyncSession, id: str) -> DocumentType:
-        found_document_type: DocumentType = await self.find_one_by_id(
-            session=session,
-            id=id
-        )
-        await session.delete(found_document_type)
         return found_document_type

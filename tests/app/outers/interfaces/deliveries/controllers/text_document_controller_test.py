@@ -85,8 +85,8 @@ async def test__create_one__should_create_one_text_document__succeed(main_test: 
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_text_document__succeed(main_test: MainTest):
     selected_session_mock: Session = main_test.all_seeder.session_seeder.session_mock.data[0]
-    selected_text_document_mock: TextDocument = main_test.all_seeder.text_document_seeder.text_document_mock.data[1]
-    selected_document_mock: Document = main_test.all_seeder.document_seeder.document_mock.data[0]
+    selected_document_mock: Document = main_test.all_seeder.document_seeder.document_mock.data[1]
+    selected_text_document_mock: TextDocument = main_test.all_seeder.text_document_seeder.text_document_mock.data[0]
     selected_document_type_mock: DocumentType = main_test.all_seeder.document_type_seeder.document_type_mock.data[0]
     selected_account_mock: Account = main_test.all_seeder.document_seeder.document_mock.account_mock.data[0]
     text_document_patcher_body: PatchOneBody = PatchOneBody(

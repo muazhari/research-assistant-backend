@@ -17,9 +17,10 @@ class DocumentManagement:
         self.document_repository: DocumentRepository = document_repository
 
     async def find_one_by_id(self, state: State, id: UUID) -> Document:
-        found_document: Document = await self.document_repository.find_one_by_id(
+        found_document: Document = await self.document_repository.find_one_by_id_and_accound_id(
             session=state.session,
-            id=id
+            id=id,
+            account_id=state.authorized_session.account_id
         )
         return found_document
 
@@ -49,16 +50,18 @@ class DocumentManagement:
         return patched_document
 
     async def patch_one_by_id_raw(self, state: State, id: UUID, document_patcher: Document) -> Document:
-        patched_document: Document = await self.document_repository.patch_one_by_id(
+        patched_document: Document = await self.document_repository.patch_one_by_id_and_account_id(
             session=state.session,
             id=id,
-            document_patcher=document_patcher
+            account_id=state.authorized_session.account_id,
+            document_patcher=document_patcher,
         )
         return patched_document
 
     async def delete_one_by_id(self, state: State, id: UUID) -> Document:
-        deleted_document: Document = await self.document_repository.delete_one_by_id(
+        deleted_document: Document = await self.document_repository.delete_one_by_id_and_account_id(
             session=state.session,
-            id=id
+            id=id,
+            account_id=state.authorized_session.account_id
         )
         return deleted_document

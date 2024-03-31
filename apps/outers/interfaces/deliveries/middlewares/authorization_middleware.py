@@ -1,8 +1,6 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
-from sqlalchemy.engine import Result
-from sqlmodel import select
-from sqlmodel.ext.asyncio.session import AsyncSession
+import regex
 from starlette import status
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 from starlette.requests import Request
@@ -10,61 +8,65 @@ from starlette.responses import Response
 
 from apps.inners.models.daos.session import Session
 from apps.inners.models.dtos.contracts.content import Content
+from apps.inners.use_cases.managements.session_management import SessionManagement
+from apps.outers.exceptions import repository_exception
 
 
 class AuthorizationMiddleware(BaseHTTPMiddleware):
     def __init__(
             self,
-            app
+            app,
+            session_management: SessionManagement
     ):
         super().__init__(app)
-        pass
+        self.session_management: SessionManagement = session_management
+        self.unauthorized_path_patterns = [
+            ".*\/authentications\/logins.*",
+            ".*\/authentications\/registers.*",
+            ".*\/authorizations\/refreshes.*"
+        ]
+
+    def is_unauthorized_path(self, path: str) -> bool:
+        pattern: str = "|".join(self.unauthorized_path_patterns)
+        return regex.match(pattern, path) is not None
 
     async def dispatch(
             self,
             request: Request,
             call_next: RequestResponseEndpoint
     ) -> Response:
-        session: AsyncSession = request.state.session
+        content: Content[Session] = Content(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            message=f"{self.__class__.__name__}.{self.dispatch.__name__}: Failed.",
+            data=None
+        )
+
+        if self.is_unauthorized_path(request.url.path):
+            response: Response = await call_next(request)
+            return response
 
         authorization_header = request.headers.get("Authorization")
         if not authorization_header:
-            response: Response = Response(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                content=Content(
-                    message="AuthorizationMiddleware.dispatch: Authorization header is missing.",
-                    data=None
-                ).json()
+            content.status_code = status.HTTP_401_UNAUTHORIZED
+            content.message += f" {self.__class__.__name__}.{self.dispatch.__name__}: Authorization header is missing."
+            return content.to_response()
+
+        access_token: str = authorization_header.split(" ")[1]
+
+        try:
+            found_session: [Session] = await self.session_management.find_one_by_access_token(
+                state=request.state,
+                access_token=access_token
             )
-            return response
-
-        access_token = authorization_header.split(" ")[1]
-
-        found_session_result: Result = await session.execute(
-            select(Session).where(Session.access_token == access_token).limit(1)
-        )
-        found_sessions: [Session] = found_session_result.scalars().all()
-        if len(found_sessions) == 0:
-            response: Response = Response(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                content=Content(
-                    message="AuthorizationMiddleware.dispatch: Session is not found by access token.",
-                    data=None
-                ).json()
-            )
-            return response
-
-        found_session: Session = found_sessions[0]
+        except repository_exception.NotFound as exception:
+            content.status_code = status.HTTP_404_NOT_FOUND
+            content.message += f" {exception.caller.class_name}.{exception.caller.function_name}: {exception.__class__.__name__}"
+            return content.to_response()
 
         if found_session.access_token_expired_at < datetime.now(tz=timezone.utc):
-            response: Response = Response(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                content=Content(
-                    message="AuthorizationMiddleware.dispatch: Session is expired.",
-                    data=None
-                ).json()
-            )
-            return response
+            content.status_code = status.HTTP_401_UNAUTHORIZED
+            content.message += f" {self.__class__.__name__}.{self.dispatch.__name__}: Access token is expired."
+            return content.to_response()
 
         request.state.authorized_session = found_session
         response: Response = await call_next(request)

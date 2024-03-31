@@ -17,9 +17,10 @@ class DocumentProcessManagement:
         self.document_process_repository: DocumentProcessRepository = document_process_repository
 
     async def find_one_by_id(self, state: State, id: UUID) -> DocumentProcess:
-        found_document_process: DocumentProcess = await self.document_process_repository.find_one_by_id(
+        found_document_process: DocumentProcess = await self.document_process_repository.find_one_by_id_and_accound_id(
             session=state.session,
-            id=id
+            id=id,
+            account_id=state.authorized_session.account_id
         )
         return found_document_process
 
@@ -50,16 +51,18 @@ class DocumentProcessManagement:
 
     async def patch_one_by_id_raw(self, state: State, id: UUID,
                                   document_process_patcher: DocumentProcess) -> DocumentProcess:
-        patched_document_process: DocumentProcess = await self.document_process_repository.patch_one_by_id(
+        patched_document_process: DocumentProcess = await self.document_process_repository.patch_one_by_id_and_account_id(
             session=state.session,
             id=id,
+            account_id=state.authorized_session.account_id,
             document_process_patcher=document_process_patcher
         )
         return patched_document_process
 
     async def delete_one_by_id(self, state: State, id: UUID) -> DocumentProcess:
-        deleted_document_process: DocumentProcess = await self.document_process_repository.delete_one_by_id(
+        deleted_document_process: DocumentProcess = await self.document_process_repository.delete_one_by_id_and_account_id(
             session=state.session,
-            id=id
+            id=id,
+            account_id=state.authorized_session.account_id
         )
         return deleted_document_process

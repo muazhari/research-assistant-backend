@@ -8,7 +8,6 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 
 from apps.inners.models.daos.document import Document
 from apps.outers.exceptions import repository_exception
-from apps.outers.exceptions.base_exception import BaseException
 
 
 class DocumentRepository:
@@ -16,16 +15,13 @@ class DocumentRepository:
     def __init__(self):
         pass
 
-    class NotFound(BaseException):
-        pass
-
-    class IntegrityError(BaseException):
-        pass
-
-    async def find_one_by_id(self, session: AsyncSession, id: UUID) -> Document:
+    async def find_one_by_id_and_accound_id(self, session: AsyncSession, id: UUID, account_id: UUID) -> Document:
         try:
             found_document_result: Result = await session.execute(
-                select(Document).where(Document.id == id).limit(1)
+                select(Document)
+                .where(Document.id == id)
+                .where(Document.account_id == account_id)
+                .limit(1)
             )
             found_document: Document = found_document_result.scalars().one()
         except sqlalchemy.exc.NoResultFound:
@@ -41,18 +37,21 @@ class DocumentRepository:
 
         return document_creator
 
-    async def patch_one_by_id(self, session: AsyncSession, id: UUID, document_patcher: Document) -> Document:
-        found_document: Document = await self.find_one_by_id(
+    async def patch_one_by_id_and_account_id(self, session: AsyncSession, id: UUID, account_id: UUID,
+                                             document_patcher: Document) -> Document:
+        found_document: Document = await self.find_one_by_id_and_accound_id(
             session=session,
-            id=id
+            id=id,
+            account_id=account_id
         )
         found_document.patch_from(document_patcher.dict(exclude_none=True))
         return found_document
 
-    async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> Document:
-        found_document: Document = await self.find_one_by_id(
+    async def delete_one_by_id_and_account_id(self, session: AsyncSession, id: UUID, account_id: UUID) -> Document:
+        found_document: Document = await self.find_one_by_id_and_accound_id(
             session=session,
-            id=id
+            id=id,
+            account_id=account_id
         )
         await session.delete(found_document)
         return found_document

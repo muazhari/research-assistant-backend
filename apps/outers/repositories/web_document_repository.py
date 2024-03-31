@@ -6,9 +6,9 @@ from sqlalchemy.engine import Result
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
+from apps.inners.models.daos.document import Document
 from apps.inners.models.daos.web_document import WebDocument
 from apps.outers.exceptions import repository_exception
-from apps.outers.exceptions.base_exception import BaseException
 
 
 class WebDocumentRepository:
@@ -16,16 +16,13 @@ class WebDocumentRepository:
     def __init__(self):
         pass
 
-    class NotFound(BaseException):
-        pass
-
-    class IntegrityError(BaseException):
-        pass
-
-    async def find_one_by_id(self, session: AsyncSession, id: UUID) -> WebDocument:
+    async def find_one_by_id_and_account_id(self, session: AsyncSession, id: UUID, account_id: UUID) -> WebDocument:
         try:
             found_web_document_result: Result = await session.execute(
-                select(WebDocument).where(WebDocument.id == id).limit(1)
+                select(WebDocument)
+                .join(Document, Document.id == WebDocument.id)
+                .where(WebDocument.id == id)
+                .where(Document.account_id == account_id)
             )
             found_web_document: WebDocument = found_web_document_result.scalars().one()
         except sqlalchemy.exc.NoResultFound:
@@ -41,20 +38,27 @@ class WebDocumentRepository:
 
         return web_document_creator
 
-    async def patch_one_by_id(self, session: AsyncSession, id: UUID,
-                              web_document_patcher: WebDocument) -> WebDocument:
-        found_web_document: WebDocument = await self.find_one_by_id(
+    async def patch_one_by_id_and_account_id(
+            self,
+            session: AsyncSession,
+            id: UUID,
+            account_id: UUID,
+            web_document_patcher: WebDocument
+    ) -> WebDocument:
+        found_web_document: WebDocument = await self.find_one_by_id_and_account_id(
             session=session,
-            id=id
+            id=id,
+            account_id=account_id
         )
         found_web_document.patch_from(web_document_patcher.dict(exclude_none=True))
 
         return found_web_document
 
-    async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> WebDocument:
-        found_web_document: WebDocument = await self.find_one_by_id(
+    async def delete_one_by_id_and_account_id(self, session: AsyncSession, id: UUID, account_id: UUID) -> WebDocument:
+        found_web_document: WebDocument = await self.find_one_by_id_and_account_id(
             session=session,
-            id=id
+            id=id,
+            account_id=account_id
         )
         await session.delete(found_web_document)
 

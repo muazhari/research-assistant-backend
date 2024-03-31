@@ -10,11 +10,11 @@ from sqlalchemy.engine import Result
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
+from apps.inners.models.daos.document import Document
 from apps.inners.models.daos.file_document import FileDocument
 from apps.outers.datastores.temp_datastore import TempDatastore
 from apps.outers.datastores.three_datastore import ThreeDatastore
 from apps.outers.exceptions import repository_exception
-from apps.outers.exceptions.base_exception import BaseException
 
 
 class FileDocumentRepository:
@@ -29,12 +29,6 @@ class FileDocumentRepository:
         self.three_datastore: ThreeDatastore = three_datastore
         self.file_path: Path = self.temp_datastore.temp_datastore_setting.TEMP_DATASTORE_PATH / "file_documents"
         self.file_path.mkdir(exist_ok=True)
-
-    class NotFound(BaseException):
-        pass
-
-    class IntegrityError(BaseException):
-        pass
 
     def save_file(self, file_name: str, file_data: bytes) -> Path:
         file_path: Path = self.file_path / file_name
@@ -88,10 +82,14 @@ class FileDocumentRepository:
 
         return file_data
 
-    async def find_one_by_id(self, session: AsyncSession, id: UUID) -> FileDocument:
+    async def find_one_by_id_and_account_id(self, session: AsyncSession, id: UUID, account_id: UUID) -> FileDocument:
         try:
             found_file_document_result: Result = await session.execute(
-                select(FileDocument).where(FileDocument.id == id).limit(1)
+                select(FileDocument)
+                .join(Document, Document.id == FileDocument.id)
+                .where(FileDocument.id == id)
+                .where(Document.account_id == account_id)
+                .limit(1)
             )
             found_file_document: FileDocument = found_file_document_result.scalars().one()
         except sqlalchemy.exc.NoResultFound:
@@ -116,16 +114,18 @@ class FileDocumentRepository:
 
         return file_document_creator
 
-    async def patch_one_by_id(
+    async def patch_one_by_id_and_account_id(
             self,
             session: AsyncSession,
             id: UUID,
+            account_id: UUID,
             file_document_patcher: FileDocument,
             file_data: bytes
     ) -> FileDocument:
-        found_file_document: FileDocument = await self.find_one_by_id(
+        found_file_document: FileDocument = await self.find_one_by_id_and_account_id(
             session=session,
-            id=id
+            id=id,
+            account_id=account_id
         )
         found_file_document.patch_from(file_document_patcher.dict(exclude_none=True))
         self.put_object(
@@ -135,10 +135,11 @@ class FileDocumentRepository:
 
         return found_file_document
 
-    async def delete_one_by_id(self, session: AsyncSession, id: UUID) -> FileDocument:
-        found_file_document: FileDocument = await self.find_one_by_id(
+    async def delete_one_by_id_and_account_id(self, session: AsyncSession, id: UUID, account_id: UUID) -> FileDocument:
+        found_file_document: FileDocument = await self.find_one_by_id_and_account_id(
             session=session,
-            id=id
+            id=id,
+            account_id=account_id
         )
         await session.delete(found_file_document)
         self.remove_object(object_name=found_file_document.file_name)
