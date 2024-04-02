@@ -11,3 +11,11 @@ class EmailAlreadyExists(BaseException):
 
 class DocumentTypeNotSupported(BaseException):
     pass
+
+
+class EmbeddingModelNameNotSupported(BaseException):
+    pass
+
+
+class ExistingCategorizedDocumentHashInvalid(BaseException):
+    pass

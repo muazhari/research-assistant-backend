@@ -2,10 +2,10 @@ from typing import List
 
 from langchain_core.documents import Document
 
-from apps.inners.models.base_model import BaseModel
+from apps.inners.models.base_model import BaseModelV1
 
 
-class DocumentCategory(BaseModel):
+class DocumentCategory(BaseModelV1):
     texts: List[Document]
     tables: List[Document]
     images: List[Document]

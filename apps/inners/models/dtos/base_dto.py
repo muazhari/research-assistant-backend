@@ -1,5 +1,5 @@
-from apps.inners.models.base_model import BaseModel
+from apps.inners.models.base_model import BaseModelV2
 
 
-class BaseDto(BaseModel):
+class BaseDto(BaseModelV2):
     pass

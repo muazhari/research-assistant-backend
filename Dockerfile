@@ -15,7 +15,8 @@ RUN yes | DEBIAN_FRONTEND=noninteractive apt install -y \
     libreoffice \
     pandoc \
     libxml2-dev \
-    libxslt1-dev
+    libxslt1-dev \
+    libgraphviz-dev
 
 # Install paddleocr
 RUN pip3 install paddlepaddle-gpu -i https://pypi.tuna.tsinghua.edu.cn/simple

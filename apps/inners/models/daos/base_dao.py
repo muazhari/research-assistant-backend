@@ -1,7 +1,7 @@
 from sqlmodel import SQLModel
 
-from apps.inners.models.base_model import BaseModel
+from apps.inners.models.base_model import BaseModelV2
 
 
-class BaseDao(BaseModel, SQLModel):
+class BaseDao(BaseModelV2, SQLModel):
     pass
