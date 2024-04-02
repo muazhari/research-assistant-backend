@@ -23,3 +23,7 @@ class ExistingCategorizedDocumentHashInvalid(BaseException):
 
 class DocumentStoreRetrieveError(BaseException):
     pass
+
+
+class ExistingGeneratedAnswerHashInvalid(BaseException):
+    pass

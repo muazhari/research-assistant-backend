@@ -5,6 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/exceptions/use_case_exception.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/exceptions/use_case_exception.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-1-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-10-12.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-11-13.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-12-14.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-13-15.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-14-16.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-15-17.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-15-18.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-15-19.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-15-20.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-2-2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-3-3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-3-4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-4-5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-5-6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-5-7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-6-8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-7-9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-8-10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-9-11.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -363,7 +385,7 @@
       <workItem from="1711864705514" duration="32273000" />
       <workItem from="1711898269005" duration="2954000" />
       <workItem from="1711958731242" duration="47624000" />
-      <workItem from="1712079509221" duration="426000" />
+      <workItem from="1712079509221" duration="8578000" />
     </task>
     <servers />
   </component>
