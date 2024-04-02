@@ -19,3 +19,7 @@ class EmbeddingModelNameNotSupported(BaseException):
 
 class ExistingCategorizedDocumentHashInvalid(BaseException):
     pass
+
+
+class DocumentStoreRetrieveError(BaseException):
+    pass
