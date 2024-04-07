@@ -6,27 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inners/exceptions/use_case_exception.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/exceptions/use_case_exception.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-1-1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-10-12.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-11-13.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-12-14.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-13-15.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-14-16.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-15-17.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-15-18.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-15-19.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-15-20.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-2-2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-3-3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-3-4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-4-5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-5-6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-5-7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-6-8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-7-9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-8-10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/8d6a191a8bb02b3cd77352306b856e2269394cc5f43110df19c9ae11384637e5/figure-9-11.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -78,51 +57,51 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Docker.muazhari/research-assistant-backend-dev:latest.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.muazhari/research-assistant-backend.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.muazhari/research-assistant-backend:latest.executor&quot;: &quot;Run&quot;,
-    &quot;FastAPI.run-1.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests for document_controller_test.test__patch_one_by_id__should_patch_one_document__succeed.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests for document_process_controller_test.test__patch_one_by_id__should_patch_one_document_process__succeed.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in account_controller_test.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in authentication_controller_test.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in document_controller_test.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in document_process_controller_test.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in document_type_controller_test.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in file_document_controller_test.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in text_document_controller_test.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in web_document_controller_test.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.pytest in one of tests.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.pytest in test.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.pytest in tests.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.document_type_mock.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.path_playground.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.test (1).executor&quot;: &quot;Debug&quot;,
-    &quot;Python.test.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Data/Apps/research-assistant-backend/apps/outers/settings&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\M Kharisma Azhari\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\231.9011.38\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Docker.muazhari/research-assistant-backend-dev:latest.executor": "Run",
+    "Docker.muazhari/research-assistant-backend.executor": "Run",
+    "Docker.muazhari/research-assistant-backend:latest.executor": "Run",
+    "FastAPI.run-1.executor": "Debug",
+    "Python tests.Python tests for document_controller_test.test__patch_one_by_id__should_patch_one_document__succeed.executor": "Debug",
+    "Python tests.Python tests for document_process_controller_test.test__patch_one_by_id__should_patch_one_document_process__succeed.executor": "Debug",
+    "Python tests.Python tests in account_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in authentication_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in document_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in document_process_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in document_type_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in file_document_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in text_document_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in web_document_controller_test.py.executor": "Debug",
+    "Python tests.pytest in one of tests.executor": "Debug",
+    "Python tests.pytest in test.executor": "Debug",
+    "Python tests.pytest in tests.executor": "Debug",
+    "Python.document_type_mock.executor": "Debug",
+    "Python.path_playground.executor": "Debug",
+    "Python.test (1).executor": "Debug",
+    "Python.test.executor": "Debug",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Data/Apps/FlagEmbedding",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Users\\M Kharisma Azhari\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\231.9011.38\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="PyCoverageOptionsProvider">
     <option name="myUseBundledCoveragePy" value="true" />
   </component>
@@ -142,7 +121,7 @@
       <recent name="C:\Data\Apps\research-assistant-backend\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.pytest in tests">
+  <component name="RunManager" selected="Docker.muazhari/research-assistant-backend:latest">
     <configuration name="path_playground" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="research-assistant-backend" />
       <option name="ENV_FILES" value="" />
@@ -385,7 +364,10 @@
       <workItem from="1711864705514" duration="32273000" />
       <workItem from="1711898269005" duration="2954000" />
       <workItem from="1711958731242" duration="47624000" />
-      <workItem from="1712079509221" duration="8578000" />
+      <workItem from="1712079509221" duration="12413000" />
+      <workItem from="1712114324741" duration="29012000" />
+      <workItem from="1712208214031" duration="973000" />
+      <workItem from="1712212043164" duration="86480000" />
     </task>
     <servers />
   </component>
@@ -394,7 +376,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_one_of_tests.coverage" NAME="pytest in one of tests Coverage Results" MODIFIED="1711687265695" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_tests.coverage" NAME="pytest in tests Coverage Results" MODIFIED="1712050285521" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_tests.coverage" NAME="pytest in tests Coverage Results" MODIFIED="1712196730311" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1711413243894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_app_outers_interfaces_deliveries_controllers_file_document_controller_test.coverage" NAME="pytest for test.app.outers.interfaces.deliveries.controllers.file_document_controller_test Coverage Results" MODIFIED="1685532826646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1711485769603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

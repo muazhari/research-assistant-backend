@@ -1,5 +1,5 @@
-from pydantic import BaseModel as BaseModelV2
-from pydantic.v1 import BaseModel as BaseModelV1
+from pydantic import BaseModel as PydanticBaseModelV2
+from pydantic.v1 import BaseModel as PydanticBaseModelV1
 
 
 class BaseModel:
@@ -11,14 +11,14 @@ class BaseModel:
         return self
 
 
-class BaseModelV1(BaseModelV1, BaseModel):
+class BaseModelV1(PydanticBaseModelV1, BaseModel):
     class Config:
         arbitrary_types_allowed = True
         validate_all = True
         validate_assignment = True
 
 
-class BaseModelV2(BaseModelV2, BaseModel):
+class BaseModelV2(PydanticBaseModelV2, BaseModel):
     class Config:
         arbitrary_types_allowed = True
         revalidate_instances = "always"

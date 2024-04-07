@@ -13,7 +13,6 @@ langchain
 bcrypt
 redis
 minio
-unstructured[all-docs]
 litellm
 langgraph
 ragas
@@ -22,4 +21,8 @@ sentence-transformers
 pydantic-settings
 pymilvus
 pygraphviz
-gandalf
+grandalf
+langchain-anthropic
+defusedxml
+flagembedding
+opencv-python>=4.8.0.76

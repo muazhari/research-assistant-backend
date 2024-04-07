@@ -10,3 +10,6 @@ class DocumentCategory(BaseModelV1):
     tables: List[Document]
     images: List[Document]
     id_key: str
+
+    def get_all(self) -> List[Document]:
+        return self.texts + self.tables + self.images

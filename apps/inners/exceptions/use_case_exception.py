@@ -27,3 +27,27 @@ class DocumentStoreRetrieveError(BaseException):
 
 class ExistingGeneratedAnswerHashInvalid(BaseException):
     pass
+
+
+class ExistingGeneratedHallucinationGradeHashInvalid(BaseException):
+    pass
+
+
+class EmbeddingFunctionalityNotSupported(BaseException):
+    pass
+
+
+class QueryInstructionNotProvided(BaseException):
+    pass
+
+
+class ExistingGeneratedAnswerRelevancyGradeHashInvalid(BaseException):
+    pass
+
+
+class ExistingGeneratedQuestionHashInvalid(BaseException):
+    pass
+
+
+class LlmProviderNotSupported(BaseException):
+    pass

@@ -1,4 +1,5 @@
-from redis.asyncio import Redis
+from redis import Redis as SyncRedis
+from redis.asyncio import Redis as AsyncRedis
 
 from apps.outers.settings.two_datastore_setting import TwoDatastoreSetting
 
@@ -10,6 +11,9 @@ class TwoDatastore:
             two_datastore_setting: TwoDatastoreSetting
     ):
         self.two_datastore_setting: TwoDatastoreSetting = two_datastore_setting
-        self.client: Redis = Redis.from_url(
+        self.async_client: AsyncRedis = AsyncRedis.from_url(
+            url=self.two_datastore_setting.URL
+        )
+        self.sync_client: SyncRedis = SyncRedis.from_url(
             url=self.two_datastore_setting.URL
         )
