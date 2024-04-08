@@ -3,21 +3,21 @@ from datetime import datetime, timedelta, timezone
 from typing import List
 
 from apps.inners.models.daos.session import Session
-from tests.mocks.account_mock import AccountMock
+from tests.fakes.account_fake import AccountFake
 
 
-class SessionMock:
+class SessionFake:
 
     def __init__(
             self,
-            account_mock: AccountMock
+            account_fake: AccountFake
     ):
-        self.account_mock: AccountMock = account_mock
+        self.account_fake: AccountFake = account_fake
         current_time: datetime = datetime.now(tz=timezone.utc)
         self._data: List[Session] = [
             Session(
                 id=uuid.uuid4(),
-                account_id=self.account_mock.data[0].id,
+                account_id=self.account_fake.data[0].id,
                 access_token=str(uuid.uuid4()),
                 refresh_token=str(uuid.uuid4()),
                 access_token_expired_at=current_time + timedelta(minutes=10),
@@ -25,7 +25,7 @@ class SessionMock:
             ),
             Session(
                 id=uuid.uuid4(),
-                account_id=self.account_mock.data[1].id,
+                account_id=self.account_fake.data[1].id,
                 access_token=str(uuid.uuid4()),
                 refresh_token=str(uuid.uuid4()),
                 access_token_expired_at=current_time + timedelta(minutes=10),

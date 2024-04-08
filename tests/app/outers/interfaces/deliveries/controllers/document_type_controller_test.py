@@ -17,10 +17,10 @@ url_path: str = "/api/document-types"
 
 @pytest.mark.asyncio
 async def test__find_one_by_id__should__succeed(main_context: MainContext):
-    selected_session_mock: Session = main_context.all_seeder.session_seeder.session_mock.data[0]
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
     id: str = "text"
     headers: dict = {
-        "Authorization": f"Bearer {selected_session_mock.access_token}"
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.get(
         url=f"{url_path}/{id}",
@@ -37,17 +37,17 @@ async def test__find_one_by_id__should__succeed(main_context: MainContext):
 
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_document_type__succeed(main_context: MainContext):
-    selected_session_mock: Session = main_context.all_seeder.session_seeder.session_mock.data[0]
-    selected_document_type_mock: DocumentType = main_context.all_seeder.document_type_seeder.document_type_mock.data[0]
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
+    selected_document_type_fake: DocumentType = main_context.all_seeder.document_type_seeder.document_type_fake.data[0]
     document_type_patcher_body: PatchOneBody = PatchOneBody(
-        id=selected_document_type_mock.id,
+        id=selected_document_type_fake.id,
         description=f"description{uuid.uuid4()}",
     )
     headers: dict = {
-        "Authorization": f"Bearer {selected_session_mock.access_token}"
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.patch(
-        url=f"{url_path}/{selected_document_type_mock.id}",
+        url=f"{url_path}/{selected_document_type_fake.id}",
         json=json.loads(document_type_patcher_body.json()),
         headers=headers
     )

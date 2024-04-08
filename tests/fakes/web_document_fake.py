@@ -3,26 +3,26 @@ import uuid
 from typing import List
 
 from apps.inners.models.daos.web_document import WebDocument
-from tests.mocks.document_mock import DocumentMock
+from tests.fakes.document_fake import DocumentFake
 
 
-class WebDocumentMock:
+class WebDocumentFake:
 
     def __init__(
             self,
-            document_mock: DocumentMock
+            document_fake: DocumentFake
     ):
-        self.document_mock: DocumentMock = document_mock
+        self.document_fake: DocumentFake = document_fake
         web_url_0 = "https://www.google.com"
         web_url_1 = "https://www.bing.com"
         self._data: List[WebDocument] = [
             WebDocument(
-                id=self.document_mock.data[2].id,
+                id=self.document_fake.data[2].id,
                 web_url=web_url_0,
                 web_url_hash=hashlib.sha256(web_url_0.encode()).hexdigest()
             ),
             WebDocument(
-                id=self.document_mock.data[5].id,
+                id=self.document_fake.data[5].id,
                 web_url=web_url_1,
                 web_url_hash=hashlib.sha256(web_url_1.encode()).hexdigest()
             ),

@@ -12,8 +12,14 @@ class TwoDatastore:
     ):
         self.two_datastore_setting: TwoDatastoreSetting = two_datastore_setting
         self.async_client: AsyncRedis = AsyncRedis.from_url(
-            url=self.two_datastore_setting.URL
+            url=self.two_datastore_setting.URL,
+            health_check_interval=10,
+            retry_on_timeout=True,
+            socket_keepalive=True
         )
         self.sync_client: SyncRedis = SyncRedis.from_url(
-            url=self.two_datastore_setting.URL
+            url=self.two_datastore_setting.URL,
+            health_check_interval=10,
+            retry_on_timeout=True,
+            socket_keepalive=True
         )

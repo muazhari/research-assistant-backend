@@ -23,11 +23,11 @@ url_path: str = "/api/authentications"
 
 @pytest.mark.asyncio
 async def test__login_by_email_and_password__succeed(main_context: MainContext):
-    selected_account_mock: Account = main_context.all_seeder.account_seeder.account_mock.data[0]
-    selected_session_mock: Session = main_context.all_seeder.session_seeder.session_mock.data[0]
+    selected_account_fake: Account = main_context.all_seeder.account_seeder.account_fake.data[0]
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
     login_by_email_and_password_body: LoginByEmailAndPasswordBody = LoginByEmailAndPasswordBody(
-        email=selected_account_mock.email,
-        password=selected_account_mock.password
+        email=selected_account_fake.email,
+        password=selected_account_fake.password
     )
     params: dict = {
         "method": "email_and_password"
@@ -43,18 +43,21 @@ async def test__login_by_email_and_password__succeed(main_context: MainContext):
         status_code=response.status_code
     )
     assert content.status_code == status.HTTP_200_OK
-    assert content.data.account.id == selected_account_mock.id
-    assert content.data.account.email == selected_account_mock.email
-    assert bcrypt.checkpw(selected_account_mock.password.encode(), content.data.account.password.encode())
-    assert content.data.session == selected_session_mock
+    assert content.data.account.id == selected_account_fake.id
+    assert content.data.account.email == selected_account_fake.email
+    assert bcrypt.checkpw(
+        password=selected_account_fake.password.encode(),
+        hashed_password=content.data.account.password.encode()
+    )
+    assert content.data.session == selected_session_fake
 
 
 @pytest.mark.asyncio
 async def test__login_by_email_and_password__failed__when__email_is_not_found(main_context: MainContext):
-    selected_account_mock: Account = main_context.all_seeder.account_seeder.account_mock.data[0]
+    selected_account_fake: Account = main_context.all_seeder.account_seeder.account_fake.data[0]
     login_by_email_and_password_body: LoginByEmailAndPasswordBody = LoginByEmailAndPasswordBody(
         email=f"email{uuid.uuid4()}@mail.com",
-        password=selected_account_mock.password,
+        password=selected_account_fake.password,
     )
     params: dict = {
         "method": "email_and_password"
@@ -75,9 +78,9 @@ async def test__login_by_email_and_password__failed__when__email_is_not_found(ma
 
 @pytest.mark.asyncio
 async def test__login_by_email_and_password__failed__when__password_is_not_matched(main_context: MainContext):
-    selected_account_mock: Account = main_context.all_seeder.account_seeder.account_mock.data[0]
+    selected_account_fake: Account = main_context.all_seeder.account_seeder.account_fake.data[0]
     login_by_email_and_password_body: LoginByEmailAndPasswordBody = LoginByEmailAndPasswordBody(
-        email=selected_account_mock.email,
+        email=selected_account_fake.email,
         password=f"password{uuid.uuid4()}"
     )
     params: dict = {
@@ -99,10 +102,10 @@ async def test__login_by_email_and_password__failed__when__password_is_not_match
 
 @pytest.mark.asyncio
 async def test__login_by_email_and_password__failed__when__method_is_not_supported(main_context: MainContext):
-    selected_account_mock: Account = main_context.all_seeder.account_seeder.account_mock.data[0]
+    selected_account_fake: Account = main_context.all_seeder.account_seeder.account_fake.data[0]
     login_by_email_and_password_body: LoginByEmailAndPasswordBody = LoginByEmailAndPasswordBody(
-        email=selected_account_mock.email,
-        password=selected_account_mock.password
+        email=selected_account_fake.email,
+        password=selected_account_fake.password
     )
     params: dict = {
         "method": f"{uuid.uuid4()}"
@@ -142,8 +145,10 @@ async def test__register_by_email_and_password__succeed(main_context: MainContex
     )
     assert content.status_code == status.HTTP_201_CREATED
     assert content.data.account.email == register_by_email_and_password_body.email
-    assert bcrypt.checkpw(register_by_email_and_password_body.password.encode(),
-                          content.data.account.password.encode())
+    assert bcrypt.checkpw(
+        password=register_by_email_and_password_body.password.encode(),
+        hashed_password=content.data.account.password.encode()
+    )
 
 
 @pytest.mark.asyncio
@@ -171,9 +176,9 @@ async def test__register_by_email_and_password__failed__when__method_is_not_supp
 
 @pytest.mark.asyncio
 async def test__logout__succeed(main_context: MainContext):
-    selected_session_mock: Session = main_context.all_seeder.session_seeder.session_mock.data[0]
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
     headers: dict = {
-        "Authorization": f"Bearer {selected_session_mock.access_token}"
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.post(
         url=f"{url_path}/logouts",
@@ -186,4 +191,4 @@ async def test__logout__succeed(main_context: MainContext):
     )
     assert content.status_code == status.HTTP_200_OK
     assert content.data is None
-    main_context.all_seeder.delete_many_session_by_id_cascade(selected_session_mock.id)
+    main_context.all_seeder.delete_many_session_by_id_cascade(selected_session_fake.id)

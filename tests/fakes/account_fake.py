@@ -4,7 +4,7 @@ from typing import List
 from apps.inners.models.daos.account import Account
 
 
-class AccountMock:
+class AccountFake:
 
     def __init__(self):
         self._data: List[Account] = [

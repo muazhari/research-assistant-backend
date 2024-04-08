@@ -20,13 +20,13 @@ url_path: str = "/api/accounts"
 
 @pytest.mark.asyncio
 async def test__find_one_by_id__should__succeed(main_context: MainContext):
-    selected_account_mock: Account = main_context.all_seeder.account_seeder.account_mock.data[0]
-    selected_session_mock: Session = main_context.all_seeder.session_seeder.session_mock.data[0]
+    selected_account_fake: Account = main_context.all_seeder.account_seeder.account_fake.data[0]
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
     headers: dict = {
-        "Authorization": f"Bearer {selected_session_mock.access_token}"
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.get(
-        url=f"{url_path}/{selected_account_mock.id}",
+        url=f"{url_path}/{selected_account_fake.id}",
         headers=headers
     )
     content: Content[Account] = Content[Account](
@@ -34,20 +34,20 @@ async def test__find_one_by_id__should__succeed(main_context: MainContext):
         status_code=response.status_code
     )
     assert content.status_code == status.HTTP_200_OK
-    assert content.data.id == selected_account_mock.id
-    assert content.data.email == selected_account_mock.email
-    assert bcrypt.checkpw(selected_account_mock.password.encode(), content.data.password.encode())
+    assert content.data.id == selected_account_fake.id
+    assert content.data.email == selected_account_fake.email
+    assert bcrypt.checkpw(selected_account_fake.password.encode(), content.data.password.encode())
 
 
 @pytest.mark.asyncio
 async def test__create_one__should_create_one_account__succeed(main_context: MainContext):
-    selected_session_mock: Session = main_context.all_seeder.session_seeder.session_mock.data[0]
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
     account_creator_body: CreateOneBody = CreateOneBody(
         email=f"email{uuid.uuid4()}@mail.com",
         password="password0",
     )
     headers: dict = {
-        "Authorization": f"Bearer {selected_session_mock.access_token}"
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.post(
         url=url_path,
@@ -65,17 +65,17 @@ async def test__create_one__should_create_one_account__succeed(main_context: Mai
 
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_account__succeed(main_context: MainContext):
-    selected_account_mock: Account = main_context.all_seeder.account_seeder.account_mock.data[0]
-    selected_session_mock: Session = main_context.all_seeder.session_seeder.session_mock.data[0]
+    selected_account_fake: Account = main_context.all_seeder.account_seeder.account_fake.data[0]
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
     account_patcher_body: PatchOneBody = PatchOneBody(
         email=f"patched.email{uuid.uuid4()}@mail.com",
         password="patched.password1",
     )
     headers: dict = {
-        "Authorization": f"Bearer {selected_session_mock.access_token}"
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.patch(
-        url=f"{url_path}/{selected_account_mock.id}",
+        url=f"{url_path}/{selected_account_fake.id}",
         json=json.loads(account_patcher_body.json()),
         headers=headers
     )
@@ -91,13 +91,13 @@ async def test__patch_one_by_id__should_patch_one_account__succeed(main_context:
 
 @pytest.mark.asyncio
 async def test__delete_one_by_id__should_delete_one_account__succeed(main_context: MainContext):
-    selected_account_mock: Account = main_context.all_seeder.account_seeder.account_mock.data[0]
-    selected_session_mock: Session = main_context.all_seeder.session_seeder.session_mock.data[0]
+    selected_account_fake: Account = main_context.all_seeder.account_seeder.account_fake.data[0]
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
     headers: dict = {
-        "Authorization": f"Bearer {selected_session_mock.access_token}"
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.delete(
-        url=f"{url_path}/{selected_account_mock.id}",
+        url=f"{url_path}/{selected_account_fake.id}",
         headers=headers
     )
 
@@ -106,7 +106,7 @@ async def test__delete_one_by_id__should_delete_one_account__succeed(main_contex
         status_code=response.status_code
     )
     assert content.status_code == status.HTTP_200_OK
-    assert content.data.id == selected_account_mock.id
-    assert content.data.email == selected_account_mock.email
-    assert bcrypt.checkpw(selected_account_mock.password.encode(), content.data.password.encode())
-    main_context.all_seeder.delete_many_account_by_id_cascade(selected_account_mock.id)
+    assert content.data.id == selected_account_fake.id
+    assert content.data.email == selected_account_fake.email
+    assert bcrypt.checkpw(selected_account_fake.password.encode(), content.data.password.encode())
+    main_context.all_seeder.delete_many_account_by_id_cascade(selected_account_fake.id)

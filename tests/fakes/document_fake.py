@@ -2,61 +2,61 @@ import uuid
 from typing import List
 
 from apps.inners.models.daos.document import Document
-from tests.mocks.account_mock import AccountMock
-from tests.mocks.document_type_mock import DocumentTypeMock
+from tests.fakes.account_fake import AccountFake
+from tests.fakes.document_type_fake import DocumentTypeFake
 
 
-class DocumentMock:
+class DocumentFake:
 
     def __init__(
             self,
-            account_mock: AccountMock,
-            document_type_mock_data: DocumentTypeMock
+            account_fake: AccountFake,
+            document_type_fake_data: DocumentTypeFake
     ):
-        self.account_mock: AccountMock = account_mock
-        self.document_type_mock: DocumentTypeMock = document_type_mock_data
+        self.account_fake: AccountFake = account_fake
+        self.document_type_fake: DocumentTypeFake = document_type_fake_data
         self._data: List[Document] = [
             Document(
                 id=uuid.uuid4(),
                 name="name0",
                 description="description0",
-                account_id=self.account_mock.data[0].id,  # This is a dict, not a model
-                document_type_id=self.document_type_mock.data[0].id,
+                account_id=self.account_fake.data[0].id,  # This is a dict, not a model
+                document_type_id=self.document_type_fake.data[0].id,
             ),
             Document(
                 id=uuid.uuid4(),
                 name="name1",
                 description="description1",
-                account_id=self.account_mock.data[0].id,
-                document_type_id=self.document_type_mock.data[1].id,
+                account_id=self.account_fake.data[0].id,
+                document_type_id=self.document_type_fake.data[1].id,
             ),
             Document(
                 id=uuid.uuid4(),
                 name="name2",
                 description="description2",
-                account_id=self.account_mock.data[0].id,
-                document_type_id=self.document_type_mock.data[2].id,
+                account_id=self.account_fake.data[0].id,
+                document_type_id=self.document_type_fake.data[2].id,
             ),
             Document(
                 id=uuid.uuid4(),
                 name="name3",
                 description="description3",
-                account_id=self.account_mock.data[1].id,
-                document_type_id=self.document_type_mock.data[0].id,
+                account_id=self.account_fake.data[1].id,
+                document_type_id=self.document_type_fake.data[0].id,
             ),
             Document(
                 id=uuid.uuid4(),
                 name="name4",
                 description="description4",
-                account_id=self.account_mock.data[1].id,
-                document_type_id=self.document_type_mock.data[1].id,
+                account_id=self.account_fake.data[1].id,
+                document_type_id=self.document_type_fake.data[1].id,
             ),
             Document(
                 id=uuid.uuid4(),
                 name="name5",
                 description="description5",
-                account_id=self.account_mock.data[1].id,
-                document_type_id=self.document_type_mock.data[2].id,
+                account_id=self.account_fake.data[1].id,
+                document_type_id=self.document_type_fake.data[2].id,
             )
         ]
 

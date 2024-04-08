@@ -65,7 +65,7 @@ class AllSeeder:
         await self.one_datastore.retryable(handler)
 
     async def up_one_document(self, document: Document):
-        self.document_seeder.document_mock.create_one(document)
+        self.document_seeder.document_fake.create_one(document)
 
         async def handler(session: AsyncSession):
             session.add(Document(**document.dict()))
@@ -73,49 +73,49 @@ class AllSeeder:
         await self.one_datastore.retryable(handler)
 
     def delete_many_web_document_by_id_cascade(self, id: UUID):
-        self.web_document_seeder.web_document_mock.delete_many_by_id(id)
+        self.web_document_seeder.web_document_fake.delete_many_by_id(id)
         self.delete_many_document_by_id_cascade(id)
 
     def delete_many_file_document_by_id_cascade(self, id: UUID):
-        self.file_document_seeder.file_document_mock.delete_many_by_id(id)
+        self.file_document_seeder.file_document_fake.delete_many_by_id(id)
         self.delete_many_document_by_id_cascade(id)
 
     def delete_many_text_document_by_id_cascade(self, id: UUID):
-        self.text_document_seeder.text_document_mock.delete_many_by_id(id)
+        self.text_document_seeder.text_document_fake.delete_many_by_id(id)
         self.delete_many_document_by_id_cascade(id)
 
     def delete_many_document_process_by_id_cascade(self, id: UUID):
-        self.document_process_seeder.document_process_mock.delete_many_by_id(id)
+        self.document_process_seeder.document_process_fake.delete_many_by_id(id)
 
     def delete_many_document_by_id_cascade(self, id: UUID):
-        for web_document in self.web_document_seeder.web_document_mock.data:
+        for web_document in self.web_document_seeder.web_document_fake.data:
             if id in [web_document.id]:
-                self.web_document_seeder.web_document_mock.delete_many_by_id(id)
+                self.web_document_seeder.web_document_fake.delete_many_by_id(id)
 
-        for file_document in self.file_document_seeder.file_document_mock.data:
+        for file_document in self.file_document_seeder.file_document_fake.data:
             if id in [file_document.id]:
-                self.file_document_seeder.file_document_mock.delete_many_by_id(id)
+                self.file_document_seeder.file_document_fake.delete_many_by_id(id)
 
-        for text_document in self.text_document_seeder.text_document_mock.data:
+        for text_document in self.text_document_seeder.text_document_fake.data:
             if id in [text_document.id]:
-                self.text_document_seeder.text_document_mock.delete_many_by_id(id)
+                self.text_document_seeder.text_document_fake.delete_many_by_id(id)
 
-        for document_process in self.document_process_seeder.document_process_mock.data:
+        for document_process in self.document_process_seeder.document_process_fake.data:
             if id in [document_process.initial_document_id, document_process.final_document_id]:
-                self.document_process_seeder.document_process_mock.delete_many_by_id(document_process.id)
+                self.document_process_seeder.document_process_fake.delete_many_by_id(document_process.id)
 
-        self.document_seeder.document_mock.delete_many_by_id(id)
+        self.document_seeder.document_fake.delete_many_by_id(id)
 
     def delete_many_account_by_id_cascade(self, id: UUID):
-        for document in self.document_seeder.document_mock.data:
+        for document in self.document_seeder.document_fake.data:
             if id in [document.account_id]:
                 self.delete_many_document_by_id_cascade(document.id)
 
-        for session in self.session_seeder.session_mock.data:
+        for session in self.session_seeder.session_fake.data:
             if id in [session.account_id]:
-                self.session_seeder.session_mock.delete_many_by_id(session.id)
+                self.session_seeder.session_fake.delete_many_by_id(session.id)
 
-        self.account_seeder.account_mock.delete_many_by_id(id)
+        self.account_seeder.account_fake.delete_many_by_id(id)
 
     def delete_many_session_by_id_cascade(self, id: UUID):
-        self.session_seeder.session_mock.delete_many_by_id(id)
+        self.session_seeder.session_fake.delete_many_by_id(id)

@@ -14,47 +14,47 @@ from tests.seeders.web_document_seeder import WebDocumentSeeder
 
 class SeederContainer(DeclarativeContainer):
     datastores = providers.DependenciesContainer()
-    mocks = providers.DependenciesContainer()
+    fakes = providers.DependenciesContainer()
 
     account = providers.Singleton(
         AccountSeeder,
-        account_mock=mocks.account
+        account_fake=fakes.account
     )
 
     session = providers.Singleton(
         SessionSeeder,
-        session_mock=mocks.session
+        session_fake=fakes.session
     )
 
     document_type = providers.Singleton(
         DocumentTypeSeeder,
-        document_type_mock=mocks.document_type
+        document_type_fake=fakes.document_type
     )
 
     document = providers.Singleton(
         DocumentSeeder,
-        document_mock=mocks.document
+        document_fake=fakes.document
     )
 
     document_process = providers.Singleton(
         DocumentProcessSeeder,
-        document_process_mock=mocks.document_process
+        document_process_fake=fakes.document_process
     )
 
     text_document = providers.Singleton(
         TextDocumentSeeder,
-        text_document_mock=mocks.text_document
+        text_document_fake=fakes.text_document
     )
 
     file_document = providers.Singleton(
         FileDocumentSeeder,
-        file_document_mock=mocks.file_document,
+        file_document_fake=fakes.file_document,
         three_datastore=datastores.three
     )
 
     web_document = providers.Singleton(
         WebDocumentSeeder,
-        web_document_mock=mocks.web_document
+        web_document_fake=fakes.web_document
     )
 
     all = providers.Singleton(

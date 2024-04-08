@@ -3,7 +3,7 @@ from typing import List
 from apps.inners.models.daos.document_type import DocumentType
 
 
-class DocumentTypeMock:
+class DocumentTypeFake:
 
     def __init__(self):
         self._data: List[DocumentType] = [

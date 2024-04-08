@@ -19,13 +19,13 @@ url_path: str = "/api/documents"
 
 @pytest.mark.asyncio
 async def test__find_one_by_id__should__succeed(main_context: MainContext):
-    selected_document_mock: Document = main_context.all_seeder.document_seeder.document_mock.data[0]
-    selected_session_mock: Session = main_context.all_seeder.session_seeder.session_mock.data[0]
+    selected_document_fake: Document = main_context.all_seeder.document_seeder.document_fake.data[0]
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
     headers: dict = {
-        "Authorization": f"Bearer {selected_session_mock.access_token}"
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.get(
-        url=f"{url_path}/{selected_document_mock.id}",
+        url=f"{url_path}/{selected_document_fake.id}",
         headers=headers
     )
 
@@ -34,22 +34,22 @@ async def test__find_one_by_id__should__succeed(main_context: MainContext):
         status_code=response.status_code
     )
     assert content.status_code == status.HTTP_200_OK
-    assert content.data == selected_document_mock
+    assert content.data == selected_document_fake
 
 
 @pytest.mark.asyncio
 async def test__create_one__should_create_one_document__succeed(main_context: MainContext):
-    selected_document_type_mock: DocumentType = main_context.all_seeder.document_type_seeder.document_type_mock.data[0]
-    selected_account_mock: Account = main_context.all_seeder.document_seeder.document_mock.account_mock.data[0]
-    selected_session_mock: Session = main_context.all_seeder.session_seeder.session_mock.data[0]
+    selected_document_type_fake: DocumentType = main_context.all_seeder.document_type_seeder.document_type_fake.data[0]
+    selected_account_fake: Account = main_context.all_seeder.document_seeder.document_fake.account_fake.data[0]
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
     document_creator_body: CreateOneBody = CreateOneBody(
         name=f"name{uuid.uuid4()}",
         description=f"description{uuid.uuid4()}",
-        document_type_id=selected_document_type_mock.id,
-        account_id=selected_account_mock.id
+        document_type_id=selected_document_type_fake.id,
+        account_id=selected_account_fake.id
     )
     headers: dict = {
-        "Authorization": f"Bearer {selected_session_mock.access_token}"
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.post(
         url=url_path,
@@ -70,21 +70,21 @@ async def test__create_one__should_create_one_document__succeed(main_context: Ma
 
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_document__succeed(main_context: MainContext):
-    selected_document_mock: Document = main_context.all_seeder.document_seeder.document_mock.data[0]
-    selected_document_type_mock: DocumentType = main_context.all_seeder.document_type_seeder.document_type_mock.data[0]
-    selected_account_mock: Account = main_context.all_seeder.document_seeder.document_mock.account_mock.data[0]
-    selected_session_mock: Session = main_context.all_seeder.session_seeder.session_mock.data[0]
+    selected_document_fake: Document = main_context.all_seeder.document_seeder.document_fake.data[0]
+    selected_document_type_fake: DocumentType = main_context.all_seeder.document_type_seeder.document_type_fake.data[0]
+    selected_account_fake: Account = main_context.all_seeder.document_seeder.document_fake.account_fake.data[0]
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
     document_patcher_body: CreateOneBody = CreateOneBody(
         name=f"patched.name{uuid.uuid4()}",
         description=f"patched.description{uuid.uuid4()}",
-        document_type_id=selected_document_type_mock.id,
-        account_id=selected_account_mock.id
+        document_type_id=selected_document_type_fake.id,
+        account_id=selected_account_fake.id
     )
     headers: dict = {
-        "Authorization": f"Bearer {selected_session_mock.access_token}"
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.patch(
-        url=f"{url_path}/{selected_document_mock.id}",
+        url=f"{url_path}/{selected_document_fake.id}",
         json=json.loads(document_patcher_body.json()),
         headers=headers
     )
@@ -94,7 +94,7 @@ async def test__patch_one_by_id__should_patch_one_document__succeed(main_context
         status_code=response.status_code
     )
     assert content.status_code == status.HTTP_200_OK
-    assert content.data.id == selected_document_mock.id
+    assert content.data.id == selected_document_fake.id
     assert content.data.name == document_patcher_body.name
     assert content.data.description == document_patcher_body.description
     assert content.data.document_type_id == document_patcher_body.document_type_id
@@ -103,13 +103,13 @@ async def test__patch_one_by_id__should_patch_one_document__succeed(main_context
 
 @pytest.mark.asyncio
 async def test__delete_one_by_id__should_delete_one_document__succeed(main_context: MainContext):
-    selected_document_mock: Document = main_context.all_seeder.document_seeder.document_mock.data[0]
-    selected_session_mock: Session = main_context.all_seeder.session_seeder.session_mock.data[0]
+    selected_document_fake: Document = main_context.all_seeder.document_seeder.document_fake.data[0]
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
     headers: dict = {
-        "Authorization": f"Bearer {selected_session_mock.access_token}"
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.delete(
-        url=f"{url_path}/{selected_document_mock.id}",
+        url=f"{url_path}/{selected_document_fake.id}",
         headers=headers
     )
 
@@ -118,5 +118,5 @@ async def test__delete_one_by_id__should_delete_one_document__succeed(main_conte
         status_code=response.status_code
     )
     assert content.status_code == status.HTTP_200_OK
-    assert content.data == selected_document_mock
-    main_context.all_seeder.delete_many_document_by_id_cascade(selected_document_mock.id)
+    assert content.data == selected_document_fake
+    main_context.all_seeder.delete_many_document_by_id_cascade(selected_document_fake.id)
