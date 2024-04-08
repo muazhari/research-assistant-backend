@@ -2,6 +2,7 @@ import hashlib
 import uuid
 from uuid import UUID
 
+from magic import libmagic
 from starlette.datastructures import State
 
 from apps.inners.models.daos.document import Document
@@ -61,7 +62,7 @@ class FileDocumentManagement:
         await body.file_data.close()
         file_document_creator: FileDocument = FileDocument(
             id=created_document.id,
-            file_name=body.file_name,
+            file_name=f"{uuid.uuid4()}_{body.file_name}",
             file_data_hash=hashlib.sha256(file_data).hexdigest()
         )
         created_file_document: FileDocument = self.create_one_raw(
@@ -107,7 +108,7 @@ class FileDocumentManagement:
         file_data: bytes = await body.file_data.read()
         await body.file_data.close()
         file_document_patcher: FileDocument = FileDocument(
-            file_name=body.file_name,
+            file_name=f"{uuid.uuid4()}_{body.file_name}",
             file_data_hash=hashlib.sha256(file_data).hexdigest()
         )
         patched_file_document: FileDocument = await self.patch_one_by_id_raw_with_authorization(

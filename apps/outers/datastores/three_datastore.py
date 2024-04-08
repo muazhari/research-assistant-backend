@@ -1,3 +1,5 @@
+from typing import List
+
 from minio import Minio
 
 from apps.outers.settings.three_datastore_setting import ThreeDatastoreSetting
@@ -16,3 +18,12 @@ class ThreeDatastore:
             secret_key=self.three_datastore_setting.DS_THREE_PASSWORD,
             secure=False,
         )
+        self.bucket_names: List[str] = [
+            "research-assistant-backend.file-documents"
+        ]
+        self.prepare_buckets(self.bucket_names)
+
+    def prepare_buckets(self, bucket_names: List[str]):
+        for bucket_name in bucket_names:
+            if not self.client.bucket_exists(bucket_name):
+                self.client.make_bucket(bucket_name)

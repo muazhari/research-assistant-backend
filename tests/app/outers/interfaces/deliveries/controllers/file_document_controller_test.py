@@ -84,9 +84,15 @@ async def test__create_one__should_create_one_file_document__succeed(main_contex
     assert content.data.document_description == file_document_creator_body.document_description
     assert content.data.document_type_id == file_document_creator_body.document_type_id
     assert content.data.document_account_id == file_document_creator_body.document_account_id
-    assert content.data.file_name == file_document_creator_body.file_name
     assert content.data.file_data_hash == hashlib.sha256(selected_file_document_data_fake).hexdigest()
     assert content.data.file_meta == dict()
+
+    file_document: FileDocument = FileDocument(
+        id=content.data.id,
+        file_name=content.data.file_name,
+        file_data_hash=content.data.file_data_hash,
+    )
+    main_context.all_seeder.file_document_seeder.file_document_fake.data.append(file_document)
 
 
 @pytest.mark.asyncio
@@ -123,7 +129,6 @@ async def test__patch_one_by_id__should_patch_one_file_document__succeed(main_co
     assert content.data.document_description == file_document_patcher_body.document_description
     assert content.data.document_type_id == file_document_patcher_body.document_type_id
     assert content.data.document_account_id == file_document_patcher_body.document_account_id
-    assert content.data.file_name == file_document_patcher_body.file_name
     assert content.data.file_data_hash == hashlib.sha256(selected_file_document_data_fake).hexdigest()
     assert content.data.file_meta == dict()
 

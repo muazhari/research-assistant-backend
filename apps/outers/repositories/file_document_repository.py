@@ -58,6 +58,15 @@ class FileDocumentRepository:
             length=len(data)
         )
 
+    def patch_object(self, old_object_name: str, new_object_name: str, new_data: bytes):
+        self.remove_object(
+            object_name=old_object_name
+        )
+        self.put_object(
+            object_name=new_object_name,
+            data=new_data
+        )
+
     def remove_object(self, object_name: str):
         self.three_datastore.client.remove_object(
             bucket_name="research-assistant-backend.file-documents",
@@ -128,9 +137,10 @@ class FileDocumentRepository:
             account_id=account_id
         )
         found_file_document.patch_from(file_document_patcher.dict(exclude_none=True))
-        self.put_object(
-            object_name=found_file_document.file_name,
-            data=file_data
+        self.patch_object(
+            old_object_name=found_file_document.file_name,
+            new_object_name=file_document_patcher.file_name,
+            new_data=file_data
         )
 
         return found_file_document

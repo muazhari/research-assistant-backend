@@ -149,7 +149,7 @@ async def test__register_by_email_and_password__succeed(main_context: MainContex
         password=register_by_email_and_password_body.password.encode(),
         hashed_password=content.data.account.password.encode()
     )
-
+    main_context.all_seeder.account_seeder.account_fake.data.append(content.data.account)
 
 @pytest.mark.asyncio
 async def test__register_by_email_and_password__failed__when__method_is_not_supported(main_context: MainContext):

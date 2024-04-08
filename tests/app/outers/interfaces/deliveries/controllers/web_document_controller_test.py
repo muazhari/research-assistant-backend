@@ -83,6 +83,13 @@ async def test__create_one__should_create_one_web_document__succeed(main_context
     assert content.data.web_url == web_document_creator_body.web_url
     assert content.data.web_url_hash == hashlib.sha256(web_document_creator_body.web_url.encode()).hexdigest()
 
+    web_document: WebDocument = WebDocument(
+        id=content.data.id,
+        web_url=content.data.web_url,
+        web_url_hash=content.data.web_url_hash,
+    )
+    main_context.all_seeder.web_document_seeder.web_document_fake.data.append(web_document)
+
 
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_web_document__succeed(main_context: MainContext):

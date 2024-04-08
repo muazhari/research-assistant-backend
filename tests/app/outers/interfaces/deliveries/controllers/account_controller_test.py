@@ -62,6 +62,8 @@ async def test__create_one__should_create_one_account__succeed(main_context: Mai
     assert content.data.email == account_creator_body.email
     assert bcrypt.checkpw(account_creator_body.password.encode(), content.data.password.encode())
 
+    main_context.all_seeder.account_seeder.account_fake.data.append(content.data)
+
 
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_account__succeed(main_context: MainContext):

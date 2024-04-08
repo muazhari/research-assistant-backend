@@ -51,3 +51,7 @@ class ExistingGeneratedQuestionHashInvalid(BaseException):
 
 class LlmProviderNotSupported(BaseException):
     pass
+
+
+class ExistingRelevantDocumentHashInvalid(BaseException):
+    pass

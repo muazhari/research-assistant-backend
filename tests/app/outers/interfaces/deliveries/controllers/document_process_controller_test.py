@@ -91,6 +91,8 @@ async def test__create_one__should_create_one_document_process__succeed(main_con
     assert content.data.started_at == document_process_creator_body.started_at
     assert content.data.finished_at == document_process_creator_body.finished_at
 
+    main_context.all_seeder.document_process_seeder.document_process_fake.data.append(content.data)
+
 
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_document_process__succeed(main_context: MainContext):

@@ -67,6 +67,8 @@ async def test__create_one__should_create_one_document__succeed(main_context: Ma
     assert content.data.document_type_id == document_creator_body.document_type_id
     assert content.data.account_id == document_creator_body.account_id
 
+    main_context.all_seeder.document_seeder.document_fake.data.append(content.data)
+
 
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_document__succeed(main_context: MainContext):

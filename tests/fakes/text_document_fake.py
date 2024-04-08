@@ -13,8 +13,8 @@ class TextDocumentFake:
             document_fake: DocumentFake
     ):
         self.document_fake: DocumentFake = document_fake
-        text_content_0 = "Nervous system is a part of an animal's body that coordinates its actions and sensory information by transmitting signals to and from different parts of its body."
-        text_content_1 = "Political science is the scientific study of politics. It is a social science dealing with systems of governance and power, and the analysis of political activities, political thoughts, political behavior, and political structures."
+        text_content_0 = "Political science is the scientific study of politics. It is a social science dealing with systems of governance and power, and the analysis of political activities, political thoughts, political behavior, and political structures."
+        text_content_1 = "Nervous system is a part of an animal's body that coordinates its actions and sensory information by transmitting signals to and from different parts of its body."
         self._data: List[TextDocument] = [
             TextDocument(
                 id=self.document_fake.data[1].id,

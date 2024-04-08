@@ -87,6 +87,13 @@ async def test__create_one__should_create_one_text_document__succeed(main_contex
     assert content.data.text_content == text_document_creator_body.text_content
     assert content.data.text_content_hash == text_document_creator_body.text_content_hash
 
+    text_document: TextDocument = TextDocument(
+        id=content.data.id,
+        text_content=content.data.text_content,
+        text_content_hash=content.data.text_content_hash
+    )
+    main_context.all_seeder.text_document_seeder.text_document_fake.data.append(text_document)
+
 
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_text_document__succeed(main_context: MainContext):
