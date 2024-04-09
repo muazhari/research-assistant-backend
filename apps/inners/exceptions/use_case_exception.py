@@ -67,3 +67,4 @@ class RerankerModelNameNotSupported(BaseException):
 
 class ExistingReRankedDocumentHashInvalid(BaseException):
     pass
+

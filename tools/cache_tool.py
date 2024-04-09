@@ -1,7 +1,7 @@
 import hashlib
 import inspect
 import json
-from typing import Dict, Any, Union, List
+from typing import Dict, Any, Union, List, Optional
 
 from fastapi.encoders import jsonable_encoder
 
@@ -10,17 +10,35 @@ from tools import dict_tool
 cache: Dict[Any, Any] = {}
 
 
-def clear_cache(keys: List[Any] = None):
-    global cache
+def delete_cache(keys: List[Any] = None):
     if keys is None:
-        cache = {}
-    else:
-        for key in keys:
-            cache.pop(key, None)
+        cache.clear()
+
+    for key in keys:
+        cache.pop(key, None)
 
 
-def get_cache():
-    return cache
+def is_key_in_cache(key: Any) -> bool:
+    return key in cache.keys()
+
+
+def hash_by_dict(data: Dict[Any, Any]) -> str:
+    hashed_data: str = hashlib.sha256(
+        string=json.dumps(data, sort_keys=True, default=jsonable_encoder).encode()
+    ).hexdigest()
+
+    return hashed_data
+
+
+def get_cache(key: Optional[Any] = None) -> Any:
+    if key is None:
+        return cache
+
+    return cache.get(key, None)
+
+
+def set_cache(key: Any, value: Any):
+    cache[key] = value
 
 
 def cacher(args_include_keys: Union[List[Any] | Any] = None, kwargs_include_keys: Union[List[Any] | Any] = None):

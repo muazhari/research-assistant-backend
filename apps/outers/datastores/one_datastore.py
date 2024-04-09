@@ -22,7 +22,7 @@ class OneDatastore:
             isolation_level="SERIALIZABLE"
         )
 
-    async def get_session(self):
+    def get_session(self):
         session = AsyncSession(
             bind=self.engine
         )
@@ -31,7 +31,7 @@ class OneDatastore:
     async def retryable(self, func, max_retries: int = 10):
         retry_count = 0
         while retry_count < max_retries:
-            session: AsyncSession = await self.get_session()
+            session: AsyncSession = self.get_session()
             try:
                 await session.begin()
                 result: Any = await func(session)
