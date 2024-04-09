@@ -2,7 +2,6 @@ import hashlib
 import uuid
 from uuid import UUID
 
-from magic import libmagic
 from starlette.datastructures import State
 
 from apps.inners.models.daos.document import Document

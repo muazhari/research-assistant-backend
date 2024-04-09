@@ -55,3 +55,15 @@ class LlmProviderNotSupported(BaseException):
 
 class ExistingRelevantDocumentHashInvalid(BaseException):
     pass
+
+
+class RerankError(BaseException):
+    pass
+
+
+class RerankerModelNameNotSupported(BaseException):
+    pass
+
+
+class ExistingReRankedDocumentHashInvalid(BaseException):
+    pass
