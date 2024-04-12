@@ -3,7 +3,7 @@ from typing import Any, List
 from langchain_community.embeddings.huggingface import HuggingFaceEmbeddings
 
 
-class HuggingFaceE5InstructEmbeddings(HuggingFaceEmbeddings):
+class HuggingFaceE5InstructEmbedding(HuggingFaceEmbeddings):
     query_instruction: str
 
     def __init__(self, **kwargs: Any):

@@ -5,11 +5,9 @@ from apps.inners.use_cases.passage_searches.process_passage_search import Proces
 
 
 class PassageSearchContainer(DeclarativeContainer):
-    settings = providers.DependenciesContainer()
-    datastores = providers.DependenciesContainer()
-    utilities = providers.DependenciesContainer()
-    managements = providers.DependenciesContainer()
+    graphs = providers.DependenciesContainer()
 
     process = providers.Singleton(
         ProcessPassageSearch,
+        passage_search_graph=graphs.passage_search,
     )

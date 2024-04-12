@@ -5,9 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/apps/inners/models/dtos/graph_state.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/category_document_processor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/partition_document_processor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/summary_document_processor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/embeddings/base_embedding.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/embeddings/bge_m3_embedding.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/graphs/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/graphs/long_form_qa_graph.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/graphs/passage_search_graph.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/graphs/preparation_graph.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/rerankers/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/rerankers/base_reranker.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/rerankers/bge_reranker.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/retrievers/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/retrievers/hybrid_milvus_retriever.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/vector_stores/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/vector_stores/base_milvus_vector_store.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/vector_stores/bge_m3_milvus_vector_store.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/inners/use_cases/vector_stores/infinity_milvus_vector_store.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/outers/containers/use_cases/document_processor_container.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/outers/containers/use_cases/graph_container.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/models/dtos/element_category.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/models/dtos/element_category.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/embeddings/hugging_face_e5_instruct_embedding.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/embeddings/hugging_face_e5_instruct_embedding.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/long_form_qas/process_longform_qa.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/long_form_qas/process_longform_qa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/passage_searches/process_passage_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/passage_searches/process_passage_search.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/containers/application_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/containers/application_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/containers/use_case_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/containers/use_case_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/containers/use_cases/longform_qa_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/containers/use_cases/longform_qa_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/containers/use_cases/passage_search_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/containers/use_cases/passage_search_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/interfaces/deliveries/controllers/long_form_qa_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/interfaces/deliveries/controllers/long_form_qa_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,61 +87,61 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Docker.muazhari/research-assistant-backend-dev:latest.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.muazhari/research-assistant-backend.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.muazhari/research-assistant-backend:latest.executor&quot;: &quot;Run&quot;,
-    &quot;FastAPI.run-1.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests for document_controller_test.test__patch_one_by_id__should_patch_one_document__succeed.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests for document_process_controller_test.test__patch_one_by_id__should_patch_one_document_process__succeed.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in account_controller_test.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in authentication_controller_test.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in document_controller_test.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in document_process_controller_test.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in document_type_controller_test.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in file_document_controller_test.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in text_document_controller_test.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in web_document_controller_test.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.pytest in one of tests.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.pytest in test.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.pytest in tests.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.document_type_mock.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.path_playground.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.test (1).executor&quot;: &quot;Debug&quot;,
-    &quot;Python.test.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Data/Apps/FlagEmbedding&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\M Kharisma Azhari\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\231.9011.38\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Docker.muazhari/research-assistant-backend-dev:latest.executor": "Run",
+    "Docker.muazhari/research-assistant-backend.executor": "Run",
+    "Docker.muazhari/research-assistant-backend:latest.executor": "Run",
+    "FastAPI.run-1.executor": "Debug",
+    "Python tests.Python tests for document_controller_test.test__patch_one_by_id__should_patch_one_document__succeed.executor": "Debug",
+    "Python tests.Python tests for document_process_controller_test.test__patch_one_by_id__should_patch_one_document_process__succeed.executor": "Debug",
+    "Python tests.Python tests in account_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in authentication_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in document_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in document_process_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in document_type_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in file_document_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in text_document_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in web_document_controller_test.py.executor": "Debug",
+    "Python tests.pytest in one of tests.executor": "Debug",
+    "Python tests.pytest in test.executor": "Debug",
+    "Python tests.pytest in tests.executor": "Debug",
+    "Python.document_type_mock.executor": "Debug",
+    "Python.path_playground.executor": "Debug",
+    "Python.test (1).executor": "Debug",
+    "Python.test.executor": "Debug",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Data/Apps/research-assistant-backend/apps/outers/containers/use_cases",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Users\\M Kharisma Azhari\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\231.9011.38\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="PyCoverageOptionsProvider">
     <option name="myUseBundledCoveragePy" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Data\Apps\research-assistant-backend\apps\outers\containers\use_cases" />
+      <recent name="C:\Data\Apps\research-assistant-backend\apps\inners\use_cases\graphs" />
+      <recent name="C:\Data\Apps\research-assistant-backend\apps\inners\use_cases\document_processor" />
+      <recent name="C:\Data\Apps\research-assistant-backend\apps\inners\use_cases\vector_stores" />
       <recent name="C:\Data\Apps\research-assistant-backend\apps\outers\settings" />
-      <recent name="C:\Data\Apps\research-assistant-backend\tools" />
-      <recent name="C:\Data\Apps\research-assistant-backend\apps\inners\models\dtos" />
-      <recent name="C:\Data\Apps\research-assistant-backend" />
-      <recent name="C:\Data\Apps\research-assistant-backend\apps\inners\exceptions" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Data\Apps\research-assistant-backend\apps\inners\models\dtos" />
@@ -370,7 +399,7 @@
       <workItem from="1712208214031" duration="973000" />
       <workItem from="1712212043164" duration="172927000" />
       <workItem from="1712811592751" duration="5628000" />
-      <workItem from="1712886089020" duration="10441000" />
+      <workItem from="1712886089020" duration="15306000" />
     </task>
     <servers />
   </component>

@@ -3,6 +3,8 @@ from dependency_injector.containers import DeclarativeContainer
 
 from apps.outers.containers.use_cases.authentication_container import AuthenticationContainer
 from apps.outers.containers.use_cases.authorization_container import AuthorizationContainer
+from apps.outers.containers.use_cases.document_processor_container import DocumentProcessorContainer
+from apps.outers.containers.use_cases.graph_container import GraphContainer
 from apps.outers.containers.use_cases.longform_qa_container import LongFormQAContainer
 from apps.outers.containers.use_cases.management_container import ManagementContainer
 from apps.outers.containers.use_cases.passage_search_container import PassageSearchContainer
@@ -31,17 +33,21 @@ class UseCaseContainer(DeclarativeContainer):
         AuthorizationContainer,
         managements=managements,
     )
-    passage_searches = providers.Container(
-        PassageSearchContainer,
+    document_processor = providers.Container(
+        DocumentProcessorContainer,
+        managements=managements,
+    )
+    graphs = providers.Container(
+        GraphContainer,
         settings=settings,
         datastores=datastores,
-        utilities=utilities,
-        managements=managements,
+        document_processors=document_processor,
+    )
+    passage_searches = providers.Container(
+        PassageSearchContainer,
+        graphs=graphs,
     )
     longform_qas = providers.Container(
         LongFormQAContainer,
-        settings=settings,
-        datastores=datastores,
-        utilities=utilities,
-        managements=managements,
+        graphs=graphs,
     )

@@ -5,14 +5,14 @@ from starlette.responses import Response, Content
 
 from apps.inners.models.dtos.contracts.requests.long_form_qas.process_body import ProcessBody
 from apps.inners.models.dtos.contracts.responses.long_form_qas.process_response import ProcessResponse
-from apps.inners.use_cases.long_form_qas.process_longform_qa import ProcessLongFormQA
+from apps.inners.use_cases.long_form_qas.process_longform_qa import ProcessLongFormQa
 
 
 class LongFormQaController:
 
     def __init__(
             self,
-            process_long_form_qa: ProcessLongFormQA
+            process_long_form_qa: ProcessLongFormQa
     ):
         self.router: APIRouter = APIRouter(
             tags=["long-form-qas"],
