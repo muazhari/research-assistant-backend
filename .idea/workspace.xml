@@ -7,6 +7,7 @@
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +122,7 @@
       <recent name="C:\Data\Apps\research-assistant-backend\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.pytest in tests">
+  <component name="RunManager" selected="Docker.muazhari/research-assistant-backend:latest">
     <configuration name="path_playground" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="research-assistant-backend" />
       <option name="ENV_FILES" value="" />
@@ -368,7 +369,8 @@
       <workItem from="1712114324741" duration="29012000" />
       <workItem from="1712208214031" duration="973000" />
       <workItem from="1712212043164" duration="172927000" />
-      <workItem from="1712811592751" duration="2971000" />
+      <workItem from="1712811592751" duration="5628000" />
+      <workItem from="1712886089020" duration="10441000" />
     </task>
     <servers />
   </component>
