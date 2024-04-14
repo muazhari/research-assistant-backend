@@ -69,18 +69,16 @@ class FileDocumentController:
     async def create_one(
             self,
             request: Request,
-            document_name: str = Form(...),
-            document_description: str = Form(...),
-            document_type_id: str = Form(...),
-            document_account_id: UUID = Form(...),
+            name: str = Form(...),
+            description: str = Form(...),
+            account_id: UUID = Form(...),
             file_name: str = Form(...),
             file_data: UploadFile = File(...)
     ) -> Response:
         body: CreateOneBody = CreateOneBody(
-            document_name=document_name,
-            document_description=document_description,
-            document_type_id=document_type_id,
-            document_account_id=document_account_id,
+            name=name,
+            description=description,
+            account_id=account_id,
             file_name=file_name,
             file_data=file_data
         )
@@ -107,18 +105,16 @@ class FileDocumentController:
             self,
             request: Request,
             id: UUID,
-            document_name: str = Form(...),
-            document_description: str = Form(...),
-            document_type_id: str = Form(...),
-            document_account_id: UUID = Form(...),
+            name: str = Form(...),
+            description: str = Form(...),
+            account_id: UUID = Form(...),
             file_name: str = Form(...),
             file_data: UploadFile = File(...)
     ) -> Response:
         body: PatchOneBody = PatchOneBody(
-            document_name=document_name,
-            document_description=document_description,
-            document_type_id=document_type_id,
-            document_account_id=document_account_id,
+            name=name,
+            description=description,
+            account_id=account_id,
             file_name=file_name,
             file_data=file_data
         )

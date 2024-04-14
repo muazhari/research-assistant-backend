@@ -58,8 +58,8 @@ class CategoryDocumentProcessor:
             self,
             categorized_elements: ElementCategory,
             summarization_model: BaseChatModel,
-            is_include_tables: bool = False,
-            is_include_images: bool = False,
+            is_include_table: bool = False,
+            is_include_image: bool = False,
             chunk_size: int = 400,
             overlap_size: int = 50,
             separators: Tuple[str] = ("\n", " "),
@@ -124,7 +124,7 @@ class CategoryDocumentProcessor:
                 )
                 document_category.texts.append(document)
 
-        if is_include_tables:
+        if is_include_table:
             summarized_tables: List[str] = await self.summary_document_processor.summarize_tables(
                 tables=categorized_elements.tables,
                 llm_model=summarization_model
@@ -141,7 +141,7 @@ class CategoryDocumentProcessor:
                 )
                 document_category.tables.append(document)
 
-        if is_include_images:
+        if is_include_image:
             summarized_images: List[str] = await self.summary_document_processor.summarize_images(
                 images=categorized_elements.images,
                 llm_model=summarization_model

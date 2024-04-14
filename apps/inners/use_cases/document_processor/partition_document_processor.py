@@ -13,6 +13,7 @@ from unstructured.partition.utils.constants import PartitionStrategy
 
 from apps.inners.exceptions import use_case_exception
 from apps.inners.models.daos.document import Document
+from apps.inners.models.dtos.constants.document_type_constant import DocumentTypeConstant
 from apps.inners.models.dtos.contracts.responses.managements.documents.file_document_response import \
     FileDocumentResponse
 from apps.inners.models.dtos.contracts.responses.managements.documents.text_document_response import \
@@ -87,17 +88,17 @@ class PartitionDocumentProcessor:
             state=state,
             id=document_id
         )
-        if found_document.document_type_id == "file":
+        if found_document.document_type_id == DocumentTypeConstant.FILE:
             elements: List[Element] = await self._partition_file(
                 state=state,
                 found_document=found_document
             )
-        elif found_document.document_type_id == "text":
+        elif found_document.document_type_id == DocumentTypeConstant.TEXT:
             elements: List[Element] = await self._partition_text(
                 state=state,
                 found_document=found_document
             )
-        elif found_document.document_type_id == "web":
+        elif found_document.document_type_id == DocumentTypeConstant.WEB:
             elements: List[Element] = await self._partition_web(
                 state=state,
                 found_document=found_document

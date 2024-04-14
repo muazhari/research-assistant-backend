@@ -6,6 +6,7 @@ from starlette.datastructures import State
 
 from apps.inners.models.daos.document import Document
 from apps.inners.models.daos.file_document import FileDocument
+from apps.inners.models.dtos.constants.document_type_constant import DocumentTypeConstant
 from apps.inners.models.dtos.contracts.requests.managements.file_documents.create_one_body import CreateOneBody
 from apps.inners.models.dtos.contracts.requests.managements.file_documents.patch_one_body import PatchOneBody
 from apps.inners.models.dtos.contracts.responses.managements.documents.file_document_response import \
@@ -41,17 +42,17 @@ class FileDocumentManagement:
             document_account_id=found_document.account_id,
             file_name=found_file_document.file_name,
             file_data_hash=found_file_document.file_data_hash,
-            file_meta=dict()
+            file_metadata=dict()
         )
         return found_file_document_response
 
     async def create_one(self, state: State, body: CreateOneBody) -> FileDocumentResponse:
         document_creator: Document = Document(
             id=uuid.uuid4(),
-            name=body.document_name,
-            description=body.document_description,
-            document_type_id=body.document_type_id,
-            account_id=body.document_account_id
+            name=body.name,
+            description=body.description,
+            document_type_id=DocumentTypeConstant.FILE,
+            account_id=body.account_id
         )
         created_document: Document = self.document_management.create_one_raw(
             state=state,
@@ -77,7 +78,7 @@ class FileDocumentManagement:
             document_account_id=created_document.account_id,
             file_name=created_file_document.file_name,
             file_data_hash=created_file_document.file_data_hash,
-            file_meta=dict()
+            file_metadata=dict()
         )
         return file_document_response
 
@@ -94,10 +95,10 @@ class FileDocumentManagement:
                                                  body: PatchOneBody) -> FileDocumentResponse:
         document_patcher: Document = Document(
             id=id,
-            name=body.document_name,
-            description=body.document_description,
-            document_type_id=body.document_type_id,
-            account_id=body.document_account_id
+            name=body.name,
+            description=body.description,
+            document_type_id=DocumentTypeConstant.FILE,
+            account_id=body.account_id
         )
         patched_document: Document = await self.document_management.patch_one_by_id_raw_with_authorization(
             state=state,
@@ -124,7 +125,7 @@ class FileDocumentManagement:
             document_account_id=patched_document.account_id,
             file_name=patched_file_document.file_name,
             file_data_hash=patched_file_document.file_data_hash,
-            file_meta=dict()
+            file_metadata=dict()
         )
         return patched_file_document_response
 
@@ -157,6 +158,6 @@ class FileDocumentManagement:
             document_account_id=deleted_document.account_id,
             file_name=deleted_file_document.file_name,
             file_data_hash=deleted_file_document.file_data_hash,
-            file_meta=dict()
+            file_metadata=dict()
         )
         return deleted_file_document_response

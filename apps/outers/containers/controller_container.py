@@ -19,7 +19,7 @@ class ControllerContainer(DeclarativeContainer):
     authentications = providers.DependenciesContainer()
     authorizations = providers.DependenciesContainer()
     passage_searches = providers.DependenciesContainer()
-    longform_qas = providers.DependenciesContainer()
+    long_form_qas = providers.DependenciesContainer()
 
     account = providers.Singleton(
         AccountController,
@@ -65,5 +65,5 @@ class ControllerContainer(DeclarativeContainer):
     )
     long_form_qa = providers.Singleton(
         LongFormQaController,
-        process_long_form_qa=longform_qas.process
+        process_long_form_qa=long_form_qas.process
     )

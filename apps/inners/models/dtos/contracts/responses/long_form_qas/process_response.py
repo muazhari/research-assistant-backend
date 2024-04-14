@@ -1,12 +1,11 @@
-from typing import List
+from datetime import datetime
+from typing import List, Dict, Any
 
-from apps.inners.models.daos.document_process import DocumentProcess
 from apps.inners.models.dtos.contracts.responses.base_response import BaseResponse
-from apps.inners.models.dtos.contracts.responses.long_form_qas.retrieved_document_response import \
-    RetrievedChunkResponse
 
 
 class ProcessResponse(BaseResponse):
-    retrieved_chunks: List[RetrievedChunkResponse]
+    re_ranked_documents: List[Dict[str, Any]]
     generated_answer: str
-    document_process: DocumentProcess
+    initial_time: datetime
+    final_time: datetime

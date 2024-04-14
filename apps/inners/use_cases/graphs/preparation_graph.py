@@ -4,13 +4,14 @@ from uuid import UUID
 
 from fastapi.encoders import jsonable_encoder
 from langchain_anthropic import ChatAnthropic
+from langgraph.graph import StateGraph, END
 from litellm import Router
 from unstructured.documents.elements import Element
 
 from apps.inners.exceptions import use_case_exception
 from apps.inners.models.dtos.document_category import DocumentCategory
 from apps.inners.models.dtos.element_category import ElementCategory
-from apps.inners.models.dtos.graph_state import GraphState
+from apps.inners.models.dtos.graph_state import PreparationGraphState
 from apps.inners.use_cases.document_processor.category_document_processor import CategoryDocumentProcessor
 from apps.inners.use_cases.document_processor.partition_document_processor import PartitionDocumentProcessor
 from apps.outers.datastores.two_datastore import TwoDatastore
@@ -30,9 +31,10 @@ class PreparationGraph:
         self.two_datastore = two_datastore
         self.partition_document_processor = partition_document_processor
         self.category_document_processor = category_document_processor
+        self.compiled_graph = self._compile_graph()
 
-    def node_get_llm_model(self, input_state: GraphState) -> GraphState:
-        output_state: GraphState = input_state
+    def node_get_llm_model(self, input_state: PreparationGraphState) -> PreparationGraphState:
+        output_state: PreparationGraphState = input_state
 
         model_list: List[Dict] = [
             {
@@ -54,55 +56,55 @@ class PreparationGraph:
         ]
         router: Router = Router(model_list=model_list)
         deployment: Dict[str, Any] = router.get_available_deployment(
-            model=input_state["data"]["llm"]["model_name"]
+            model=input_state["llm_setting"]["model_name"]
         )
         provider: str = deployment["litellm_params"]["provider"]
         if provider == "anthropic":
             llm_model: ChatAnthropic = ChatAnthropic(
                 anthropic_api_key=deployment["litellm_params"]["api_key"],
                 model=deployment["litellm_params"]["model"],
-                max_tokens=input_state["data"]["llm"]["max_token"],
+                max_tokens=input_state["llm_setting"]["max_token"],
                 streaming=True,
                 temperature=0
             )
         else:
             raise use_case_exception.LlmProviderNotSupported()
 
-        output_state["data"]["llm"]["model"] = llm_model
+        output_state["llm_setting"]["model"] = llm_model
 
         return output_state
 
-    async def node_get_categorized_documents(self, input_state: GraphState) -> GraphState:
-        output_state: GraphState = input_state
+    async def node_get_categorized_documents(self, input_state: PreparationGraphState) -> PreparationGraphState:
+        output_state: PreparationGraphState = input_state
 
-        document_id: UUID = input_state["data"]["next_document_id"]
+        document_id: UUID = input_state["next_document_id"]
 
         categorized_element_hash: str = self._get_categorized_element_hash(
             document_id=document_id
         )
         categorized_document_hash: str = self._get_categorized_document_hash(
             categorized_element_hash=categorized_element_hash,
-            summarization_model_name=input_state["data"]["llm"]["model_name"],
-            is_include_tables=input_state["data"]["preprocessor_setting"]["is_include_tables"],
-            is_include_images=input_state["data"]["preprocessor_setting"]["is_include_images"],
-            chunk_size=input_state["data"]["preprocessor_setting"]["chunk_size"],
+            summarization_model_name=input_state["llm_setting"]["model_name"],
+            is_include_tables=input_state["preprocessor_setting"]["is_include_table"],
+            is_include_images=input_state["preprocessor_setting"]["is_include_image"],
+            chunk_size=input_state["preprocessor_setting"]["chunk_size"],
         )
 
-        categorized_element_hashes: Optional[Dict[UUID, str]] = input_state["data"].get(
+        categorized_element_hashes: Optional[Dict[UUID, str]] = input_state.get(
             "categorized_element_hashes",
             None
         )
         if categorized_element_hashes is None:
-            output_state["data"]["categorized_element_hashes"] = {}
-        output_state["data"]["categorized_element_hashes"][document_id] = categorized_element_hash
+            output_state["categorized_element_hashes"] = {}
+        output_state["categorized_element_hashes"][document_id] = categorized_element_hash
         is_categorized_element_exist: bool = cache_tool.is_key_in_cache(
             key=categorized_element_hash
         )
-        is_force_refresh_categorized_element: bool = input_state["data"]["preprocessor_setting"][
+        is_force_refresh_categorized_element: bool = input_state["preprocessor_setting"][
             "is_force_refresh_categorized_element"]
         if is_categorized_element_exist is False or is_force_refresh_categorized_element is True:
             elements: List[Element] = await self.partition_document_processor.partition(
-                state=input_state["data"]["state"],
+                state=input_state["state"],
                 document_id=document_id
             )
             categorized_elements: ElementCategory = await self.category_document_processor.categorize_elements(
@@ -110,20 +112,21 @@ class PreparationGraph:
             )
             cache_tool.set_cache(
                 key=categorized_element_hash,
-                value=categorized_elements
+                value=categorized_elements,
+                timeout=60 * 60 * 24
             )
         else:
             categorized_elements: ElementCategory = cache_tool.get_cache(
                 key=categorized_element_hash
             )
 
-        categorized_document_hashes: Optional[Dict[UUID, str]] = input_state["data"].get(
+        categorized_document_hashes: Optional[Dict[UUID, str]] = input_state.get(
             "categorized_document_hashes",
             None
         )
         if categorized_document_hashes is None:
-            output_state["data"]["categorized_document_hashes"] = {}
-        output_state["data"]["categorized_document_hashes"][document_id] = categorized_document_hash
+            output_state["categorized_document_hashes"] = {}
+        output_state["categorized_document_hashes"][document_id] = categorized_document_hash
         existing_categorized_document_hash: int = await self.two_datastore.async_client.exists(
             categorized_document_hash
         )
@@ -134,15 +137,15 @@ class PreparationGraph:
         else:
             raise use_case_exception.ExistingCategorizedDocumentHashInvalid()
 
-        is_force_refresh_categorized_document: bool = input_state["data"]["preprocessor_setting"][
+        is_force_refresh_categorized_document: bool = input_state["preprocessor_setting"][
             "is_force_refresh_categorized_document"]
         if is_categorized_document_exist is False or is_force_refresh_categorized_document is True or is_force_refresh_categorized_element is True:
             categorized_document: DocumentCategory = await self.category_document_processor.get_categorized_documents(
                 categorized_elements=categorized_elements,
-                summarization_model=input_state["data"]["llm"]["model"],
-                is_include_tables=input_state["data"]["preprocessor_setting"]["is_include_tables"],
-                is_include_images=input_state["data"]["preprocessor_setting"]["is_include_images"],
-                chunk_size=input_state["data"]["preprocessor_setting"]["chunk_size"],
+                summarization_model=input_state["llm_setting"]["model"],
+                is_include_table=input_state["preprocessor_setting"]["is_include_table"],
+                is_include_image=input_state["preprocessor_setting"]["is_include_image"],
+                chunk_size=input_state["preprocessor_setting"]["chunk_size"],
                 metadata={
                     "document_id": document_id
                 }
@@ -157,7 +160,7 @@ class PreparationGraph:
             )
             categorized_document: DocumentCategory = DocumentCategory(**json.loads(found_categorized_document_bytes))
 
-        output_state["data"]["categorized_documents"][document_id] = categorized_document
+        output_state["categorized_documents"][document_id] = categorized_document
 
         return output_state
 
@@ -197,35 +200,76 @@ class PreparationGraph:
 
         return hashed_data
 
-    async def node_prepare_get_categorized_documents(self, input_state: GraphState):
-        output_state: GraphState = input_state
+    async def node_prepare_get_categorized_documents(self, input_state: PreparationGraphState):
+        output_state: PreparationGraphState = input_state
 
-        document_ids: List[UUID] = input_state["data"]["document_ids"]
+        document_ids: List[UUID] = input_state["document_ids"]
 
-        categorized_documents: Optional[Dict[UUID, DocumentCategory]] = input_state["data"].get(
+        categorized_documents: Optional[Dict[UUID, DocumentCategory]] = input_state.get(
             "categorized_documents",
             None
         )
         if categorized_documents is None:
             categorized_documents = {}
-            output_state["data"]["categorized_documents"] = categorized_documents
+            output_state["categorized_documents"] = categorized_documents
 
         next_document_ids: List[UUID] = list(set(document_ids) - set(categorized_documents.keys()))
         next_document_id: UUID = next_document_ids.pop()
 
-        output_state["data"]["next_document_id"] = next_document_id
+        output_state["next_document_id"] = next_document_id
 
         return output_state
 
-    async def node_decide_get_categorized_documents_or_embed(self, input_state: GraphState) -> str:
-        output_state: GraphState = input_state
+    async def node_decide_get_categorized_documents_or_embed(self, input_state: PreparationGraphState) -> str:
+        output_state: PreparationGraphState = input_state
 
-        document_ids: List[UUID] = input_state["data"]["document_ids"]
+        document_ids: List[UUID] = input_state["document_ids"]
 
-        categorized_documents: Dict[UUID, DocumentCategory] = input_state["data"]["categorized_documents"]
+        categorized_documents: Dict[UUID, DocumentCategory] = input_state["categorized_documents"]
 
         if set(categorized_documents.keys()) == set(document_ids):
-            output_state["data"]["next_document_id"] = None
+            output_state["next_document_id"] = None
             return "EMBED"
 
         return "GET_CATEGORIZED_DOCUMENTS"
+
+    def _compile_graph(self):
+        graph: StateGraph = StateGraph(PreparationGraphState)
+
+        graph.add_node(
+            key=self.node_get_llm_model.__name__,
+            action=self.node_get_llm_model
+        )
+        graph.add_node(
+            key=self.node_prepare_get_categorized_documents.__name__,
+            action=self.node_prepare_get_categorized_documents
+        )
+        graph.add_node(
+            key=self.node_get_categorized_documents.__name__,
+            action=self.node_get_categorized_documents
+        )
+
+        graph.set_entry_point(
+            key=self.node_get_llm_model.__name__
+        )
+
+        graph.add_edge(
+            start_key=self.node_get_llm_model.__name__,
+            end_key=self.node_prepare_get_categorized_documents.__name__
+        )
+        graph.add_edge(
+            start_key=self.node_prepare_get_categorized_documents.__name__,
+            end_key=self.node_get_categorized_documents.__name__
+        )
+        graph.add_conditional_edges(
+            start_key=self.node_get_categorized_documents.__name__,
+            condition=self.node_decide_get_categorized_documents_or_embed,
+            conditional_edge_mapping={
+                "GET_CATEGORIZED_DOCUMENTS": self.node_prepare_get_categorized_documents.__name__,
+                "EMBED": END
+            }
+        )
+
+        compiled_graph = graph.compile()
+
+        return compiled_graph

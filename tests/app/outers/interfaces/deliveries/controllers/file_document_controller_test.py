@@ -1,7 +1,7 @@
 import hashlib
-import json
 import pathlib
 import uuid
+from typing import Dict, Any
 
 import pytest as pytest
 from httpx import Response
@@ -10,6 +10,7 @@ from starlette import status
 from apps.inners.models.daos.document import Document
 from apps.inners.models.daos.file_document import FileDocument
 from apps.inners.models.daos.session import Session
+from apps.inners.models.dtos.constants.document_type_constant import DocumentTypeConstant
 from apps.inners.models.dtos.content import Content
 from apps.inners.models.dtos.contracts.requests.managements.file_documents.create_one_body import \
     CreateOneBody
@@ -27,7 +28,7 @@ async def test__find_one_by_id__should__succeed(main_context: MainContext):
     selected_document_fake: Document = main_context.all_seeder.document_seeder.document_fake.data[0]
     selected_file_document_fake: FileDocument = main_context.all_seeder.file_document_seeder.file_document_fake.data[0]
     selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.get(
@@ -43,11 +44,11 @@ async def test__find_one_by_id__should__succeed(main_context: MainContext):
     assert content.data.id == selected_file_document_fake.id
     assert content.data.document_name == selected_document_fake.name
     assert content.data.document_description == selected_document_fake.description
-    assert content.data.document_type_id == selected_document_fake.document_type_id
+    assert content.data.document_type_id == DocumentTypeConstant.FILE
     assert content.data.document_account_id == selected_document_fake.account_id
     assert content.data.file_name == selected_file_document_fake.file_name
     assert content.data.file_data_hash == selected_file_document_fake.file_data_hash
-    assert content.data.file_meta == dict()
+    assert content.data.file_metadata == dict()
 
 
 @pytest.mark.asyncio
@@ -58,20 +59,19 @@ async def test__create_one__should_create_one_file_document__succeed(main_contex
         0]
     selected_file_document_fake: FileDocument = main_context.all_seeder.file_document_seeder.file_document_fake.data[0]
     file_document_creator_body: CreateOneBody = CreateOneBody(
-        document_name=f"name{uuid.uuid4()}",
-        document_description=f"description{uuid.uuid4()}",
-        document_type_id=selected_document_fake.document_type_id,
-        document_account_id=selected_document_fake.account_id,
+        name=f"name{uuid.uuid4()}",
+        description=f"description{uuid.uuid4()}",
+        account_id=selected_document_fake.account_id,
         file_name=f"file_name{uuid.uuid4()}{pathlib.Path(selected_file_document_fake.file_name).suffix}",
         file_data=None
     )
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.post(
         url=url_path,
         headers=headers,
-        data=json.loads(file_document_creator_body.json(exclude={"file_data"})),
+        data=file_document_creator_body.model_dump(mode="json", exclude={"file_data"}),
         files={"file_data": selected_file_document_data_fake}
     )
 
@@ -80,12 +80,12 @@ async def test__create_one__should_create_one_file_document__succeed(main_contex
         status_code=response.status_code
     )
     assert content.status_code == status.HTTP_201_CREATED
-    assert content.data.document_name == file_document_creator_body.document_name
-    assert content.data.document_description == file_document_creator_body.document_description
-    assert content.data.document_type_id == file_document_creator_body.document_type_id
-    assert content.data.document_account_id == file_document_creator_body.document_account_id
+    assert content.data.document_name == file_document_creator_body.name
+    assert content.data.document_description == file_document_creator_body.description
+    assert content.data.document_type_id == DocumentTypeConstant.FILE
+    assert content.data.document_account_id == file_document_creator_body.account_id
     assert content.data.file_data_hash == hashlib.sha256(selected_file_document_data_fake).hexdigest()
-    assert content.data.file_meta == dict()
+    assert content.data.file_metadata == dict()
 
     file_document: FileDocument = FileDocument(
         id=content.data.id,
@@ -103,20 +103,19 @@ async def test__patch_one_by_id__should_patch_one_file_document__succeed(main_co
         0]
     selected_document_fake: Document = main_context.all_seeder.document_seeder.document_fake.data[0]
     file_document_patcher_body: PatchOneBody = PatchOneBody(
-        document_name=f"patched.name{uuid.uuid4()}",
-        document_description=f"patched.description{uuid.uuid4()}",
-        document_type_id=selected_document_fake.document_type_id,
-        document_account_id=selected_document_fake.account_id,
+        name=f"patched.name{uuid.uuid4()}",
+        description=f"patched.description{uuid.uuid4()}",
+        account_id=selected_document_fake.account_id,
         file_name=f"patched.file_name{uuid.uuid4()}{pathlib.Path(selected_file_document_fake.file_name).suffix}",
         file_data=None
     )
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.patch(
         url=f"{url_path}/{selected_file_document_fake.id}",
         headers=headers,
-        data=json.loads(file_document_patcher_body.json(exclude={"file_data"})),
+        data=file_document_patcher_body.model_dump(mode="json", exclude={"file_data"}),
         files={"file_data": selected_file_document_data_fake}
     )
 
@@ -125,12 +124,12 @@ async def test__patch_one_by_id__should_patch_one_file_document__succeed(main_co
         status_code=response.status_code
     )
     assert content.status_code == status.HTTP_200_OK
-    assert content.data.document_name == file_document_patcher_body.document_name
-    assert content.data.document_description == file_document_patcher_body.document_description
-    assert content.data.document_type_id == file_document_patcher_body.document_type_id
-    assert content.data.document_account_id == file_document_patcher_body.document_account_id
+    assert content.data.document_name == file_document_patcher_body.name
+    assert content.data.document_description == file_document_patcher_body.description
+    assert content.data.document_type_id == DocumentTypeConstant.FILE
+    assert content.data.document_account_id == file_document_patcher_body.account_id
     assert content.data.file_data_hash == hashlib.sha256(selected_file_document_data_fake).hexdigest()
-    assert content.data.file_meta == dict()
+    assert content.data.file_metadata == dict()
 
 
 @pytest.mark.asyncio
@@ -138,7 +137,7 @@ async def test__delete_one_by_id__should_delete_one_file_document__succeed(main_
     selected_document_fake: Document = main_context.all_seeder.document_seeder.document_fake.data[0]
     selected_file_document_fake: FileDocument = main_context.all_seeder.file_document_seeder.file_document_fake.data[0]
     selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.delete(
@@ -154,9 +153,9 @@ async def test__delete_one_by_id__should_delete_one_file_document__succeed(main_
     assert content.data.id == selected_file_document_fake.id
     assert content.data.document_name == selected_document_fake.name
     assert content.data.document_description == selected_document_fake.description
-    assert content.data.document_type_id == selected_document_fake.document_type_id
+    assert content.data.document_type_id == DocumentTypeConstant.FILE
     assert content.data.document_account_id == selected_document_fake.account_id
     assert content.data.file_name == selected_file_document_fake.file_name
     assert content.data.file_data_hash == selected_file_document_fake.file_data_hash
-    assert content.data.file_meta == dict()
+    assert content.data.file_metadata == dict()
     main_context.all_seeder.delete_many_file_document_by_id_cascade(selected_file_document_fake.id)

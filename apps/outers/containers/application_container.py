@@ -39,7 +39,7 @@ class ApplicationContainer(DeclarativeContainer):
         authentications=use_cases.authentications,
         authorizations=use_cases.authorizations,
         passage_searches=use_cases.passage_searches,
-        longform_qas=use_cases.longform_qas,
+        long_form_qas=use_cases.long_form_qas,
     )
     routers = providers.Container(
         RouterContainer,

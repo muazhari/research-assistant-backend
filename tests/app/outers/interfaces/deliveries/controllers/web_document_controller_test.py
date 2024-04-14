@@ -1,6 +1,6 @@
 import hashlib
-import json
 import uuid
+from typing import Dict, Any
 
 import pytest as pytest
 from httpx import Response
@@ -8,9 +8,9 @@ from starlette import status
 
 from apps.inners.models.daos.account import Account
 from apps.inners.models.daos.document import Document
-from apps.inners.models.daos.document_type import DocumentType
 from apps.inners.models.daos.session import Session
 from apps.inners.models.daos.web_document import WebDocument
+from apps.inners.models.dtos.constants.document_type_constant import DocumentTypeConstant
 from apps.inners.models.dtos.content import Content
 from apps.inners.models.dtos.contracts.requests.managements.web_documents.create_one_body import \
     CreateOneBody
@@ -27,7 +27,7 @@ async def test__find_one_by_id__should__succeed(main_context: MainContext):
     selected_document_fake: Document = main_context.all_seeder.document_seeder.document_fake.data[2]
     selected_web_document_fake: WebDocument = main_context.all_seeder.web_document_seeder.web_document_fake.data[0]
     selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.get(
@@ -41,7 +41,7 @@ async def test__find_one_by_id__should__succeed(main_context: MainContext):
     assert content.data.id == selected_web_document_fake.id
     assert content.data.document_name == selected_document_fake.name
     assert content.data.document_description == selected_document_fake.description
-    assert content.data.document_type_id == selected_document_fake.document_type_id
+    assert content.data.document_type_id == DocumentTypeConstant.WEB
     assert content.data.document_account_id == selected_document_fake.account_id
     assert content.data.web_url == selected_web_document_fake.web_url
     assert content.data.web_url_hash == selected_web_document_fake.web_url_hash
@@ -49,27 +49,21 @@ async def test__find_one_by_id__should__succeed(main_context: MainContext):
 
 @pytest.mark.asyncio
 async def test__create_one__should_create_one_web_document__succeed(main_context: MainContext):
-    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
-    selected_document_fake: Document = main_context.all_seeder.document_seeder.document_fake.data[2]
-    selected_document_type_fake: DocumentType = main_context.all_seeder.document_type_seeder.document_type_fake.data[0]
     selected_account_fake: Account = main_context.all_seeder.document_seeder.document_fake.account_fake.data[0]
     selected_web_document_fake: WebDocument = main_context.all_seeder.web_document_seeder.web_document_fake.data[0]
     web_document_creator_body: CreateOneBody = CreateOneBody(
         name=f"name{uuid.uuid4()}",
         description=f"description{uuid.uuid4()}",
-        document_id=selected_document_fake.id,
-        document_type_id=selected_document_type_fake.id,
         account_id=selected_account_fake.id,
         web_url=selected_web_document_fake.web_url,
-        web_url_hash=selected_web_document_fake.web_url_hash
     )
     selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.post(
         url=url_path,
-        json=json.loads(web_document_creator_body.json()),
+        json=web_document_creator_body.model_dump(mode="json"),
         headers=headers
     )
 
@@ -78,7 +72,7 @@ async def test__create_one__should_create_one_web_document__succeed(main_context
     assert content.status_code == status.HTTP_201_CREATED
     assert content.data.document_name == web_document_creator_body.name
     assert content.data.document_description == web_document_creator_body.description
-    assert content.data.document_type_id == web_document_creator_body.document_type_id
+    assert content.data.document_type_id == DocumentTypeConstant.WEB
     assert content.data.document_account_id == web_document_creator_body.account_id
     assert content.data.web_url == web_document_creator_body.web_url
     assert content.data.web_url_hash == hashlib.sha256(web_document_creator_body.web_url.encode()).hexdigest()
@@ -94,25 +88,20 @@ async def test__create_one__should_create_one_web_document__succeed(main_context
 @pytest.mark.asyncio
 async def test__patch_one_by_id__should_patch_one_web_document__succeed(main_context: MainContext):
     selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
-    selected_document_fake: Document = main_context.all_seeder.document_seeder.document_fake.data[2]
     selected_web_document_fake: WebDocument = main_context.all_seeder.web_document_seeder.web_document_fake.data[0]
-    selected_document_type_fake: DocumentType = main_context.all_seeder.document_type_seeder.document_type_fake.data[0]
     selected_account_fake: Account = main_context.all_seeder.document_seeder.document_fake.account_fake.data[0]
     web_document_patcher_body: PatchOneBody = PatchOneBody(
         name=f"patched.name{uuid.uuid4()}",
         description=f"patched.description{uuid.uuid4()}",
-        document_id=selected_document_fake.id,
-        document_type_id=selected_document_type_fake.id,
         account_id=selected_account_fake.id,
         web_url=selected_web_document_fake.web_url,
-        web_url_hash=selected_web_document_fake.web_url_hash
     )
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.patch(
         url=f"{url_path}/{selected_web_document_fake.id}",
-        json=json.loads(web_document_patcher_body.json()),
+        json=web_document_patcher_body.model_dump(mode="json"),
         headers=headers
     )
 
@@ -121,7 +110,7 @@ async def test__patch_one_by_id__should_patch_one_web_document__succeed(main_con
     assert content.status_code == status.HTTP_200_OK
     assert content.data.document_name == web_document_patcher_body.name
     assert content.data.document_description == web_document_patcher_body.description
-    assert content.data.document_type_id == web_document_patcher_body.document_type_id
+    assert content.data.document_type_id == DocumentTypeConstant.WEB
     assert content.data.document_account_id == web_document_patcher_body.account_id
     assert content.data.web_url == web_document_patcher_body.web_url
     assert content.data.web_url_hash == hashlib.sha256(web_document_patcher_body.web_url.encode()).hexdigest()
@@ -132,7 +121,7 @@ async def test__delete_one_by_id__should_delete_one_web_document__succeed(main_c
     selected_document_fake: Document = main_context.all_seeder.document_seeder.document_fake.data[2]
     selected_web_document_fake: WebDocument = main_context.all_seeder.web_document_seeder.web_document_fake.data[0]
     selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.delete(
@@ -146,7 +135,7 @@ async def test__delete_one_by_id__should_delete_one_web_document__succeed(main_c
     assert content.data.id == selected_web_document_fake.id
     assert content.data.document_name == selected_document_fake.name
     assert content.data.document_description == selected_document_fake.description
-    assert content.data.document_type_id == selected_document_fake.document_type_id
+    assert content.data.document_type_id == DocumentTypeConstant.WEB
     assert content.data.document_account_id == selected_document_fake.account_id
     assert content.data.web_url == selected_web_document_fake.web_url
     assert content.data.web_url_hash == selected_web_document_fake.web_url_hash

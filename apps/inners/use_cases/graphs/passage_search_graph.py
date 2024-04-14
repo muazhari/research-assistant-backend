@@ -11,7 +11,7 @@ from langgraph.graph.graph import CompiledGraph
 
 from apps.inners.exceptions import use_case_exception
 from apps.inners.models.dtos.document_category import DocumentCategory
-from apps.inners.models.dtos.graph_state import GraphState
+from apps.inners.models.dtos.graph_state import PassageSearchGraphState
 from apps.inners.use_cases.embeddings.bge_m3_embedding import BgeM3Embedding
 from apps.inners.use_cases.embeddings.hugging_face_e5_instruct_embedding import HuggingFaceE5InstructEmbedding
 from apps.inners.use_cases.graphs.preparation_graph import PreparationGraph
@@ -37,6 +37,7 @@ class PassageSearchGraph(PreparationGraph):
         super().__init__(*args, **kwargs)
         self.one_embedding_setting = one_embedding_setting
         self.four_datastore = four_datastore
+        self.compiled_graph: CompiledGraph = self._compile()
 
     def _get_embedding_query(self, embedding_model_name: str, question: str,
                              query_instruction: Optional[str] = None) -> str:
@@ -55,21 +56,21 @@ class PassageSearchGraph(PreparationGraph):
 
         return query
 
-    async def node_prepare_embed(self, input_state: GraphState):
-        output_state: GraphState = input_state
+    async def node_prepare_embed(self, input_state: PassageSearchGraphState):
+        output_state: PassageSearchGraphState = input_state
 
-        categorized_documents: Dict[UUID, DocumentCategory] = input_state["data"]["categorized_documents"]
+        categorized_documents: Dict[UUID, DocumentCategory] = input_state["categorized_documents"]
         categorized_document_ids: List[UUID] = list(categorized_documents.keys())
-        embedded_document_ids: Optional[List[UUID]] = input_state["data"].get("embedded_document_ids", None)
+        embedded_document_ids: Optional[List[UUID]] = input_state.get("embedded_document_ids", None)
         if embedded_document_ids is None:
             embedded_document_ids = []
-            output_state["data"]["embedded_document_ids"] = embedded_document_ids
+            output_state["embedded_document_ids"] = embedded_document_ids
 
         next_document_ids: List[UUID] = list(set(categorized_document_ids) - set(embedded_document_ids))
         next_document_id: UUID = next_document_ids.pop()
 
-        output_state["data"]["next_document_id"] = next_document_id
-        output_state["data"]["next_categorized_document"] = categorized_documents[next_document_id]
+        output_state["next_document_id"] = next_document_id
+        output_state["next_categorized_document"] = categorized_documents[next_document_id]
 
         return output_state
 
@@ -106,24 +107,24 @@ class PassageSearchGraph(PreparationGraph):
 
         return vector_store
 
-    async def node_decide_embed_or_get_relevant_documents(self, input_state: GraphState) -> str:
-        output_state: GraphState = input_state
+    async def node_decide_embed_or_get_relevant_documents(self, input_state: PassageSearchGraphState) -> str:
+        output_state: PassageSearchGraphState = input_state
 
-        categorized_documents: Dict[UUID, DocumentCategory] = input_state["data"]["categorized_documents"]
+        categorized_documents: Dict[UUID, DocumentCategory] = input_state["categorized_documents"]
         categorized_document_ids: List[UUID] = list(categorized_documents.keys())
-        embedded_document_ids: List[UUID] = input_state["data"]["embedded_document_ids"]
+        embedded_document_ids: List[UUID] = input_state["embedded_document_ids"]
 
         if set(categorized_document_ids) == set(embedded_document_ids):
-            output_state["data"]["next_document_id"] = None
-            output_state["data"]["next_categorized_document"] = None
+            output_state["next_document_id"] = None
+            output_state["next_categorized_document"] = None
             return "GET_RELEVANT_DOCUMENTS"
 
         return "EMBED"
 
-    async def node_embed(self, input_state: GraphState) -> GraphState:
-        output_state: GraphState = input_state
+    async def node_embed(self, input_state: PassageSearchGraphState) -> PassageSearchGraphState:
+        output_state: PassageSearchGraphState = input_state
 
-        categorized_document: DocumentCategory = input_state["data"]["next_categorized_document"]
+        categorized_document: DocumentCategory = input_state["next_categorized_document"]
         document_contents: List[str] = []
         document_ids: List[str] = []
         document_key_value_pairs: List[Tuple[Any, Any]] = []
@@ -141,14 +142,14 @@ class PassageSearchGraph(PreparationGraph):
             )
 
         collection_name: str = self._get_collection_name_hash(
-            categorized_document_hashes=input_state["data"]["categorized_document_hashes"],
-            embedding_model_name=input_state["data"]["embedder_setting"]["model_name"]
+            categorized_document_hashes=input_state["categorized_document_hashes"],
+            embedding_model_name=input_state["embedder_setting"]["model_name"]
         )
         document_store: RedisStore = RedisStore(
             client=self.two_datastore.sync_client
         )
         vector_store: BaseMilvusVectorStore = self._get_vector_store(
-            embedding_model_name=input_state["data"]["embedder_setting"]["model_name"],
+            embedding_model_name=input_state["embedder_setting"]["model_name"],
             collection_name=collection_name,
             alias=self.four_datastore.alias
         )
@@ -165,7 +166,7 @@ class PassageSearchGraph(PreparationGraph):
             else:
                 vector_store.initialize_collection()
 
-            is_force_refresh_embedding: bool = input_state["data"]["embedder_setting"]["is_force_refresh_embedding"]
+            is_force_refresh_embedding: bool = input_state["embedder_setting"]["is_force_refresh_embedding"]
             if is_entity_exist is False or is_force_refresh_embedding is True:
                 vector_store.collection.delete(
                     expr=f"id in {document_ids}"
@@ -183,19 +184,19 @@ class PassageSearchGraph(PreparationGraph):
             else:
                 is_document_exist: bool = False
 
-            is_force_refresh_document: bool = input_state["data"]["embedder_setting"]["is_force_refresh_document"]
+            is_force_refresh_document: bool = input_state["embedder_setting"]["is_force_refresh_document"]
             if is_document_exist is False or is_force_refresh_document is True:
                 await document_store.amdelete(keys=document_ids)
                 await document_store.amset(key_value_pairs=document_key_value_pairs)
 
-        output_state["data"]["retriever_setting"]["vector_store"] = vector_store
-        output_state["data"]["retriever_setting"]["document_store"] = document_store
+        output_state["retriever_setting"]["vector_store"] = vector_store
+        output_state["retriever_setting"]["document_store"] = document_store
 
-        if output_state["data"].get("embedded_document_ids", None) is None:
-            output_state["data"]["embedded_document_ids"] = []
+        if output_state.get("embedded_document_ids", None) is None:
+            output_state["embedded_document_ids"] = []
         else:
-            document_id: str = input_state["data"]["next_document_id"]
-            output_state["data"]["embedded_document_ids"].append(document_id)
+            document_id: UUID = input_state["next_document_id"]
+            output_state["embedded_document_ids"].append(document_id)
 
         return output_state
 
@@ -214,27 +215,27 @@ class PassageSearchGraph(PreparationGraph):
 
         return collection_name
 
-    async def node_get_relevant_documents(self, input_state: GraphState) -> GraphState:
-        output_state: GraphState = input_state
+    async def node_get_relevant_documents(self, input_state: PassageSearchGraphState) -> PassageSearchGraphState:
+        output_state: PassageSearchGraphState = input_state
 
         query: str = self._get_embedding_query(
-            embedding_model_name=input_state["data"]["embedder_setting"]["model_name"],
-            query_instruction=input_state["data"]["embedder_setting"]["query_instruction"],
-            question=input_state["data"]["question"]
+            embedding_model_name=input_state["embedder_setting"]["model_name"],
+            query_instruction=input_state["embedder_setting"]["query_instruction"],
+            question=input_state["question"]
         )
-        vector_store: BaseMilvusVectorStore = input_state["data"]["retriever_setting"]["vector_store"]
-        document_store: RedisStore = input_state["data"]["retriever_setting"]["document_store"]
+        vector_store: BaseMilvusVectorStore = input_state["retriever_setting"]["vector_store"]
+        document_store: RedisStore = input_state["retriever_setting"]["document_store"]
         retriever: HybridMilvusRetriever = HybridMilvusRetriever(
             vector_store=vector_store,
             document_store=document_store,
             collection_name=vector_store.collection_name,
             search_kwargs={
-                "top_k": input_state["data"]["retriever_setting"]["top_k"]
+                "top_k": input_state["retriever_setting"]["top_k"]
             }
         )
-        output_state["data"]["retriever_setting"]["retriever"] = retriever
+        output_state["retriever_setting"]["retriever"] = retriever
         relevant_document_hash: str = self._get_relevant_document_hash(
-            top_k=input_state["data"]["retriever_setting"]["top_k"],
+            top_k=input_state["retriever_setting"]["top_k"],
             collection_name=retriever.vector_store.collection_name,
             query=query,
         )
@@ -246,9 +247,9 @@ class PassageSearchGraph(PreparationGraph):
         else:
             raise use_case_exception.ExistingRelevantDocumentHashInvalid()
 
-        is_force_refresh_relevant_document: bool = input_state["data"]["retriever_setting"][
+        is_force_refresh_relevant_document: bool = input_state["retriever_setting"][
             "is_force_refresh_relevant_document"]
-        is_force_refresh_embedding: bool = input_state["data"]["embedder_setting"]["is_force_refresh_embedding"]
+        is_force_refresh_embedding: bool = input_state["embedder_setting"]["is_force_refresh_embedding"]
         if is_relevant_document_exist is False or is_force_refresh_relevant_document is True or is_force_refresh_embedding is True:
             relevant_documents: List[Document] = retriever.get_relevant_documents(
                 query=query
@@ -267,8 +268,8 @@ class PassageSearchGraph(PreparationGraph):
                 Document(**document) for document in retrieved_document_dicts
             ]
 
-        output_state["data"]["relevant_documents"] = relevant_documents
-        output_state["data"]["relevant_document_hash"] = relevant_document_hash
+        output_state["relevant_documents"] = relevant_documents
+        output_state["relevant_document_hash"] = relevant_document_hash
 
         return output_state
 
@@ -295,14 +296,14 @@ class PassageSearchGraph(PreparationGraph):
 
         return model
 
-    async def node_get_re_ranked_documents(self, input_state: GraphState) -> GraphState:
-        output_state: GraphState = input_state
+    async def node_get_re_ranked_documents(self, input_state: PassageSearchGraphState) -> PassageSearchGraphState:
+        output_state: PassageSearchGraphState = input_state
 
-        relevant_document_hash: str = input_state["data"]["relevant_document_hash"]
+        relevant_document_hash: str = input_state["relevant_document_hash"]
         re_ranked_document_hash: str = self._get_re_ranked_document_hash(
             relevant_document_hash=relevant_document_hash,
-            reranker_model_name=input_state["data"]["reranker_setting"]["model_name"],
-            top_k=input_state["data"]["reranker_setting"]["top_k"]
+            reranker_model_name=input_state["reranker_setting"]["model_name"],
+            top_k=input_state["reranker_setting"]["top_k"]
         )
         existing_re_ranked_document_hash: int = await self.two_datastore.async_client.exists(re_ranked_document_hash)
         if existing_re_ranked_document_hash == 0:
@@ -312,19 +313,29 @@ class PassageSearchGraph(PreparationGraph):
         else:
             raise use_case_exception.ExistingReRankedDocumentHashInvalid()
 
-        is_force_refresh_re_ranked_document: bool = input_state["data"]["reranker_setting"][
+        is_force_refresh_re_ranked_document: bool = input_state["reranker_setting"][
             "is_force_refresh_re_ranked_document"]
         if is_re_ranked_document_exist is False or is_force_refresh_re_ranked_document is True:
-            relevant_documents: List[Document] = input_state["data"]["relevant_documents"]
+            relevant_documents: List[Document] = input_state["relevant_documents"]
             reranker_model: BaseReranker = self._get_reranker_model(
-                model_name=input_state["data"]["reranker_setting"]["model_name"]
+                model_name=input_state["reranker_setting"]["model_name"]
             )
             texts: List[str] = [document.page_content for document in relevant_documents]
-            re_ranked_results: List[Dict[str, Any]] = reranker_model.rerank(
-                query=input_state["data"]["question"],
-                texts=texts,
-                top_k=input_state["data"]["reranker_setting"]["top_k"]
-            )
+            re_ranked_results: List[Dict[str, Any]] = []
+            if len(texts) > 1:
+                re_ranked_results += reranker_model.rerank(
+                    query=input_state["question"],
+                    texts=texts,
+                    top_k=input_state["reranker_setting"]["top_k"]
+                )
+            else:
+                re_ranked_results += [
+                    {
+                        "index": 0,
+                        "text": texts[0],
+                        "score": 1.0
+                    }
+                ]
             re_ranked_documents: List[Document] = []
             for re_ranked_result in re_ranked_results:
                 relevant_document: Optional[Document] = relevant_documents[re_ranked_result["index"]]
@@ -350,7 +361,8 @@ class PassageSearchGraph(PreparationGraph):
                 Document(**document) for document in re_ranked_document_dicts
             ]
 
-        output_state["data"]["re_ranked_documents"] = re_ranked_documents
+        output_state["re_ranked_documents"] = re_ranked_documents
+        output_state["re_ranked_document_hash"] = re_ranked_document_hash
 
         return output_state
 
@@ -372,8 +384,8 @@ class PassageSearchGraph(PreparationGraph):
 
         return hashed_data
 
-    def compile(self) -> CompiledGraph:
-        graph: StateGraph = StateGraph(GraphState)
+    def _compile(self) -> CompiledGraph:
+        graph: StateGraph = StateGraph(PassageSearchGraphState)
 
         graph.add_node(
             key=self.node_get_llm_model.__name__,
@@ -438,6 +450,10 @@ class PassageSearchGraph(PreparationGraph):
         graph.add_edge(
             start_key=self.node_get_relevant_documents.__name__,
             end_key=self.node_get_re_ranked_documents.__name__
+        )
+
+        graph.set_finish_point(
+            key=self.node_get_re_ranked_documents.__name__
         )
 
         compiled_graph: CompiledGraph = graph.compile()

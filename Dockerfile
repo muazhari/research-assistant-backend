@@ -7,6 +7,9 @@ ENV WORKDIR /app
 # Set the working directory.
 WORKDIR $WORKDIR
 
+# Update the apt package index.
+RUN apt update
+
 # Install apt dependencies.
 RUN yes | DEBIAN_FRONTEND=noninteractive apt install -y \
     libmagic-dev \
@@ -17,7 +20,8 @@ RUN yes | DEBIAN_FRONTEND=noninteractive apt install -y \
     libxml2-dev \
     libxslt1-dev \
     libgraphviz-dev \
-    graphviz
+    graphviz \
+    wkhtmltopdf
 
 # Install paddleocr
 RUN pip3 install paddlepaddle-gpu -i https://pypi.tuna.tsinghua.edu.cn/simple
@@ -33,6 +37,7 @@ COPY ./requirements.txt ./requirements.txt
 
 # Install python dependencies from requirements.txt.
 RUN pip3 install -r requirements.txt
+
 
 # Copy rest of the files to the working directory.
 COPY . .

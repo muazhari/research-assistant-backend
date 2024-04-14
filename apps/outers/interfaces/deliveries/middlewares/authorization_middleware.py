@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from typing import List
 
 import regex
 from starlette import status
@@ -51,7 +52,19 @@ class AuthorizationMiddleware(BaseHTTPMiddleware):
             content.message += f" {self.__class__.__name__}.{self.dispatch.__name__}: Authorization header is missing."
             return content.to_response()
 
-        access_token: str = authorization_header.split(" ")[1]
+        authorization: List[str] = authorization_header.split(" ")
+
+        if len(authorization) != 2:
+            content.status_code = status.HTTP_401_UNAUTHORIZED
+            content.message += f" {self.__class__.__name__}.{self.dispatch.__name__}: Authorization is invalid."
+            return content.to_response()
+
+        if authorization[0] != "Bearer":
+            content.status_code = status.HTTP_401_UNAUTHORIZED
+            content.message += f" {self.__class__.__name__}.{self.dispatch.__name__}: Authorization scheme is invalid."
+            return content.to_response()
+
+        access_token: str = authorization[1]
 
         try:
             found_session: [Session] = await self.session_management.find_one_by_access_token(
@@ -70,4 +83,5 @@ class AuthorizationMiddleware(BaseHTTPMiddleware):
 
         request.state.authorized_session = found_session
         response: Response = await call_next(request)
+
         return response

@@ -1,5 +1,8 @@
-import json
 import uuid
+from typing import Dict, Any
+
+import uuid
+from typing import Dict, Any
 
 import bcrypt
 import pytest as pytest
@@ -22,7 +25,7 @@ url_path: str = "/api/accounts"
 async def test__find_one_by_id__should__succeed(main_context: MainContext):
     selected_account_fake: Account = main_context.all_seeder.account_seeder.account_fake.data[0]
     selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.get(
@@ -46,12 +49,12 @@ async def test__create_one__should_create_one_account__succeed(main_context: Mai
         email=f"email{uuid.uuid4()}@mail.com",
         password="password0",
     )
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.post(
         url=url_path,
-        json=json.loads(account_creator_body.json()),
+        json=account_creator_body.model_dump(mode="json"),
         headers=headers
     )
 
@@ -73,12 +76,12 @@ async def test__patch_one_by_id__should_patch_one_account__succeed(main_context:
         email=f"patched.email{uuid.uuid4()}@mail.com",
         password="patched.password1",
     )
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.patch(
         url=f"{url_path}/{selected_account_fake.id}",
-        json=json.loads(account_patcher_body.json()),
+        json=account_patcher_body.model_dump(mode="json"),
         headers=headers
     )
 
@@ -95,7 +98,7 @@ async def test__patch_one_by_id__should_patch_one_account__succeed(main_context:
 async def test__delete_one_by_id__should_delete_one_account__succeed(main_context: MainContext):
     selected_account_fake: Account = main_context.all_seeder.account_seeder.account_fake.data[0]
     selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.delete(

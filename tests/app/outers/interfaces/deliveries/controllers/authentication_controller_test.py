@@ -1,6 +1,6 @@
-import json
 import uuid
 from typing import Any
+from typing import Dict
 
 import bcrypt
 import pytest as pytest
@@ -35,7 +35,7 @@ async def test__login_by_email_and_password__succeed(main_context: MainContext):
     response: Response = await main_context.client.post(
         url=f"{url_path}/logins",
         params=params,
-        json=json.loads(login_by_email_and_password_body.json())
+        json=login_by_email_and_password_body.model_dump(mode="json")
     )
 
     content: Content[LoginResponse] = Content[LoginResponse](
@@ -65,7 +65,7 @@ async def test__login_by_email_and_password__failed__when__email_is_not_found(ma
     response: Response = await main_context.client.post(
         url=f"{url_path}/logins",
         params=params,
-        json=json.loads(login_by_email_and_password_body.json())
+        json=login_by_email_and_password_body.model_dump(mode="json")
     )
 
     content: Content[LoginResponse] = Content[LoginResponse](
@@ -89,7 +89,7 @@ async def test__login_by_email_and_password__failed__when__password_is_not_match
     response: Response = await main_context.client.post(
         url=f"{url_path}/logins",
         params=params,
-        json=json.loads(login_by_email_and_password_body.json())
+        json=login_by_email_and_password_body.model_dump(mode="json")
     )
 
     content: Content[LoginResponse] = Content[LoginResponse](
@@ -113,7 +113,7 @@ async def test__login_by_email_and_password__failed__when__method_is_not_support
     response: Response = await main_context.client.post(
         url=f"{url_path}/logins",
         params=params,
-        json=json.loads(login_by_email_and_password_body.json())
+        json=login_by_email_and_password_body.model_dump(mode="json")
     )
 
     content: Content[LoginResponse] = Content[LoginResponse](
@@ -136,7 +136,7 @@ async def test__register_by_email_and_password__succeed(main_context: MainContex
     response: Response = await main_context.client.post(
         url=f"{url_path}/registers",
         params=params,
-        json=json.loads(register_by_email_and_password_body.json())
+        json=register_by_email_and_password_body.model_dump(mode="json")
     )
 
     content: Content[RegisterResponse] = Content[RegisterResponse](
@@ -164,7 +164,7 @@ async def test__register_by_email_and_password__failed__when__method_is_not_supp
     response: Response = await main_context.client.post(
         url=f"{url_path}/registers",
         params=params,
-        json=json.loads(register_by_email_and_password_body.json())
+        json=register_by_email_and_password_body.model_dump(mode="json")
     )
 
     content: Content[RegisterResponse] = Content[RegisterResponse](
@@ -178,7 +178,7 @@ async def test__register_by_email_and_password__failed__when__method_is_not_supp
 @pytest.mark.asyncio
 async def test__logout__succeed(main_context: MainContext):
     selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.post(

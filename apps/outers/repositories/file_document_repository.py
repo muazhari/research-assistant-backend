@@ -30,25 +30,25 @@ class FileDocumentRepository:
         self.file_path: Path = self.temp_datastore.temp_datastore_setting.TEMP_DATASTORE_PATH / "file_documents"
         self.file_path.mkdir(exist_ok=True)
 
-    def save_file(self, file_name: str, file_data: bytes) -> Path:
-        file_path: Path = self.file_path / file_name
-        file_io = open(file_path, "wb")
+    def save_file(self, relative_file_path: Path, file_data: bytes) -> Path:
+        relative_file_path: Path = self.file_path / relative_file_path
+        file_io = open(relative_file_path, "wb")
         file_io.write(file_data)
         file_io.close()
 
-        return file_path
+        return relative_file_path
 
-    def read_file_data(self, file_name: str) -> bytes:
-        file_path: Path = self.file_path / file_name
-        file_io = open(file_path, "rb")
+    def read_file_data(self, relative_file_path: Path) -> bytes:
+        relative_file_path: Path = self.file_path / relative_file_path
+        file_io = open(relative_file_path, "rb")
         file_data = file_io.read()
         file_io.close()
 
         return file_data
 
-    def remove_file(self, file_name: str):
-        file_path: Path = self.file_path / file_name
-        file_path.unlink()
+    def remove_file(self, relative_file_path: Path):
+        relative_file_path: Path = self.file_path / relative_file_path
+        relative_file_path.unlink()
 
     def put_object(self, object_name: str, data: bytes) -> ObjectWriteResult:
         return self.three_datastore.client.put_object(

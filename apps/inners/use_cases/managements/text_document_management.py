@@ -6,6 +6,7 @@ from starlette.datastructures import State
 
 from apps.inners.models.daos.document import Document
 from apps.inners.models.daos.text_document import TextDocument
+from apps.inners.models.dtos.constants.document_type_constant import DocumentTypeConstant
 from apps.inners.models.dtos.contracts.requests.managements.text_documents.create_one_body import CreateOneBody
 from apps.inners.models.dtos.contracts.requests.managements.text_documents.patch_one_body import PatchOneBody
 from apps.inners.models.dtos.contracts.responses.managements.documents.text_document_response import \
@@ -50,7 +51,7 @@ class TextDocumentManagement:
             id=uuid.uuid4(),
             name=body.name,
             description=body.description,
-            document_type_id=body.document_type_id,
+            document_type_id=DocumentTypeConstant.TEXT,
             account_id=body.account_id
         )
         created_document: Document = self.document_management.create_one_raw(
@@ -92,7 +93,7 @@ class TextDocumentManagement:
             id=id,
             name=body.name,
             description=body.description,
-            document_type_id=body.document_type_id,
+            document_type_id=DocumentTypeConstant.TEXT,
             account_id=body.account_id
         )
         patched_document: Document = await self.document_management.patch_one_by_id_raw_with_authorization(

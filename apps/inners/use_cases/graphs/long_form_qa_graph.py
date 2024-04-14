@@ -13,7 +13,7 @@ from pydantic.v1 import Field
 
 from apps.inners.exceptions import use_case_exception
 from apps.inners.models.base_model import BaseModelV1
-from apps.inners.models.dtos.graph_state import GraphState
+from apps.inners.models.dtos.graph_state import LongFormQaGraphState
 from apps.inners.use_cases.graphs.passage_search_graph import PassageSearchGraph
 from apps.inners.use_cases.retrievers.hybrid_milvus_retriever import HybridMilvusRetriever
 from tools import cache_tool
@@ -26,19 +26,20 @@ class LongFormQaGraph(PassageSearchGraph):
             **kwargs: Any
     ):
         super().__init__(*args, **kwargs)
+        self.compiled_graph: CompiledGraph = self._compile()
 
-    async def node_generate_answer(self, input_state: GraphState) -> GraphState:
-        output_state: GraphState = input_state
+    async def node_generate_answer(self, input_state: LongFormQaGraphState) -> LongFormQaGraphState:
+        output_state: LongFormQaGraphState = input_state
 
-        re_ranked_documents: List[Document] = input_state["data"]["re_ranked_documents"]
-        retriever: HybridMilvusRetriever = input_state["data"]["retriever_setting"]["retriever"]
+        re_ranked_documents: List[Document] = input_state["re_ranked_documents"]
+        retriever: HybridMilvusRetriever = input_state["retriever_setting"]["retriever"]
         re_ranked_document_ids: List[str] = [document.metadata[retriever.id_key] for document in re_ranked_documents]
         generated_answer_hash: str = self._get_generated_answer_hash(
             re_ranked_document_ids=re_ranked_document_ids,
-            question=input_state["data"]["question"],
-            llm_model_name=input_state["data"]["llm"]["model_name"],
-            prompt_text=input_state["data"]["generator_setting"]["prompt_text"],
-            max_token=input_state["data"]["llm"]["max_token"],
+            question=input_state["question"],
+            llm_model_name=input_state["llm_setting"]["model_name"],
+            prompt_text=input_state["generator_setting"]["prompt_text"],
+            max_token=input_state["llm_setting"]["max_token"],
         )
         existing_generated_answer_hash: int = await self.two_datastore.async_client.exists(generated_answer_hash)
         if existing_generated_answer_hash == 0:
@@ -48,17 +49,17 @@ class LongFormQaGraph(PassageSearchGraph):
         else:
             raise use_case_exception.ExistingGeneratedAnswerHashInvalid()
 
-        is_force_refresh_generated_answer: bool = input_state["data"]["generator_setting"][
+        is_force_refresh_generated_answer: bool = input_state["generator_setting"][
             "is_force_refresh_generated_answer"]
         if is_generated_answer_exist is False or is_force_refresh_generated_answer is True:
             prompt: PromptTemplate = PromptTemplate(
-                template=input_state["data"]["generator_setting"]["prompt_text"],
+                template=input_state["generator_setting"]["prompt_text"],
                 template_format="jinja2",
                 input_variables=["passages", "question"]
             )
             text: str = prompt.format(
                 passages=re_ranked_documents,
-                question=input_state["data"]["question"]
+                question=input_state["question"]
             )
             messages: List[BaseMessage] = [
                 HumanMessage(
@@ -70,7 +71,7 @@ class LongFormQaGraph(PassageSearchGraph):
                     ]
                 )
             ]
-            llm_model: BaseChatModel = input_state["data"]["llm"]["model"]
+            llm_model: BaseChatModel = input_state["llm_setting"]["model"]
             chain: RunnableSerializable = llm_model | StrOutputParser()
             generated_answer: str = chain.invoke(
                 input=messages
@@ -83,8 +84,8 @@ class LongFormQaGraph(PassageSearchGraph):
             generated_answer_byte: bytes = await self.two_datastore.async_client.get(generated_answer_hash)
             generated_answer: str = generated_answer_byte.decode()
 
-        output_state["data"]["generated_answer"] = generated_answer
-        output_state["data"]["generated_answer_hash"] = generated_answer_hash
+        output_state["generated_answer"] = generated_answer
+        output_state["generated_answer_hash"] = generated_answer_hash
 
         return output_state
 
@@ -110,10 +111,10 @@ class LongFormQaGraph(PassageSearchGraph):
 
         return hashed_data
 
-    async def node_grade_hallucination(self, input_state: GraphState) -> GraphState:
-        output_state: GraphState = input_state
+    async def node_grade_hallucination(self, input_state: LongFormQaGraphState) -> LongFormQaGraphState:
+        output_state: LongFormQaGraphState = input_state
 
-        retrieved_documents: List[Document] = input_state["data"]["relevant_documents"]
+        retrieved_documents: List[Document] = input_state["relevant_documents"]
 
         class GradeTool(BaseModelV1):
             """Binary score for support check."""
@@ -121,10 +122,10 @@ class LongFormQaGraph(PassageSearchGraph):
                 description="Is supported binary score, either True if supported or False if not supported."
             )
 
-        retriever: HybridMilvusRetriever = input_state["data"]["retriever_setting"]["retriever"]
+        retriever: HybridMilvusRetriever = input_state["retriever_setting"]["retriever"]
         generated_hallucination_grade_hash: str = self._get_generated_hallucination_grade_hash(
             retrieved_document_ids=[document.metadata[retriever.id_key] for document in retrieved_documents],
-            generated_answer_hash=input_state["data"]["generated_answer_hash"]
+            generated_answer_hash=input_state["generated_answer_hash"]
         )
         existing_generated_hallucination_grade_hash: int = await self.two_datastore.async_client.exists(
             generated_hallucination_grade_hash)
@@ -135,7 +136,7 @@ class LongFormQaGraph(PassageSearchGraph):
         else:
             raise use_case_exception.ExistingGeneratedHallucinationGradeHashInvalid()
 
-        is_force_refresh_generated_hallucination_grade_hash: bool = input_state["data"]["generator_setting"][
+        is_force_refresh_generated_hallucination_grade_hash: bool = input_state["generator_setting"][
             "is_force_refresh_generated_hallucination_grade_hash"]
         if is_generated_hallucination_grade_hash_exist is False or is_force_refresh_generated_hallucination_grade_hash is True:
             prompt: PromptTemplate = PromptTemplate(
@@ -151,7 +152,7 @@ class LongFormQaGraph(PassageSearchGraph):
             )
             text: str = prompt.format(
                 passages=retrieved_documents,
-                generated_answer=input_state["data"]["generated_answer"]
+                generated_answer=input_state["generated_answer"]
             )
             messages: List[BaseMessage] = [
                 HumanMessage(
@@ -163,7 +164,7 @@ class LongFormQaGraph(PassageSearchGraph):
                     ]
                 )
             ]
-            llm_model: BaseChatModel = input_state["data"]["llm"]["model"]
+            llm_model: BaseChatModel = input_state["llm_setting"]["model"]
             chain: RunnableSerializable = llm_model.bind_tools(tools=[GradeTool]) | ToolsOutputParser(
                 pydantic_schemas=[GradeTool]
             )
@@ -180,8 +181,8 @@ class LongFormQaGraph(PassageSearchGraph):
                 generated_hallucination_grade_hash)
             generated_hallucination_grade: str = generated_hallucination_grade_byte.decode()
 
-        output_state["data"]["generated_hallucination_grade"] = generated_hallucination_grade
-        output_state["data"]["generated_hallucination_grade_hash"] = generated_hallucination_grade_hash
+        output_state["generated_hallucination_grade"] = generated_hallucination_grade
+        output_state["generated_hallucination_grade_hash"] = generated_hallucination_grade_hash
 
         return output_state
 
@@ -201,8 +202,8 @@ class LongFormQaGraph(PassageSearchGraph):
 
         return hashed_data
 
-    async def node_grade_answer_relevancy(self, input_state: GraphState) -> GraphState:
-        output_state: GraphState = input_state
+    async def node_grade_answer_relevancy(self, input_state: LongFormQaGraphState) -> LongFormQaGraphState:
+        output_state: LongFormQaGraphState = input_state
 
         class GradeTool(BaseModelV1):
             """Binary score for resolution check."""
@@ -211,8 +212,8 @@ class LongFormQaGraph(PassageSearchGraph):
             )
 
         generated_answer_relevancy_grade_hash: str = self._get_generated_answer_relevancy_grade_hash(
-            question=input_state["data"]["question"],
-            generated_answer_hash=input_state["data"]["generated_answer_hash"]
+            question=input_state["question"],
+            generated_answer_hash=input_state["generated_answer_hash"]
         )
         existing_generated_hallucination_grade_hash: int = await self.two_datastore.async_client.exists(
             generated_answer_relevancy_grade_hash)
@@ -223,7 +224,7 @@ class LongFormQaGraph(PassageSearchGraph):
         else:
             raise use_case_exception.ExistingGeneratedAnswerRelevancyGradeHashInvalid()
 
-        is_force_refresh_generated_answer_relevancy_grade_hash: bool = input_state["data"]["generator_setting"][
+        is_force_refresh_generated_answer_relevancy_grade_hash: bool = input_state["generator_setting"][
             "is_force_refresh_generated_answer_relevancy_grade_hash"]
         if is_generated_hallucination_grade_hash_exist is False or is_force_refresh_generated_answer_relevancy_grade_hash is True:
             prompt: PromptTemplate = PromptTemplate(
@@ -234,8 +235,8 @@ class LongFormQaGraph(PassageSearchGraph):
                 input_variables=["generated_answer", "question"]
             )
             text: str = prompt.format(
-                generated_answer=input_state["data"]["generated_answer"],
-                question=input_state["data"]["question"]
+                generated_answer=input_state["generated_answer"],
+                question=input_state["question"]
             )
             messages: List[BaseMessage] = [
                 HumanMessage(
@@ -247,7 +248,7 @@ class LongFormQaGraph(PassageSearchGraph):
                     ]
                 )
             ]
-            llm_model: BaseChatModel = input_state["data"]["llm"]["model"]
+            llm_model: BaseChatModel = input_state["llm_setting"]["model"]
             chain: RunnableSerializable = llm_model.bind_tools(tools=[GradeTool]) | ToolsOutputParser(
                 pydantic_schemas=[GradeTool]
             )
@@ -265,8 +266,8 @@ class LongFormQaGraph(PassageSearchGraph):
             )
             generated_answer_relevancy_grade: str = generated_answer_relevancy_grade_byte.decode()
 
-        output_state["data"]["generated_answer_relevancy_grade"] = generated_answer_relevancy_grade
-        output_state["data"]["generated_answer_relevancy_grade_hash"] = generated_answer_relevancy_grade_hash
+        output_state["generated_answer_relevancy_grade"] = generated_answer_relevancy_grade
+        output_state["generated_answer_relevancy_grade_hash"] = generated_answer_relevancy_grade_hash
 
         return output_state
 
@@ -286,45 +287,47 @@ class LongFormQaGraph(PassageSearchGraph):
 
         return hashed_data
 
-    def node_decide_transform_question_or_grade_answer_relevancy(self, input_state: GraphState) -> str:
-        output_state: GraphState = input_state
+    def node_decide_transform_question_or_grade_answer_relevancy(self, input_state: LongFormQaGraphState) -> str:
+        output_state: LongFormQaGraphState = input_state
 
-        generated_hallucination_grade: str = input_state["data"]["generated_hallucination_grade"]
+        generated_hallucination_grade: str = input_state["generated_hallucination_grade"]
         if generated_hallucination_grade == "False":
             return "GRADE_ANSWER_RELEVANCY"
 
-        transform_question_max_retry: int = input_state["data"]["transform_question_max_retry"]
-        input_state["data"].setdefault("transform_question_current_retry", 0)
-        transform_question_current_retry: int = input_state["data"]["transform_question_current_retry"]
+        transform_question_max_retry: int = input_state["transform_question_max_retry"]
+        if input_state.get("transform_question_current_retry", None) is None:
+            output_state["transform_question_current_retry"] = 0
+        transform_question_current_retry: int = input_state["transform_question_current_retry"]
         if transform_question_current_retry >= transform_question_max_retry:
             return "MAX_RETRY"
 
-        output_state["data"]["transform_question_current_retry"] += 1
+        output_state["transform_question_current_retry"] += 1
 
         return "TRANSFORM_QUESTION"
 
-    def node_decide_transform_question_or_provide_answer(self, input_state: GraphState) -> str:
-        output_state: GraphState = input_state
+    def node_decide_transform_question_or_provide_answer(self, input_state: LongFormQaGraphState) -> str:
+        output_state: LongFormQaGraphState = input_state
 
-        generated_answer_relevancy_grade: str = input_state["data"]["generated_answer_relevancy_grade"]
+        generated_answer_relevancy_grade: str = input_state["generated_answer_relevancy_grade"]
         if generated_answer_relevancy_grade == "True":
             return "PROVIDE_ANSWER"
 
-        transform_question_max_retry: int = input_state["data"]["transform_question_max_retry"]
-        input_state["data"].setdefault("transform_question_current_retry", 0)
-        transform_question_current_retry: int = input_state["data"]["transform_question_current_retry"]
+        transform_question_max_retry: int = input_state["transform_question_max_retry"]
+        if input_state.get("transform_question_current_retry", None) is None:
+            output_state["transform_question_current_retry"] = 0
+        transform_question_current_retry: int = input_state["transform_question_current_retry"]
         if transform_question_current_retry >= transform_question_max_retry:
             return "MAX_RETRY"
 
-        output_state["data"]["transform_question_current_retry"] += 1
+        output_state["transform_question_current_retry"] += 1
 
         return "TRANSFORM_QUESTION"
 
-    async def node_transform_question(self, input_state: GraphState) -> GraphState:
-        output_state: GraphState = input_state
+    async def node_transform_question(self, input_state: LongFormQaGraphState) -> LongFormQaGraphState:
+        output_state: LongFormQaGraphState = input_state
 
         generated_question_hash: str = self._get_transformed_question_hash(
-            question=input_state["data"]["question"]
+            question=input_state["question"]
         )
         existing_generated_question_hash: int = await self.two_datastore.async_client.exists(
             generated_question_hash
@@ -336,7 +339,7 @@ class LongFormQaGraph(PassageSearchGraph):
         else:
             raise use_case_exception.ExistingGeneratedQuestionHashInvalid()
 
-        is_force_refresh_generated_question: bool = input_state["data"]["generator_setting"][
+        is_force_refresh_generated_question: bool = input_state["generator_setting"][
             "is_force_refresh_generated_question"]
         if is_generated_question_exist is False or is_force_refresh_generated_question is True:
             prompt: PromptTemplate = PromptTemplate(
@@ -345,7 +348,7 @@ class LongFormQaGraph(PassageSearchGraph):
                 input_variables=["question"]
             )
             text: str = prompt.format(
-                question=input_state["data"]["question"]
+                question=input_state["question"]
             )
             messages: List[BaseMessage] = [
                 HumanMessage(
@@ -357,7 +360,7 @@ class LongFormQaGraph(PassageSearchGraph):
                     ]
                 )
             ]
-            llm_model: BaseChatModel = input_state["data"]["llm"]["model"]
+            llm_model: BaseChatModel = input_state["llm_setting"]["model"]
             chain: RunnableSerializable = llm_model | StrOutputParser()
             generated_question: str = chain.invoke(
                 input=messages
@@ -372,8 +375,8 @@ class LongFormQaGraph(PassageSearchGraph):
             )
             generated_question: str = generated_question_byte.decode()
 
-        output_state["data"]["question"] = generated_question
-        output_state["data"]["question_hash"] = generated_question_hash
+        output_state["question"] = generated_question
+        output_state["generated_question_hash"] = generated_question_hash
 
         return output_state
 
@@ -391,8 +394,8 @@ class LongFormQaGraph(PassageSearchGraph):
 
         return hashed_data
 
-    def compile(self) -> CompiledGraph:
-        graph: StateGraph = StateGraph(GraphState)
+    def _compile(self) -> CompiledGraph:
+        graph: StateGraph = StateGraph(LongFormQaGraphState)
 
         graph.add_node(
             key=self.node_get_llm_model.__name__,

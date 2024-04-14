@@ -27,4 +27,5 @@ class SessionMiddleware(BaseHTTPMiddleware):
             return handler_response
 
         response: Response = await self.one_datastore.retryable(handler)
+
         return response

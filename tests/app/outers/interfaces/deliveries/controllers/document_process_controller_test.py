@@ -1,6 +1,6 @@
-import json
 import uuid
 from datetime import datetime, timedelta, timezone
+from typing import Dict, Any
 
 import pytest as pytest
 from httpx import Response
@@ -25,7 +25,7 @@ async def test__find_one_by_id__should__succeed(main_context: MainContext):
     selected_document_process_fake: DocumentProcess = \
         main_context.all_seeder.document_process_seeder.document_process_fake.data[0]
     selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.get(
@@ -72,12 +72,12 @@ async def test__create_one__should_create_one_document_process__succeed(main_con
         started_at=started_at,
         finished_at=finished_at,
     )
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.post(
         url=url_path,
-        json=json.loads(document_process_creator_body.json()),
+        json=document_process_creator_body.model_dump(mode="json"),
         headers=headers
     )
 
@@ -110,12 +110,12 @@ async def test__patch_one_by_id__should_patch_one_document_process__succeed(main
         started_at=started_at,
         finished_at=finished_at,
     )
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.patch(
         url=f"{url_path}/{selected_document_process_fake.id}",
-        json=json.loads(document_process_patcher_body.json()),
+        json=document_process_patcher_body.model_dump(mode="json"),
         headers=headers
     )
 
@@ -136,7 +136,7 @@ async def test__delete_one_by_id__should_delete_one_document_process__succeed(ma
     selected_document_process_fake: DocumentProcess = \
         main_context.all_seeder.document_process_seeder.document_process_fake.data[0]
     selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     response: Response = await main_context.client.delete(

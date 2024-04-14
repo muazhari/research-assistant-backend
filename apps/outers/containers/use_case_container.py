@@ -3,9 +3,10 @@ from dependency_injector.containers import DeclarativeContainer
 
 from apps.outers.containers.use_cases.authentication_container import AuthenticationContainer
 from apps.outers.containers.use_cases.authorization_container import AuthorizationContainer
+from apps.outers.containers.use_cases.document_converter_container import DocumentConverterContainer
 from apps.outers.containers.use_cases.document_processor_container import DocumentProcessorContainer
 from apps.outers.containers.use_cases.graph_container import GraphContainer
-from apps.outers.containers.use_cases.longform_qa_container import LongFormQAContainer
+from apps.outers.containers.use_cases.long_form_qa_container import LongFormQAContainer
 from apps.outers.containers.use_cases.management_container import ManagementContainer
 from apps.outers.containers.use_cases.passage_search_container import PassageSearchContainer
 from apps.outers.containers.use_cases.utility_container import UtilityContainer
@@ -33,6 +34,10 @@ class UseCaseContainer(DeclarativeContainer):
         AuthorizationContainer,
         managements=managements,
     )
+    document_converter = providers.Container(
+        DocumentConverterContainer,
+        repositories=repositories,
+    )
     document_processor = providers.Container(
         DocumentProcessorContainer,
         managements=managements,
@@ -46,8 +51,10 @@ class UseCaseContainer(DeclarativeContainer):
     passage_searches = providers.Container(
         PassageSearchContainer,
         graphs=graphs,
+        managements=managements,
+        document_converter=document_converter,
     )
-    longform_qas = providers.Container(
+    long_form_qas = providers.Container(
         LongFormQAContainer,
         graphs=graphs,
     )

@@ -1,4 +1,4 @@
-import json
+from typing import Dict, Any
 
 import pytest as pytest
 from httpx import Response
@@ -18,7 +18,7 @@ async def test__refresh_access_token__success(main_context: MainContext) -> None
     refresh_access_token_body: RefreshAccessTokenBody = RefreshAccessTokenBody(
         refresh_token=selected_session_fake.refresh_token
     )
-    headers: dict = {
+    headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     params: dict = {
@@ -26,7 +26,7 @@ async def test__refresh_access_token__success(main_context: MainContext) -> None
     }
     response: Response = await main_context.client.post(
         url=f"{url_path}/refreshes",
-        json=json.loads(refresh_access_token_body.json()),
+        json=refresh_access_token_body.model_dump(mode="json"),
         params=params,
         headers=headers
     )
