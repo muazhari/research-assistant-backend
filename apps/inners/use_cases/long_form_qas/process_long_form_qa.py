@@ -1,10 +1,11 @@
 from datetime import datetime, timezone
-from typing import List, Dict, Any
+from typing import List
 
 from starlette.datastructures import State
 
 from apps.inners.models.dtos.contracts.requests.long_form_qas.process_body import ProcessBody
 from apps.inners.models.dtos.contracts.responses.long_form_qas.process_response import ProcessResponse
+from apps.inners.models.dtos.contracts.responses.passage_searches.process_response import ReRankedDocument
 from apps.inners.models.dtos.graph_state import LongFormQaGraphState
 from apps.inners.use_cases.graphs.long_form_qa_graph import LongFormQaGraph
 
@@ -63,9 +64,9 @@ class ProcessLongFormQa:
             "generator_setting": {
                 "is_force_refresh_generated_answer": body.input_setting.generator_setting.is_force_refresh_generated_answer,
                 "is_force_refresh_generated_question": body.input_setting.generator_setting.is_force_refresh_generated_question,
-                "is_force_refresh_generated_hallucination_grade_hash": body.input_setting.generator_setting.is_force_refresh_generated_hallucination_grade_hash,
-                "is_force_refresh_generated_answer_relevancy_grade_hash": body.input_setting.generator_setting.is_force_refresh_generated_answer_relevancy_grade_hash,
-                "prompt_text": body.input_setting.generator_setting.prompt_text,
+                "is_force_refresh_generated_hallucination_grade": body.input_setting.generator_setting.is_force_refresh_generated_hallucination_grade,
+                "is_force_refresh_generated_answer_relevancy_grade": body.input_setting.generator_setting.is_force_refresh_generated_answer_relevancy_grade,
+                "prompt": body.input_setting.generator_setting.prompt,
             },
             "transform_question_max_retry": body.input_setting.transform_question_max_retry,
             "generated_answer": None,
@@ -79,8 +80,9 @@ class ProcessLongFormQa:
         }
         output_state: LongFormQaGraphState = await self.long_form_qa_graph.compiled_graph.ainvoke(input_state)
 
-        re_ranked_document_dicts: List[Dict[str, Any]] = [
-            re_ranked_document.dict() for re_ranked_document in output_state["re_ranked_documents"]
+        re_ranked_document_dicts: List[ReRankedDocument] = [
+            ReRankedDocument(**re_ranked_document.dict())
+            for re_ranked_document in output_state["re_ranked_documents"]
         ]
         finished_at: datetime = datetime.now(timezone.utc)
         process_response: ProcessResponse = ProcessResponse(

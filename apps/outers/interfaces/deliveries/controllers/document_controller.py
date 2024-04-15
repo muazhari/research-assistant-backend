@@ -67,18 +67,14 @@ class DocumentController:
             content.message += f" {self.__class__.__name__}.{self.find_many_with_pagination.__name__}: page_number and page_size must be integer."
             return content.to_response()
 
-        try:
-            data: List[Document] = await self.document_management.find_many_with_authorization_and_pagination(
-                state=request.state,
-                page_number=page_number,
-                page_size=page_size
-            )
-            content.status_code = status.HTTP_200_OK
-            content.message = f"{self.__class__.__name__}.{self.find_many_with_pagination.__name__}: Succeed."
-            content.data = data
-        except repository_exception.NotFound as exception:
-            content.status_code = status.HTTP_404_NOT_FOUND
-            content.message += f" {exception.caller.class_name}.{exception.caller.function_name}: {exception.__class__.__name__}."
+        data: List[Document] = await self.document_management.find_many_with_authorization_and_pagination(
+            state=request.state,
+            page_number=page_number,
+            page_size=page_size
+        )
+        content.status_code = status.HTTP_200_OK
+        content.message = f"{self.__class__.__name__}.{self.find_many_with_pagination.__name__}: Succeed."
+        content.data = data
 
         return content.to_response()
 

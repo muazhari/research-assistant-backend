@@ -6,8 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/models/dtos/contracts/responses/long_form_qas/process_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/models/dtos/contracts/responses/long_form_qas/process_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/models/dtos/contracts/responses/long_form_qas/retrieved_document_response.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/models/dtos/contracts/responses/passage_searches/process_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/models/dtos/contracts/responses/passage_searches/process_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/long_form_qas/process_long_form_qa.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/long_form_qas/process_long_form_qa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/passage_searches/process_passage_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/passage_searches/process_passage_search.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -373,7 +376,7 @@
       <workItem from="1712212043164" duration="172927000" />
       <workItem from="1712811592751" duration="5628000" />
       <workItem from="1712886089020" duration="28964000" />
-      <workItem from="1713082608947" duration="38244000" />
+      <workItem from="1713082608947" duration="42432000" />
     </task>
     <servers />
   </component>
@@ -381,7 +384,7 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_tests.coverage" NAME="pytest in tests Coverage Results" MODIFIED="1713193761732" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_tests.coverage" NAME="pytest in tests Coverage Results" MODIFIED="1713198192627" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1711413243894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_long_form_qa_controller_test_py.coverage" NAME="pytest in long_form_qa_controller_test.py Coverage Results" MODIFIED="1713112217788" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$path_playground.coverage" NAME="path_playground Coverage Results" MODIFIED="1711571656465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

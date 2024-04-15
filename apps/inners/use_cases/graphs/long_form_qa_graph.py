@@ -38,7 +38,7 @@ class LongFormQaGraph(PassageSearchGraph):
             re_ranked_document_ids=re_ranked_document_ids,
             question=input_state["question"],
             llm_model_name=input_state["llm_setting"]["model_name"],
-            prompt_text=input_state["generator_setting"]["prompt_text"],
+            prompt=input_state["generator_setting"]["prompt"],
             max_token=input_state["llm_setting"]["max_token"],
         )
         existing_generated_answer_hash: int = await self.two_datastore.async_client.exists(generated_answer_hash)
@@ -53,7 +53,7 @@ class LongFormQaGraph(PassageSearchGraph):
             "is_force_refresh_generated_answer"]
         if is_generated_answer_exist is False or is_force_refresh_generated_answer is True:
             prompt: PromptTemplate = PromptTemplate(
-                template=input_state["generator_setting"]["prompt_text"],
+                template=input_state["generator_setting"]["prompt"],
                 template_format="jinja2",
                 input_variables=["passages", "question"]
             )
@@ -94,14 +94,14 @@ class LongFormQaGraph(PassageSearchGraph):
             re_ranked_document_ids: List[str],
             question: str,
             llm_model_name: str,
-            prompt_text: str,
+            prompt: str,
             max_token: int,
     ) -> str:
         data: Dict[str, Any] = {
             "re_ranked_document_ids": re_ranked_document_ids,
             "question": question,
             "llm_model_name": llm_model_name,
-            "prompt_text": prompt_text,
+            "prompt": prompt,
             "max_token": max_token,
         }
         hashed_data: str = cache_tool.hash_by_dict(
@@ -136,9 +136,9 @@ class LongFormQaGraph(PassageSearchGraph):
         else:
             raise use_case_exception.ExistingGeneratedHallucinationGradeHashInvalid()
 
-        is_force_refresh_generated_hallucination_grade_hash: bool = input_state["generator_setting"][
-            "is_force_refresh_generated_hallucination_grade_hash"]
-        if is_generated_hallucination_grade_hash_exist is False or is_force_refresh_generated_hallucination_grade_hash is True:
+        is_force_refresh_generated_hallucination_grade: bool = input_state["generator_setting"][
+            "is_force_refresh_generated_hallucination_grade"]
+        if is_generated_hallucination_grade_hash_exist is False or is_force_refresh_generated_hallucination_grade is True:
             prompt: PromptTemplate = PromptTemplate(
                 template="""Instruction: Assess whether an Large Language Model generated answer is supported by a set of retrieved passages. Give a binary score of "True" or "False". "True" means that the answer is supported by the set of retrieved passages. "False" means that the answer is not supported by the set of retrieved passages.
                 Passages:
@@ -224,9 +224,9 @@ class LongFormQaGraph(PassageSearchGraph):
         else:
             raise use_case_exception.ExistingGeneratedAnswerRelevancyGradeHashInvalid()
 
-        is_force_refresh_generated_answer_relevancy_grade_hash: bool = input_state["generator_setting"][
-            "is_force_refresh_generated_answer_relevancy_grade_hash"]
-        if is_generated_hallucination_grade_hash_exist is False or is_force_refresh_generated_answer_relevancy_grade_hash is True:
+        is_force_refresh_generated_answer_relevancy_grade: bool = input_state["generator_setting"][
+            "is_force_refresh_generated_answer_relevancy_grade"]
+        if is_generated_hallucination_grade_hash_exist is False or is_force_refresh_generated_answer_relevancy_grade is True:
             prompt: PromptTemplate = PromptTemplate(
                 template="""Instruction: Assess whether an Large Language Model generated answer resolves a question. Give a binary score of "True" or "False". "True" means that the answer resolves the question. "False" means that the answer does not resolve the question.
                 Generated Answer: {{ generated_answer }}

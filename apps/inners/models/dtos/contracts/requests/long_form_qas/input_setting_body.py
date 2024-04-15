@@ -6,9 +6,9 @@ from apps.inners.models.dtos.contracts.requests.passage_searches.input_setting_b
 class GeneratorSetting(BaseRequest):
     is_force_refresh_generated_answer: bool
     is_force_refresh_generated_question: bool
-    is_force_refresh_generated_hallucination_grade_hash: bool
-    is_force_refresh_generated_answer_relevancy_grade_hash: bool
-    prompt_text: str
+    is_force_refresh_generated_hallucination_grade: bool
+    is_force_refresh_generated_answer_relevancy_grade: bool
+    prompt: str
 
 
 class InputSettingBody(InputSettingBodyPassageSearch):

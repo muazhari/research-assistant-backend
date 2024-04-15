@@ -24,17 +24,14 @@ class WebDocumentRepository:
             page_number: int,
             page_size: int
     ) -> List[WebDocument]:
-        try:
-            found_web_document_result: Result = await session.execute(
-                select(WebDocument)
-                .join(Document, Document.id == WebDocument.id)
-                .where(Document.account_id == account_id)
-                .limit(page_size)
-                .offset(page_size * (page_number - 1))
-            )
-            found_web_documents: List[WebDocument] = found_web_document_result.scalars().all()
-        except sqlalchemy.exc.NoResultFound:
-            raise repository_exception.NotFound()
+        found_web_document_result: Result = await session.execute(
+            select(WebDocument)
+            .join(Document, Document.id == WebDocument.id)
+            .where(Document.account_id == account_id)
+            .limit(page_size)
+            .offset(page_size * (page_number - 1))
+        )
+        found_web_documents: List[WebDocument] = found_web_document_result.scalars().all()
 
         return found_web_documents
 

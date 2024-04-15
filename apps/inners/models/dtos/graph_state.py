@@ -74,9 +74,9 @@ class PassageSearchGraphState(PreparationGraphState):
 class GeneratorSettingState(TypedDict):
     is_force_refresh_generated_answer: bool
     is_force_refresh_generated_question: bool
-    is_force_refresh_generated_hallucination_grade_hash: bool
-    is_force_refresh_generated_answer_relevancy_grade_hash: bool
-    prompt_text: str
+    is_force_refresh_generated_hallucination_grade: bool
+    is_force_refresh_generated_answer_relevancy_grade: bool
+    prompt: str
 
 
 class LongFormQaGraphState(PassageSearchGraphState):

@@ -25,22 +25,18 @@ class DocumentProcessRepository:
             page_number: int,
             page_size: int
     ) -> List[DocumentProcess]:
-        try:
-            initial_document: Document = aliased(Document)
-            final_document: Document = aliased(Document)
-            found_document_process_result: Result = await session.execute(
-                select(DocumentProcess)
-                .join(initial_document, initial_document.id == DocumentProcess.initial_document_id)
-                .join(final_document, final_document.id == DocumentProcess.final_document_id)
-                .where(DocumentProcess.id == id)
-                .where(initial_document.account_id == account_id)
-                .where(final_document.account_id == account_id)
-                .limit(page_size)
-                .offset(page_size * (page_number - 1))
-            )
-            found_document_processes: List[DocumentProcess] = found_document_process_result.scalars().all()
-        except sqlalchemy.exc.NoResultFound:
-            raise repository_exception.NotFound()
+        initial_document: Document = aliased(Document)
+        final_document: Document = aliased(Document)
+        found_document_process_result: Result = await session.execute(
+            select(DocumentProcess)
+            .join(initial_document, initial_document.id == DocumentProcess.initial_document_id)
+            .join(final_document, final_document.id == DocumentProcess.final_document_id)
+            .where(initial_document.account_id == account_id)
+            .where(final_document.account_id == account_id)
+            .limit(page_size)
+            .offset(page_size * (page_number - 1))
+        )
+        found_document_processes: List[DocumentProcess] = found_document_process_result.scalars().all()
 
         return found_document_processes
 

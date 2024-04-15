@@ -23,16 +23,13 @@ class AccountRepository:
             page_number: int,
             page_size: int
     ) -> List[Account]:
-        try:
-            found_account_result: Result = await session.execute(
-                select(Account)
-                .where(Account.id == account_id)
-                .limit(page_size)
-                .offset(page_size * (page_number - 1))
-            )
-            found_accounts: List[Account] = found_account_result.scalars().all()
-        except sqlalchemy.exc.NoResultFound:
-            raise repository_exception.NotFound()
+        found_account_result: Result = await session.execute(
+            select(Account)
+            .where(Account.id == account_id)
+            .limit(page_size)
+            .offset(page_size * (page_number - 1))
+        )
+        found_accounts: List[Account] = found_account_result.scalars().all()
 
         return found_accounts
 

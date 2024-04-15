@@ -99,17 +99,14 @@ class FileDocumentRepository:
             page_number: int,
             page_size: int
     ) -> List[FileDocument]:
-        try:
-            found_file_document_result: Result = await session.execute(
-                select(FileDocument)
-                .join(Document, Document.id == FileDocument.id)
-                .where(Document.account_id == account_id)
-                .limit(page_size)
-                .offset(page_size * (page_number - 1))
-            )
-            found_file_documents: List[FileDocument] = found_file_document_result.scalars().all()
-        except sqlalchemy.exc.NoResultFound:
-            raise repository_exception.NotFound()
+        found_file_document_result: Result = await session.execute(
+            select(FileDocument)
+            .join(Document, Document.id == FileDocument.id)
+            .where(Document.account_id == account_id)
+            .limit(page_size)
+            .offset(page_size * (page_number - 1))
+        )
+        found_file_documents: List[FileDocument] = found_file_document_result.scalars().all()
 
         return found_file_documents
 

@@ -24,17 +24,14 @@ class TextDocumentRepository:
             page_number: int,
             page_size: int
     ) -> List[TextDocument]:
-        try:
-            found_text_document_result: Result = await session.execute(
-                select(TextDocument)
-                .join(Document, Document.id == TextDocument.id)
-                .where(Document.account_id == account_id)
-                .limit(page_size)
-                .offset(page_size * (page_number - 1))
-            )
-            found_text_documents: List[TextDocument] = found_text_document_result.scalars().all()
-        except sqlalchemy.exc.NoResultFound:
-            raise repository_exception.NotFound()
+        found_text_document_result: Result = await session.execute(
+            select(TextDocument)
+            .join(Document, Document.id == TextDocument.id)
+            .where(Document.account_id == account_id)
+            .limit(page_size)
+            .offset(page_size * (page_number - 1))
+        )
+        found_text_documents: List[TextDocument] = found_text_document_result.scalars().all()
 
         return found_text_documents
 

@@ -42,7 +42,7 @@ class SummaryDocumentProcessor:
         return generated_summaries
 
     async def summarize_images(self, images: List[Image], llm_model: BaseChatModel) -> List[str]:
-        prompt_text = """Instruction: Give a concise passage summary of the image that is well optimized for retrieval. These summary will be embedded and used to retrieve the image. Ensure the output is only the summary without re-explain the instruction.
+        prompt = """Instruction: Give a concise passage summary of the image that is well optimized for retrieval. These summary will be embedded and used to retrieve the image. Ensure the output is only the summary without re-explain the instruction.
         Image:"""
         batch_messages: List[List[BaseMessage]] = []
         for image in images:
@@ -51,7 +51,7 @@ class SummaryDocumentProcessor:
                     content=[
                         {
                             "type": "text",
-                            "text": prompt_text
+                            "text": prompt
                         },
                         {
                             "type": "image_url",

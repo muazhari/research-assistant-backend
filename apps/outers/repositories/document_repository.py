@@ -23,16 +23,13 @@ class DocumentRepository:
             page_number: int,
             page_size: int
     ) -> List[Document]:
-        try:
-            found_document_result: Result = await session.execute(
-                select(Document)
-                .where(Document.account_id == account_id)
-                .limit(page_size)
-                .offset(page_size * (page_number - 1))
-            )
-            found_documents: List[Document] = found_document_result.scalars().all()
-        except sqlalchemy.exc.NoResultFound:
-            raise repository_exception.NotFound()
+        found_document_result: Result = await session.execute(
+            select(Document)
+            .where(Document.account_id == account_id)
+            .limit(page_size)
+            .offset(page_size * (page_number - 1))
+        )
+        found_documents: List[Document] = found_document_result.scalars().all()
 
         return found_documents
 
@@ -42,16 +39,13 @@ class DocumentRepository:
             ids: List[UUID],
             account_id: UUID,
     ) -> List[Document]:
-        try:
-            found_document_result: Result = await session.execute(
-                select(Document)
-                .where(Document.account_id == account_id)
-                .where(Document.id.in_(ids))
-                .limit(len(ids))
-            )
-            found_documents: List[Document] = found_document_result.scalars().all()
-        except sqlalchemy.exc.NoResultFound:
-            raise repository_exception.NotFound()
+        found_document_result: Result = await session.execute(
+            select(Document)
+            .where(Document.account_id == account_id)
+            .where(Document.id.in_(ids))
+            .limit(len(ids))
+        )
+        found_documents: List[Document] = found_document_result.scalars().all()
 
         return found_documents
 

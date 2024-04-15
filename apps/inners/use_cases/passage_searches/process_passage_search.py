@@ -1,7 +1,7 @@
 import io
 import uuid
 from datetime import datetime, timezone
-from typing import List, Tuple, Any, Dict, Set
+from typing import List, Tuple, Set
 from uuid import UUID
 
 from fastapi import UploadFile
@@ -13,7 +13,8 @@ from apps.inners.models.dtos.contracts.requests.managements.file_documents.creat
 from apps.inners.models.dtos.contracts.requests.passage_searches.process_body import ProcessBody
 from apps.inners.models.dtos.contracts.responses.managements.documents.file_document_response import \
     FileDocumentResponse
-from apps.inners.models.dtos.contracts.responses.passage_searches.process_response import ProcessResponse
+from apps.inners.models.dtos.contracts.responses.passage_searches.process_response import ProcessResponse, \
+    ReRankedDocument
 from apps.inners.models.dtos.graph_state import PassageSearchGraphState
 from apps.inners.use_cases.document_converters.libre_office_document_converter import LibreOfficeDocumentConverter
 from apps.inners.use_cases.document_converters.marker_document_converter import MarkerDocumentConverter
@@ -133,8 +134,9 @@ class ProcessPassageSearch:
             )
             final_document_urls.append(final_document_url)
 
-        re_ranked_document_dicts: List[Dict[str, Any]] = [
-            re_ranked_document.dict() for re_ranked_document in output_state["re_ranked_documents"]
+        re_ranked_document_dicts: List[ReRankedDocument] = [
+            ReRankedDocument(**re_ranked_document.dict())
+            for re_ranked_document in output_state["re_ranked_documents"]
         ]
         process_response: ProcessResponse = ProcessResponse(
             re_ranked_documents=re_ranked_document_dicts,
