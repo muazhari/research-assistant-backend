@@ -6,9 +6,9 @@ from apps.inners.models.dtos.contracts.responses.base_response import BaseRespon
 class FileDocumentResponse(BaseResponse):
     id: UUID
     document_type_id: str
-    document_account_id: UUID
-    document_name: str
-    document_description: str
+    account_id: UUID
+    name: str
+    description: str
     file_name: str
     file_data_hash: str
     file_metadata: dict

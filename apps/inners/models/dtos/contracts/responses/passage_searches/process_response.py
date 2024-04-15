@@ -9,5 +9,5 @@ class ProcessResponse(BaseResponse):
     re_ranked_documents: List[Dict[str, Any]]
     document_processes: List[DocumentProcess]
     final_document_urls: List[str]
-    initial_time: datetime
-    final_time: datetime
+    started_at: datetime
+    finished_at: datetime

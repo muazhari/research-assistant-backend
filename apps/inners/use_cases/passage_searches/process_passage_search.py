@@ -39,7 +39,7 @@ class ProcessPassageSearch:
         self.marker_document_converter = marker_document_converter
 
     async def process(self, state: State, body: ProcessBody) -> ProcessResponse:
-        initial_time: datetime = datetime.now(tz=timezone.utc)
+        started_at: datetime = datetime.now(tz=timezone.utc)
         input_state: PassageSearchGraphState = {
             "state": state,
             "document_ids": body.input_setting.document_ids,
@@ -85,7 +85,7 @@ class ProcessPassageSearch:
         }
         output_state: PassageSearchGraphState = await self.passage_search_graph.compiled_graph.ainvoke(input_state)
 
-        final_time: datetime = datetime.now(timezone.utc)
+        finished_at: datetime = datetime.now(timezone.utc)
         document_processes: List[DocumentProcess] = []
         final_document_urls: List[str] = []
         re_ranked_document_ids: Set[UUID] = set([
@@ -110,7 +110,7 @@ class ProcessPassageSearch:
                 file=io.BytesIO(marked_document_data),
             )
             file_document_creator_body: FileDocumentCreateOneBody = FileDocumentCreateOneBody(
-                name=f"passage_search_{initial_time}_marked_{document_id}",
+                name=f"passage_search_{started_at}_marked_{document_id}",
                 description="",
                 account_id=state.authorized_session.account_id,
                 file_name=f"{uuid.uuid4()}.pdf",
@@ -124,8 +124,8 @@ class ProcessPassageSearch:
                 id=uuid.uuid4(),
                 initial_document_id=document_id,
                 final_document_id=file_document_response.id,
-                initial_time=initial_time,
-                final_time=final_time
+                started_at=started_at,
+                finished_at=finished_at
             )
             document_processes.append(document_process)
             final_document_url: str = self.file_document_management.file_document_repository.get_object_url(
@@ -140,8 +140,8 @@ class ProcessPassageSearch:
             re_ranked_documents=re_ranked_document_dicts,
             document_processes=document_processes,
             final_document_urls=final_document_urls,
-            initial_time=initial_time,
-            final_time=final_time,
+            started_at=started_at,
+            finished_at=finished_at,
         )
 
         return process_response

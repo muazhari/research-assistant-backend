@@ -89,5 +89,5 @@ async def test__process__should_processed__succeed(main_context: MainContext):
     assert content.status_code == status.HTTP_200_OK
     assert len(content.data.re_ranked_documents) >= 1
     assert len(content.data.generated_answer) >= 1
-    assert content.data.initial_time <= datetime.now(tz=timezone.utc)
-    assert content.data.final_time <= datetime.now(tz=timezone.utc)
+    assert content.data.started_at <= datetime.now(tz=timezone.utc)
+    assert content.data.finished_at <= datetime.now(tz=timezone.utc)

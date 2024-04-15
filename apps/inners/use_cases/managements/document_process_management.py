@@ -1,4 +1,5 @@
 import uuid
+from typing import List
 from uuid import UUID
 
 from starlette.datastructures import State
@@ -16,12 +17,25 @@ class DocumentProcessManagement:
     ):
         self.document_process_repository: DocumentProcessRepository = document_process_repository
 
+    async def find_many_with_authorization_and_pagination(self, state: State, page_number: int, page_size: int) -> List[
+        DocumentProcess]:
+        found_document_processes: List[
+            DocumentProcess] = await self.document_process_repository.find_many_by_account_id_with_pagination(
+            session=state.session,
+            account_id=state.authorized_session.account_id,
+            page_number=page_number,
+            page_size=page_size
+        )
+
+        return found_document_processes
+
     async def find_one_by_id_with_authorization(self, state: State, id: UUID) -> DocumentProcess:
         found_document_process: DocumentProcess = await self.document_process_repository.find_one_by_id_and_accound_id(
             session=state.session,
             id=id,
             account_id=state.authorized_session.account_id
         )
+
         return found_document_process
 
     async def create_one(self, state: State, body: CreateOneBody) -> DocumentProcess:
@@ -31,6 +45,7 @@ class DocumentProcessManagement:
             state=state,
             document_process_creator=document_process_creator
         )
+
         return created_document_process
 
     async def create_one_raw(self, state: State, document_process_creator: DocumentProcess) -> DocumentProcess:
@@ -38,6 +53,7 @@ class DocumentProcessManagement:
             session=state.session,
             document_process_creator=document_process_creator
         )
+
         return created_document_process
 
     async def patch_one_by_id_with_authorization(self, state: State, id: UUID, body: PatchOneBody) -> DocumentProcess:
@@ -47,6 +63,7 @@ class DocumentProcessManagement:
             id=id,
             document_process_patcher=document_process_patcher
         )
+
         return patched_document_process
 
     async def patch_one_by_id_raw_with_authorization(self, state: State, id: UUID,
@@ -57,6 +74,7 @@ class DocumentProcessManagement:
             account_id=state.authorized_session.account_id,
             document_process_patcher=document_process_patcher
         )
+
         return patched_document_process
 
     async def delete_one_by_id_with_authorization(self, state: State, id: UUID) -> DocumentProcess:
@@ -65,4 +83,5 @@ class DocumentProcessManagement:
             id=id,
             account_id=state.authorized_session.account_id
         )
+
         return deleted_document_process

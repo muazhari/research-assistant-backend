@@ -7,5 +7,5 @@ from apps.inners.models.dtos.contracts.responses.base_response import BaseRespon
 class ProcessResponse(BaseResponse):
     re_ranked_documents: List[Dict[str, Any]]
     generated_answer: str
-    initial_time: datetime
-    final_time: datetime
+    started_at: datetime
+    finished_at: datetime

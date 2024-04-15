@@ -1,4 +1,5 @@
 import uuid
+from typing import List
 from uuid import UUID
 
 import bcrypt
@@ -17,12 +18,24 @@ class AccountManagement:
     ):
         self.account_repository: AccountRepository = account_repository
 
+    async def find_many_with_authorization_and_pagination(self, state: State, page_number: int, page_size: int) -> List[
+        Account]:
+        found_accounts: List[Account] = await self.account_repository.find_many_by_account_id_with_pagination(
+            session=state.session,
+            account_id=state.authorized_session.account_id,
+            page_number=page_number,
+            page_size=page_size
+        )
+
+        return found_accounts
+
     async def find_one_by_id_with_authorization(self, state: State, id: UUID) -> Account:
         found_account: Account = await self.account_repository.find_one_by_id_and_account_id(
             session=state.session,
             id=id,
             account_id=state.authorized_session.account_id
         )
+
         return found_account
 
     async def find_one_by_email(self, state: State, email: str) -> Account:
@@ -30,6 +43,7 @@ class AccountManagement:
             session=state.session,
             email=email
         )
+
         return found_account
 
     async def create_one(self, state: State, body: CreateOneBody) -> Account:
@@ -40,6 +54,7 @@ class AccountManagement:
             state=state,
             account_creator=account_creator
         )
+
         return created_account
 
     def create_one_raw(self, state: State, account_creator: Account) -> Account:
@@ -47,6 +62,7 @@ class AccountManagement:
             session=state.session,
             account_creator=account_creator
         )
+
         return created_account
 
     async def patch_one_by_id_with_authorization(self, state: State, id: UUID, body: PatchOneBody) -> Account:
@@ -57,6 +73,7 @@ class AccountManagement:
             id=id,
             account_patcher=account_patcher
         )
+
         return patched_account
 
     async def patch_one_by_id_raw_with_authorization(self, state: State, id: UUID, account_patcher: Account) -> Account:
@@ -66,6 +83,7 @@ class AccountManagement:
             account_id=state.authorized_session.account_id,
             account_patcher=account_patcher
         )
+
         return patched_account
 
     async def delete_one_by_id_with_authorization(self, state: State, id: UUID) -> Account:
@@ -74,4 +92,5 @@ class AccountManagement:
             id=id,
             account_id=state.authorized_session.account_id
         )
+
         return deleted_account

@@ -1,3 +1,4 @@
+from typing import List
 from uuid import UUID
 
 import sqlalchemy
@@ -15,6 +16,27 @@ class WebDocumentRepository:
 
     def __init__(self):
         pass
+
+    async def find_many_by_account_id_with_pagination(
+            self,
+            session: AsyncSession,
+            account_id: UUID,
+            page_number: int,
+            page_size: int
+    ) -> List[WebDocument]:
+        try:
+            found_web_document_result: Result = await session.execute(
+                select(WebDocument)
+                .join(Document, Document.id == WebDocument.id)
+                .where(Document.account_id == account_id)
+                .limit(page_size)
+                .offset(page_size * (page_number - 1))
+            )
+            found_web_documents: List[WebDocument] = found_web_document_result.scalars().all()
+        except sqlalchemy.exc.NoResultFound:
+            raise repository_exception.NotFound()
+
+        return found_web_documents
 
     async def find_one_by_id_and_account_id(self, session: AsyncSession, id: UUID, account_id: UUID) -> WebDocument:
         try:

@@ -1,5 +1,6 @@
 import hashlib
 import uuid
+from typing import List
 from uuid import UUID
 
 from starlette.datastructures import State
@@ -24,6 +25,38 @@ class TextDocumentManagement:
         self.document_management: DocumentManagement = document_management
         self.text_document_repository: TextDocumentRepository = text_document_repository
 
+    async def find_many_with_authorization_and_pagination(self, state: State, page_number: int, page_size: int) -> List[
+        TextDocumentResponse]:
+        found_text_documents: List[
+            TextDocument
+        ] = await self.text_document_repository.find_many_by_account_id_with_pagination(
+            session=state.session,
+            account_id=state.authorized_session.account_id,
+            page_number=page_number,
+            page_size=page_size
+        )
+        found_documents: List[
+            Document
+        ] = await self.document_management.document_repository.find_many_by_id_and_account_id(
+            session=state.session,
+            ids=[found_text_document.id for found_text_document in found_text_documents],
+            account_id=state.authorized_session.account_id
+        )
+        found_text_document_responses: List[TextDocumentResponse] = []
+        for found_document, found_text_document in zip(found_documents, found_text_documents, strict=True):
+            found_text_document_response: TextDocumentResponse = TextDocumentResponse(
+                id=found_document.id,
+                name=found_document.name,
+                description=found_document.description,
+                document_type_id=found_document.document_type_id,
+                account_id=found_document.account_id,
+                text_content=found_text_document.text_content,
+                text_content_hash=found_text_document.text_content_hash
+            )
+            found_text_document_responses.append(found_text_document_response)
+
+        return found_text_document_responses
+
     async def find_one_by_id_with_authorization(self, state: State, id: UUID) -> TextDocumentResponse:
         found_document: Document = await self.document_management.find_one_by_id_with_authorization(
             state=state,
@@ -36,10 +69,10 @@ class TextDocumentManagement:
         )
         found_text_document_response: TextDocumentResponse = TextDocumentResponse(
             id=found_document.id,
-            document_name=found_document.name,
-            document_description=found_document.description,
+            name=found_document.name,
+            description=found_document.description,
             document_type_id=found_document.document_type_id,
-            document_account_id=found_document.account_id,
+            account_id=found_document.account_id,
             text_content=found_text_document.text_content,
             text_content_hash=found_text_document.text_content_hash
         )
@@ -69,10 +102,10 @@ class TextDocumentManagement:
         )
         text_document_response: TextDocumentResponse = TextDocumentResponse(
             id=created_document.id,
-            document_name=created_document.name,
-            document_description=created_document.description,
+            name=created_document.name,
+            description=created_document.description,
             document_type_id=created_document.document_type_id,
-            document_account_id=created_document.account_id,
+            account_id=created_document.account_id,
             text_content=created_text_document.text_content,
             text_content_hash=created_text_document.text_content_hash
         )
@@ -113,10 +146,10 @@ class TextDocumentManagement:
         )
         patched_text_document_response: TextDocumentResponse = TextDocumentResponse(
             id=patched_document.id,
-            document_name=patched_document.name,
-            document_description=patched_document.description,
+            name=patched_document.name,
+            description=patched_document.description,
             document_type_id=patched_document.document_type_id,
-            document_account_id=patched_document.account_id,
+            account_id=patched_document.account_id,
             text_content=patched_text_document.text_content,
             text_content_hash=patched_text_document.text_content_hash
         )
@@ -146,10 +179,10 @@ class TextDocumentManagement:
         )
         deleted_text_document_response: TextDocumentResponse = TextDocumentResponse(
             id=deleted_text_document.id,
-            document_name=deleted_document.name,
-            document_description=deleted_document.description,
+            name=deleted_document.name,
+            description=deleted_document.description,
             document_type_id=deleted_document.document_type_id,
-            document_account_id=deleted_document.account_id,
+            account_id=deleted_document.account_id,
             text_content=deleted_text_document.text_content,
             text_content_hash=deleted_text_document.text_content_hash
         )

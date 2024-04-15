@@ -1,3 +1,4 @@
+from typing import List
 from uuid import UUID
 
 import sqlalchemy
@@ -16,6 +17,32 @@ class DocumentProcessRepository:
 
     def __init__(self):
         pass
+
+    async def find_many_by_account_id_with_pagination(
+            self,
+            session: AsyncSession,
+            account_id: UUID,
+            page_number: int,
+            page_size: int
+    ) -> List[DocumentProcess]:
+        try:
+            initial_document: Document = aliased(Document)
+            final_document: Document = aliased(Document)
+            found_document_process_result: Result = await session.execute(
+                select(DocumentProcess)
+                .join(initial_document, initial_document.id == DocumentProcess.initial_document_id)
+                .join(final_document, final_document.id == DocumentProcess.final_document_id)
+                .where(DocumentProcess.id == id)
+                .where(initial_document.account_id == account_id)
+                .where(final_document.account_id == account_id)
+                .limit(page_size)
+                .offset(page_size * (page_number - 1))
+            )
+            found_document_processes: List[DocumentProcess] = found_document_process_result.scalars().all()
+        except sqlalchemy.exc.NoResultFound:
+            raise repository_exception.NotFound()
+
+        return found_document_processes
 
     async def find_one_by_id_and_accound_id(self, session: AsyncSession, id: UUID, account_id: UUID) -> DocumentProcess:
         try:

@@ -1,3 +1,4 @@
+from typing import List
 from uuid import UUID
 
 from fastapi import APIRouter, Request
@@ -22,8 +23,13 @@ class WebDocumentController:
             web_document_management: WebDocumentManagement
     ) -> None:
         self.router: APIRouter = APIRouter(
-            tags=["documents/webs"],
-            prefix="/documents/webs"
+            tags=["document-webs"],
+            prefix="/document-webs"
+        )
+        self.router.add_api_route(
+            path="",
+            endpoint=self.find_many_with_pagination,
+            methods=["GET"]
         )
         self.router.add_api_route(
             path="/{id}",
@@ -46,6 +52,36 @@ class WebDocumentController:
             methods=["DELETE"]
         )
         self.web_document_management = web_document_management
+
+    async def find_many_with_pagination(self, request: Request) -> Response:
+        content: Content[List[WebDocumentResponse]] = Content[List[WebDocumentResponse]](
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            message=f"{self.__class__.__name__}.{self.find_many_with_pagination.__name__}: Failed.",
+            data=None
+        )
+        try:
+            page_number: int = int(request.query_params.get("page_number", 1))
+            page_size: int = int(request.query_params.get("page_size", 10))
+        except ValueError:
+            content.status_code = status.HTTP_400_BAD_REQUEST
+            content.message += f" {self.__class__.__name__}.{self.find_many_with_pagination.__name__}: page_number and page_size must be integer."
+            return content.to_response()
+
+        try:
+            data: List[
+                WebDocumentResponse] = await self.web_document_management.find_many_with_authorization_and_pagination(
+                state=request.state,
+                page_number=page_number,
+                page_size=page_size
+            )
+            content.status_code = status.HTTP_200_OK
+            content.message = f"{self.__class__.__name__}.{self.find_many_with_pagination.__name__}: Succeed."
+            content.data = data
+        except repository_exception.NotFound as exception:
+            content.status_code = status.HTTP_404_NOT_FOUND
+            content.message += f" {exception.caller.class_name}.{exception.caller.function_name}: {exception.__class__.__name__}."
+
+        return content.to_response()
 
     async def find_one_by_id(self, request: Request, id: UUID) -> Response:
         content: Content[WebDocumentResponse] = Content[WebDocumentResponse](

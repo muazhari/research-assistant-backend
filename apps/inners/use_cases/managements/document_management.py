@@ -1,4 +1,5 @@
 import uuid
+from typing import List
 from uuid import UUID
 
 from starlette.datastructures import State
@@ -16,12 +17,24 @@ class DocumentManagement:
     ):
         self.document_repository: DocumentRepository = document_repository
 
+    async def find_many_with_authorization_and_pagination(self, state: State, page_number: int, page_size: int) -> List[
+        Document]:
+        found_documents: List[Document] = await self.document_repository.find_many_by_account_id_with_pagination(
+            session=state.session,
+            account_id=state.authorized_session.account_id,
+            page_number=page_number,
+            page_size=page_size
+        )
+
+        return found_documents
+
     async def find_one_by_id_with_authorization(self, state: State, id: UUID) -> Document:
         found_document: Document = await self.document_repository.find_one_by_id_and_accound_id(
             session=state.session,
             id=id,
             account_id=state.authorized_session.account_id
         )
+
         return found_document
 
     async def create_one(self, state: State, body: CreateOneBody) -> Document:
@@ -31,6 +44,7 @@ class DocumentManagement:
             state=state,
             document_creator=document_creator
         )
+
         return created_document
 
     def create_one_raw(self, state: State, document_creator: Document) -> Document:
@@ -38,6 +52,7 @@ class DocumentManagement:
             session=state.session,
             document_creator=document_creator
         )
+
         return created_document
 
     async def patch_one_by_id_with_authorization(self, state: State, id: UUID, body: PatchOneBody) -> Document:
@@ -47,6 +62,7 @@ class DocumentManagement:
             id=id,
             document_patcher=document_patcher
         )
+
         return patched_document
 
     async def patch_one_by_id_raw_with_authorization(self, state: State, id: UUID,
@@ -57,6 +73,7 @@ class DocumentManagement:
             account_id=state.authorized_session.account_id,
             document_patcher=document_patcher,
         )
+
         return patched_document
 
     async def delete_one_by_id_with_authorization(self, state: State, id: UUID) -> Document:
@@ -65,4 +82,5 @@ class DocumentManagement:
             id=id,
             account_id=state.authorized_session.account_id
         )
+
         return deleted_document

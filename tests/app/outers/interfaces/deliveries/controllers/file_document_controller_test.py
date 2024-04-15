@@ -1,7 +1,7 @@
 import hashlib
 import pathlib
 import uuid
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 import pytest as pytest
 from httpx import Response
@@ -20,7 +20,51 @@ from apps.inners.models.dtos.contracts.responses.managements.documents.file_docu
     FileDocumentResponse
 from tests.main_context import MainContext
 
-url_path: str = "/api/documents/files"
+url_path: str = "/api/document-files"
+
+
+@pytest.mark.asyncio
+async def test__find_many_with_pagination__should__succeed(main_context: MainContext):
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
+    selected_file_document_fakes: List[FileDocument] = []
+    selected_document_fakes: List[Document] = []
+    for file_document_fake in main_context.all_seeder.file_document_seeder.file_document_fake.data:
+        for document_fake in main_context.all_seeder.document_seeder.document_fake.data:
+            if file_document_fake.id == document_fake.id:
+                selected_document_fakes.append(document_fake)
+                if document_fake.account_id == selected_session_fake.account_id:
+                    selected_file_document_fakes.append(file_document_fake)
+
+    headers: Dict[str, Any] = {
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
+    }
+    params: Dict[str, Any] = {
+        "page_number": 1,
+        "page_size": len(selected_file_document_fakes)
+    }
+    response: Response = await main_context.client.get(
+        url=url_path,
+        headers=headers,
+        params=params
+    )
+
+    content: Content[List[FileDocumentResponse]] = Content[List[FileDocumentResponse]](
+        **response.json(),
+        status_code=response.status_code
+    )
+    assert content.status_code == status.HTTP_200_OK
+    assert len(content.data) == len(selected_file_document_fakes)
+    for file_document_response in content.data:
+        for selected_document_fake in selected_document_fakes:
+            for selected_file_document_fake in selected_file_document_fakes:
+                if file_document_response.id == selected_document_fake.id == selected_file_document_fake.id:
+                    assert file_document_response.name == selected_document_fake.name
+                    assert file_document_response.description == selected_document_fake.description
+                    assert file_document_response.document_type_id == selected_document_fake.document_type_id
+                    assert file_document_response.account_id == selected_document_fake.account_id
+                    assert file_document_response.file_name == selected_file_document_fake.file_name
+                    assert file_document_response.file_data_hash == selected_file_document_fake.file_data_hash
+                    assert file_document_response.file_metadata == dict()
 
 
 @pytest.mark.asyncio
@@ -42,10 +86,10 @@ async def test__find_one_by_id__should__succeed(main_context: MainContext):
     )
     assert content.status_code == status.HTTP_200_OK
     assert content.data.id == selected_file_document_fake.id
-    assert content.data.document_name == selected_document_fake.name
-    assert content.data.document_description == selected_document_fake.description
+    assert content.data.name == selected_document_fake.name
+    assert content.data.description == selected_document_fake.description
     assert content.data.document_type_id == DocumentTypeConstant.FILE
-    assert content.data.document_account_id == selected_document_fake.account_id
+    assert content.data.account_id == selected_document_fake.account_id
     assert content.data.file_name == selected_file_document_fake.file_name
     assert content.data.file_data_hash == selected_file_document_fake.file_data_hash
     assert content.data.file_metadata == dict()
@@ -80,10 +124,10 @@ async def test__create_one__should_create_one_file_document__succeed(main_contex
         status_code=response.status_code
     )
     assert content.status_code == status.HTTP_201_CREATED
-    assert content.data.document_name == file_document_creator_body.name
-    assert content.data.document_description == file_document_creator_body.description
+    assert content.data.name == file_document_creator_body.name
+    assert content.data.description == file_document_creator_body.description
     assert content.data.document_type_id == DocumentTypeConstant.FILE
-    assert content.data.document_account_id == file_document_creator_body.account_id
+    assert content.data.account_id == file_document_creator_body.account_id
     assert content.data.file_data_hash == hashlib.sha256(selected_file_document_data_fake).hexdigest()
     assert content.data.file_metadata == dict()
 
@@ -124,10 +168,10 @@ async def test__patch_one_by_id__should_patch_one_file_document__succeed(main_co
         status_code=response.status_code
     )
     assert content.status_code == status.HTTP_200_OK
-    assert content.data.document_name == file_document_patcher_body.name
-    assert content.data.document_description == file_document_patcher_body.description
+    assert content.data.name == file_document_patcher_body.name
+    assert content.data.description == file_document_patcher_body.description
     assert content.data.document_type_id == DocumentTypeConstant.FILE
-    assert content.data.document_account_id == file_document_patcher_body.account_id
+    assert content.data.account_id == file_document_patcher_body.account_id
     assert content.data.file_data_hash == hashlib.sha256(selected_file_document_data_fake).hexdigest()
     assert content.data.file_metadata == dict()
 
@@ -151,10 +195,10 @@ async def test__delete_one_by_id__should_delete_one_file_document__succeed(main_
     )
     assert content.status_code == status.HTTP_200_OK
     assert content.data.id == selected_file_document_fake.id
-    assert content.data.document_name == selected_document_fake.name
-    assert content.data.document_description == selected_document_fake.description
+    assert content.data.name == selected_document_fake.name
+    assert content.data.description == selected_document_fake.description
     assert content.data.document_type_id == DocumentTypeConstant.FILE
-    assert content.data.document_account_id == selected_document_fake.account_id
+    assert content.data.account_id == selected_document_fake.account_id
     assert content.data.file_name == selected_file_document_fake.file_name
     assert content.data.file_data_hash == selected_file_document_fake.file_data_hash
     assert content.data.file_metadata == dict()

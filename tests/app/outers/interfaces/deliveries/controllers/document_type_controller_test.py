@@ -11,19 +11,6 @@ from apps.inners.models.dtos.content import Content
 from apps.inners.models.dtos.contracts.requests.managements.document_types.patch_one_body import \
     PatchOneBody
 from tests.main_context import MainContext
-import uuid
-from typing import Dict, Any
-
-import pytest as pytest
-from httpx import Response
-from starlette import status
-
-from apps.inners.models.daos.document_type import DocumentType
-from apps.inners.models.daos.session import Session
-from apps.inners.models.dtos.content import Content
-from apps.inners.models.dtos.contracts.requests.managements.document_types.patch_one_body import \
-    PatchOneBody
-from tests.main_context import MainContext
 
 url_path: str = "/api/document-types"
 

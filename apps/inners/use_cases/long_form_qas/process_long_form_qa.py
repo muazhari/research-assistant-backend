@@ -17,7 +17,7 @@ class ProcessLongFormQa:
         self.long_form_qa_graph = long_form_qa_graph
 
     async def process(self, state: State, body: ProcessBody) -> ProcessResponse:
-        initial_time: datetime = datetime.now(tz=timezone.utc)
+        started_at: datetime = datetime.now(tz=timezone.utc)
         input_state: LongFormQaGraphState = {
             "state": state,
             "document_ids": body.input_setting.document_ids,
@@ -82,12 +82,12 @@ class ProcessLongFormQa:
         re_ranked_document_dicts: List[Dict[str, Any]] = [
             re_ranked_document.dict() for re_ranked_document in output_state["re_ranked_documents"]
         ]
-        final_time: datetime = datetime.now(timezone.utc)
+        finished_at: datetime = datetime.now(timezone.utc)
         process_response: ProcessResponse = ProcessResponse(
             re_ranked_documents=re_ranked_document_dicts,
             generated_answer=output_state["generated_answer"],
-            initial_time=initial_time,
-            final_time=final_time,
+            started_at=started_at,
+            finished_at=finished_at,
         )
 
         return process_response

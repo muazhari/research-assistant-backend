@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime, timedelta, timezone
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 import pytest as pytest
 from httpx import Response
@@ -18,6 +18,40 @@ from apps.inners.models.dtos.contracts.requests.managements.document_processes.p
 from tests.main_context import MainContext
 
 url_path: str = "/api/document-processes"
+
+
+@pytest.mark.asyncio
+async def test__find_many_with_pagination__should__succeed(main_context: MainContext):
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
+    selected_document_process_fakes: List[DocumentProcess] = []
+    for document_process_fake in main_context.all_seeder.document_process_seeder.document_process_fake.data:
+        for document_fake in main_context.all_seeder.document_seeder.document_fake.data:
+            if document_process_fake.initial_document_id == document_fake.id:
+                if document_fake.account_id == selected_session_fake.account_id:
+                    selected_document_process_fakes.append(document_process_fake)
+
+    headers: Dict[str, Any] = {
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
+    }
+    params: Dict[str, Any] = {
+        "page_number": 1,
+        "page_size": len(selected_document_process_fakes)
+    }
+    response: Response = await main_context.client.get(
+        url=url_path,
+        headers=headers,
+        params=params
+    )
+    content: Content[List[DocumentProcess]] = Content[List[DocumentProcess]](
+        **response.json(),
+        status_code=response.status_code
+    )
+    assert content.status_code == status.HTTP_200_OK
+    assert len(content.data) == len(selected_document_process_fakes)
+    for document_process in content.data:
+        for selected_document_process_fake in selected_document_process_fakes:
+            if document_process.id == selected_document_process_fake.id:
+                assert document_process == selected_document_process_fake
 
 
 @pytest.mark.asyncio

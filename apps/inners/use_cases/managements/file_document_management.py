@@ -1,5 +1,6 @@
 import hashlib
 import uuid
+from typing import List
 from uuid import UUID
 
 from starlette.datastructures import State
@@ -24,6 +25,39 @@ class FileDocumentManagement:
         self.document_management: DocumentManagement = document_management
         self.file_document_repository: FileDocumentRepository = file_document_repository
 
+    async def find_many_with_authorization_and_pagination(self, state: State, page_number: int, page_size: int) -> List[
+        FileDocumentResponse]:
+        found_file_documents: List[
+            FileDocument
+        ] = await self.file_document_repository.find_many_by_account_id_with_pagination(
+            session=state.session,
+            account_id=state.authorized_session.account_id,
+            page_number=page_number,
+            page_size=page_size
+        )
+        found_documents: List[
+            Document
+        ] = await self.document_management.document_repository.find_many_by_id_and_account_id(
+            session=state.session,
+            ids=[found_file_document.id for found_file_document in found_file_documents],
+            account_id=state.authorized_session.account_id
+        )
+        found_file_document_responses: List[FileDocumentResponse] = []
+        for found_document, found_file_document in zip(found_documents, found_file_documents, strict=True):
+            found_file_document_response: FileDocumentResponse = FileDocumentResponse(
+                id=found_document.id,
+                name=found_document.name,
+                description=found_document.description,
+                document_type_id=found_document.document_type_id,
+                account_id=found_document.account_id,
+                file_name=found_file_document.file_name,
+                file_data_hash=found_file_document.file_data_hash,
+                file_metadata=dict()
+            )
+            found_file_document_responses.append(found_file_document_response)
+
+        return found_file_document_responses
+
     async def find_one_by_id_with_authorization(self, state: State, id: UUID) -> FileDocumentResponse:
         found_document: Document = await self.document_management.find_one_by_id_with_authorization(
             state=state,
@@ -36,10 +70,10 @@ class FileDocumentManagement:
         )
         found_file_document_response: FileDocumentResponse = FileDocumentResponse(
             id=found_document.id,
-            document_name=found_document.name,
-            document_description=found_document.description,
+            name=found_document.name,
+            description=found_document.description,
             document_type_id=found_document.document_type_id,
-            document_account_id=found_document.account_id,
+            account_id=found_document.account_id,
             file_name=found_file_document.file_name,
             file_data_hash=found_file_document.file_data_hash,
             file_metadata=dict()
@@ -72,10 +106,10 @@ class FileDocumentManagement:
         )
         file_document_response: FileDocumentResponse = FileDocumentResponse(
             id=created_document.id,
-            document_name=created_document.name,
-            document_description=created_document.description,
+            name=created_document.name,
+            description=created_document.description,
             document_type_id=created_document.document_type_id,
-            document_account_id=created_document.account_id,
+            account_id=created_document.account_id,
             file_name=created_file_document.file_name,
             file_data_hash=created_file_document.file_data_hash,
             file_metadata=dict()
@@ -119,10 +153,10 @@ class FileDocumentManagement:
         )
         patched_file_document_response: FileDocumentResponse = FileDocumentResponse(
             id=patched_document.id,
-            document_name=patched_document.name,
-            document_description=patched_document.description,
+            name=patched_document.name,
+            description=patched_document.description,
             document_type_id=patched_document.document_type_id,
-            document_account_id=patched_document.account_id,
+            account_id=patched_document.account_id,
             file_name=patched_file_document.file_name,
             file_data_hash=patched_file_document.file_data_hash,
             file_metadata=dict()
@@ -152,10 +186,10 @@ class FileDocumentManagement:
         )
         deleted_file_document_response: FileDocumentResponse = FileDocumentResponse(
             id=deleted_document.id,
-            document_name=deleted_document.name,
-            document_description=deleted_document.description,
+            name=deleted_document.name,
+            description=deleted_document.description,
             document_type_id=deleted_document.document_type_id,
-            document_account_id=deleted_document.account_id,
+            account_id=deleted_document.account_id,
             file_name=deleted_file_document.file_name,
             file_data_hash=deleted_file_document.file_data_hash,
             file_metadata=dict()

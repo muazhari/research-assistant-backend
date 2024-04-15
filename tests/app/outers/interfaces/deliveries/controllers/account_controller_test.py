@@ -1,8 +1,6 @@
 import uuid
 from typing import Dict, Any
-
-import uuid
-from typing import Dict, Any
+from typing import List
 
 import bcrypt
 import pytest as pytest
@@ -19,6 +17,40 @@ from apps.inners.models.dtos.contracts.requests.managements.accounts.patch_one_b
 from tests.main_context import MainContext
 
 url_path: str = "/api/accounts"
+
+
+@pytest.mark.asyncio
+async def test__find_many_with_pagination__should__succeed(main_context: MainContext):
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
+    selected_account_fakes: List[Account] = []
+    for account_fake in main_context.all_seeder.account_seeder.account_fake.data:
+        if account_fake.id == selected_session_fake.account_id:
+            selected_account_fakes.append(account_fake)
+
+    headers: Dict[str, Any] = {
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
+    }
+    params: Dict[str, Any] = {
+        "page_number": 1,
+        "page_size": len(selected_account_fakes)
+    }
+    response: Response = await main_context.client.get(
+        url=url_path,
+        headers=headers,
+        params=params
+    )
+
+    content: Content[List[Account]] = Content[List[Account]](
+        **response.json(),
+        status_code=response.status_code
+    )
+    assert content.status_code == status.HTTP_200_OK
+    assert len(content.data) == len(selected_account_fakes)
+    for account in content.data:
+        for selected_account_fake in selected_account_fakes:
+            if account.id == selected_account_fake.id:
+                assert account.email == selected_account_fake.email
+                assert bcrypt.checkpw(selected_account_fake.password.encode(), account.password.encode())
 
 
 @pytest.mark.asyncio

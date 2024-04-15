@@ -1,20 +1,6 @@
 import uuid
 from typing import Dict, Any
-
-import pytest as pytest
-from httpx import Response
-from starlette import status
-
-from apps.inners.models.daos.account import Account
-from apps.inners.models.daos.document import Document
-from apps.inners.models.daos.document_type import DocumentType
-from apps.inners.models.daos.session import Session
-from apps.inners.models.dtos.content import Content
-from apps.inners.models.dtos.contracts.requests.managements.documents.create_one_body import \
-    CreateOneBody
-from tests.main_context import MainContext
-import uuid
-from typing import Dict, Any
+from typing import List
 
 import pytest as pytest
 from httpx import Response
@@ -30,6 +16,39 @@ from apps.inners.models.dtos.contracts.requests.managements.documents.create_one
 from tests.main_context import MainContext
 
 url_path: str = "/api/documents"
+
+
+@pytest.mark.asyncio
+async def test__find_many_with_pagination__should__succeed(main_context: MainContext):
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
+    selected_document_fakes: List[Document] = []
+    for document_fake in main_context.all_seeder.document_seeder.document_fake.data:
+        if document_fake.account_id == selected_session_fake.account_id:
+            selected_document_fakes.append(document_fake)
+
+    headers: Dict[str, Any] = {
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
+    }
+    params: Dict[str, Any] = {
+        "page_number": 1,
+        "page_size": len(selected_document_fakes)
+    }
+    response: Response = await main_context.client.get(
+        url=url_path,
+        headers=headers,
+        params=params
+    )
+
+    content: Content[List[Document]] = Content[List[Document]](
+        **response.json(),
+        status_code=response.status_code
+    )
+    assert content.status_code == status.HTTP_200_OK
+    assert len(content.data) == len(selected_document_fakes)
+    for document in content.data:
+        for selected_document_fake in selected_document_fakes:
+            if document.id == selected_document_fake.id:
+                assert document == selected_document_fake
 
 
 @pytest.mark.asyncio

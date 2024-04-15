@@ -1,6 +1,6 @@
 import hashlib
 import uuid
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 import pytest as pytest
 from httpx import Response
@@ -20,7 +20,50 @@ from apps.inners.models.dtos.contracts.responses.managements.documents.text_docu
     TextDocumentResponse
 from tests.main_context import MainContext
 
-url_path: str = "/api/documents/texts"
+url_path: str = "/api/document-texts"
+
+
+@pytest.mark.asyncio
+async def test__find_many_with_pagination__should__succeed(main_context: MainContext):
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
+    selected_text_document_fakes: List[TextDocument] = []
+    selected_document_fakes: List[Document] = []
+    for text_document_fake in main_context.all_seeder.text_document_seeder.text_document_fake.data:
+        for document_fake in main_context.all_seeder.document_seeder.document_fake.data:
+            if text_document_fake.id == document_fake.id:
+                selected_document_fakes.append(document_fake)
+                if document_fake.account_id == selected_session_fake.account_id:
+                    selected_text_document_fakes.append(text_document_fake)
+
+    headers: Dict[str, Any] = {
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
+    }
+    params: Dict[str, Any] = {
+        "page_number": 1,
+        "page_size": len(selected_text_document_fakes)
+    }
+    response: Response = await main_context.client.get(
+        url=url_path,
+        headers=headers,
+        params=params
+    )
+
+    content: Content[List[TextDocumentResponse]] = Content[List[TextDocumentResponse]](
+        **response.json(),
+        status_code=response.status_code
+    )
+    assert content.status_code == status.HTTP_200_OK
+    assert len(content.data) == len(selected_text_document_fakes)
+    for text_document_response in content.data:
+        for selected_document_fake in selected_document_fakes:
+            for selected_text_document_fake in selected_text_document_fakes:
+                if text_document_response.id == selected_document_fake.id == selected_text_document_fake.id:
+                    assert text_document_response.name == selected_document_fake.name
+                    assert text_document_response.description == selected_document_fake.description
+                    assert text_document_response.document_type_id == selected_document_fake.document_type_id
+                    assert text_document_response.account_id == selected_document_fake.account_id
+                    assert text_document_response.text_content == selected_text_document_fake.text_content
+                    assert text_document_response.text_content_hash == selected_text_document_fake.text_content_hash
 
 
 @pytest.mark.asyncio
@@ -42,10 +85,10 @@ async def test__find_one_by_id__should__succeed(main_context: MainContext):
     )
     assert content.status_code == status.HTTP_200_OK
     assert content.data.id == selected_text_document_fake.id
-    assert content.data.document_name == selected_document_fake.name
-    assert content.data.document_description == selected_document_fake.description
+    assert content.data.name == selected_document_fake.name
+    assert content.data.description == selected_document_fake.description
     assert content.data.document_type_id == DocumentTypeConstant.TEXT
-    assert content.data.document_account_id == selected_document_fake.account_id
+    assert content.data.account_id == selected_document_fake.account_id
     assert content.data.text_content == selected_text_document_fake.text_content
     assert content.data.text_content_hash == selected_text_document_fake.text_content_hash
 
@@ -76,10 +119,10 @@ async def test__create_one__should_create_one_text_document__succeed(main_contex
         status_code=response.status_code
     )
     assert content.status_code == status.HTTP_201_CREATED
-    assert content.data.document_name == text_document_creator_body.name
-    assert content.data.document_description == text_document_creator_body.description
+    assert content.data.name == text_document_creator_body.name
+    assert content.data.description == text_document_creator_body.description
     assert content.data.document_type_id == DocumentTypeConstant.TEXT
-    assert content.data.document_account_id == text_document_creator_body.account_id
+    assert content.data.account_id == text_document_creator_body.account_id
     assert content.data.text_content == text_document_creator_body.text_content
     assert content.data.text_content_hash == text_document_creator_body.text_content_hash
 
@@ -116,10 +159,10 @@ async def test__patch_one_by_id__should_patch_one_text_document__succeed(main_co
         status_code=response.status_code
     )
     assert content.status_code == status.HTTP_200_OK
-    assert content.data.document_name == text_document_patcher_body.name
-    assert content.data.document_description == text_document_patcher_body.description
+    assert content.data.name == text_document_patcher_body.name
+    assert content.data.description == text_document_patcher_body.description
     assert content.data.document_type_id == DocumentTypeConstant.TEXT
-    assert content.data.document_account_id == text_document_patcher_body.account_id
+    assert content.data.account_id == text_document_patcher_body.account_id
     assert content.data.text_content == text_document_patcher_body.text_content
     assert content.data.text_content_hash == hashlib.sha256(
         text_document_patcher_body.text_content.encode()).hexdigest()
@@ -144,10 +187,10 @@ async def test__delete_one_by_id__should_delete_one_text_document__succeed(main_
     )
     assert content.status_code == status.HTTP_200_OK
     assert content.data.id == selected_text_document_fake.id
-    assert content.data.document_name == selected_document_fake.name
-    assert content.data.document_description == selected_document_fake.description
+    assert content.data.name == selected_document_fake.name
+    assert content.data.description == selected_document_fake.description
     assert content.data.document_type_id == DocumentTypeConstant.TEXT
-    assert content.data.document_account_id == selected_document_fake.account_id
+    assert content.data.account_id == selected_document_fake.account_id
     assert content.data.text_content == selected_text_document_fake.text_content
     assert content.data.text_content_hash == selected_text_document_fake.text_content_hash
     main_context.all_seeder.delete_many_text_document_by_id_cascade(selected_text_document_fake.id)

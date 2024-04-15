@@ -1,5 +1,6 @@
 import hashlib
 import uuid
+from typing import List
 from uuid import UUID
 
 from starlette.datastructures import State
@@ -23,6 +24,38 @@ class WebDocumentManagement:
         self.document_management: DocumentManagement = document_management
         self.web_document_repository: WebDocumentRepository = web_document_repository
 
+    async def find_many_with_authorization_and_pagination(self, state: State, page_number: int, page_size: int) -> List[
+        WebDocumentResponse]:
+        found_web_documents: List[
+            WebDocument
+        ] = await self.web_document_repository.find_many_by_account_id_with_pagination(
+            session=state.session,
+            account_id=state.authorized_session.account_id,
+            page_number=page_number,
+            page_size=page_size
+        )
+        found_documents: List[
+            Document
+        ] = await self.document_management.document_repository.find_many_by_id_and_account_id(
+            session=state.session,
+            ids=[found_web_document.id for found_web_document in found_web_documents],
+            account_id=state.authorized_session.account_id
+        )
+        found_web_document_responses: List[WebDocumentResponse] = []
+        for found_document, found_web_document in zip(found_documents, found_web_documents, strict=True):
+            found_web_document_response: WebDocumentResponse = WebDocumentResponse(
+                id=found_document.id,
+                name=found_document.name,
+                description=found_document.description,
+                document_type_id=found_document.document_type_id,
+                account_id=found_document.account_id,
+                web_url=found_web_document.web_url,
+                web_url_hash=found_web_document.web_url_hash
+            )
+            found_web_document_responses.append(found_web_document_response)
+
+        return found_web_document_responses
+
     async def find_one_by_id_with_authorization(self, state: State, id: UUID) -> WebDocumentResponse:
         found_document: Document = await self.document_management.find_one_by_id_with_authorization(
             state=state,
@@ -35,10 +68,10 @@ class WebDocumentManagement:
         )
         found_web_document_response: WebDocumentResponse = WebDocumentResponse(
             id=found_document.id,
-            document_name=found_document.name,
-            document_description=found_document.description,
+            name=found_document.name,
+            description=found_document.description,
             document_type_id=found_document.document_type_id,
-            document_account_id=found_document.account_id,
+            account_id=found_document.account_id,
             web_url=found_web_document.web_url,
             web_url_hash=found_web_document.web_url_hash
         )
@@ -67,10 +100,10 @@ class WebDocumentManagement:
         )
         web_document_response: WebDocumentResponse = WebDocumentResponse(
             id=created_document.id,
-            document_name=created_document.name,
-            document_description=created_document.description,
+            name=created_document.name,
+            description=created_document.description,
             document_type_id=created_document.document_type_id,
-            document_account_id=created_document.account_id,
+            account_id=created_document.account_id,
             web_url=created_web_document.web_url,
             web_url_hash=created_web_document.web_url_hash
         )
@@ -109,10 +142,10 @@ class WebDocumentManagement:
         )
         patched_web_document_response: WebDocumentResponse = WebDocumentResponse(
             id=patched_document.id,
-            document_name=patched_document.name,
-            document_description=patched_document.description,
+            name=patched_document.name,
+            description=patched_document.description,
             document_type_id=patched_document.document_type_id,
-            document_account_id=patched_document.account_id,
+            account_id=patched_document.account_id,
             web_url=patched_web_document.web_url,
             web_url_hash=patched_web_document.web_url_hash
         )
@@ -140,10 +173,10 @@ class WebDocumentManagement:
         )
         deleted_web_document_response: WebDocumentResponse = WebDocumentResponse(
             id=deleted_web_document.id,
-            document_name=deleted_document.name,
-            document_description=deleted_document.description,
+            name=deleted_document.name,
+            description=deleted_document.description,
             document_type_id=deleted_document.document_type_id,
-            document_account_id=deleted_document.account_id,
+            account_id=deleted_document.account_id,
             web_url=deleted_web_document.web_url,
             web_url_hash=deleted_web_document.web_url_hash
         )
