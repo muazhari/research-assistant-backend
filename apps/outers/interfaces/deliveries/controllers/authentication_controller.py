@@ -50,17 +50,14 @@ class AuthenticationController:
         self.register_authentication = register_authentication
         self.logout_authentication = logout_authentication
 
-    async def login(self, request: Request, body: Union[LoginByEmailAndPasswordBody]) -> Response:
+    async def login(self, request: Request, body: Union[LoginByEmailAndPasswordBody], method: str) -> Response:
         content: Content[LoginResponse] = Content[LoginResponse](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             message=f"{self.__class__.__name__}.{self.login.__name__}: Failed.",
             data=None
         )
-        method_param: str = request.query_params.get("method")
-        if method_param is None:
-            content.status_code = status.HTTP_400_BAD_REQUEST
-            content.message += f" {self.__class__.__name__}.{self.login.__name__}: Method is required."
-        elif method_param == "email_and_password":
+
+        if method == "email_and_password":
             try:
                 data: LoginResponse = await self.login_authentication.login_by_email_and_password(
                     state=request.state,
@@ -77,21 +74,18 @@ class AuthenticationController:
                 content.message += f" {exception.caller.class_name}.{exception.caller.function_name}: {exception.__class__.__name__}."
         else:
             content.status_code = status.HTTP_400_BAD_REQUEST
-            content.message += f" {self.__class__.__name__}.{self.login.__name__}: Method {method_param} is not supported."
+            content.message += f" {self.__class__.__name__}.{self.login.__name__}: Method {method} is not supported."
 
         return content.to_response()
 
-    async def register(self, request: Request, body: Union[RegisterByEmailAndPasswordBody]) -> Response:
+    async def register(self, request: Request, body: Union[RegisterByEmailAndPasswordBody], method: str) -> Response:
         content: Content[RegisterResponse] = Content[RegisterResponse](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             message=f"{self.__class__.__name__}.{self.register.__name__}: Failed.",
             data=None
         )
-        method_param: str = request.query_params.get("method")
-        if method_param is None:
-            content.status_code = status.HTTP_400_BAD_REQUEST
-            content.message += f" {self.__class__.__name__}.{self.register.__name__}: Method is required."
-        elif method_param == "email_and_password":
+
+        if method == "email_and_password":
             try:
                 data: RegisterResponse = await self.register_authentication.register_by_email_and_password(
                     state=request.state,
@@ -111,7 +105,7 @@ class AuthenticationController:
                 content.message += f" {exception.caller.class_name}.{exception.caller.function_name}: {exception.__class__.__name__}."
         else:
             content.status_code = status.HTTP_400_BAD_REQUEST
-            content.message += f" {self.__class__.__name__}.{self.register.__name__}: Method {method_param} is not supported."
+            content.message += f" {self.__class__.__name__}.{self.register.__name__}: Method {method} is not supported."
 
         return content.to_response()
 

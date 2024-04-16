@@ -22,6 +22,8 @@ class AuthorizationMiddleware(BaseHTTPMiddleware):
         super().__init__(app)
         self.session_management: SessionManagement = session_management
         self.unauthorized_path_patterns = [
+            ".*\/docs.*",
+            ".*\/openapi.json.*",
             ".*\/authentications\/logins.*",
             ".*\/authentications\/registers.*",
             ".*\/authorizations\/refreshes.*"

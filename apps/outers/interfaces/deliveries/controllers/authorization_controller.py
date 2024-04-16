@@ -29,17 +29,17 @@ class AuthorizationController:
         )
         self.session_authorization = session_authorization
 
-    async def refresh(self, request: Request, body: Union[RefreshAccessTokenBody]) -> Response:
+    async def refresh(self, request: Request, body: Union[RefreshAccessTokenBody], token_type: str) -> Response:
         content: Content[Session] = Content[Session](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             message=f"{self.__class__.__name__}.{self.refresh.__name__}: Failed.",
             data=None
         )
-        type_param: str = request.query_params.get("type")
-        if type_param is None:
+
+        if token_type is None:
             content.status_code = status.HTTP_400_BAD_REQUEST
             content.message += f" {self.__class__.__name__}.{self.refresh.__name__}: Type is required."
-        elif type_param == "access_token":
+        elif token_type == "access_token":
             try:
                 data: Session = await self.session_authorization.refresh_access_token(
                     state=request.state,

@@ -53,19 +53,12 @@ class WebDocumentController:
         )
         self.web_document_management = web_document_management
 
-    async def find_many_with_pagination(self, request: Request) -> Response:
+    async def find_many_with_pagination(self, request: Request, page_number: int = 1, page_size: int = 10) -> Response:
         content: Content[List[WebDocumentResponse]] = Content[List[WebDocumentResponse]](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             message=f"{self.__class__.__name__}.{self.find_many_with_pagination.__name__}: Failed.",
             data=None
         )
-        try:
-            page_number: int = int(request.query_params.get("page_number", 1))
-            page_size: int = int(request.query_params.get("page_size", 10))
-        except ValueError:
-            content.status_code = status.HTTP_400_BAD_REQUEST
-            content.message += f" {self.__class__.__name__}.{self.find_many_with_pagination.__name__}: page_number and page_size must be integer."
-            return content.to_response()
 
         data: List[
             WebDocumentResponse] = await self.web_document_management.find_many_with_authorization_and_pagination(

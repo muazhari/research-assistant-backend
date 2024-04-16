@@ -22,15 +22,15 @@ class LongFormQaController:
         )
         self.router.add_api_route(
             path="",
-            endpoint=self.search,
+            endpoint=self.process,
             methods=["POST"]
         )
         self.process_long_form_qa = process_long_form_qa
 
-    async def search(self, request: Request, body: ProcessBody) -> Response:
+    async def process(self, request: Request, body: ProcessBody) -> Response:
         content: Content[ProcessResponse] = Content[ProcessResponse](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            message=f"{self.__class__.__name__}.{self.search.__name__}: Failed.",
+            message=f"{self.__class__.__name__}.{self.process.__name__}: Failed.",
             data=None
         )
         try:
