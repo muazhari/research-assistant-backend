@@ -39,7 +39,7 @@ async def test__find_many_with_pagination__should__succeed(main_context: MainCon
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     params: Dict[str, Any] = {
-        "page_number": 1,
+        "page_position": 1,
         "page_size": len(selected_document_process_fakes)
     }
     response: Response = await main_context.client.get(

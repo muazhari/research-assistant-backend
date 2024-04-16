@@ -53,7 +53,7 @@ class DocumentController:
         )
         self.document_management: DocumentManagement = document_management
 
-    async def find_many_with_pagination(self, request: Request, page_number: int = 1, page_size: int = 10) -> Response:
+    async def find_many_with_pagination(self, request: Request, page_position: int = 1, page_size: int = 10) -> Response:
         content: Content[List[Document]] = Content[List[Document]](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             message=f"{self.__class__.__name__}.{self.find_many_with_pagination.__name__}: Failed.",
@@ -62,7 +62,7 @@ class DocumentController:
 
         data: List[Document] = await self.document_management.find_many_with_authorization_and_pagination(
             state=request.state,
-            page_number=page_number,
+            page_position=page_position,
             page_size=page_size
         )
         content.status_code = status.HTTP_200_OK

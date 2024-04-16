@@ -21,7 +21,7 @@ class TextDocumentRepository:
             self,
             session: AsyncSession,
             account_id: UUID,
-            page_number: int,
+            page_position: int,
             page_size: int
     ) -> List[TextDocument]:
         found_text_document_result: Result = await session.execute(
@@ -29,7 +29,7 @@ class TextDocumentRepository:
             .join(Document, Document.id == TextDocument.id)
             .where(Document.account_id == account_id)
             .limit(page_size)
-            .offset(page_size * (page_number - 1))
+            .offset(page_size * (page_position - 1))
         )
         found_text_documents: List[TextDocument] = found_text_document_result.scalars().all()
 

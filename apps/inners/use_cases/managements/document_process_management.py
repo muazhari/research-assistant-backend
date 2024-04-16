@@ -17,13 +17,13 @@ class DocumentProcessManagement:
     ):
         self.document_process_repository: DocumentProcessRepository = document_process_repository
 
-    async def find_many_with_authorization_and_pagination(self, state: State, page_number: int, page_size: int) -> List[
+    async def find_many_with_authorization_and_pagination(self, state: State, page_position: int, page_size: int) -> List[
         DocumentProcess]:
         found_document_processes: List[
             DocumentProcess] = await self.document_process_repository.find_many_by_account_id_with_pagination(
             session=state.session,
             account_id=state.authorized_session.account_id,
-            page_number=page_number,
+            page_position=page_position,
             page_size=page_size
         )
 

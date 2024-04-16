@@ -1,7 +1,7 @@
 import io
 from datetime import timedelta
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 from uuid import UUID
 
 import sqlalchemy
@@ -96,7 +96,7 @@ class FileDocumentRepository:
             self,
             session: AsyncSession,
             account_id: UUID,
-            page_number: int,
+            page_position: int,
             page_size: int
     ) -> List[FileDocument]:
         found_file_document_result: Result = await session.execute(
@@ -104,7 +104,7 @@ class FileDocumentRepository:
             .join(Document, Document.id == FileDocument.id)
             .where(Document.account_id == account_id)
             .limit(page_size)
-            .offset(page_size * (page_number - 1))
+            .offset(page_size * (page_position - 1))
         )
         found_file_documents: List[FileDocument] = found_file_document_result.scalars().all()
 
@@ -129,14 +129,15 @@ class FileDocumentRepository:
             self,
             session: AsyncSession,
             file_document_creator: FileDocument,
-            file_data: bytes
+            file_data: Optional[bytes] = None
     ) -> FileDocument:
         try:
             session.add(file_document_creator)
-            self.put_object(
-                object_name=file_document_creator.file_name,
-                data=file_data
-            )
+            if file_data is not None:
+                self.put_object(
+                    object_name=file_document_creator.file_name,
+                    data=file_data
+                )
         except sqlalchemy.exc.IntegrityError:
             raise repository_exception.IntegrityError()
 
@@ -148,7 +149,7 @@ class FileDocumentRepository:
             id: UUID,
             account_id: UUID,
             file_document_patcher: FileDocument,
-            file_data: bytes
+            file_data: Optional[bytes] = None
     ) -> FileDocument:
         found_file_document: FileDocument = await self.find_one_by_id_and_account_id(
             session=session,
@@ -156,11 +157,12 @@ class FileDocumentRepository:
             account_id=account_id
         )
         found_file_document.patch_from(file_document_patcher.dict(exclude_none=True))
-        self.patch_object(
-            old_object_name=found_file_document.file_name,
-            new_object_name=file_document_patcher.file_name,
-            new_data=file_data
-        )
+        if file_data is not None:
+            self.patch_object(
+                old_object_name=found_file_document.file_name,
+                new_object_name=file_document_patcher.file_name,
+                new_data=file_data
+            )
 
         return found_file_document
 

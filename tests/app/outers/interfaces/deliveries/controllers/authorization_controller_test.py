@@ -22,7 +22,7 @@ async def test__refresh_access_token__success(main_context: MainContext) -> None
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     params: dict = {
-        "type": "access_token"
+        "token_type": "access-token"
     }
     response: Response = await main_context.client.post(
         url=f"{url_path}/refreshes",

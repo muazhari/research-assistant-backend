@@ -22,7 +22,7 @@ class DocumentProcessRepository:
             self,
             session: AsyncSession,
             account_id: UUID,
-            page_number: int,
+            page_position: int,
             page_size: int
     ) -> List[DocumentProcess]:
         initial_document: Document = aliased(Document)
@@ -34,7 +34,7 @@ class DocumentProcessRepository:
             .where(initial_document.account_id == account_id)
             .where(final_document.account_id == account_id)
             .limit(page_size)
-            .offset(page_size * (page_number - 1))
+            .offset(page_size * (page_position - 1))
         )
         found_document_processes: List[DocumentProcess] = found_document_process_result.scalars().all()
 

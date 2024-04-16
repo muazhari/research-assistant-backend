@@ -30,7 +30,7 @@ async def test__login_by_email_and_password__succeed(main_context: MainContext):
         password=selected_account_fake.password
     )
     params: dict = {
-        "method": "email_and_password"
+        "method": "email-and-password"
     }
     response: Response = await main_context.client.post(
         url=f"{url_path}/logins",
@@ -60,7 +60,7 @@ async def test__login_by_email_and_password__failed__when__email_is_not_found(ma
         password=selected_account_fake.password,
     )
     params: dict = {
-        "method": "email_and_password"
+        "method": "email-and-password"
     }
     response: Response = await main_context.client.post(
         url=f"{url_path}/logins",
@@ -84,7 +84,7 @@ async def test__login_by_email_and_password__failed__when__password_is_not_match
         password=f"password{uuid.uuid4()}"
     )
     params: dict = {
-        "method": "email_and_password"
+        "method": "email-and-password"
     }
     response: Response = await main_context.client.post(
         url=f"{url_path}/logins",
@@ -131,7 +131,7 @@ async def test__register_by_email_and_password__succeed(main_context: MainContex
         password="password0",
     )
     params: dict = {
-        "method": "email_and_password"
+        "method": "email-and-password"
     }
     response: Response = await main_context.client.post(
         url=f"{url_path}/registers",

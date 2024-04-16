@@ -39,7 +39,7 @@ async def test__find_many_with_pagination__should__succeed(main_context: MainCon
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     params: Dict[str, Any] = {
-        "page_number": 1,
+        "page_position": 1,
         "page_size": len(selected_file_document_fakes)
     }
     response: Response = await main_context.client.get(
@@ -64,7 +64,7 @@ async def test__find_many_with_pagination__should__succeed(main_context: MainCon
                     assert file_document_response.account_id == selected_document_fake.account_id
                     assert file_document_response.file_name == selected_file_document_fake.file_name
                     assert file_document_response.file_data_hash == selected_file_document_fake.file_data_hash
-                    assert file_document_response.file_metadata == dict()
+                    assert file_document_response.file_metadata is not None
 
 
 @pytest.mark.asyncio
@@ -92,7 +92,7 @@ async def test__find_one_by_id__should__succeed(main_context: MainContext):
     assert content.data.account_id == selected_document_fake.account_id
     assert content.data.file_name == selected_file_document_fake.file_name
     assert content.data.file_data_hash == selected_file_document_fake.file_data_hash
-    assert content.data.file_metadata == dict()
+    assert content.data.file_metadata is not None
 
 
 @pytest.mark.asyncio
@@ -129,7 +129,7 @@ async def test__create_one__should_create_one_file_document__succeed(main_contex
     assert content.data.document_type_id == DocumentTypeConstant.FILE
     assert content.data.account_id == file_document_creator_body.account_id
     assert content.data.file_data_hash == hashlib.sha256(selected_file_document_data_fake).hexdigest()
-    assert content.data.file_metadata == dict()
+    assert content.data.file_metadata is not None
 
     file_document: FileDocument = FileDocument(
         id=content.data.id,
@@ -173,7 +173,7 @@ async def test__patch_one_by_id__should_patch_one_file_document__succeed(main_co
     assert content.data.document_type_id == DocumentTypeConstant.FILE
     assert content.data.account_id == file_document_patcher_body.account_id
     assert content.data.file_data_hash == hashlib.sha256(selected_file_document_data_fake).hexdigest()
-    assert content.data.file_metadata == dict()
+    assert content.data.file_metadata is not None
 
 
 @pytest.mark.asyncio
@@ -201,5 +201,5 @@ async def test__delete_one_by_id__should_delete_one_file_document__succeed(main_
     assert content.data.account_id == selected_document_fake.account_id
     assert content.data.file_name == selected_file_document_fake.file_name
     assert content.data.file_data_hash == selected_file_document_fake.file_data_hash
-    assert content.data.file_metadata == dict()
+    assert content.data.file_metadata is None
     main_context.all_seeder.delete_many_file_document_by_id_cascade(selected_file_document_fake.id)

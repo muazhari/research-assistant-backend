@@ -39,7 +39,7 @@ class AuthorizationController:
         if token_type is None:
             content.status_code = status.HTTP_400_BAD_REQUEST
             content.message += f" {self.__class__.__name__}.{self.refresh.__name__}: Type is required."
-        elif token_type == "access_token":
+        elif token_type == "access-token":
             try:
                 data: Session = await self.session_authorization.refresh_access_token(
                     state=request.state,

@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/interfaces/deliveries/controllers/long_form_qa_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/interfaces/deliveries/controllers/long_form_qa_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/interfaces/deliveries/controllers/passage_search_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/interfaces/deliveries/controllers/passage_search_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/interfaces/deliveries/controllers/authorization_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/interfaces/deliveries/controllers/authorization_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/authorization_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/authorization_controller_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +124,7 @@
       <recent name="C:\Data\Apps\research-assistant-backend\test" />
     </key>
   </component>
-  <component name="RunManager" selected="FastAPI.run-1">
+  <component name="RunManager" selected="Python tests.pytest in tests">
     <configuration name="path_playground" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="research-assistant-backend" />
       <option name="ENV_FILES" value="" />
@@ -375,7 +373,7 @@
       <workItem from="1712212043164" duration="172927000" />
       <workItem from="1712811592751" duration="5628000" />
       <workItem from="1712886089020" duration="28964000" />
-      <workItem from="1713082608947" duration="57715000" />
+      <workItem from="1713082608947" duration="68664000" />
     </task>
     <servers />
   </component>
@@ -383,9 +381,9 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_tests.coverage" NAME="pytest in tests Coverage Results" MODIFIED="1713198320462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_tests.coverage" NAME="pytest in tests Coverage Results" MODIFIED="1713284728462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_long_form_qa_controller_test_py.coverage" NAME="pytest in long_form_qa_controller_test.py Coverage Results" MODIFIED="1713112217788" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1713256132522" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1713285094471" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$path_playground.coverage" NAME="path_playground Coverage Results" MODIFIED="1711571656465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$.coverage" NAME=" Coverage Results" MODIFIED="1711687043084" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$test.coverage" NAME="test Coverage Results" MODIFIED="1710594094112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

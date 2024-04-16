@@ -1,6 +1,6 @@
 import hashlib
 import uuid
-from typing import List
+from typing import List, Optional, Dict, Any
 from uuid import UUID
 
 from starlette.datastructures import State
@@ -25,14 +25,24 @@ class FileDocumentManagement:
         self.document_management: DocumentManagement = document_management
         self.file_document_repository: FileDocumentRepository = file_document_repository
 
-    async def find_many_with_authorization_and_pagination(self, state: State, page_number: int, page_size: int) -> List[
-        FileDocumentResponse]:
+    def get_file_metadata(self, file_document: FileDocument) -> Dict[str, Any]:
+        file_url: str = self.file_document_repository.get_object_url(
+            object_name=file_document.file_name
+        )
+        file_metadata: Dict[str, Any] = {
+            "file_url": file_url
+        }
+        return file_metadata
+
+    async def find_many_with_authorization_and_pagination(self, state: State, page_position: int, page_size: int) -> \
+            List[
+                FileDocumentResponse]:
         found_file_documents: List[
             FileDocument
         ] = await self.file_document_repository.find_many_by_account_id_with_pagination(
             session=state.session,
             account_id=state.authorized_session.account_id,
-            page_number=page_number,
+            page_position=page_position,
             page_size=page_size
         )
         found_documents: List[
@@ -52,7 +62,7 @@ class FileDocumentManagement:
                 account_id=found_document.account_id,
                 file_name=found_file_document.file_name,
                 file_data_hash=found_file_document.file_data_hash,
-                file_metadata=dict()
+                file_metadata=self.get_file_metadata(found_file_document)
             )
             found_file_document_responses.append(found_file_document_response)
 
@@ -76,7 +86,7 @@ class FileDocumentManagement:
             account_id=found_document.account_id,
             file_name=found_file_document.file_name,
             file_data_hash=found_file_document.file_data_hash,
-            file_metadata=dict()
+            file_metadata=self.get_file_metadata(found_file_document)
         )
         return found_file_document_response
 
@@ -92,8 +102,10 @@ class FileDocumentManagement:
             state=state,
             document_creator=document_creator
         )
-        file_data: bytes = await body.file_data.read()
-        await body.file_data.close()
+        file_data: Optional[bytes] = None
+        if body.file_data is not None:
+            file_data = await body.file_data.read()
+            await body.file_data.close()
         file_document_creator: FileDocument = FileDocument(
             id=created_document.id,
             file_name=f"{uuid.uuid4()}_{body.file_name}",
@@ -112,12 +124,12 @@ class FileDocumentManagement:
             account_id=created_document.account_id,
             file_name=created_file_document.file_name,
             file_data_hash=created_file_document.file_data_hash,
-            file_metadata=dict()
+            file_metadata=self.get_file_metadata(created_file_document)
         )
         return file_document_response
 
     def create_one_raw(self, state: State, file_document_creator: FileDocument,
-                       file_data: bytes) -> FileDocument:
+                       file_data: Optional[bytes] = None) -> FileDocument:
         created_file_document: FileDocument = self.file_document_repository.create_one(
             session=state.session,
             file_document_creator=file_document_creator,
@@ -139,8 +151,10 @@ class FileDocumentManagement:
             id=id,
             document_patcher=document_patcher
         )
-        file_data: bytes = await body.file_data.read()
-        await body.file_data.close()
+        file_data: Optional[bytes] = None
+        if body.file_data is not None:
+            file_data = await body.file_data.read()
+            await body.file_data.close()
         file_document_patcher: FileDocument = FileDocument(
             file_name=f"{uuid.uuid4()}_{body.file_name}",
             file_data_hash=hashlib.sha256(file_data).hexdigest()
@@ -159,12 +173,12 @@ class FileDocumentManagement:
             account_id=patched_document.account_id,
             file_name=patched_file_document.file_name,
             file_data_hash=patched_file_document.file_data_hash,
-            file_metadata=dict()
+            file_metadata=self.get_file_metadata(patched_file_document)
         )
         return patched_file_document_response
 
     async def patch_one_by_id_raw_with_authorization(self, state: State, id: UUID, file_document_patcher: FileDocument,
-                                                     file_data: bytes) -> FileDocument:
+                                                     file_data: Optional[bytes] = None) -> FileDocument:
         patched_file_document: FileDocument = await self.file_document_repository.patch_one_by_id_and_account_id(
             session=state.session,
             id=id,
@@ -192,6 +206,6 @@ class FileDocumentManagement:
             account_id=deleted_document.account_id,
             file_name=deleted_file_document.file_name,
             file_data_hash=deleted_file_document.file_data_hash,
-            file_metadata=dict()
+            file_metadata=None
         )
         return deleted_file_document_response

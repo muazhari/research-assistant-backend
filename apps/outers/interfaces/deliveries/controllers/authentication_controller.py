@@ -57,7 +57,7 @@ class AuthenticationController:
             data=None
         )
 
-        if method == "email_and_password":
+        if method == "email-and-password":
             try:
                 data: LoginResponse = await self.login_authentication.login_by_email_and_password(
                     state=request.state,
@@ -85,7 +85,7 @@ class AuthenticationController:
             data=None
         )
 
-        if method == "email_and_password":
+        if method == "email-and-password":
             try:
                 data: RegisterResponse = await self.register_authentication.register_by_email_and_password(
                     state=request.state,

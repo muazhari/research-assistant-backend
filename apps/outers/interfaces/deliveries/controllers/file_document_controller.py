@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from uuid import UUID
 
 from fastapi import APIRouter, Request, File, Form, UploadFile
@@ -52,7 +52,8 @@ class FileDocumentController:
 
         self.file_document_management = file_document_management
 
-    async def find_many_with_pagination(self, request: Request, page_number: int = 1, page_size: int = 10) -> Response:
+    async def find_many_with_pagination(self, request: Request, page_position: int = 1,
+                                        page_size: int = 10) -> Response:
         content: Content[List[FileDocumentResponse]] = Content[List[FileDocumentResponse]](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             message=f"{self.__class__.__name__}.{self.find_many_with_pagination.__name__}: Failed.",
@@ -63,7 +64,7 @@ class FileDocumentController:
             FileDocumentResponse
         ] = await self.file_document_management.find_many_with_authorization_and_pagination(
             state=request.state,
-            page_number=page_number,
+            page_position=page_position,
             page_size=page_size
         )
         content.status_code = status.HTTP_200_OK
@@ -99,7 +100,7 @@ class FileDocumentController:
             description: str = Form(...),
             account_id: UUID = Form(...),
             file_name: str = Form(...),
-            file_data: UploadFile = File(...)
+            file_data: Optional[UploadFile] = File(default=None)
     ) -> Response:
         body: CreateOneBody = CreateOneBody(
             name=name,
@@ -135,7 +136,7 @@ class FileDocumentController:
             description: str = Form(...),
             account_id: UUID = Form(...),
             file_name: str = Form(...),
-            file_data: UploadFile = File(...)
+            file_data: Optional[UploadFile] = File(default=None)
     ) -> Response:
         body: PatchOneBody = PatchOneBody(
             name=name,

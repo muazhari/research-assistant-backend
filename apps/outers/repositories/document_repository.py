@@ -20,14 +20,14 @@ class DocumentRepository:
             self,
             session: AsyncSession,
             account_id: UUID,
-            page_number: int,
+            page_position: int,
             page_size: int
     ) -> List[Document]:
         found_document_result: Result = await session.execute(
             select(Document)
             .where(Document.account_id == account_id)
             .limit(page_size)
-            .offset(page_size * (page_number - 1))
+            .offset(page_size * (page_position - 1))
         )
         found_documents: List[Document] = found_document_result.scalars().all()
 
