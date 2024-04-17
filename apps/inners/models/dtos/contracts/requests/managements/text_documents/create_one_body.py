@@ -8,4 +8,3 @@ class CreateOneBody(BaseRequest):
     description: str
     account_id: UUID
     text_content: str
-    text_content_hash: str

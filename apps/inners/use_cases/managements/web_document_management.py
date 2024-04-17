@@ -24,7 +24,8 @@ class WebDocumentManagement:
         self.document_management: DocumentManagement = document_management
         self.web_document_repository: WebDocumentRepository = web_document_repository
 
-    async def find_many_with_authorization_and_pagination(self, state: State, page_position: int, page_size: int) -> List[
+    async def find_many_with_authorization_and_pagination(self, state: State, page_position: int, page_size: int) -> \
+    List[
         WebDocumentResponse]:
         found_web_documents: List[
             WebDocument

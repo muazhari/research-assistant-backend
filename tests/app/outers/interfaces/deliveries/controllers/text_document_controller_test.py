@@ -103,7 +103,6 @@ async def test__create_one__should_create_one_text_document__succeed(main_contex
         description=f"description{uuid.uuid4()}",
         account_id=selected_account_fake.id,
         text_content=selected_text_document_fake.text_content,
-        text_content_hash=selected_text_document_fake.text_content_hash
     )
     headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
@@ -124,7 +123,9 @@ async def test__create_one__should_create_one_text_document__succeed(main_contex
     assert content.data.document_type_id == DocumentTypeConstant.TEXT
     assert content.data.account_id == text_document_creator_body.account_id
     assert content.data.text_content == text_document_creator_body.text_content
-    assert content.data.text_content_hash == text_document_creator_body.text_content_hash
+    assert content.data.text_content_hash == hashlib.sha256(
+        text_document_creator_body.text_content.encode()
+    ).hexdigest()
 
     text_document: TextDocument = TextDocument(
         id=content.data.id,
@@ -165,7 +166,8 @@ async def test__patch_one_by_id__should_patch_one_text_document__succeed(main_co
     assert content.data.account_id == text_document_patcher_body.account_id
     assert content.data.text_content == text_document_patcher_body.text_content
     assert content.data.text_content_hash == hashlib.sha256(
-        text_document_patcher_body.text_content.encode()).hexdigest()
+        text_document_patcher_body.text_content.encode()
+    ).hexdigest()
 
 
 @pytest.mark.asyncio

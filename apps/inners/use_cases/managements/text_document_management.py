@@ -25,7 +25,8 @@ class TextDocumentManagement:
         self.document_management: DocumentManagement = document_management
         self.text_document_repository: TextDocumentRepository = text_document_repository
 
-    async def find_many_with_authorization_and_pagination(self, state: State, page_position: int, page_size: int) -> List[
+    async def find_many_with_authorization_and_pagination(self, state: State, page_position: int, page_size: int) -> \
+    List[
         TextDocumentResponse]:
         found_text_documents: List[
             TextDocument

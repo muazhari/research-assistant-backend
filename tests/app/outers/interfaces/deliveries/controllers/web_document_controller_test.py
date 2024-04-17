@@ -118,7 +118,9 @@ async def test__create_one__should_create_one_web_document__succeed(main_context
     assert content.data.document_type_id == DocumentTypeConstant.WEB
     assert content.data.account_id == web_document_creator_body.account_id
     assert content.data.web_url == web_document_creator_body.web_url
-    assert content.data.web_url_hash == hashlib.sha256(web_document_creator_body.web_url.encode()).hexdigest()
+    assert content.data.web_url_hash == hashlib.sha256(
+        web_document_creator_body.web_url.encode()
+    ).hexdigest()
 
     web_document: WebDocument = WebDocument(
         id=content.data.id,
@@ -156,7 +158,9 @@ async def test__patch_one_by_id__should_patch_one_web_document__succeed(main_con
     assert content.data.document_type_id == DocumentTypeConstant.WEB
     assert content.data.account_id == web_document_patcher_body.account_id
     assert content.data.web_url == web_document_patcher_body.web_url
-    assert content.data.web_url_hash == hashlib.sha256(web_document_patcher_body.web_url.encode()).hexdigest()
+    assert content.data.web_url_hash == hashlib.sha256(
+        web_document_patcher_body.web_url.encode()
+    ).hexdigest()
 
 
 @pytest.mark.asyncio

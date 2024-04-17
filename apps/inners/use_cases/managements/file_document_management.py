@@ -152,13 +152,13 @@ class FileDocumentManagement:
             document_patcher=document_patcher
         )
         file_data: Optional[bytes] = None
+        file_document_patcher: FileDocument = FileDocument(
+            file_name=f"{uuid.uuid4()}_{body.file_name}"
+        )
         if body.file_data is not None:
             file_data = await body.file_data.read()
             await body.file_data.close()
-        file_document_patcher: FileDocument = FileDocument(
-            file_name=f"{uuid.uuid4()}_{body.file_name}",
-            file_data_hash=hashlib.sha256(file_data).hexdigest()
-        )
+            file_document_patcher.file_data_hash = hashlib.sha256(file_data).hexdigest()
         patched_file_document: FileDocument = await self.patch_one_by_id_raw_with_authorization(
             state=state,
             id=id,

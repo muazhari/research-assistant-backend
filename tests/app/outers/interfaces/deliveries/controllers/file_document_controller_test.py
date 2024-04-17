@@ -128,7 +128,9 @@ async def test__create_one__should_create_one_file_document__succeed(main_contex
     assert content.data.description == file_document_creator_body.description
     assert content.data.document_type_id == DocumentTypeConstant.FILE
     assert content.data.account_id == file_document_creator_body.account_id
-    assert content.data.file_data_hash == hashlib.sha256(selected_file_document_data_fake).hexdigest()
+    assert content.data.file_data_hash == hashlib.sha256(
+        selected_file_document_data_fake
+    ).hexdigest()
     assert content.data.file_metadata is not None
 
     file_document: FileDocument = FileDocument(
@@ -172,7 +174,9 @@ async def test__patch_one_by_id__should_patch_one_file_document__succeed(main_co
     assert content.data.description == file_document_patcher_body.description
     assert content.data.document_type_id == DocumentTypeConstant.FILE
     assert content.data.account_id == file_document_patcher_body.account_id
-    assert content.data.file_data_hash == hashlib.sha256(selected_file_document_data_fake).hexdigest()
+    assert content.data.file_data_hash == hashlib.sha256(
+        selected_file_document_data_fake
+    ).hexdigest()
     assert content.data.file_metadata is not None
 
 

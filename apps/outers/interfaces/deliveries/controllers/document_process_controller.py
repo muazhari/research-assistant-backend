@@ -53,7 +53,8 @@ class DocumentProcessController:
         )
         self.document_process_management: DocumentProcessManagement = document_process_management
 
-    async def find_many_with_pagination(self, request: Request, page_position: int = 1, page_size: int = 10) -> Response:
+    async def find_many_with_pagination(self, request: Request, page_position: int = 1,
+                                        page_size: int = 10) -> Response:
         content: Content[List[DocumentProcess]] = Content[List[DocumentProcess]](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             message=f"{self.__class__.__name__}.{self.find_many_with_pagination.__name__}: Failed.",

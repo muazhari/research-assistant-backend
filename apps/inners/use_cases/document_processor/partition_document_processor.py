@@ -50,7 +50,6 @@ class PartitionDocumentProcessor:
         extract_image_path.mkdir(exist_ok=True)
         shutil.rmtree(extract_image_path)
         elements: List[Element] = partition(
-            metadata_filename=found_file_document.file_name,
             file=io.BytesIO(file_data),
             extract_images_in_pdf=True,
             extract_image_block_output_dir=str(extract_image_path),
