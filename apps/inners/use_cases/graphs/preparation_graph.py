@@ -6,9 +6,17 @@ from fastapi.encoders import jsonable_encoder
 from langchain_anthropic import ChatAnthropic
 from langgraph.graph import StateGraph, END
 from litellm import Router
+from starlette.datastructures import State
 from unstructured.documents.elements import Element
 
 from apps.inners.exceptions import use_case_exception
+from apps.inners.models.daos.document import Document
+from apps.inners.models.dtos.constants.document_type_constant import DocumentTypeConstant
+from apps.inners.models.dtos.contracts.responses.managements.documents.file_document_response import \
+    FileDocumentResponse
+from apps.inners.models.dtos.contracts.responses.managements.documents.text_document_response import \
+    TextDocumentResponse
+from apps.inners.models.dtos.contracts.responses.managements.documents.web_document_response import WebDocumentResponse
 from apps.inners.models.dtos.document_category import DocumentCategory
 from apps.inners.models.dtos.element_category import ElementCategory
 from apps.inners.models.dtos.graph_state import PreparationGraphState
@@ -79,7 +87,8 @@ class PreparationGraph:
 
         document_id: UUID = input_state["state"].next_document_id
 
-        categorized_element_hash: str = self._get_categorized_element_hash(
+        categorized_element_hash: str = await self._get_categorized_element_hash(
+            state=input_state["state"],
             document_id=document_id
         )
         categorized_document_hash: str = self._get_categorized_document_hash(
@@ -90,10 +99,7 @@ class PreparationGraph:
             chunk_size=input_state["preprocessor_setting"]["chunk_size"],
         )
 
-        categorized_element_hashes: Optional[Dict[UUID, str]] = input_state.get(
-            "categorized_element_hashes",
-            None
-        )
+        categorized_element_hashes: Optional[Dict[UUID, str]] = input_state["categorized_element_hashes"]
         if categorized_element_hashes is None:
             output_state["categorized_element_hashes"] = {}
         output_state["categorized_element_hashes"][document_id] = categorized_element_hash
@@ -120,10 +126,7 @@ class PreparationGraph:
                 key=categorized_element_hash
             )
 
-        categorized_document_hashes: Optional[Dict[UUID, str]] = input_state.get(
-            "categorized_document_hashes",
-            None
-        )
+        categorized_document_hashes: Optional[Dict[UUID, str]] = input_state["categorized_document_hashes"]
         if categorized_document_hashes is None:
             output_state["categorized_document_hashes"] = {}
         output_state["categorized_document_hashes"][document_id] = categorized_document_hash
@@ -164,12 +167,39 @@ class PreparationGraph:
 
         return output_state
 
-    def _get_categorized_element_hash(
+    async def _get_categorized_element_hash(
             self,
+            state: State,
             document_id: UUID,
     ):
+        found_document: Document = await self.partition_document_processor.document_management.find_one_by_id_with_authorization(
+            state=state,
+            id=document_id
+        )
+        if found_document.document_type_id == DocumentTypeConstant.FILE:
+            found_file_document: FileDocumentResponse = await self.partition_document_processor.file_document_management.find_one_by_id_with_authorization(
+                state=state,
+                id=document_id
+            )
+            document_detail_hash: str = found_file_document.file_data_hash
+        elif found_document.document_type_id == DocumentTypeConstant.TEXT:
+            found_text_document: TextDocumentResponse = await self.partition_document_processor.text_document_management.find_one_by_id_with_authorization(
+                state=state,
+                id=document_id
+            )
+            document_detail_hash: str = found_text_document.text_content_hash
+        elif found_document.document_type_id == DocumentTypeConstant.WEB:
+            found_web_document: WebDocumentResponse = await self.partition_document_processor.web_document_management.find_one_by_id_with_authorization(
+                state=state,
+                id=document_id
+            )
+            document_detail_hash: str = found_web_document.web_url_hash
+        else:
+            raise use_case_exception.DocumentTypeNotSupported()
+
         data: Dict[str, Any] = {
             "document_id": document_id,
+            "document_detail_hash": document_detail_hash
         }
         hashed_data: str = cache_tool.hash_by_dict(
             data=data
@@ -207,10 +237,7 @@ class PreparationGraph:
         if len(document_ids) == 0:
             raise use_case_exception.DocumentIdsEmpty()
 
-        categorized_documents: Optional[Dict[UUID, DocumentCategory]] = input_state.get(
-            "categorized_documents",
-            None
-        )
+        categorized_documents: Optional[Dict[UUID, DocumentCategory]] = input_state["categorized_documents"]
         if categorized_documents is None:
             categorized_documents = {}
             output_state["categorized_documents"] = categorized_documents

@@ -61,7 +61,7 @@ class PassageSearchGraph(PreparationGraph):
 
         categorized_documents: Dict[UUID, DocumentCategory] = input_state["categorized_documents"]
         categorized_document_ids: List[UUID] = list(categorized_documents.keys())
-        embedded_document_ids: Optional[List[UUID]] = input_state.get("embedded_document_ids", None)
+        embedded_document_ids: Optional[List[UUID]] = input_state["embedded_document_ids"]
         if embedded_document_ids is None:
             embedded_document_ids = []
             output_state["embedded_document_ids"] = embedded_document_ids

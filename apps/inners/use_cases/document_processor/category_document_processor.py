@@ -91,7 +91,7 @@ class CategoryDocumentProcessor:
                     metadata={
                         id_key: str(uuid.uuid4()),
                         "category": "text",
-                        "orig_metadata": orig_element_metadata,
+                        "origin_metadata": orig_element_metadata,
                         **metadata
                     }
                 )
@@ -103,7 +103,7 @@ class CategoryDocumentProcessor:
                     if not any(orig_element.id == existing_orig_element.id for existing_orig_element in orig_elements):
                         orig_elements.append(orig_element)
                 orig_elements_metadata: Dict[str, Any] = {
-                    "orig_metadata": [
+                    "origin_metadata": [
                         orig_element.metadata.to_dict() for orig_element in orig_elements
                     ],
                     "category": "text"
