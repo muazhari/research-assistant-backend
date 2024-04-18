@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 from typing import List
 
+from langchain_core.runnables import RunnableConfig
 from starlette.datastructures import State
 
 from apps.inners.models.dtos.contracts.requests.long_form_qas.process_body import ProcessBody
@@ -19,6 +20,9 @@ class ProcessLongFormQa:
 
     async def process(self, state: State, body: ProcessBody) -> ProcessResponse:
         started_at: datetime = datetime.now(tz=timezone.utc)
+        state.next_document_id = None
+        state.next_categorized_document = None
+        state.transform_question_current_retry = 0
         input_state: LongFormQaGraphState = {
             "state": state,
             "document_ids": body.input_setting.document_ids,
@@ -38,7 +42,6 @@ class ProcessLongFormQa:
             "categorized_element_hashes": None,
             "categorized_documents": None,
             "categorized_document_hashes": None,
-            "next_document_id": None,
             "embedder_setting": {
                 "is_force_refresh_embedding": body.input_setting.embedder_setting.is_force_refresh_embedding,
                 "is_force_refresh_document": body.input_setting.embedder_setting.is_force_refresh_document,
@@ -55,7 +58,6 @@ class ProcessLongFormQa:
                 "top_k": body.input_setting.reranker_setting.top_k,
             },
             "embedded_document_ids": None,
-            "next_categorized_document": None,
             "relevant_documents": None,
             "relevant_document_hash": None,
             "re_ranked_documents": None,
@@ -78,7 +80,13 @@ class ProcessLongFormQa:
             "generated_answer_relevancy_grade": None,
             "generated_answer_relevancy_grade_hash": None,
         }
-        output_state: LongFormQaGraphState = await self.long_form_qa_graph.compiled_graph.ainvoke(input_state)
+        graph_config: RunnableConfig = {
+            "recursion_limit": 1000,
+        }
+        output_state: LongFormQaGraphState = await self.long_form_qa_graph.compiled_graph.ainvoke(
+            input=input_state,
+            config=graph_config
+        )
 
         re_ranked_document_dicts: List[ReRankedDocument] = [
             ReRankedDocument(**re_ranked_document.dict())

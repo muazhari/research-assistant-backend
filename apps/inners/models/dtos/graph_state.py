@@ -55,7 +55,6 @@ class PreparationGraphState(TypedDict):
     categorized_element_hashes: Optional[Dict[UUID, str]]
     categorized_documents: Optional[Dict[UUID, DocumentCategory]]
     categorized_document_hashes: Optional[Dict[UUID, str]]
-    next_document_id: Optional[UUID]
 
 
 class PassageSearchGraphState(PreparationGraphState):
@@ -64,7 +63,6 @@ class PassageSearchGraphState(PreparationGraphState):
     reranker_setting: RerankerSettingState
     question: str
     embedded_document_ids: Optional[List[UUID]]
-    next_categorized_document: Optional[DocumentCategory]
     relevant_documents: Optional[List[Document]]
     relevant_document_hash: Optional[str]
     re_ranked_documents: Optional[List[Document]]
@@ -81,7 +79,6 @@ class GeneratorSettingState(TypedDict):
 
 class LongFormQaGraphState(PassageSearchGraphState):
     transform_question_max_retry: int
-    transform_question_current_retry: Optional[int]
     generator_setting: GeneratorSettingState
     generated_answer: Optional[str]
     generated_answer_hash: Optional[str]

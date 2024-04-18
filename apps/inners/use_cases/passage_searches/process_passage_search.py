@@ -5,6 +5,7 @@ from typing import List, Tuple, Set
 from uuid import UUID
 
 from fastapi import UploadFile
+from langchain_core.runnables import RunnableConfig
 from starlette.datastructures import State
 
 from apps.inners.models.daos.document_process import DocumentProcess
@@ -41,6 +42,8 @@ class ProcessPassageSearch:
 
     async def process(self, state: State, body: ProcessBody) -> ProcessResponse:
         started_at: datetime = datetime.now(tz=timezone.utc)
+        state.next_document_id = None
+        state.current_categorized_document = None
         input_state: PassageSearchGraphState = {
             "state": state,
             "document_ids": body.input_setting.document_ids,
@@ -60,7 +63,6 @@ class ProcessPassageSearch:
             "categorized_element_hashes": None,
             "categorized_documents": None,
             "categorized_document_hashes": None,
-            "next_document_id": None,
             "embedder_setting": {
                 "is_force_refresh_embedding": body.input_setting.embedder_setting.is_force_refresh_embedding,
                 "is_force_refresh_document": body.input_setting.embedder_setting.is_force_refresh_document,
@@ -77,14 +79,19 @@ class ProcessPassageSearch:
                 "top_k": body.input_setting.reranker_setting.top_k,
             },
             "embedded_document_ids": None,
-            "next_categorized_document": None,
             "relevant_documents": None,
             "relevant_document_hash": None,
             "re_ranked_documents": None,
             "re_ranked_document_hash": None,
             "question": body.input_setting.question,
         }
-        output_state: PassageSearchGraphState = await self.passage_search_graph.compiled_graph.ainvoke(input_state)
+        graph_config: RunnableConfig = {
+            "recursion_limit": 1000,
+        }
+        output_state: PassageSearchGraphState = await self.passage_search_graph.compiled_graph.ainvoke(
+            input=input_state,
+            config=graph_config
+        )
 
         finished_at: datetime = datetime.now(timezone.utc)
         document_processes: List[DocumentProcess] = []

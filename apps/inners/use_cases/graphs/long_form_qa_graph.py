@@ -295,13 +295,12 @@ class LongFormQaGraph(PassageSearchGraph):
             return "GRADE_ANSWER_RELEVANCY"
 
         transform_question_max_retry: int = input_state["transform_question_max_retry"]
-        if input_state.get("transform_question_current_retry", None) is None:
-            output_state["transform_question_current_retry"] = 0
-        transform_question_current_retry: int = input_state["transform_question_current_retry"]
+        transform_question_current_retry: int = input_state["state"].transform_question_current_retry
+
         if transform_question_current_retry >= transform_question_max_retry:
             return "MAX_RETRY"
 
-        output_state["transform_question_current_retry"] += 1
+        output_state["state"].transform_question_current_retry += 1
 
         return "TRANSFORM_QUESTION"
 
@@ -313,13 +312,11 @@ class LongFormQaGraph(PassageSearchGraph):
             return "PROVIDE_ANSWER"
 
         transform_question_max_retry: int = input_state["transform_question_max_retry"]
-        if input_state.get("transform_question_current_retry", None) is None:
-            output_state["transform_question_current_retry"] = 0
-        transform_question_current_retry: int = input_state["transform_question_current_retry"]
+        transform_question_current_retry: int = input_state["state"].transform_question_current_retry
         if transform_question_current_retry >= transform_question_max_retry:
             return "MAX_RETRY"
 
-        output_state["transform_question_current_retry"] += 1
+        output_state["state"].transform_question_current_retry += 1
 
         return "TRANSFORM_QUESTION"
 

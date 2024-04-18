@@ -77,7 +77,7 @@ class PreparationGraph:
     async def node_get_categorized_documents(self, input_state: PreparationGraphState) -> PreparationGraphState:
         output_state: PreparationGraphState = input_state
 
-        document_id: UUID = input_state["next_document_id"]
+        document_id: UUID = input_state["state"].next_document_id
 
         categorized_element_hash: str = self._get_categorized_element_hash(
             document_id=document_id
@@ -204,6 +204,8 @@ class PreparationGraph:
         output_state: PreparationGraphState = input_state
 
         document_ids: List[UUID] = input_state["document_ids"]
+        if len(document_ids) == 0:
+            raise use_case_exception.DocumentIdsEmpty()
 
         categorized_documents: Optional[Dict[UUID, DocumentCategory]] = input_state.get(
             "categorized_documents",
@@ -216,7 +218,7 @@ class PreparationGraph:
         next_document_ids: List[UUID] = list(set(document_ids) - set(categorized_documents.keys()))
         next_document_id: UUID = next_document_ids.pop()
 
-        output_state["next_document_id"] = next_document_id
+        output_state["state"].next_document_id = next_document_id
 
         return output_state
 
@@ -228,7 +230,7 @@ class PreparationGraph:
         categorized_documents: Dict[UUID, DocumentCategory] = input_state["categorized_documents"]
 
         if set(categorized_documents.keys()) == set(document_ids):
-            output_state["next_document_id"] = None
+            output_state["state"].next_document_id = None
             return "EMBED"
 
         return "GET_CATEGORIZED_DOCUMENTS"

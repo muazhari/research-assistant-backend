@@ -19,8 +19,8 @@ class AccountManagement:
         self.account_repository: AccountRepository = account_repository
 
     async def find_many_with_authorization_and_pagination(self, state: State, page_position: int, page_size: int) -> \
-    List[
-        Account]:
+            List[
+                Account]:
         found_accounts: List[Account] = await self.account_repository.find_many_by_account_id_with_pagination(
             session=state.session,
             account_id=state.authorized_session.account_id,

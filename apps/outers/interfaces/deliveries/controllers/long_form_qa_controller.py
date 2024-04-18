@@ -91,5 +91,8 @@ class LongFormQaController:
         except use_case_exception.ExistingReRankedDocumentHashInvalid as exception:
             content.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
             content.message += f" {exception.caller.class_name}.{exception.caller.function_name}: {exception.__class__.__name__}."
+        except use_case_exception.DocumentIdsEmpty as exception:
+            content.status_code = status.HTTP_400_BAD_REQUEST
+            content.message += f" {exception.caller.class_name}.{exception.caller.function_name}: {exception.__class__.__name__}."
 
         return content.to_response()

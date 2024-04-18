@@ -69,8 +69,8 @@ class PassageSearchGraph(PreparationGraph):
         next_document_ids: List[UUID] = list(set(categorized_document_ids) - set(embedded_document_ids))
         next_document_id: UUID = next_document_ids.pop()
 
-        output_state["next_document_id"] = next_document_id
-        output_state["next_categorized_document"] = categorized_documents[next_document_id]
+        output_state["state"].next_document_id = next_document_id
+        output_state["state"].next_categorized_document = categorized_documents[next_document_id]
 
         return output_state
 
@@ -115,8 +115,8 @@ class PassageSearchGraph(PreparationGraph):
         embedded_document_ids: List[UUID] = input_state["embedded_document_ids"]
 
         if set(categorized_document_ids) == set(embedded_document_ids):
-            output_state["next_document_id"] = None
-            output_state["next_categorized_document"] = None
+            output_state["state"].next_document_id = None
+            output_state["state"].next_categorized_document = None
             return "GET_RELEVANT_DOCUMENTS"
 
         return "EMBED"
@@ -124,7 +124,7 @@ class PassageSearchGraph(PreparationGraph):
     async def node_embed(self, input_state: PassageSearchGraphState) -> PassageSearchGraphState:
         output_state: PassageSearchGraphState = input_state
 
-        categorized_document: DocumentCategory = input_state["next_categorized_document"]
+        categorized_document: DocumentCategory = input_state["state"].next_categorized_document
         document_contents: List[str] = []
         document_ids: List[str] = []
         document_key_value_pairs: List[Tuple[Any, Any]] = []
@@ -195,7 +195,7 @@ class PassageSearchGraph(PreparationGraph):
         if output_state.get("embedded_document_ids", None) is None:
             output_state["embedded_document_ids"] = []
         else:
-            document_id: UUID = input_state["next_document_id"]
+            document_id: UUID = input_state["state"].next_document_id
             output_state["embedded_document_ids"].append(document_id)
 
         return output_state
