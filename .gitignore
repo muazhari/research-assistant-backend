@@ -1,5 +1,5 @@
 **/*.pyc
-.idea/copilot/*
+.idea/copilot/**/*
 .idea/jupyter-settings.xml
 .env
 apps/outers/datastores/temps/**/*

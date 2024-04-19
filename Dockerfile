@@ -38,7 +38,6 @@ COPY ./requirements.txt ./requirements.txt
 # Install python dependencies from requirements.txt.
 RUN pip3 install -r requirements.txt --use-feature=fast-deps
 
-
 # Copy rest of the files to the working directory.
 COPY . .
 
