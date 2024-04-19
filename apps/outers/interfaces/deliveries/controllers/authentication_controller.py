@@ -13,6 +13,7 @@ from apps.inners.models.dtos.contracts.requests.authentications.logins.login_by_
 from apps.inners.models.dtos.contracts.requests.authentications.registers.register_by_email_and_password_body import \
     RegisterByEmailAndPasswordBody
 from apps.inners.models.dtos.contracts.responses.authentications.logins.login_response import LoginResponse
+from apps.inners.models.dtos.contracts.responses.authentications.logouts.logout_response import LogoutResponse
 from apps.inners.models.dtos.contracts.responses.authentications.registers.register_response import RegisterResponse
 from apps.inners.use_cases.authentications.login_authentication import LoginAuthentication
 from apps.inners.use_cases.authentications.logout_authentication import LogoutAuthentication
@@ -110,7 +111,7 @@ class AuthenticationController:
         return content.to_response()
 
     async def logout(self, request: Request) -> Response:
-        content: Content[RegisterResponse] = Content[RegisterResponse](
+        content: Content[LogoutResponse] = Content[LogoutResponse](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             message=f"{self.__class__.__name__}.{self.logout.__name__}: Failed.",
             data=None

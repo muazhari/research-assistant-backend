@@ -1,4 +1,4 @@
-import json
+import pickle
 from typing import Any, Dict, Optional, List
 
 from langchain_core.callbacks import CallbackManagerForRetrieverRun
@@ -46,9 +46,7 @@ class HybridMilvusRetriever(BaseRetriever):
                 self.document_store.mdelete(keys=vector_store_retrieved_document_ids)
                 raise use_case_exception.DocumentStoreRetrieveError()
 
-            decoded_retrieved_document: Document = Document(
-                **json.loads(document_store_retrieved_document)
-            )
+            decoded_retrieved_document: Document = pickle.loads(document_store_retrieved_document)
             decoded_retrieved_document.metadata["relevancy_score"] = vector_store_retrieved_document.score
             decoded_retrieved_documents.append(decoded_retrieved_document)
 

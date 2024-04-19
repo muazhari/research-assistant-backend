@@ -38,7 +38,8 @@ class PartitionDocumentProcessor:
         self.text_document_management = text_document_management
         self.web_document_management = web_document_management
 
-    async def _partition_file(self, state: State, found_document: Document) -> List[Element]:
+    async def _partition_file(self, state: State, found_document: Document,
+                              partition_strategy: str = PartitionStrategy.AUTO) -> List[Element]:
         found_file_document: FileDocumentResponse = await self.file_document_management.find_one_by_id_with_authorization(
             state=state,
             id=found_document.id
@@ -53,7 +54,7 @@ class PartitionDocumentProcessor:
             file=io.BytesIO(file_data),
             extract_images_in_pdf=True,
             extract_image_block_output_dir=str(extract_image_path),
-            strategy=PartitionStrategy.AUTO,
+            strategy=partition_strategy,
             hi_res_model_name="yolox",
         )
 
@@ -82,7 +83,7 @@ class PartitionDocumentProcessor:
 
         return elements
 
-    async def partition(self, state: State, document_id: UUID) -> List[Element]:
+    async def partition(self, state: State, document_id: UUID, file_partition_strategy: str) -> List[Element]:
         found_document: Document = await self.document_management.find_one_by_id_with_authorization(
             state=state,
             id=document_id
@@ -90,7 +91,8 @@ class PartitionDocumentProcessor:
         if found_document.document_type_id == DocumentTypeConstant.FILE:
             elements: List[Element] = await self._partition_file(
                 state=state,
-                found_document=found_document
+                found_document=found_document,
+                partition_strategy=file_partition_strategy
             )
         elif found_document.document_type_id == DocumentTypeConstant.TEXT:
             elements: List[Element] = await self._partition_text(

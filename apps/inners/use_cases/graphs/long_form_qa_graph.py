@@ -107,7 +107,7 @@ class LongFormQaGraph(PassageSearchGraph):
         hashed_data: str = cache_tool.hash_by_dict(
             data=data
         )
-        hashed_data = f"generated_answer-{hashed_data}"
+        hashed_data = f"generated_answer/{hashed_data}"
 
         return hashed_data
 
@@ -198,7 +198,7 @@ class LongFormQaGraph(PassageSearchGraph):
         hashed_data: str = cache_tool.hash_by_dict(
             data=data
         )
-        hashed_data = f"generated_hallucination_grade-{hashed_data}"
+        hashed_data = f"generated_hallucination_grade/{hashed_data}"
 
         return hashed_data
 
@@ -283,7 +283,7 @@ class LongFormQaGraph(PassageSearchGraph):
         hashed_data: str = cache_tool.hash_by_dict(
             data=data
         )
-        hashed_data = f"generated_answer_relevancy_grade-{hashed_data}"
+        hashed_data = f"generated_answer_relevancy_grade/{hashed_data}"
 
         return hashed_data
 
@@ -387,7 +387,7 @@ class LongFormQaGraph(PassageSearchGraph):
         hashed_data: str = cache_tool.hash_by_dict(
             data=data
         )
-        hashed_data = f"transformed_question-{hashed_data}"
+        hashed_data = f"transformed_question/{hashed_data}"
 
         return hashed_data
 

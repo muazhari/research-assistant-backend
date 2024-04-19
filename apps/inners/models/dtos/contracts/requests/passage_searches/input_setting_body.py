@@ -12,6 +12,7 @@ class LlmSetting(BaseRequest):
 class PreprocessorSetting(BaseRequest):
     is_force_refresh_categorized_element: bool
     is_force_refresh_categorized_document: bool
+    file_partition_strategy: str
     chunk_size: int
     overlap_size: int
     is_include_table: bool

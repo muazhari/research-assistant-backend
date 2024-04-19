@@ -1,7 +1,7 @@
 import io
 import uuid
 from datetime import datetime, timezone
-from typing import List, Tuple, Set
+from typing import List, Tuple, Set, Dict, Any
 from uuid import UUID
 
 from fastapi import UploadFile
@@ -55,6 +55,7 @@ class ProcessPassageSearch:
             "preprocessor_setting": {
                 "is_force_refresh_categorized_element": body.input_setting.preprocessor_setting.is_force_refresh_categorized_element,
                 "is_force_refresh_categorized_document": body.input_setting.preprocessor_setting.is_force_refresh_categorized_document,
+                "file_partition_strategy": body.input_setting.preprocessor_setting.file_partition_strategy,
                 "chunk_size": body.input_setting.preprocessor_setting.chunk_size,
                 "overlap_size:": body.input_setting.preprocessor_setting.overlap_size,
                 "is_include_table": body.input_setting.preprocessor_setting.is_include_table,
@@ -136,8 +137,12 @@ class ProcessPassageSearch:
                 finished_at=finished_at
             )
             document_processes.append(document_process)
+            response_headers: Dict[str, Any] = {
+                "response-content-type": "application/pdf",
+            }
             final_document_url: str = self.file_document_management.file_document_repository.get_object_url(
-                object_name=file_document_response.file_name
+                object_name=file_document_response.file_name,
+                response_headers=response_headers
             )
             final_document_urls.append(final_document_url)
 

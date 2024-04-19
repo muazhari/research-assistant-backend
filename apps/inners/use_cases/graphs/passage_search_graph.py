@@ -1,8 +1,7 @@
-import json
+import pickle
 from typing import Dict, List, Any, Optional, Tuple
 from uuid import UUID
 
-from fastapi.encoders import jsonable_encoder
 from langchain_community.embeddings.infinity import InfinityEmbeddings
 from langchain_community.storage.redis import RedisStore
 from langchain_core.documents import Document
@@ -137,7 +136,7 @@ class PassageSearchGraph(PreparationGraph):
             document_key_value_pairs.append(
                 (
                     document.metadata[categorized_document.id_key],
-                    bytes(json.dumps(document.dict(), default=jsonable_encoder).encode())
+                    pickle.dumps(document)
                 )
             )
 
@@ -211,7 +210,7 @@ class PassageSearchGraph(PreparationGraph):
         hashed_data: str = cache_tool.hash_by_dict(
             data=data
         )
-        collection_name: str = f"lfqa_{hashed_data}"
+        collection_name: str = f"passage_search_{hashed_data}"
 
         return collection_name
 
@@ -256,17 +255,11 @@ class PassageSearchGraph(PreparationGraph):
             )
             await self.two_datastore.async_client.set(
                 name=relevant_document_hash,
-                value=json.dumps(
-                    obj=[document.dict() for document in relevant_documents],
-                    default=jsonable_encoder
-                ).encode()
+                value=pickle.dumps(relevant_documents)
             )
         else:
-            retrieved_document_bytes: bytes = await self.two_datastore.async_client.get(relevant_document_hash)
-            retrieved_document_dicts: List[Dict] = json.loads(retrieved_document_bytes)
-            relevant_documents: List[Document] = [
-                Document(**document) for document in retrieved_document_dicts
-            ]
+            relevant_document_bytes: bytes = await self.two_datastore.async_client.get(relevant_document_hash)
+            relevant_documents: List[Document] = pickle.loads(relevant_document_bytes)
 
         output_state["relevant_documents"] = relevant_documents
         output_state["relevant_document_hash"] = relevant_document_hash
@@ -282,7 +275,7 @@ class PassageSearchGraph(PreparationGraph):
         hashed_data: str = cache_tool.hash_by_dict(
             data=data
         )
-        hashed_data = f"relevant_document-{hashed_data}"
+        hashed_data = f"relevant_document/{hashed_data}"
 
         return hashed_data
 
@@ -349,17 +342,11 @@ class PassageSearchGraph(PreparationGraph):
                 re_ranked_documents.append(re_ranked_document)
             await self.two_datastore.async_client.set(
                 name=re_ranked_document_hash,
-                value=json.dumps(
-                    obj=[document.dict() for document in re_ranked_documents],
-                    default=jsonable_encoder
-                ).encode()
+                value=pickle.dumps(re_ranked_documents)
             )
         else:
             re_ranked_document_bytes: bytes = await self.two_datastore.async_client.get(re_ranked_document_hash)
-            re_ranked_document_dicts: List[Dict] = json.loads(re_ranked_document_bytes)
-            re_ranked_documents: List[Document] = [
-                Document(**document) for document in re_ranked_document_dicts
-            ]
+            re_ranked_documents: List[Document] = pickle.loads(re_ranked_document_bytes)
 
         output_state["re_ranked_documents"] = re_ranked_documents
         output_state["re_ranked_document_hash"] = re_ranked_document_hash
@@ -380,7 +367,7 @@ class PassageSearchGraph(PreparationGraph):
         hashed_data: str = cache_tool.hash_by_dict(
             data=data
         )
-        hashed_data = f"re_ranked_document-{hashed_data}"
+        hashed_data = f"re_ranked_document/{hashed_data}"
 
         return hashed_data
 

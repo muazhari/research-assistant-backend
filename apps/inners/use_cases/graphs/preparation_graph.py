@@ -1,8 +1,7 @@
-import json
+import pickle
 from typing import Dict, List, Any, Optional
 from uuid import UUID
 
-from fastapi.encoders import jsonable_encoder
 from langchain_anthropic import ChatAnthropic
 from langgraph.graph import StateGraph, END
 from litellm import Router
@@ -89,7 +88,8 @@ class PreparationGraph:
 
         categorized_element_hash: str = await self._get_categorized_element_hash(
             state=input_state["state"],
-            document_id=document_id
+            document_id=document_id,
+            file_partition_strategy=input_state["preprocessor_setting"]["file_partition_strategy"]
         )
         categorized_document_hash: str = self._get_categorized_document_hash(
             categorized_element_hash=categorized_element_hash,
@@ -103,28 +103,36 @@ class PreparationGraph:
         if categorized_element_hashes is None:
             output_state["categorized_element_hashes"] = {}
         output_state["categorized_element_hashes"][document_id] = categorized_element_hash
-        is_categorized_element_exist: bool = cache_tool.is_key_in_cache(
-            key=categorized_element_hash
+        is_categorized_element_exist: int = await self.two_datastore.async_client.exists(
+            categorized_element_hash
         )
+        if is_categorized_element_exist == 0:
+            is_categorized_element_exist: bool = False
+        elif is_categorized_element_exist == 1:
+            is_categorized_element_exist: bool = True
+        else:
+            raise use_case_exception.ExistingCategorizedElementHashInvalid()
+
         is_force_refresh_categorized_element: bool = input_state["preprocessor_setting"][
             "is_force_refresh_categorized_element"]
         if is_categorized_element_exist is False or is_force_refresh_categorized_element is True:
             elements: List[Element] = await self.partition_document_processor.partition(
                 state=input_state["state"],
-                document_id=document_id
+                document_id=document_id,
+                file_partition_strategy=input_state["preprocessor_setting"]["file_partition_strategy"]
             )
             categorized_elements: ElementCategory = await self.category_document_processor.categorize_elements(
                 elements=elements
             )
-            cache_tool.set_cache(
-                key=categorized_element_hash,
-                value=categorized_elements,
-                timeout=60 * 60 * 24
+            await self.two_datastore.async_client.set(
+                name=categorized_element_hash,
+                value=pickle.dumps(categorized_elements)
             )
         else:
-            categorized_elements: ElementCategory = cache_tool.get_cache(
-                key=categorized_element_hash
+            found_categorized_element_bytes: bytes = await self.two_datastore.async_client.get(
+                categorized_element_hash
             )
+            categorized_elements: ElementCategory = pickle.loads(found_categorized_element_bytes)
 
         categorized_document_hashes: Optional[Dict[UUID, str]] = input_state["categorized_document_hashes"]
         if categorized_document_hashes is None:
@@ -155,13 +163,13 @@ class PreparationGraph:
             )
             await self.two_datastore.async_client.set(
                 name=categorized_document_hash,
-                value=json.dumps(categorized_document.dict(), default=jsonable_encoder).encode()
+                value=pickle.dumps(categorized_document)
             )
         else:
             found_categorized_document_bytes: bytes = await self.two_datastore.async_client.get(
                 categorized_document_hash
             )
-            categorized_document: DocumentCategory = DocumentCategory(**json.loads(found_categorized_document_bytes))
+            categorized_document: DocumentCategory = pickle.loads(found_categorized_document_bytes)
 
         output_state["categorized_documents"][document_id] = categorized_document
 
@@ -171,7 +179,11 @@ class PreparationGraph:
             self,
             state: State,
             document_id: UUID,
+            file_partition_strategy: str
     ):
+        data: Dict[str, Any] = {
+            "document_id": document_id,
+        }
         found_document: Document = await self.partition_document_processor.document_management.find_one_by_id_with_authorization(
             state=state,
             id=document_id
@@ -181,30 +193,27 @@ class PreparationGraph:
                 state=state,
                 id=document_id
             )
-            document_detail_hash: str = found_file_document.file_data_hash
+            data["document_detail_hash"] = found_file_document.file_data_hash
+            data["file_partition_strategy"] = file_partition_strategy
         elif found_document.document_type_id == DocumentTypeConstant.TEXT:
             found_text_document: TextDocumentResponse = await self.partition_document_processor.text_document_management.find_one_by_id_with_authorization(
                 state=state,
                 id=document_id
             )
-            document_detail_hash: str = found_text_document.text_content_hash
+            data["document_detail_hash"] = found_text_document.text_content_hash
         elif found_document.document_type_id == DocumentTypeConstant.WEB:
             found_web_document: WebDocumentResponse = await self.partition_document_processor.web_document_management.find_one_by_id_with_authorization(
                 state=state,
                 id=document_id
             )
-            document_detail_hash: str = found_web_document.web_url_hash
+            data["document_detail_hash"] = found_web_document.web_url_hash
         else:
             raise use_case_exception.DocumentTypeNotSupported()
 
-        data: Dict[str, Any] = {
-            "document_id": document_id,
-            "document_detail_hash": document_detail_hash
-        }
         hashed_data: str = cache_tool.hash_by_dict(
             data=data
         )
-        hashed_data = f"categorized_element-{hashed_data}"
+        hashed_data = f"categorized_element/{hashed_data}"
 
         return hashed_data
 
@@ -226,7 +235,7 @@ class PreparationGraph:
         hashed_data: str = cache_tool.hash_by_dict(
             data=data
         )
-        hashed_data = f"categorized_document-{hashed_data}"
+        hashed_data = f"categorized_document/{hashed_data}"
 
         return hashed_data
 

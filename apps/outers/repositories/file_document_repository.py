@@ -1,7 +1,7 @@
 import io
 from datetime import timedelta
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from uuid import UUID
 
 import sqlalchemy
@@ -74,10 +74,11 @@ class FileDocumentRepository:
             object_name=object_name
         )
 
-    def get_object_url(self, object_name: str) -> str:
+    def get_object_url(self, object_name: str, response_headers: Dict[str, Any] = None) -> str:
         return self.three_datastore.client.get_presigned_url(
             bucket_name="research-assistant-backend.file-documents",
             object_name=object_name,
+            response_headers=response_headers,
             method="GET",
             expires=timedelta(days=1)
         )

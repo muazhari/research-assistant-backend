@@ -17,6 +17,10 @@ class EmbeddingModelNameNotSupported(BaseException):
     pass
 
 
+class ExistingCategorizedElementHashInvalid(BaseException):
+    pass
+
+
 class ExistingCategorizedDocumentHashInvalid(BaseException):
     pass
 
