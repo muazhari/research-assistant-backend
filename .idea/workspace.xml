@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/category_document_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/category_document_processor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -382,7 +383,9 @@
       <workItem from="1713526957096" duration="42000" />
       <workItem from="1713527443080" duration="1813000" />
       <workItem from="1713530372676" duration="1193000" />
-      <workItem from="1713532514093" duration="67000" />
+      <workItem from="1713532514093" duration="180000" />
+      <workItem from="1713532813758" duration="299000" />
+      <workItem from="1713536386440" duration="143000" />
     </task>
     <servers />
   </component>

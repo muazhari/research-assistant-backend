@@ -64,7 +64,7 @@ async def test__process__should_processed__succeed(main_context: MainContext):
                 is_force_refresh_generated_question=False,
                 is_force_refresh_generated_hallucination_grade=False,
                 is_force_refresh_generated_answer_relevancy_grade=False,
-                prompt="""Instruction: Create a concise and informative answer for a given question based solely on the given passages. You must only use information from the given passages. Use an unbiased and journalistic tone. Do not repeat text. Cite at least one passage in each sentence. Cite the passages using passage number notation like "[number]". If multiple passages contain the answer, cite those passages like "[number, number, etc.]". If the passages do not contain the answer to the question, then say that answering is not possible given the available information with the explanation. Ensure the output is only the answer without re-explain the instruction.
+                prompt="""Instruction: Create a concise and informative answer for a given question based solely on the given passages. You must only use information from the given passages. Use an unbiased and journalistic tone. Do not repeat text. Cite at least one passage in each sentence. Cite the passages using passage number notation like "[number]". If multiple passages contain the answer, cite those passages like "[number, number, etc.]". If the passages do not contain the answer to the question, then say that answering is not possible given the available information with the explanation. Ensure the output is not re-explaining the instruction.
                 Passages:
                 {% for passage in passages %}
                 [{{ loop.index }}]={{ passage.page_content }}
