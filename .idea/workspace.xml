@@ -5,13 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inners/use_cases/long_form_qa/longform_qa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -41,7 +46,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -54,47 +59,75 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;FastAPI.run-1.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Data/Apps/research-assistant-backend/app/inners/models/value_objects/contracts/requests/basic_settings&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\M Kharisma Azhari\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\231.9011.38\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Docker.muazhari/research-assistant-backend-dev:latest.executor": "Run",
+    "Docker.muazhari/research-assistant-backend.executor": "Run",
+    "Docker.muazhari/research-assistant-backend:latest.executor": "Run",
+    "FastAPI.run-1.executor": "Debug",
+    "Python tests.Python tests for document_controller_test.test__patch_one_by_id__should_patch_one_document__succeed.executor": "Debug",
+    "Python tests.Python tests for document_process_controller_test.test__patch_one_by_id__should_patch_one_document_process__succeed.executor": "Debug",
+    "Python tests.Python tests in account_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in authentication_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in document_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in document_process_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in document_type_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in file_document_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in text_document_controller_test.py.executor": "Debug",
+    "Python tests.Python tests in web_document_controller_test.py.executor": "Debug",
+    "Python tests.pytest in file_document_controller_test.py.executor": "Debug",
+    "Python tests.pytest in long_form_qa_controller_test.py.executor": "Debug",
+    "Python tests.pytest in one of tests.executor": "Debug",
+    "Python tests.pytest in test.executor": "Debug",
+    "Python tests.pytest in tests.executor": "Debug",
+    "Python.document_type_mock.executor": "Debug",
+    "Python.path_playground.executor": "Debug",
+    "Python.test (1).executor": "Debug",
+    "Python.test.executor": "Debug",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Data/Apps/research-assistant-backend/apps/inners/models/dtos/contracts/requests/managements/documents",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Users\\M Kharisma Azhari\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\231.9011.38\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
+  <component name="PyCoverageOptionsProvider">
+    <option name="myUseBundledCoveragePy" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\basic_settings" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\use_cases\passage_search" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\use_cases\utilities" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\outers\containers\use_cases" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\outers\containers" />
+      <recent name="C:\Data\Apps\research-assistant-backend\apps\inners\models\dtos\contracts\requests\managements\documents" />
+      <recent name="C:\Data\Apps\research-assistant-backend\apps\inners\models\dtos\contracts\responses\authentications" />
+      <recent name="C:\Data\Apps\research-assistant-backend\apps\inners\models\dtos\contracts\requests\authentications" />
+      <recent name="C:\Data\Apps\research-assistant-backend\tests\app\outers\interfaces\deliveries\controllers" />
+      <recent name="C:\Data\Apps\research-assistant-backend\apps\inners\use_cases\document_converters" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\use_cases\passage_search" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\basic_settings" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\use_cases\utilities" />
-      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\value_objects\contracts\requests\passage_searchs" />
+      <recent name="C:\Data\Apps\research-assistant-backend\apps\inners\models\dtos" />
+      <recent name="C:\Data\Apps\research-assistant-backend\apps\inners" />
+      <recent name="C:\Data\Apps\research-assistant-backend\playground" />
+      <recent name="C:\Data\Apps\research-assistant-backend\app\inners\models\dtos\contracts\requests" />
+      <recent name="C:\Data\Apps\research-assistant-backend\test" />
     </key>
   </component>
   <component name="RunManager" selected="FastAPI.run-1">
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="path_playground" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="research-assistant-backend" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -108,7 +141,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/playgrounds/path_playground.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -118,15 +151,12 @@
       <method v="2" />
     </configuration>
     <configuration name="run-1" type="Python.FastAPI">
-      <option name="additionalOptions" value="--reload --host=0.0.0.0 --workers=1" />
-      <option name="file" value="C:\Data\Apps\research-assistant-backend\app\main.py" />
+      <option name="additionalOptions" value="--reload --host=0.0.0.0 --workers=1 --port=3000" />
+      <option name="file" value="C:\Data\Apps\research-assistant-backend\apps\main.py" />
       <module name="research-assistant-backend" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYCHARM_DEBUG" value="False" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -142,71 +172,66 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="compose-1" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
-      <deployment type="docker-compose.yml">
+    <configuration name="muazhari/research-assistant-backend:latest" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
+      <deployment type="dockerfile">
         <settings>
-          <option name="envFilePath" value="" />
-          <option name="sourceFilePath" value="docker-compose.yml" />
-          <option name="upNoDeps" value="true" />
+          <option name="imageTag" value="muazhari/research-assistant-backend:latest" />
+          <option name="buildOnly" value="true" />
+          <option name="showCommandPreview" value="true" />
+          <option name="sourceFilePath" value="Dockerfile" />
         </settings>
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="pytest in test" type="tests" factoryName="py.test" nameIsGenerated="true">
+    <configuration name="pytest in one of tests" type="tests" factoryName="py.test">
       <module name="research-assistant-backend" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="APP_PORT" value="8000" />
-        <env name="CACHE_PATH" value="'$USER_HOME$/.cache'" />
-        <env name="DS_1_DATABASE" value="research-assistant-backend" />
-        <env name="DS_1_DIALECT" value="postgresql+asyncpg" />
-        <env name="DS_1_HOST" value="ds-1" />
-        <env name="DS_1_PASSWORD" value="default" />
-        <env name="DS_1_PORT" value="5432" />
-        <env name="DS_1_USER" value="default" />
-        <env name="DS_2_HOST" value="ds-2" />
-        <env name="DS_2_MANAGEMENT_PORT" value="5601" />
-        <env name="DS_2_PASSWORD" value="admin" />
-        <env name="DS_2_PORT_1" value="9200" />
-        <env name="DS_2_PORT_2" value="9600" />
-        <env name="DS_2_USERNAME" value="admin" />
-        <env name="NLTK_DATA_PATH" value="'$USER_HOME$/AppData/Roaming/nltk_data'" />
-        <env name="OPEN_AI_API_KEY" value="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" />
-        <env name="TEMP_PATH" value="'$USER_HOME$/AppData/Local/Temp'" />
-        <env name="TEMP_PERSISTENCE_PATH" value="'app/outers/persistences/temps'" />
-      </envs>
-      <option name="SDK_HOME" value="/usr/bin/python3" />
-      <option name="SDK_NAME" value="research-assistant-backend" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_parameters" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;-n\u003dauto&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/test&quot;" />
+      <option name="_new_additionalArguments" value="&quot;-n\u003d4&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/document_controller_test.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in tests" type="tests" factoryName="py.test" nameIsGenerated="true">
+      <module name="research-assistant-backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;-n\u003d1 -v&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.test" />
+      <item itemvalue="Docker.muazhari/research-assistant-backend:latest" />
       <item itemvalue="FastAPI.run-1" />
-      <item itemvalue="Docker.compose-1" />
-      <item itemvalue="Python tests.pytest in test" />
+      <item itemvalue="Python.path_playground" />
+      <item itemvalue="Python tests.pytest in tests" />
+      <item itemvalue="Python tests.pytest in one of tests" />
     </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.test" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-5a2391486177-2887949eec09-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.13763.11" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
+        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
       </set>
     </attachedChunks>
   </component>
@@ -291,7 +316,69 @@
       <workItem from="1707380538434" duration="2399000" />
       <workItem from="1707383455030" duration="2922000" />
       <workItem from="1707387179274" duration="6000" />
-      <workItem from="1707397150623" duration="25000" />
+      <workItem from="1707397150623" duration="1351000" />
+      <workItem from="1707463922642" duration="7000" />
+      <workItem from="1710509133439" duration="3744000" />
+      <workItem from="1710539834430" duration="40492000" />
+      <workItem from="1710607257160" duration="50000" />
+      <workItem from="1710607328017" duration="17013000" />
+      <workItem from="1710677175790" duration="4357000" />
+      <workItem from="1710684921228" duration="46319000" />
+      <workItem from="1710807951382" duration="5486000" />
+      <workItem from="1710868304589" duration="4290000" />
+      <workItem from="1710969678920" duration="3288000" />
+      <workItem from="1711022186213" duration="6783000" />
+      <workItem from="1711037423748" duration="10049000" />
+      <workItem from="1711054603681" duration="29883000" />
+      <workItem from="1711149930671" duration="18050000" />
+      <workItem from="1711325963225" duration="895000" />
+      <workItem from="1711326865795" duration="1368000" />
+      <workItem from="1711328242354" duration="1199000" />
+      <workItem from="1711346681145" duration="426000" />
+      <workItem from="1711347113838" duration="1998000" />
+      <workItem from="1711381094153" duration="13184000" />
+      <workItem from="1711414877323" duration="4454000" />
+      <workItem from="1711421676123" duration="954000" />
+      <workItem from="1711427434602" duration="338000" />
+      <workItem from="1711427785883" duration="5879000" />
+      <workItem from="1711433707197" duration="10853000" />
+      <workItem from="1711470530126" duration="396000" />
+      <workItem from="1711471030115" duration="7630000" />
+      <workItem from="1711486524308" duration="877000" />
+      <workItem from="1711487645596" duration="91000" />
+      <workItem from="1711487744137" duration="1715000" />
+      <workItem from="1711510394716" duration="6677000" />
+      <workItem from="1711550857675" duration="15232000" />
+      <workItem from="1711568375117" duration="3256000" />
+      <workItem from="1711571640869" duration="1638000" />
+      <workItem from="1711573287060" duration="536000" />
+      <workItem from="1711573830437" duration="4029000" />
+      <workItem from="1711577870622" duration="2213000" />
+      <workItem from="1711580092864" duration="885000" />
+      <workItem from="1711581308452" duration="1097000" />
+      <workItem from="1711582413547" duration="335000" />
+      <workItem from="1711582757230" duration="2384000" />
+      <workItem from="1711585150075" duration="1549000" />
+      <workItem from="1711625950549" duration="1029000" />
+      <workItem from="1711648738127" duration="746000" />
+      <workItem from="1711651088137" duration="253000" />
+      <workItem from="1711651348594" duration="785000" />
+      <workItem from="1711667325926" duration="450000" />
+      <workItem from="1711667785242" duration="510000" />
+      <workItem from="1711668301678" duration="584000" />
+      <workItem from="1711668892647" duration="37639000" />
+      <workItem from="1711864705514" duration="32273000" />
+      <workItem from="1711898269005" duration="2954000" />
+      <workItem from="1711958731242" duration="47624000" />
+      <workItem from="1712079509221" duration="12413000" />
+      <workItem from="1712114324741" duration="29012000" />
+      <workItem from="1712208214031" duration="973000" />
+      <workItem from="1712212043164" duration="172927000" />
+      <workItem from="1712811592751" duration="5628000" />
+      <workItem from="1712886089020" duration="28964000" />
+      <workItem from="1713082608947" duration="69598000" />
+      <workItem from="1713339446924" duration="1180000" />
+      <workItem from="1713360120265" duration="41412000" />
     </task>
     <servers />
   </component>
@@ -299,10 +386,17 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1707385657013" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_for_test_app_outers_interfaces_deliveries_controllers_file_document_controller_test.coverage" NAME="pytest for test.app.outers.interfaces.deliveries.controllers.file_document_controller_test Coverage Results" MODIFIED="1685532826646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1691586238459" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$.coverage" NAME=" Coverage Results" MODIFIED="1691227085154" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$test.coverage" NAME="test Coverage Results" MODIFIED="1691225094856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1711485769603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_one_of_tests.coverage" NAME="pytest in one of tests Coverage Results" MODIFIED="1713495165054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_tests.coverage" NAME="pytest in tests Coverage Results" MODIFIED="1713501817818" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1713495295465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$test.coverage" NAME="test Coverage Results" MODIFIED="1710594094112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$path_playground.coverage" NAME="path_playground Coverage Results" MODIFIED="1711571656465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_file_document_controller_test_py.coverage" NAME="pytest in file_document_controller_test.py Coverage Results" MODIFIED="1713113154325" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$document_type_mock.coverage" NAME="document_type_mock Coverage Results" MODIFIED="1710704219113" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/mocks" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1710594145961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/mock" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_long_form_qa_controller_test_py.coverage" NAME="pytest in long_form_qa_controller_test.py Coverage Results" MODIFIED="1713112217788" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$.coverage" NAME=" Coverage Results" MODIFIED="1711687043084" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

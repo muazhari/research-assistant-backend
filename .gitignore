@@ -1,3 +1,5 @@
-.production.env
 **/*.pyc
-app/outers/datastores/temps/*
+.idea/copilot/*
+.idea/jupyter-settings.xml
+.env
+apps/outers/datastores/temps/**/*

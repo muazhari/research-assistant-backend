@@ -1,44 +1,45 @@
 # Initialize the base image.
-FROM nvidia/cuda:11.8.0-base-ubuntu22.04
+FROM muazhari/cuda-torch-tensorflow:latest
+
+# Set the working directory environment.
+ENV WORKDIR /app
 
 # Set the working directory.
-WORKDIR /app
-COPY . .
+WORKDIR $WORKDIR
 
-# Update apt repositories.
-RUN apt update -y
+# Update the apt package index.
+RUN apt update
 
 # Install apt dependencies.
 RUN yes | DEBIAN_FRONTEND=noninteractive apt install -y \
-    wkhtmltopdf \
-    xvfb \
-    libopenblas-dev \
-    libomp-dev \
-    poppler-utils  \
-    openjdk-8-jdk \
-    libpq-dev  \
-    gdb \
-    wget \
-    git \
-    python3 \
-    python3-pip
+    libmagic-dev \
+    poppler-utils \
+    tesseract-ocr \
+    libreoffice \
+    pandoc \
+    libxml2-dev \
+    libxslt1-dev \
+    libgraphviz-dev \
+    graphviz \
+    wkhtmltopdf
 
-# Update pip.
-RUN pip3 install --upgrade pip
+# Install paddlepaddle-gpu.
+RUN pip3 install paddlepaddle-gpu --use-feature=fast-deps
 
-# Install pytorch.
-RUN pip3 install \
-    torch \
-    torchvision \
-    torchaudio \
-    --index-url https://download.pytorch.org/whl/cu118
+# Install unstructured[all-docs].
+RUN pip3 install unstructured[all-docs] --use-feature=fast-deps
 
-# Install python dependencies.
-RUN pip3 install \
-    -r requirements.txt \
-    farm-haystack[all] \
-    txtai[all] \
-    pydantic[dotenv] \
-    aiopg[sa] \
-    sqlalchemy[asyncio] \
-    pydevd-pycharm
+# Install pymilvus[model].
+RUN pip3 install pymilvus[model] --use-feature=fast-deps
+
+# Copy requirements.txt to the working directory.
+COPY ./requirements.txt ./requirements.txt
+
+# Install python dependencies from requirements.txt.
+RUN pip3 install -r requirements.txt --use-feature=fast-deps
+
+
+# Copy rest of the files to the working directory.
+COPY . .
+
+
