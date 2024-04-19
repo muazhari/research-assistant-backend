@@ -1,3 +1,4 @@
+import traceback
 from typing import Any
 
 import asyncpg
@@ -28,28 +29,26 @@ class OneDatastore:
         )
         return session
 
-    async def retryable(self, func, max_retries: int = 10):
+    async def retryable(self, handler, max_retries: int = 10) -> Any:
         retry_count: int = 0
-        while retry_count < max_retries:
+        while retry_count <= max_retries:
             session: AsyncSession = self.get_session()
             try:
                 await session.begin()
-                result: Any = await func(session)
+                result: Any = await handler(session)
                 await session.commit()
                 await session.close()
-                break
+                return result
             except sqlalchemy.exc.DBAPIError as exception:
                 await session.rollback()
                 await session.close()
                 if exception.orig.pgcode == asyncpg.exceptions.SerializationError.sqlstate:
                     retry_count += 1
                     continue
-            except Exception as exception:
+            except Exception:
                 await session.rollback()
                 await session.close()
-                raise exception
+                traceback.print_exc()
+                raise datastore_exception.HandlerError()
 
-        if retry_count == max_retries:
-            raise datastore_exception.MaxRetriesExceeded()
-
-        return result
+        raise datastore_exception.MaxRetriesExceeded()

@@ -42,5 +42,9 @@ class SessionMiddleware(BaseHTTPMiddleware):
             content.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
             content.message += f" {exception.caller.class_name}.{exception.caller.function_name}: {exception.__class__.__name__}."
             response: Response = content.to_response()
+        except datastore_exception.HandlerError as exception:
+            content.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+            content.message += f" {exception.caller.class_name}.{exception.caller.function_name}: {exception.__class__.__name__}."
+            response: Response = content.to_response()
 
         return response

@@ -23,14 +23,13 @@ class SessionAuthorization:
             state=state,
             refresh_token=body.refresh_token
         )
-
         current_time = datetime.now(tz=timezone.utc)
         found_session.access_token = str(uuid.uuid4())
         found_session.access_token_expired_at = current_time + timedelta(minutes=15)
-
         patched_session: Session = await self.session_management.patch_one_by_id_raw(
             state=state,
             id=found_session.id,
             session_patcher=found_session
         )
+
         return patched_session
