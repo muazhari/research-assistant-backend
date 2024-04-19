@@ -25,7 +25,7 @@ class DocumentRepository:
     ) -> List[Document]:
         filter_expressions: List[str] = []
         for key, value in filter.items():
-            filter_expressions.append(f"account_document.{key}::text LIKE '%{value}%'")
+            filter_expressions.append(f"SIMILARITY(account_document.{key}::text, '{value}')")
         query: str = f"""
             SELECT *
             FROM (
@@ -33,8 +33,7 @@ class DocumentRepository:
                 FROM document
                 WHERE account_id = '{account_id}'
             ) AS account_document
-            WHERE 
-                {' OR '.join(filter_expressions)}
+            ORDER BY (({'+'.join(filter_expressions)})/{len(filter_expressions)}) DESC
             LIMIT {size};
         """.replace('\n', ' ')
 

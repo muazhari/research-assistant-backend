@@ -102,10 +102,8 @@ class FileDocumentManagement:
             state=state,
             document_creator=document_creator
         )
-        file_data: Optional[bytes] = None
-        if body.file_data is not None:
-            file_data = await body.file_data.read()
-            await body.file_data.close()
+        file_data: bytes = await body.file_data.read()
+        await body.file_data.close()
         file_document_creator: FileDocument = FileDocument(
             id=created_document.id,
             file_name=f"{uuid.uuid4()}_{body.file_name}",
@@ -151,10 +149,17 @@ class FileDocumentManagement:
             id=id,
             document_patcher=document_patcher
         )
-        file_data: Optional[bytes] = None
-        file_document_patcher: FileDocument = FileDocument(
-            file_name=f"{uuid.uuid4()}_{body.file_name}"
+        found_file_document: FileDocument = await self.file_document_repository.find_one_by_id_and_account_id(
+            session=state.session,
+            id=id,
+            account_id=state.authorized_session.account_id
         )
+        file_document_patcher: FileDocument = FileDocument()
+        if body.file_name == found_file_document.file_name:
+            file_document_patcher.file_name = body.file_name
+        else:
+            file_document_patcher.file_name = f"{uuid.uuid4()}_{body.file_name}"
+        file_data: Optional[bytes] = None
         if body.file_data is not None:
             file_data = await body.file_data.read()
             await body.file_data.close()

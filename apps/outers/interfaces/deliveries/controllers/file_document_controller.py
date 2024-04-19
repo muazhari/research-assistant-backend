@@ -96,11 +96,11 @@ class FileDocumentController:
     async def create_one(
             self,
             request: Request,
-            name: str = Form(...),
-            description: str = Form(...),
+            name: str = Form(default=""),
+            description: str = Form(default=""),
             account_id: UUID = Form(...),
-            file_name: str = Form(...),
-            file_data: Optional[UploadFile] = File(default=None)
+            file_name: str = Form(default=""),
+            file_data: UploadFile = File(...)
     ) -> Response:
         body: CreateOneBody = CreateOneBody(
             name=name,
@@ -132,10 +132,10 @@ class FileDocumentController:
             self,
             request: Request,
             id: UUID,
-            name: str = Form(...),
-            description: str = Form(...),
+            name: str = Form(default=""),
+            description: str = Form(default=""),
             account_id: UUID = Form(...),
-            file_name: str = Form(...),
+            file_name: str = Form(default=""),
             file_data: Optional[UploadFile] = File(default=None)
     ) -> Response:
         body: PatchOneBody = PatchOneBody(
