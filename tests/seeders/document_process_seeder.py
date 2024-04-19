@@ -20,8 +20,8 @@ class DocumentProcessSeeder:
 
     async def down(self, session: AsyncSession):
         for document_process in self.document_process_fake.data:
-            found_document_process_result: Result = await session.execute(
+            found_document_process_result: Result = await session.exec(
                 select(DocumentProcess).where(DocumentProcess.id == document_process.id).limit(1)
             )
-            found_document_process: DocumentProcess = found_document_process_result.scalars().one()
+            found_document_process: DocumentProcess = found_document_process_result.one()
             await session.delete(found_document_process)

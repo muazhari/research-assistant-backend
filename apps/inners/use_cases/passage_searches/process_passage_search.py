@@ -119,8 +119,8 @@ class ProcessPassageSearch:
                 file=io.BytesIO(marked_document_data),
             )
             file_document_creator_body: FileDocumentCreateOneBody = FileDocumentCreateOneBody(
-                name=f"passage_search_{started_at}_marked_{document_id}",
-                description="",
+                name=f"Passage Search Marked Document At {started_at}",
+                description=f"Origin Document ID: {document_id}",
                 account_id=state.authorized_session.account_id,
                 file_name=f"{uuid.uuid4()}.pdf",
                 file_data=upload_file_data

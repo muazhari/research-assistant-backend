@@ -4,6 +4,7 @@ from typing import Dict, Any, List
 import pytest as pytest
 from httpx import Response
 from starlette import status
+from unstructured.partition.utils.constants import PartitionStrategy
 
 from apps.inners.models.daos.document import Document
 from apps.inners.models.daos.session import Session
@@ -36,6 +37,7 @@ async def test__process__should_processed__succeed(main_context: MainContext):
             preprocessor_setting=PreprocessorSetting(
                 is_force_refresh_categorized_element=False,
                 is_force_refresh_categorized_document=False,
+                file_partition_strategy=PartitionStrategy.AUTO,
                 chunk_size=500,
                 overlap_size=50,
                 is_include_table=False,

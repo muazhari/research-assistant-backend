@@ -13,9 +13,44 @@ from apps.inners.models.daos.session import Session
 from apps.inners.models.dtos.content import Content
 from apps.inners.models.dtos.contracts.requests.managements.documents.create_one_body import \
     CreateOneBody
+from apps.inners.models.dtos.contracts.requests.managements.documents.search_body import SearchBody
 from tests.main_context import MainContext
 
 url_path: str = "/api/documents"
+
+
+@pytest.mark.asyncio
+async def test__search__should__succeed(main_context: MainContext):
+    selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
+    selected_document_fake: Document = main_context.all_seeder.document_seeder.document_fake.data[0]
+
+    search_body: SearchBody = SearchBody(
+        id=str(selected_document_fake.id),
+        name=selected_document_fake.name,
+        description=selected_document_fake.description,
+        document_type_id=str(selected_document_fake.document_type_id),
+        account_id=None,
+    )
+    headers: Dict[str, Any] = {
+        "Authorization": f"Bearer {selected_session_fake.access_token}"
+    }
+    params: Dict[str, Any] = {
+        "size": len(main_context.all_seeder.document_seeder.document_fake.data)
+    }
+    response: Response = await main_context.client.post(
+        url=f"{url_path}/searches",
+        headers=headers,
+        params=params,
+        json=search_body.model_dump(mode="json")
+    )
+
+    content: Content[List[Document]] = Content[List[Document]](
+        **response.json(),
+        status_code=response.status_code
+    )
+    assert content.status_code == status.HTTP_200_OK
+    assert len(content.data) == 1
+    assert content.data[0] == selected_document_fake
 
 
 @pytest.mark.asyncio

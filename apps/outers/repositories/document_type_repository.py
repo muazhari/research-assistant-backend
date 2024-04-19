@@ -1,5 +1,5 @@
 import sqlalchemy.exc
-from sqlalchemy.engine import Result
+from sqlalchemy.engine import ScalarResult
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
@@ -14,10 +14,10 @@ class DocumentTypeRepository:
 
     async def find_one_by_id(self, session: AsyncSession, id: str) -> DocumentType:
         try:
-            found_document_type_result: Result = await session.execute(
+            found_document_type_result: ScalarResult = await session.exec(
                 select(DocumentType).where(DocumentType.id == id).limit(1)
             )
-            found_document_type: DocumentType = found_document_type_result.scalars().one()
+            found_document_type: DocumentType = found_document_type_result.one()
         except sqlalchemy.exc.NoResultFound:
             raise repository_exception.NotFound()
 

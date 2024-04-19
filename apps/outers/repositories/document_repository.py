@@ -1,9 +1,9 @@
-from typing import List
+from typing import List, Any, Dict
 from uuid import UUID
 
 import sqlalchemy
-from sqlalchemy import exc
-from sqlalchemy.engine import Result
+from sqlalchemy import exc, text
+from sqlalchemy.engine import ScalarResult
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
@@ -16,6 +16,35 @@ class DocumentRepository:
     def __init__(self):
         pass
 
+    async def find_many_by_account_id(
+            self,
+            session: AsyncSession,
+            account_id: UUID,
+            size: int,
+            filter: Dict[str, Any]
+    ) -> List[Document]:
+        filter_expressions: List[str] = []
+        for key, value in filter.items():
+            filter_expressions.append(f"account_document.{key}::text LIKE '%{value}%'")
+        query: str = f"""
+            SELECT *
+            FROM (
+                SELECT * 
+                FROM document
+                WHERE account_id = '{account_id}'
+            ) AS account_document
+            WHERE 
+                {' OR '.join(filter_expressions)}
+            LIMIT {size};
+        """.replace('\n', ' ')
+
+        found_document_result: ScalarResult[Document] = await session.exec(
+            text(query)
+        )
+        found_documents: List[Document] = list(found_document_result.all())
+
+        return found_documents
+
     async def find_many_by_account_id_with_pagination(
             self,
             session: AsyncSession,
@@ -23,13 +52,13 @@ class DocumentRepository:
             page_position: int,
             page_size: int
     ) -> List[Document]:
-        found_document_result: Result = await session.execute(
+        found_document_result: ScalarResult[Document] = await session.exec(
             select(Document)
             .where(Document.account_id == account_id)
             .limit(page_size)
             .offset(page_size * (page_position - 1))
         )
-        found_documents: List[Document] = found_document_result.scalars().all()
+        found_documents: List[Document] = list(found_document_result.all())
 
         return found_documents
 
@@ -39,25 +68,25 @@ class DocumentRepository:
             ids: List[UUID],
             account_id: UUID,
     ) -> List[Document]:
-        found_document_result: Result = await session.execute(
+        found_document_result: ScalarResult[Document] = await session.exec(
             select(Document)
             .where(Document.account_id == account_id)
             .where(Document.id.in_(ids))
             .limit(len(ids))
         )
-        found_documents: List[Document] = found_document_result.scalars().all()
+        found_documents: List[Document] = list(found_document_result.all())
 
         return found_documents
 
     async def find_one_by_id_and_accound_id(self, session: AsyncSession, id: UUID, account_id: UUID) -> Document:
         try:
-            found_document_result: Result = await session.execute(
+            found_document_result: ScalarResult[Document] = await session.exec(
                 select(Document)
                 .where(Document.id == id)
                 .where(Document.account_id == account_id)
                 .limit(1)
             )
-            found_document: Document = found_document_result.scalars().one()
+            found_document: Document = found_document_result.one()
         except sqlalchemy.exc.NoResultFound:
             raise repository_exception.NotFound()
 

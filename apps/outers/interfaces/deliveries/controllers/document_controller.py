@@ -13,6 +13,7 @@ from apps.inners.models.dtos.contracts.requests.managements.documents.create_one
     CreateOneBody
 from apps.inners.models.dtos.contracts.requests.managements.documents.patch_one_body import \
     PatchOneBody
+from apps.inners.models.dtos.contracts.requests.managements.documents.search_body import SearchBody
 from apps.inners.use_cases.managements.document_management import DocumentManagement
 
 
@@ -30,6 +31,11 @@ class DocumentController:
             path="",
             endpoint=self.find_many_with_pagination,
             methods=["GET"]
+        )
+        self.router.add_api_route(
+            path="/searches",
+            endpoint=self.search,
+            methods=["POST"]
         )
         self.router.add_api_route(
             path="/{id}",
@@ -52,6 +58,24 @@ class DocumentController:
             methods=["DELETE"]
         )
         self.document_management: DocumentManagement = document_management
+
+    async def search(self, request: Request, body: SearchBody, size: int = 10) -> Response:
+        content: Content[List[Document]] = Content[List[Document]](
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            message=f"{self.__class__.__name__}.{self.search.__name__}: Failed.",
+            data=None
+        )
+
+        data: List[Document] = await self.document_management.search_many_with_authorization(
+            state=request.state,
+            body=body,
+            size=size
+        )
+        content.status_code = status.HTTP_200_OK
+        content.message = f"{self.__class__.__name__}.{self.search.__name__}: Succeed."
+        content.data = data
+
+        return content.to_response()
 
     async def find_many_with_pagination(self, request: Request, page_position: int = 1,
                                         page_size: int = 10) -> Response:

@@ -20,8 +20,8 @@ class WebDocumentSeeder:
 
     async def down(self, session: AsyncSession):
         for web_document in self.web_document_fake.data:
-            found_web_document_result: Result = await session.execute(
+            found_web_document_result: Result = await session.exec(
                 select(WebDocument).where(WebDocument.id == web_document.dict().get("id")).limit(1)
             )
-            found_web_document: WebDocument = found_web_document_result.scalars().one()
+            found_web_document: WebDocument = found_web_document_result.one()
             await session.delete(found_web_document)

@@ -20,8 +20,8 @@ class TextDocumentSeeder:
 
     async def down(self, session: AsyncSession):
         for text_document in self.text_document_fake.data:
-            found_text_document_result: Result = await session.execute(
+            found_text_document_result: Result = await session.exec(
                 select(TextDocument).where(TextDocument.id == text_document.id).limit(1)
             )
-            found_text_document: TextDocument = found_text_document_result.scalars().one()
+            found_text_document: TextDocument = found_text_document_result.one()
             await session.delete(found_text_document)

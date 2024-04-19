@@ -20,8 +20,8 @@ class DocumentTypeSeeder:
 
     async def down(self, session: AsyncSession):
         for document_type in self.document_type_fake.data:
-            found_document_type_result: Result = await session.execute(
+            found_document_type_result: Result = await session.exec(
                 select(DocumentType).where(DocumentType.id == document_type.id).limit(1)
             )
-            found_document_type: DocumentType = found_document_type_result.scalars().one()
+            found_document_type: DocumentType = found_document_type_result.one()
             await session.delete(found_document_type)

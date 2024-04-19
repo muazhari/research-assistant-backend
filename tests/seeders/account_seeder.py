@@ -22,8 +22,8 @@ class AccountSeeder:
 
     async def down(self, session: AsyncSession):
         for account in self.account_fake.data:
-            found_account_result: Result = await session.execute(
+            found_account_result: Result = await session.exec(
                 select(Account).where(Account.id == account.id).limit(1)
             )
-            found_account: Account = found_account_result.scalars().one()
+            found_account: Account = found_account_result.one()
             await session.delete(found_account)

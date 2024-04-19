@@ -20,8 +20,8 @@ class DocumentSeeder:
 
     async def down(self, session: AsyncSession):
         for document in self.document_fake.data:
-            found_document_result: Result = await session.execute(
+            found_document_result: Result = await session.exec(
                 select(Document).where(Document.id == document.id).limit(1)
             )
-            found_document: Document = found_document_result.scalars().one()
+            found_document: Document = found_document_result.one()
             await session.delete(found_document)

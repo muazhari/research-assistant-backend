@@ -7,7 +7,7 @@ from uuid import UUID
 import sqlalchemy
 from minio.helpers import ObjectWriteResult
 from sqlalchemy import exc
-from sqlalchemy.engine import Result
+from sqlalchemy.engine import ScalarResult
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
@@ -100,27 +100,27 @@ class FileDocumentRepository:
             page_position: int,
             page_size: int
     ) -> List[FileDocument]:
-        found_file_document_result: Result = await session.execute(
+        found_file_document_result: ScalarResult = await session.exec(
             select(FileDocument)
             .join(Document, Document.id == FileDocument.id)
             .where(Document.account_id == account_id)
             .limit(page_size)
             .offset(page_size * (page_position - 1))
         )
-        found_file_documents: List[FileDocument] = found_file_document_result.scalars().all()
+        found_file_documents: List[FileDocument] = list(found_file_document_result.all())
 
         return found_file_documents
 
     async def find_one_by_id_and_account_id(self, session: AsyncSession, id: UUID, account_id: UUID) -> FileDocument:
         try:
-            found_file_document_result: Result = await session.execute(
+            found_file_document_result: ScalarResult = await session.exec(
                 select(FileDocument)
                 .join(Document, Document.id == FileDocument.id)
                 .where(FileDocument.id == id)
                 .where(Document.account_id == account_id)
                 .limit(1)
             )
-            found_file_document: FileDocument = found_file_document_result.scalars().one()
+            found_file_document: FileDocument = found_file_document_result.one()
         except sqlalchemy.exc.NoResultFound:
             raise repository_exception.NotFound()
 

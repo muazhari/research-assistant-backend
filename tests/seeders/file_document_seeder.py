@@ -31,10 +31,10 @@ class FileDocumentSeeder:
 
     async def down(self, session: AsyncSession):
         for index, file_document in enumerate(self.file_document_fake.data):
-            found_file_document_result: Result = await session.execute(
+            found_file_document_result: Result = await session.exec(
                 select(FileDocument).where(FileDocument.id == file_document.id).limit(1)
             )
-            found_file_document: FileDocument = found_file_document_result.scalars().one()
+            found_file_document: FileDocument = found_file_document_result.one()
             self.three_datastore.client.remove_object(
                 bucket_name="research-assistant-backend.file-documents",
                 object_name=found_file_document.file_name

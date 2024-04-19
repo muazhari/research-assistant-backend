@@ -3,7 +3,7 @@ from uuid import UUID
 
 import sqlalchemy
 from sqlalchemy import exc
-from sqlalchemy.engine import Result
+from sqlalchemy.engine import ScalarResult
 from sqlalchemy.orm import aliased
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
@@ -27,7 +27,7 @@ class DocumentProcessRepository:
     ) -> List[DocumentProcess]:
         initial_document: Document = aliased(Document)
         final_document: Document = aliased(Document)
-        found_document_process_result: Result = await session.execute(
+        found_document_process_result: ScalarResult = await session.exec(
             select(DocumentProcess)
             .join(initial_document, initial_document.id == DocumentProcess.initial_document_id)
             .join(final_document, final_document.id == DocumentProcess.final_document_id)
@@ -36,7 +36,7 @@ class DocumentProcessRepository:
             .limit(page_size)
             .offset(page_size * (page_position - 1))
         )
-        found_document_processes: List[DocumentProcess] = found_document_process_result.scalars().all()
+        found_document_processes: List[DocumentProcess] = list(found_document_process_result.all())
 
         return found_document_processes
 
@@ -44,7 +44,7 @@ class DocumentProcessRepository:
         try:
             initial_document: Document = aliased(Document)
             final_document: Document = aliased(Document)
-            found_document_process_result: Result = await session.execute(
+            found_document_process_result: ScalarResult = await session.exec(
                 select(DocumentProcess)
                 .join(initial_document, initial_document.id == DocumentProcess.initial_document_id)
                 .join(final_document, final_document.id == DocumentProcess.final_document_id)
@@ -53,7 +53,7 @@ class DocumentProcessRepository:
                 .where(final_document.account_id == account_id)
                 .limit(1)
             )
-            found_document_process: DocumentProcess = found_document_process_result.scalars().one()
+            found_document_process: DocumentProcess = found_document_process_result.one()
         except sqlalchemy.exc.NoResultFound:
             raise repository_exception.NotFound()
 

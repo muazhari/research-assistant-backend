@@ -7,6 +7,7 @@ from starlette.datastructures import State
 from apps.inners.models.daos.document import Document
 from apps.inners.models.dtos.contracts.requests.managements.documents.create_one_body import CreateOneBody
 from apps.inners.models.dtos.contracts.requests.managements.documents.patch_one_body import PatchOneBody
+from apps.inners.models.dtos.contracts.requests.managements.documents.search_body import SearchBody
 from apps.outers.repositories.document_repository import DocumentRepository
 
 
@@ -16,6 +17,16 @@ class DocumentManagement:
             document_repository: DocumentRepository,
     ):
         self.document_repository: DocumentRepository = document_repository
+
+    async def search_many_with_authorization(self, state: State, body: SearchBody, size: int) -> List[Document]:
+        found_documents: List[Document] = await self.document_repository.find_many_by_account_id(
+            session=state.session,
+            account_id=state.authorized_session.account_id,
+            size=size,
+            filter=body.dict(exclude_none=True)
+        )
+
+        return found_documents
 
     async def find_many_with_authorization_and_pagination(self, state: State, page_position: int, page_size: int) -> \
             List[

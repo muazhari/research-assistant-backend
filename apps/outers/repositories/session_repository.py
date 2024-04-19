@@ -2,7 +2,7 @@ from uuid import UUID
 
 import sqlalchemy
 from sqlalchemy import exc
-from sqlalchemy.engine import Result
+from sqlalchemy.engine import ScalarResult
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
@@ -17,10 +17,10 @@ class SessionRepository:
 
     async def find_one_by_id(self, session: AsyncSession, id: UUID) -> Session:
         try:
-            found_session_result: Result = await session.execute(
+            found_session_result: ScalarResult = await session.exec(
                 select(Session).where(Session.id == id).limit(1)
             )
-            found_session: Session = found_session_result.scalars().one()
+            found_session: Session = found_session_result.one()
         except sqlalchemy.exc.NoResultFound:
             raise repository_exception.NotFound()
 
@@ -28,10 +28,10 @@ class SessionRepository:
 
     async def find_one_by_account_id(self, session: AsyncSession, account_id: UUID) -> Session:
         try:
-            found_session_result: Result = await session.execute(
+            found_session_result: ScalarResult = await session.exec(
                 select(Session).where(Session.account_id == account_id).limit(1)
             )
-            found_session: Session = found_session_result.scalars().one()
+            found_session: Session = found_session_result.one()
         except sqlalchemy.exc.NoResultFound:
             raise repository_exception.NotFound()
 
@@ -39,10 +39,10 @@ class SessionRepository:
 
     async def find_one_by_access_token(self, session: AsyncSession, access_token: str) -> Session:
         try:
-            found_session_result: Result = await session.execute(
+            found_session_result: ScalarResult = await session.exec(
                 select(Session).where(Session.access_token == access_token).limit(1)
             )
-            found_session: Session = found_session_result.scalars().one()
+            found_session: Session = found_session_result.one()
         except sqlalchemy.exc.NoResultFound:
             raise repository_exception.NotFound()
 
@@ -50,10 +50,10 @@ class SessionRepository:
 
     async def find_one_by_refresh_token(self, session: AsyncSession, refresh_token: str) -> Session:
         try:
-            found_session_result: Result = await session.execute(
+            found_session_result: ScalarResult = await session.exec(
                 select(Session).where(Session.refresh_token == refresh_token).limit(1)
             )
-            found_session: Session = found_session_result.scalars().one()
+            found_session: Session = found_session_result.one()
         except sqlalchemy.exc.NoResultFound:
             raise repository_exception.NotFound()
 

@@ -3,7 +3,7 @@ from uuid import UUID
 
 import sqlalchemy
 from sqlalchemy import exc
-from sqlalchemy.engine import Result
+from sqlalchemy.engine import ScalarResult
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
@@ -23,25 +23,25 @@ class AccountRepository:
             page_position: int,
             page_size: int
     ) -> List[Account]:
-        found_account_result: Result = await session.execute(
+        found_account_result: ScalarResult = await session.exec(
             select(Account)
             .where(Account.id == account_id)
             .limit(page_size)
             .offset(page_size * (page_position - 1))
         )
-        found_accounts: List[Account] = found_account_result.scalars().all()
+        found_accounts: List[Account] = list(found_account_result.all())
 
         return found_accounts
 
     async def find_one_by_id_and_account_id(self, session: AsyncSession, id: UUID, account_id: UUID) -> Account:
         try:
-            found_account_result: Result = await session.execute(
+            found_account_result: ScalarResult = await session.exec(
                 select(Account)
                 .where(Account.id == id)
                 .where(Account.id == account_id)
                 .limit(1)
             )
-            found_account: Account = found_account_result.scalars().one()
+            found_account: Account = found_account_result.one()
         except sqlalchemy.exc.NoResultFound:
             raise repository_exception.NotFound()
 
@@ -49,10 +49,10 @@ class AccountRepository:
 
     async def find_one_by_email(self, session: AsyncSession, email: str) -> Account:
         try:
-            found_account_result: Result = await session.execute(
+            found_account_result: ScalarResult = await session.exec(
                 select(Account).where(Account.email == email).limit(1)
             )
-            found_account: Account = found_account_result.scalars().one()
+            found_account: Account = found_account_result.one()
         except sqlalchemy.exc.NoResultFound:
             raise repository_exception.NotFound()
 

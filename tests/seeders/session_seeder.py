@@ -20,8 +20,8 @@ class SessionSeeder:
 
     async def down(self, session: AsyncSession):
         for session_dao in self.session_fake.data:
-            found_session_result: Result = await session.execute(
+            found_session_result: Result = await session.exec(
                 select(Session).where(Session.id == session_dao.id).limit(1)
             )
-            found_session: Session = found_session_result.scalars().one()
+            found_session: Session = found_session_result.one()
             await session.delete(found_session)

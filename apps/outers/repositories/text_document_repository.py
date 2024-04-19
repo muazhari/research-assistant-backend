@@ -3,7 +3,7 @@ from uuid import UUID
 
 import sqlalchemy
 from sqlalchemy import exc
-from sqlalchemy.engine import Result
+from sqlalchemy.engine import ScalarResult
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
@@ -24,26 +24,26 @@ class TextDocumentRepository:
             page_position: int,
             page_size: int
     ) -> List[TextDocument]:
-        found_text_document_result: Result = await session.execute(
+        found_text_document_result: ScalarResult = await session.exec(
             select(TextDocument)
             .join(Document, Document.id == TextDocument.id)
             .where(Document.account_id == account_id)
             .limit(page_size)
             .offset(page_size * (page_position - 1))
         )
-        found_text_documents: List[TextDocument] = found_text_document_result.scalars().all()
+        found_text_documents: List[TextDocument] = list(found_text_document_result.all())
 
         return found_text_documents
 
     async def find_one_by_id_and_account_id(self, session: AsyncSession, id: UUID, account_id: UUID) -> TextDocument:
         try:
-            found_text_document_result: Result = await session.execute(
+            found_text_document_result: ScalarResult = await session.exec(
                 select(TextDocument)
                 .join(Document, Document.id == TextDocument.id)
                 .where(TextDocument.id == id)
                 .where(Document.account_id == account_id)
             )
-            found_text_document: TextDocument = found_text_document_result.scalars().one()
+            found_text_document: TextDocument = found_text_document_result.one()
         except sqlalchemy.exc.NoResultFound:
             raise repository_exception.NotFound()
 
