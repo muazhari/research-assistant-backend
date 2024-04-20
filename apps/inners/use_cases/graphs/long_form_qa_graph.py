@@ -114,7 +114,7 @@ class LongFormQaGraph(PassageSearchGraph):
     async def node_grade_hallucination(self, input_state: LongFormQaGraphState) -> LongFormQaGraphState:
         output_state: LongFormQaGraphState = input_state
 
-        retrieved_documents: List[Document] = input_state["relevant_documents"]
+        re_ranked_documents: List[Document] = input_state["re_ranked_documents"]
 
         class GradeTool(BaseModelV1):
             """Binary score for support check."""
@@ -124,7 +124,7 @@ class LongFormQaGraph(PassageSearchGraph):
 
         retriever: HybridMilvusRetriever = input_state["retriever_setting"]["retriever"]
         generated_hallucination_grade_hash: str = self._get_generated_hallucination_grade_hash(
-            retrieved_document_ids=[document.metadata[retriever.id_key] for document in retrieved_documents],
+            retrieved_document_ids=[document.metadata[retriever.id_key] for document in re_ranked_documents],
             generated_answer_hash=input_state["generated_answer_hash"]
         )
         existing_generated_hallucination_grade_hash: int = await self.two_datastore.async_client.exists(
@@ -151,7 +151,7 @@ class LongFormQaGraph(PassageSearchGraph):
                 input_variables=["passages", "generated_answer"]
             )
             text: str = prompt.format(
-                passages=retrieved_documents,
+                passages=re_ranked_documents,
                 generated_answer=input_state["generated_answer"]
             )
             messages: List[BaseMessage] = [
@@ -229,8 +229,8 @@ class LongFormQaGraph(PassageSearchGraph):
         if is_generated_hallucination_grade_hash_exist is False or is_force_refresh_generated_answer_relevancy_grade is True:
             prompt: PromptTemplate = PromptTemplate(
                 template="""Instruction: Assess whether an Large Language Model generated answer resolves a question. Give a binary score of "True" or "False". "True" means that the answer resolves the question. "False" means that the answer does not resolve the question.
-                Generated Answer: {{ generated_answer }}
-                Question: {{ question }}
+                Question: {question}
+                Generated Answer: {generated_answer}
                 """,
                 input_variables=["generated_answer", "question"]
             )

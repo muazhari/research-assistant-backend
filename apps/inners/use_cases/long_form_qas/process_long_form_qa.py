@@ -97,6 +97,8 @@ class ProcessLongFormQa:
         process_response: ProcessResponse = ProcessResponse(
             re_ranked_documents=re_ranked_document_dicts,
             generated_answer=output_state["generated_answer"],
+            hallucination_grade=output_state["generated_hallucination_grade"],
+            answer_relevancy_grade=output_state["generated_answer_relevancy_grade"],
             started_at=started_at,
             finished_at=finished_at,
         )

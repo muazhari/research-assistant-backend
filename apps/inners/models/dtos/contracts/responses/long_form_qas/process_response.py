@@ -8,5 +8,7 @@ from apps.inners.models.dtos.contracts.responses.passage_searches.process_respon
 class ProcessResponse(BaseResponse):
     re_ranked_documents: List[ReRankedDocument]
     generated_answer: str
+    hallucination_grade: bool
+    answer_relevancy_grade: bool
     started_at: datetime
     finished_at: datetime
