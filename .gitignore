@@ -3,4 +3,3 @@
 .idea/jupyter-settings.xml
 .env
 apps/outers/datastores/temps/**/*
-htmlcov/**/*
