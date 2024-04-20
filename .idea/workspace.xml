@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/one_datastore.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/datastores/one_datastore.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/document_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/document_controller_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +126,7 @@
       <recent name="C:\Data\Apps\research-assistant-backend\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.muazhari/research-assistant-backend:latest">
+  <component name="RunManager" selected="FastAPI.run-1">
     <configuration name="path_playground" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="research-assistant-backend" />
       <option name="ENV_FILES" value="" />
@@ -387,7 +389,9 @@
       <workItem from="1713536386440" duration="143000" />
       <workItem from="1713537475277" duration="2378000" />
       <workItem from="1713541818121" duration="1259000" />
-      <workItem from="1713544074563" duration="2230000" />
+      <workItem from="1713544074563" duration="2313000" />
+      <workItem from="1713549217328" duration="1334000" />
+      <workItem from="1713609673399" duration="895000" />
     </task>
     <servers />
   </component>
@@ -399,7 +403,7 @@
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1711485769603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_one_of_tests.coverage" NAME="pytest in one of tests Coverage Results" MODIFIED="1713495165054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_tests.coverage" NAME="pytest in tests Coverage Results" MODIFIED="1713501817818" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1713545112903" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1713549493304" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$test.coverage" NAME="test Coverage Results" MODIFIED="1710594094112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$path_playground.coverage" NAME="path_playground Coverage Results" MODIFIED="1711571656465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_file_document_controller_test_py.coverage" NAME="pytest in file_document_controller_test.py Coverage Results" MODIFIED="1713113154325" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

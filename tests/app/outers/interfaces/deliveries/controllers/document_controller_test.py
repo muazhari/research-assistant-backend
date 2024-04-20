@@ -23,19 +23,23 @@ url_path: str = "/api/documents"
 async def test__search__should__succeed(main_context: MainContext):
     selected_session_fake: Session = main_context.all_seeder.session_seeder.session_fake.data[0]
     selected_document_fake: Document = main_context.all_seeder.document_seeder.document_fake.data[0]
+    selected_document_fakes: List[Document] = []
+    for document_fake in main_context.all_seeder.document_seeder.document_fake.data:
+        if document_fake.account_id == selected_session_fake.account_id:
+            selected_document_fakes.append(document_fake)
 
     search_body: SearchBody = SearchBody(
         id=str(selected_document_fake.id),
         name=selected_document_fake.name,
         description=selected_document_fake.description,
         document_type_id=str(selected_document_fake.document_type_id),
-        account_id=None,
+        account_id=str(selected_document_fake.account_id)
     )
     headers: Dict[str, Any] = {
         "Authorization": f"Bearer {selected_session_fake.access_token}"
     }
     params: Dict[str, Any] = {
-        "size": len(main_context.all_seeder.document_seeder.document_fake.data)
+        "size": len(selected_document_fakes)
     }
     response: Response = await main_context.client.post(
         url=f"{url_path}/searches",
@@ -49,7 +53,7 @@ async def test__search__should__succeed(main_context: MainContext):
         status_code=response.status_code
     )
     assert content.status_code == status.HTTP_200_OK
-    assert len(content.data) == 1
+    assert len(content.data) == params["size"]
     assert content.data[0] == selected_document_fake
 
 
