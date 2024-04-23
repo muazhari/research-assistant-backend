@@ -23,13 +23,13 @@ class ControllerContainer(DeclarativeContainer):
 
     account = providers.Singleton(
         AccountController,
-        account_management=managements.account
+        account_management=managements.account,
     )
     authentication = providers.Singleton(
         AuthenticationController,
         login_authentication=authentications.login,
         register_authentication=authentications.register,
-        logout_authentication=authentications.logout
+        logout_authentication=authentications.logout,
     )
     authorization = providers.Singleton(
         AuthorizationController,

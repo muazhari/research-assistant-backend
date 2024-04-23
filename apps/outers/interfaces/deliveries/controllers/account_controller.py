@@ -24,7 +24,7 @@ class AccountController:
     ) -> None:
         self.router: APIRouter = APIRouter(
             tags=["accounts"],
-            prefix="/accounts"
+            prefix="/accounts",
         )
         self.router.add_api_route(
             path="",
@@ -53,8 +53,12 @@ class AccountController:
         )
         self.account_management: AccountManagement = account_management
 
-    async def find_many_with_pagination(self, request: Request, page_position: int = 1,
-                                        page_size: int = 10) -> Response:
+    async def find_many_with_pagination(
+            self,
+            request: Request,
+            page_position: int = 1,
+            page_size: int = 10
+    ) -> Response:
         content: Content[List[Account]] = Content[List[Account]](
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             message=f"{self.__class__.__name__}.{self.find_many_with_pagination.__name__}: Failed.",

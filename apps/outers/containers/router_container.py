@@ -1,5 +1,6 @@
 from dependency_injector import providers
 from dependency_injector.containers import DeclarativeContainer
+from fastapi.security import HTTPBearer
 
 from apps.outers.interfaces.deliveries.routers.api_router import ApiRouter
 
@@ -7,6 +8,10 @@ from apps.outers.interfaces.deliveries.routers.api_router import ApiRouter
 class RouterContainer(DeclarativeContainer):
     controllers = providers.DependenciesContainer()
 
+    security = providers.Singleton(
+        HTTPBearer,
+        auto_error=False
+    )
     api = providers.Singleton(
         ApiRouter,
         authentication_controller=controllers.authentication,

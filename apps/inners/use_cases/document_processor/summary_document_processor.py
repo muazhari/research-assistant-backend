@@ -12,7 +12,7 @@ class SummaryDocumentProcessor:
 
     async def summarize_tables(self, tables: List[Table], llm_model: BaseChatModel) -> List[str]:
         prompt: PromptTemplate = PromptTemplate(
-            template="""Instruction: Give a concise passage summary of the table that is well optimized for retrieval. These summary will be embedded and used to retrieve the table. Ensure the output is only the summary without re-explain the instruction.
+            template="""Instruction: Give a concise passage summary of the table that is well optimized for retrieval. These summary will be embedded and used to retrieve the table. Ensure the output does not re-explain the instruction.
             Table: {table}""",
             input_variables=["table"]
         )
@@ -42,7 +42,7 @@ class SummaryDocumentProcessor:
         return generated_summaries
 
     async def summarize_images(self, images: List[Image], llm_model: BaseChatModel) -> List[str]:
-        prompt = """Instruction: Give a concise passage summary of the image that is well optimized for retrieval. These summary will be embedded and used to retrieve the image. Ensure the output is only the summary without re-explain the instruction.
+        prompt = """Instruction: Give a concise passage summary of the image that is well optimized for retrieval. These summary will be embedded and used to retrieve the image. Ensure the output does not re-explain the instruction.
         Image:"""
         batch_messages: List[List[BaseMessage]] = []
         for image in images:

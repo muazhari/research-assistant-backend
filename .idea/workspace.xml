@@ -6,9 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inners/models/dtos/contracts/responses/long_form_qas/process_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/models/dtos/contracts/responses/long_form_qas/process_response.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/graphs/long_form_qa_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/graphs/long_form_qa_graph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/long_form_qas/process_long_form_qa.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/long_form_qas/process_long_form_qa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/summary_document_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/summary_document_processor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/containers/controller_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/containers/controller_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/containers/router_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/containers/router_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/interfaces/deliveries/controllers/account_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/interfaces/deliveries/controllers/account_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +130,7 @@
       <recent name="C:\Data\Apps\research-assistant-backend\test" />
     </key>
   </component>
-  <component name="RunManager" selected="FastAPI.run-1">
+  <component name="RunManager" selected="Docker.muazhari/research-assistant-backend:latest">
     <configuration name="path_playground" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="research-assistant-backend" />
       <option name="ENV_FILES" value="" />
@@ -395,7 +399,8 @@
       <workItem from="1713633395195" duration="651000" />
       <workItem from="1713635576154" duration="1275000" />
       <workItem from="1713640099542" duration="750000" />
-      <workItem from="1713668550641" duration="888000" />
+      <workItem from="1713668550641" duration="983000" />
+      <workItem from="1713869839103" duration="1868000" />
     </task>
     <servers />
   </component>
@@ -407,7 +412,7 @@
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_test.coverage" NAME="pytest in test Coverage Results" MODIFIED="1711485769603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_one_of_tests.coverage" NAME="pytest in one of tests Coverage Results" MODIFIED="1713495165054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_tests.coverage" NAME="pytest in tests Coverage Results" MODIFIED="1713501817818" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1713668573093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/research_assistant_backend$run_1.coverage" NAME="run-1 Coverage Results" MODIFIED="1713870893821" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$test.coverage" NAME="test Coverage Results" MODIFIED="1710594094112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$path_playground.coverage" NAME="path_playground Coverage Results" MODIFIED="1711571656465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/research_assistant_backend$pytest_in_file_document_controller_test_py.coverage" NAME="pytest in file_document_controller_test.py Coverage Results" MODIFIED="1713113154325" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
