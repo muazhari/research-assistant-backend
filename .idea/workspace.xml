@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/summary_document_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/summary_document_processor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/containers/controller_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/containers/controller_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/containers/router_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/containers/router_container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/outers/interfaces/deliveries/controllers/account_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/interfaces/deliveries/controllers/account_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" afterDir="false" />
     </list>
@@ -401,6 +396,9 @@
       <workItem from="1713640099542" duration="750000" />
       <workItem from="1713668550641" duration="983000" />
       <workItem from="1713869839103" duration="1868000" />
+      <workItem from="1713946185343" duration="14000" />
+      <workItem from="1714014785782" duration="1194000" />
+      <workItem from="1714041989223" duration="34000" />
     </task>
     <servers />
   </component>
