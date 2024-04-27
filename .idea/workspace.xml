@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/graphs/passage_search_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/graphs/passage_search_graph.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -399,6 +399,7 @@
       <workItem from="1713946185343" duration="14000" />
       <workItem from="1714014785782" duration="1194000" />
       <workItem from="1714041989223" duration="34000" />
+      <workItem from="1714179119904" duration="3447000" />
     </task>
     <servers />
   </component>

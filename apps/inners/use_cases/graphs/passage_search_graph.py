@@ -78,6 +78,7 @@ class PassageSearchGraph(PreparationGraph):
         embedding_model: BgeM3Embedding = BgeM3Embedding(
             use_fp16=False,
             normalize_embeddings=False,
+            return_colbert_vecs=False,
         )
 
         return embedding_model
