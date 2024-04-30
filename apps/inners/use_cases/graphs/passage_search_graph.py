@@ -416,9 +416,9 @@ class PassageSearchGraph(PreparationGraph):
             end_key=self.node_get_categorized_documents.__name__
         )
         graph.add_conditional_edges(
-            start_key=self.node_get_categorized_documents.__name__,
-            condition=self.node_decide_get_categorized_documents_or_embed,
-            conditional_edge_mapping={
+            source=self.node_get_categorized_documents.__name__,
+            path=self.node_decide_get_categorized_documents_or_embed,
+            path_map={
                 "GET_CATEGORIZED_DOCUMENTS": self.node_prepare_get_categorized_documents.__name__,
                 "EMBED": self.node_prepare_embed.__name__
             }
@@ -428,9 +428,9 @@ class PassageSearchGraph(PreparationGraph):
             end_key=self.node_embed.__name__
         )
         graph.add_conditional_edges(
-            start_key=self.node_embed.__name__,
-            condition=self.node_decide_embed_or_get_relevant_documents,
-            conditional_edge_mapping={
+            source=self.node_embed.__name__,
+            path=self.node_decide_embed_or_get_relevant_documents,
+            path_map={
                 "EMBED": self.node_prepare_embed.__name__,
                 "GET_RELEVANT_DOCUMENTS": self.node_get_relevant_documents.__name__
             }

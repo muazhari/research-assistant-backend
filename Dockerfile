@@ -32,6 +32,9 @@ RUN pip3 install unstructured[all-docs] --use-feature=fast-deps
 # Install pymilvus[model].
 RUN pip3 install pymilvus[model] --use-feature=fast-deps
 
+# Install onnxruntime-gpu.
+RUN pip3 install onnxruntime-gpu --extra-index-url=https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/
+
 # Copy requirements.txt to the working directory.
 COPY ./requirements.txt ./requirements.txt
 

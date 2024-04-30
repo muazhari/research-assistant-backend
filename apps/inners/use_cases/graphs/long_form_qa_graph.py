@@ -451,9 +451,9 @@ class LongFormQaGraph(PassageSearchGraph):
             end_key=self.node_get_categorized_documents.__name__
         )
         graph.add_conditional_edges(
-            start_key=self.node_get_categorized_documents.__name__,
-            condition=self.node_decide_get_categorized_documents_or_embed,
-            conditional_edge_mapping={
+            source=self.node_get_categorized_documents.__name__,
+            path=self.node_decide_get_categorized_documents_or_embed,
+            path_map={
                 "GET_CATEGORIZED_DOCUMENTS": self.node_prepare_get_categorized_documents.__name__,
                 "EMBED": self.node_prepare_embed.__name__
             }
@@ -463,9 +463,9 @@ class LongFormQaGraph(PassageSearchGraph):
             end_key=self.node_embed.__name__
         )
         graph.add_conditional_edges(
-            start_key=self.node_embed.__name__,
-            condition=self.node_decide_embed_or_get_relevant_documents,
-            conditional_edge_mapping={
+            source=self.node_embed.__name__,
+            path=self.node_decide_embed_or_get_relevant_documents,
+            path_map={
                 "EMBED": self.node_prepare_embed.__name__,
                 "GET_RELEVANT_DOCUMENTS": self.node_get_relevant_documents.__name__
             }
@@ -483,18 +483,18 @@ class LongFormQaGraph(PassageSearchGraph):
             end_key=self.node_grade_hallucination.__name__
         )
         graph.add_conditional_edges(
-            start_key=self.node_grade_hallucination.__name__,
-            condition=self.node_decide_transform_question_or_grade_answer_relevancy,
-            conditional_edge_mapping={
+            source=self.node_grade_hallucination.__name__,
+            path=self.node_decide_transform_question_or_grade_answer_relevancy,
+            path_map={
                 "MAX_RETRY": END,
                 "GRADE_ANSWER_RELEVANCY": self.node_grade_answer_relevancy.__name__,
                 "TRANSFORM_QUESTION": self.node_transform_question.__name__
             }
         )
         graph.add_conditional_edges(
-            start_key=self.node_grade_answer_relevancy.__name__,
-            condition=self.node_decide_transform_question_or_provide_answer,
-            conditional_edge_mapping={
+            source=self.node_grade_answer_relevancy.__name__,
+            path=self.node_decide_transform_question_or_provide_answer,
+            path_map={
                 "MAX_RETRY": END,
                 "PROVIDE_ANSWER": END,
                 "TRANSFORM_QUESTION": self.node_transform_question.__name__

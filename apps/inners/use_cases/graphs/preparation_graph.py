@@ -300,9 +300,9 @@ class PreparationGraph:
             end_key=self.node_get_categorized_documents.__name__
         )
         graph.add_conditional_edges(
-            start_key=self.node_get_categorized_documents.__name__,
-            condition=self.node_decide_get_categorized_documents_or_embed,
-            conditional_edge_mapping={
+            source=self.node_get_categorized_documents.__name__,
+            path=self.node_decide_get_categorized_documents_or_embed,
+            path_map={
                 "GET_CATEGORIZED_DOCUMENTS": self.node_prepare_get_categorized_documents.__name__,
                 "EMBED": END
             }
