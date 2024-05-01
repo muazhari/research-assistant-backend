@@ -63,7 +63,7 @@ class CategoryDocumentProcessor:
             is_include_image: bool = False,
             chunk_size: int = 400,
             overlap_size: int = 50,
-            separators: Tuple[str] = ("\n", " "),
+            separators: Tuple[str, ...] = ("\n", " "),
             id_key: str = "id",
             metadata: Optional[Dict[str, Any]] = None,
     ) -> DocumentCategory:
@@ -111,7 +111,7 @@ class CategoryDocumentProcessor:
                 }
                 last_index_of_separators: int = -1
                 for separator in separators:
-                    last_index_of_separator = text_before.text.rfind(separator, 0, len(text_before.text) - chunk_size)
+                    last_index_of_separator = text_before.text.rfind(separator, 0, len(text_before.text) - overlap_size)
                     last_index_of_separators = max(last_index_of_separators, last_index_of_separator)
 
                 text = text_before.text[last_index_of_separators + 1:] + " " + text_after.text

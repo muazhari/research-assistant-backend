@@ -76,7 +76,7 @@ class PartitionDocumentProcessor:
         if mime_type == "application/pdf":
             pdf_reader: PdfReader = PdfReader(io.BytesIO(file_data))
             page_size: int = len(pdf_reader.pages)
-            core_size: int = math.floor(psutil.cpu_count(logical=False) / 4)
+            core_size: int = math.floor(psutil.cpu_count(logical=False) / 5)
             chunk_size: int = math.ceil(page_size / core_size)
             split_pdf_page_kwargs: List[Dict[str, Any]] = []
             for i in range(0, page_size, chunk_size):

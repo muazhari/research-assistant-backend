@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/category_document_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/category_document_processor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/partition_document_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/partition_document_processor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/libre_office_converted_documents/unconverted_79609d1f-2bae-4368-9e4d-05f38e8f3588.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/datastores/temps/file_documents/libre_office_converted_documents/unconverted_79609d1f-2bae-4368-9e4d-05f38e8f3588.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,9 +222,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.path_playground" />
-      <item itemvalue="FastAPI.run-1" />
       <item itemvalue="Docker.muazhari/research-assistant-backend:latest" />
+      <item itemvalue="FastAPI.run-1" />
+      <item itemvalue="Python.path_playground" />
       <item itemvalue="Python tests.pytest in one of tests" />
       <item itemvalue="Python tests.pytest in tests" />
     </list>
@@ -402,6 +406,9 @@
       <workItem from="1714508467954" duration="1882000" />
       <workItem from="1714513586507" duration="19978000" />
       <workItem from="1714570719334" duration="69000" />
+      <workItem from="1714571233120" duration="34000" />
+      <workItem from="1714576528524" duration="21000" />
+      <workItem from="1714596201489" duration="1983000" />
     </task>
     <servers />
   </component>
