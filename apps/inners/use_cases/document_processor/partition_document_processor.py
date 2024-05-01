@@ -76,7 +76,7 @@ class PartitionDocumentProcessor:
         if mime_type == "application/pdf":
             pdf_reader: PdfReader = PdfReader(io.BytesIO(file_data))
             page_size: int = len(pdf_reader.pages)
-            core_size: int = math.floor(psutil.cpu_count(logical=False) / 3)
+            core_size: int = math.floor(psutil.cpu_count(logical=False) / 4)
             chunk_size: int = math.ceil(page_size / core_size)
             split_pdf_page_kwargs: List[Dict[str, Any]] = []
             for i in range(0, page_size, chunk_size):
@@ -95,7 +95,7 @@ class PartitionDocumentProcessor:
                 for i, splitted_pdf_file_data_future in enumerate(futures.as_completed(splitted_pdf_file_data_futures)):
                     partition_kwarg: Dict[str, Any] = {
                         "file": io.BytesIO(splitted_pdf_file_data_future.result()),
-                        "extract_images_in_pdf": True,
+                        "extract_image_block_types": ["Image"],
                         "extract_image_block_output_dir": str(extracted_image_path / f"chunk_{i}"),
                         "strategy": partition_strategy,
                         "hi_res_model_name": "yolox"
@@ -108,7 +108,7 @@ class PartitionDocumentProcessor:
         else:
             elements: List[Element] = partition(
                 file=io.BytesIO(file_data),
-                extract_images_in_pdf=True,
+                extract_image_block_types=["Image"],
                 extract_image_block_output_dir=str(extracted_image_path),
                 strategy=partition_strategy,
                 hi_res_model_name="yolox",

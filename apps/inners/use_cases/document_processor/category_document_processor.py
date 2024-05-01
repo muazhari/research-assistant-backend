@@ -1,4 +1,5 @@
 import base64
+import os
 import uuid
 from typing import List, Tuple, Optional, Dict, Any
 
@@ -47,6 +48,7 @@ class CategoryDocumentProcessor:
                 element.metadata.image_mime_type = "image/jpeg"
                 element.metadata.image_base64 = base64.b64encode(file_io.read()).decode()
                 file_io.close()
+                os.remove(element.metadata.image_path)
                 categorized_elements.images.append(element)
             else:
                 print(f"BaseDocumentProcessor.categorize_elements: Ignoring element type {element.__class__.__name__}.")

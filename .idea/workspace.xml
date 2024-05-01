@@ -7,7 +7,6 @@
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/partition_document_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/partition_document_processor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/playgrounds/qa_playground.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,11 +218,11 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Docker.muazhari/research-assistant-backend:latest" />
-      <item itemvalue="FastAPI.run-1" />
       <item itemvalue="Python.path_playground" />
-      <item itemvalue="Python tests.pytest in tests" />
+      <item itemvalue="FastAPI.run-1" />
+      <item itemvalue="Docker.muazhari/research-assistant-backend:latest" />
       <item itemvalue="Python tests.pytest in one of tests" />
+      <item itemvalue="Python tests.pytest in tests" />
     </list>
   </component>
   <component name="SharedIndexes">
@@ -401,7 +400,8 @@
       <workItem from="1714041989223" duration="34000" />
       <workItem from="1714179119904" duration="7351000" />
       <workItem from="1714508467954" duration="1882000" />
-      <workItem from="1714513586507" duration="17596000" />
+      <workItem from="1714513586507" duration="19978000" />
+      <workItem from="1714570719334" duration="69000" />
     </task>
     <servers />
   </component>
