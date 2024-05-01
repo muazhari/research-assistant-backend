@@ -91,8 +91,9 @@ class PartitionDocumentProcessor:
                 for split_pdf_page_kwarg in split_pdf_page_kwargs:
                     splitted_pdf_file_data_future: Future = executor.submit(self.split_pdf_page, **split_pdf_page_kwarg)
                     splitted_pdf_file_data_futures.append(splitted_pdf_file_data_future)
+                futures.wait(splitted_pdf_file_data_futures, return_when=futures.ALL_COMPLETED)
                 element_futures: List[Future] = []
-                for i, splitted_pdf_file_data_future in enumerate(futures.as_completed(splitted_pdf_file_data_futures)):
+                for i, splitted_pdf_file_data_future in enumerate(splitted_pdf_file_data_futures):
                     partition_kwarg: Dict[str, Any] = {
                         "file": io.BytesIO(splitted_pdf_file_data_future.result()),
                         "extract_image_block_types": ["Image"],
@@ -102,8 +103,9 @@ class PartitionDocumentProcessor:
                     }
                     element_future: Future = executor.submit(partition, **partition_kwarg)
                     element_futures.append(element_future)
+                futures.wait(element_futures, return_when=futures.ALL_COMPLETED)
                 elements: List[Element] = []
-                for element_future in futures.as_completed(element_futures):
+                for element_future in element_futures:
                     elements.extend(element_future.result())
         else:
             elements: List[Element] = partition(
