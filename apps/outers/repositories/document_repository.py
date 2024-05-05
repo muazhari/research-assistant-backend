@@ -25,18 +25,14 @@ class DocumentRepository:
     ) -> List[Document]:
         filter_expressions: List[str] = []
         for key, value in filter.items():
-            filter_expressions.append(f"SIMILARITY(account_document.{key}::text, '{value}')")
+            filter_expressions.append(f"SIMILARITY({key}::text, '{value}')")
         query: str = f"""
             SELECT *
-            FROM (
-                SELECT * 
-                FROM document
-                WHERE account_id = '{account_id}'
-            ) AS account_document
+            FROM document
+            WHERE account_id = '{account_id}'
             ORDER BY (({'+'.join(filter_expressions)})/{len(filter_expressions)}) DESC
             LIMIT {size};
-        """.replace('\n', ' ')
-
+        """
         found_document_result: ScalarResult[Document] = await session.exec(
             text(query)
         )

@@ -39,7 +39,7 @@ class FileDocumentFake:
 
     @property
     def data(self) -> List[FileDocument]:
-        return [FileDocument(**file_document.dict()) for file_document in self._data]
+        return [FileDocument(**file_document.model_dump()) for file_document in self._data]
 
     def delete_many_by_id(self, id: uuid.UUID):
         is_found: bool = False

@@ -62,7 +62,7 @@ class DocumentFake:
 
     @property
     def data(self) -> List[Document]:
-        return [Document(**document.dict()) for document in self._data]
+        return [Document(**document.model_dump()) for document in self._data]
 
     def create_one(self, document: Document):
         self._data.append(document)

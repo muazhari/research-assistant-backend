@@ -30,7 +30,7 @@ class WebDocumentFake:
 
     @property
     def data(self) -> List[WebDocument]:
-        return [WebDocument(**web_document.dict()) for web_document in self._data]
+        return [WebDocument(**web_document.model_dump()) for web_document in self._data]
 
     def delete_many_by_id(self, id: uuid.UUID):
         is_found: bool = False

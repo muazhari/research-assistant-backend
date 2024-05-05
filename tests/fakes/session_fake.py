@@ -35,7 +35,7 @@ class SessionFake:
 
     @property
     def data(self) -> List[Session]:
-        return [Session(**session.dict()) for session in self._data]
+        return [Session(**session.model_dump()) for session in self._data]
 
     def delete_many_by_id(self, id: uuid.UUID):
         is_found: bool = False

@@ -30,7 +30,7 @@ class TextDocumentFake:
 
     @property
     def data(self) -> List[TextDocument]:
-        return [TextDocument(**text_document.dict()) for text_document in self._data]
+        return [TextDocument(**text_document.model_dump()) for text_document in self._data]
 
     def delete_many_by_id(self, id: uuid.UUID):
         is_found: bool = False

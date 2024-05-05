@@ -23,4 +23,4 @@ class DocumentTypeFake:
 
     @property
     def data(self) -> List[DocumentType]:
-        return [DocumentType(**document_type.dict()) for document_type in self._data]
+        return [DocumentType(**document_type.model_dump()) for document_type in self._data]

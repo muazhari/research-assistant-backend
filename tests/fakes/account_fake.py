@@ -22,7 +22,7 @@ class AccountFake:
 
     @property
     def data(self) -> List[Account]:
-        return [Account(**account.dict()) for account in self._data]
+        return [Account(**account.model_dump()) for account in self._data]
 
     def delete_many_by_id(self, id: uuid.UUID):
         is_found: bool = False

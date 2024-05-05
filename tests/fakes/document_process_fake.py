@@ -35,7 +35,7 @@ class DocumentProcessFake:
 
     @property
     def data(self) -> List[DocumentProcess]:
-        return [DocumentProcess(**document_process.dict()) for document_process in self._data]
+        return [DocumentProcess(**document_process.model_dump()) for document_process in self._data]
 
     def delete_many_by_id(self, id: uuid.UUID):
         is_found: bool = False

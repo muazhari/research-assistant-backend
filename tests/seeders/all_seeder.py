@@ -68,7 +68,7 @@ class AllSeeder:
         self.document_seeder.document_fake.create_one(document)
 
         async def handler(session: AsyncSession):
-            session.add(Document(**document.dict()))
+            session.add(Document(**document.model_dump()))
 
         await self.one_datastore.retryable(handler)
 

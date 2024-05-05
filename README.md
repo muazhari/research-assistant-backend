@@ -27,4 +27,4 @@
 python3 -m pytest --cov=./apps ./tests -n auto 
 ```
 
-2. Current test result has [43 test cases passed with 76% coverage](https://muazhari.github.io/research-assistant-backend/htmlcov/index.html).
+2. Current test result has [43 test cases passed with 75% coverage](https://muazhari.github.io/research-assistant-backend/htmlcov/index.html).
