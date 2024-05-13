@@ -1,12 +1,15 @@
 from typing import Dict, List, Any
 
+from langchain_anthropic import ChatAnthropic
 from langchain_anthropic.output_parsers import ToolsOutputParser
 from langchain_core.documents import Document
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage, HumanMessage
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.output_parsers.openai_tools import PydanticToolsParser
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableSerializable
+from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph
 from langgraph.graph.graph import CompiledGraph, END
 from pydantic.v1 import Field
@@ -140,7 +143,7 @@ class LongFormQaGraph(PassageSearchGraph):
             "is_force_refresh_generated_hallucination_grade"]
         if is_generated_hallucination_grade_hash_exist is False or is_force_refresh_generated_hallucination_grade is True:
             prompt: PromptTemplate = PromptTemplate(
-                template="""Instruction: Assess whether an Large Language Model generated answer is supported by a set of retrieved passages. Give a binary score of "True" or "False". "True" means that the answer is supported by the set of retrieved passages. "False" means that the answer is not supported by the set of retrieved passages.
+                template="""Instruction: Assess whether an Large Language Model generated answer is supported by a set of retrieved passages. Give one binary score of "True" or "False". "True" means that the answer is supported by the set of retrieved passages. "False" means that the answer is not supported by the set of retrieved passages.
                 Passages:
                 {% for passage in passages %}
                 [{{ loop.index }}]={{ passage.page_content }}
@@ -165,9 +168,18 @@ class LongFormQaGraph(PassageSearchGraph):
                 )
             ]
             llm_model: BaseChatModel = input_state["llm_setting"]["model"]
-            chain: RunnableSerializable = llm_model.bind_tools(tools=[GradeTool]) | ToolsOutputParser(
-                pydantic_schemas=[GradeTool]
-            )
+            if isinstance(llm_model, ChatAnthropic):
+                tool_parser = ToolsOutputParser(
+                    pydantic_schemas=[GradeTool]
+                )
+            elif isinstance(llm_model, ChatOpenAI):
+                tool_parser = PydanticToolsParser(
+                    tools=[GradeTool]
+                )
+            else:
+                raise use_case_exception.LlmProviderNotSupported()
+
+            chain: RunnableSerializable = llm_model.bind_tools(tools=[GradeTool]) | tool_parser
             generated_tools: List[GradeTool] = chain.invoke(
                 input=messages
             )
@@ -228,7 +240,7 @@ class LongFormQaGraph(PassageSearchGraph):
             "is_force_refresh_generated_answer_relevancy_grade"]
         if is_generated_hallucination_grade_hash_exist is False or is_force_refresh_generated_answer_relevancy_grade is True:
             prompt: PromptTemplate = PromptTemplate(
-                template="""Instruction: Assess whether an Large Language Model generated answer resolves a question. Give a binary score of "True" or "False". "True" means that the answer resolves the question. "False" means that the answer does not resolve the question.
+                template="""Instruction: Assess whether an Large Language Model generated answer resolves a question. Give one binary score of "True" or "False". "True" means that the answer resolves the question. "False" means that the answer does not resolve the question.
                 Question: {question}
                 Generated Answer: {generated_answer}
                 """,
@@ -249,9 +261,18 @@ class LongFormQaGraph(PassageSearchGraph):
                 )
             ]
             llm_model: BaseChatModel = input_state["llm_setting"]["model"]
-            chain: RunnableSerializable = llm_model.bind_tools(tools=[GradeTool]) | ToolsOutputParser(
-                pydantic_schemas=[GradeTool]
-            )
+            if isinstance(llm_model, ChatAnthropic):
+                tool_parser = ToolsOutputParser(
+                    pydantic_schemas=[GradeTool]
+                )
+            elif isinstance(llm_model, ChatOpenAI):
+                tool_parser = PydanticToolsParser(
+                    tools=[GradeTool]
+                )
+            else:
+                raise use_case_exception.LlmProviderNotSupported()
+
+            chain: RunnableSerializable = llm_model.bind_tools(tools=[GradeTool]) | tool_parser
             generated_tools: List[GradeTool] = chain.invoke(
                 input=messages
             )

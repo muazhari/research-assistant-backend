@@ -8,6 +8,7 @@ from apps.outers.settings.one_llm_setting import OneLlmSetting
 from apps.outers.settings.temp_datastore_setting import TempDatastoreSetting
 from apps.outers.settings.three_datastore_setting import ThreeDatastoreSetting
 from apps.outers.settings.two_datastore_setting import TwoDatastoreSetting
+from apps.outers.settings.two_llm_setting import TwoLlmSetting
 
 
 class SettingContainer(DeclarativeContainer):
@@ -16,6 +17,9 @@ class SettingContainer(DeclarativeContainer):
     )
     one_llm = providers.Singleton(
         OneLlmSetting
+    )
+    two_llm = providers.Singleton(
+        TwoLlmSetting
     )
     temp_datastore = providers.Singleton(
         TempDatastoreSetting

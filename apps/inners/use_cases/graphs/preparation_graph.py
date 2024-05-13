@@ -3,6 +3,7 @@ from typing import Dict, List, Any, Optional
 from uuid import UUID
 
 from langchain_anthropic import ChatAnthropic
+from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph, END
 from litellm import Router
 from starlette.datastructures import State
@@ -23,6 +24,7 @@ from apps.inners.use_cases.document_processor.category_document_processor import
 from apps.inners.use_cases.document_processor.partition_document_processor import PartitionDocumentProcessor
 from apps.outers.datastores.two_datastore import TwoDatastore
 from apps.outers.settings.one_llm_setting import OneLlmSetting
+from apps.outers.settings.two_llm_setting import TwoLlmSetting
 from tools import cache_tool
 
 
@@ -30,11 +32,13 @@ class PreparationGraph:
     def __init__(
             self,
             one_llm_setting: OneLlmSetting,
+            two_llm_setting: TwoLlmSetting,
             two_datastore: TwoDatastore,
             partition_document_processor: PartitionDocumentProcessor,
             category_document_processor: CategoryDocumentProcessor,
     ):
         self.one_llm_setting = one_llm_setting
+        self.two_llm_setting = two_llm_setting
         self.two_datastore = two_datastore
         self.partition_document_processor = partition_document_processor
         self.category_document_processor = category_document_processor
@@ -53,11 +57,11 @@ class PreparationGraph:
                 }
             },
             {
-                "model_name": "claude-3-opus-20240229",
+                "model_name": "gpt-4o",
                 "litellm_params": {
-                    "model": "claude-3-opus-20240229",
-                    "api_key": self.one_llm_setting.LLM_ONE_ANTHROPIC_API_KEY_ONE,
-                    "provider": "anthropic"
+                    "model": "gpt-4o",
+                    "api_key": self.two_llm_setting.LLM_TWO_OPENAI_API_KEY_ONE,
+                    "provider": "openai"
                 }
             }
         ]
@@ -69,6 +73,14 @@ class PreparationGraph:
         if provider == "anthropic":
             llm_model: ChatAnthropic = ChatAnthropic(
                 anthropic_api_key=deployment["litellm_params"]["api_key"],
+                model=deployment["litellm_params"]["model"],
+                max_tokens=input_state["llm_setting"]["max_token"],
+                streaming=True,
+                temperature=0
+            )
+        elif provider == "openai":
+            llm_model: ChatOpenAI = ChatOpenAI(
+                openai_api_key=deployment["litellm_params"]["api_key"],
                 model=deployment["litellm_params"]["model"],
                 max_tokens=input_state["llm_setting"]["max_token"],
                 streaming=True,
