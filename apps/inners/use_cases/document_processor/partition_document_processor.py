@@ -71,50 +71,13 @@ class PartitionDocumentProcessor:
         extracted_image_path: Path = self.file_document_management.file_document_repository.file_path / "assets" / found_file_document.file_data_hash
         extracted_image_path.mkdir(exist_ok=True, parents=True)
         shutil.rmtree(extracted_image_path)
-        magic: Magic = Magic(mime=True)
-        mime_type: str = magic.from_buffer(file_data)
-        if mime_type == "application/pdf":
-            pdf_reader: PdfReader = PdfReader(io.BytesIO(file_data))
-            page_size: int = len(pdf_reader.pages)
-            core_size: int = math.floor(psutil.cpu_count(logical=False) / 5)
-            chunk_size: int = math.ceil(page_size / core_size)
-            split_pdf_page_kwargs: List[Dict[str, Any]] = []
-            for i in range(0, page_size, chunk_size):
-                split_pdf_page_kwarg: Dict[str, Any] = {
-                    "file_data": file_data,
-                    "start_page": i + 1,
-                    "end_page": min(i + chunk_size, page_size)
-                }
-                split_pdf_page_kwargs.append(split_pdf_page_kwarg)
-            with futures.ProcessPoolExecutor(max_workers=core_size) as executor:
-                splitted_pdf_file_data_futures: List[Future] = []
-                for split_pdf_page_kwarg in split_pdf_page_kwargs:
-                    splitted_pdf_file_data_future: Future = executor.submit(self.split_pdf_page, **split_pdf_page_kwarg)
-                    splitted_pdf_file_data_futures.append(splitted_pdf_file_data_future)
-                futures.wait(splitted_pdf_file_data_futures, return_when=futures.ALL_COMPLETED)
-                element_futures: List[Future] = []
-                for i, splitted_pdf_file_data_future in enumerate(splitted_pdf_file_data_futures):
-                    partition_kwarg: Dict[str, Any] = {
-                        "file": io.BytesIO(splitted_pdf_file_data_future.result()),
-                        "extract_image_block_types": ["Image"],
-                        "extract_image_block_output_dir": str(extracted_image_path / f"chunk_{i}"),
-                        "strategy": partition_strategy,
-                        "hi_res_model_name": "yolox"
-                    }
-                    element_future: Future = executor.submit(partition, **partition_kwarg)
-                    element_futures.append(element_future)
-                futures.wait(element_futures, return_when=futures.ALL_COMPLETED)
-                elements: List[Element] = []
-                for element_future in element_futures:
-                    elements.extend(element_future.result())
-        else:
-            elements: List[Element] = partition(
-                file=io.BytesIO(file_data),
-                extract_image_block_types=["Image"],
-                extract_image_block_output_dir=str(extracted_image_path),
-                strategy=partition_strategy,
-                hi_res_model_name="yolox",
-            )
+        elements: List[Element] = partition(
+            file=io.BytesIO(file_data),
+            extract_image_block_types=["Image"],
+            extract_image_block_output_dir=str(extracted_image_path),
+            strategy=partition_strategy,
+            hi_res_model_name="yolox",
+        )
 
         return elements
 
