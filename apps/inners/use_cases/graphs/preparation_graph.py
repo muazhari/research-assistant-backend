@@ -169,6 +169,7 @@ class PreparationGraph:
                 is_include_table=input_state["preprocessor_setting"]["is_include_table"],
                 is_include_image=input_state["preprocessor_setting"]["is_include_image"],
                 chunk_size=input_state["preprocessor_setting"]["chunk_size"],
+                overlap_size=input_state["preprocessor_setting"]["overlap_size"],
                 metadata={
                     "document_id": document_id
                 }

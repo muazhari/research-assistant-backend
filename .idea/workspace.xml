@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/partition_document_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/partition_document_processor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/graphs/preparation_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/graphs/preparation_graph.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -413,7 +413,8 @@
       <workItem from="1715625586087" duration="2830000" />
       <workItem from="1715628465873" duration="2695000" />
       <workItem from="1715631173904" duration="11000" />
-      <workItem from="1715729338906" duration="59000" />
+      <workItem from="1715729338906" duration="271000" />
+      <workItem from="1715741711520" duration="230000" />
     </task>
     <servers />
   </component>
