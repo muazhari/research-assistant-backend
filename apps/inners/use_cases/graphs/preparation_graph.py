@@ -288,15 +288,15 @@ class PreparationGraph:
         graph: StateGraph = StateGraph(PreparationGraphState)
 
         graph.add_node(
-            key=self.node_get_llm_model.__name__,
+            node=self.node_get_llm_model.__name__,
             action=self.node_get_llm_model
         )
         graph.add_node(
-            key=self.node_prepare_get_categorized_documents.__name__,
+            node=self.node_prepare_get_categorized_documents.__name__,
             action=self.node_prepare_get_categorized_documents
         )
         graph.add_node(
-            key=self.node_get_categorized_documents.__name__,
+            node=self.node_get_categorized_documents.__name__,
             action=self.node_get_categorized_documents
         )
 

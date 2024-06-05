@@ -416,47 +416,47 @@ class LongFormQaGraph(PassageSearchGraph):
         graph: StateGraph = StateGraph(LongFormQaGraphState)
 
         graph.add_node(
-            key=self.node_get_llm_model.__name__,
+            node=self.node_get_llm_model.__name__,
             action=self.node_get_llm_model
         )
         graph.add_node(
-            key=self.node_prepare_get_categorized_documents.__name__,
+            node=self.node_prepare_get_categorized_documents.__name__,
             action=self.node_prepare_get_categorized_documents
         )
         graph.add_node(
-            key=self.node_get_categorized_documents.__name__,
+            node=self.node_get_categorized_documents.__name__,
             action=self.node_get_categorized_documents
         )
         graph.add_node(
-            key=self.node_prepare_embed.__name__,
+            node=self.node_prepare_embed.__name__,
             action=self.node_prepare_embed
         )
         graph.add_node(
-            key=self.node_embed.__name__,
+            node=self.node_embed.__name__,
             action=self.node_embed
         )
         graph.add_node(
-            key=self.node_get_relevant_documents.__name__,
+            node=self.node_get_relevant_documents.__name__,
             action=self.node_get_relevant_documents
         )
         graph.add_node(
-            key=self.node_get_re_ranked_documents.__name__,
+            node=self.node_get_re_ranked_documents.__name__,
             action=self.node_get_re_ranked_documents
         )
         graph.add_node(
-            key=self.node_generate_answer.__name__,
+            node=self.node_generate_answer.__name__,
             action=self.node_generate_answer
         )
         graph.add_node(
-            key=self.node_grade_hallucination.__name__,
+            node=self.node_grade_hallucination.__name__,
             action=self.node_grade_hallucination
         )
         graph.add_node(
-            key=self.node_grade_answer_relevancy.__name__,
+            node=self.node_grade_answer_relevancy.__name__,
             action=self.node_grade_answer_relevancy
         )
         graph.add_node(
-            key=self.node_transform_question.__name__,
+            node=self.node_transform_question.__name__,
             action=self.node_transform_question
         )
 

@@ -376,31 +376,31 @@ class PassageSearchGraph(PreparationGraph):
         graph: StateGraph = StateGraph(PassageSearchGraphState)
 
         graph.add_node(
-            key=self.node_get_llm_model.__name__,
+            node=self.node_get_llm_model.__name__,
             action=self.node_get_llm_model
         )
         graph.add_node(
-            key=self.node_prepare_get_categorized_documents.__name__,
+            node=self.node_prepare_get_categorized_documents.__name__,
             action=self.node_prepare_get_categorized_documents
         )
         graph.add_node(
-            key=self.node_get_categorized_documents.__name__,
+            node=self.node_get_categorized_documents.__name__,
             action=self.node_get_categorized_documents
         )
         graph.add_node(
-            key=self.node_prepare_embed.__name__,
+            node=self.node_prepare_embed.__name__,
             action=self.node_prepare_embed
         )
         graph.add_node(
-            key=self.node_embed.__name__,
+            node=self.node_embed.__name__,
             action=self.node_embed
         )
         graph.add_node(
-            key=self.node_get_relevant_documents.__name__,
+            node=self.node_get_relevant_documents.__name__,
             action=self.node_get_relevant_documents
         )
         graph.add_node(
-            key=self.node_get_re_ranked_documents.__name__,
+            node=self.node_get_re_ranked_documents.__name__,
             action=self.node_get_re_ranked_documents
         )
 
