@@ -164,6 +164,15 @@ class FileDocumentRepository:
                 new_object_name=file_document_patcher.file_name,
                 new_data=file_data
             )
+        else:
+            file_data = self.get_object_data(
+                object_name=found_file_document.file_name
+            )
+            self.patch_object(
+                old_object_name=found_file_document.file_name,
+                new_object_name=file_document_patcher.file_name,
+                new_data=file_data
+            )
 
         return found_file_document
 

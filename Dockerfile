@@ -12,6 +12,7 @@ RUN apt update
 
 # Install apt dependencies.
 RUN yes | DEBIAN_FRONTEND=noninteractive apt install -y \
+    libopencv-dev \
     libmagic-dev \
     poppler-utils \
     tesseract-ocr \
