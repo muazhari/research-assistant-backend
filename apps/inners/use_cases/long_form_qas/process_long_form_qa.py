@@ -76,9 +76,9 @@ class ProcessLongFormQa:
             "generated_answer_hash": None,
             "generated_question": None,
             "generated_question_hash": None,
-            "generated_hallucination_grade": None,
+            "generated_hallucination_grade": "False",
             "generated_hallucination_grade_hash": None,
-            "generated_answer_relevancy_grade": None,
+            "generated_answer_relevancy_grade": "False",
             "generated_answer_relevancy_grade_hash": None,
         }
         graph_config: RunnableConfig = {
