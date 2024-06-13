@@ -76,7 +76,7 @@ class LongFormQaGraph(PassageSearchGraph):
             ]
             llm_model: BaseChatModel = input_state["llm_setting"]["model"]
             chain: RunnableSerializable = llm_model | StrOutputParser()
-            generated_answer: str = chain.invoke(
+            generated_answer: str = await chain.ainvoke(
                 input=messages
             )
             await self.two_datastore.async_client.set(
@@ -180,7 +180,7 @@ class LongFormQaGraph(PassageSearchGraph):
                 raise use_case_exception.LlmProviderNotSupported()
 
             chain: RunnableSerializable = llm_model.bind_tools(tools=[GradeTool]) | tool_parser
-            generated_tools: List[GradeTool] = chain.invoke(
+            generated_tools: List[GradeTool] = await chain.ainvoke(
                 input=messages
             )
             generated_hallucination_grade: str = str(not generated_tools[0].binary_score)
@@ -273,7 +273,7 @@ class LongFormQaGraph(PassageSearchGraph):
                 raise use_case_exception.LlmProviderNotSupported()
 
             chain: RunnableSerializable = llm_model.bind_tools(tools=[GradeTool]) | tool_parser
-            generated_tools: List[GradeTool] = chain.invoke(
+            generated_tools: List[GradeTool] = await chain.ainvoke(
                 input=messages
             )
             generated_answer_relevancy_grade: str = str(generated_tools[0].binary_score)
@@ -380,7 +380,7 @@ class LongFormQaGraph(PassageSearchGraph):
             ]
             llm_model: BaseChatModel = input_state["llm_setting"]["model"]
             chain: RunnableSerializable = llm_model | StrOutputParser()
-            generated_question: str = chain.invoke(
+            generated_question: str = await chain.ainvoke(
                 input=messages
             )
             await self.two_datastore.async_client.set(

@@ -251,8 +251,8 @@ class PassageSearchGraph(PreparationGraph):
             "is_force_refresh_relevant_document"]
         is_force_refresh_embedding: bool = input_state["embedder_setting"]["is_force_refresh_embedding"]
         if is_relevant_document_exist is False or is_force_refresh_relevant_document is True or is_force_refresh_embedding is True:
-            relevant_documents: List[Document] = retriever.get_relevant_documents(
-                query=query
+            relevant_documents: List[Document] = await retriever.ainvoke(
+                input=query
             )
             await self.two_datastore.async_client.set(
                 name=relevant_document_hash,
