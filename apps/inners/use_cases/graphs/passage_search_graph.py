@@ -169,7 +169,7 @@ class PassageSearchGraph(PreparationGraph):
             is_force_refresh_embedding: bool = input_state["embedder_setting"]["is_force_refresh_embedding"]
             if is_entity_exist is False or is_force_refresh_embedding is True:
                 vector_store.collection.delete(
-                    expr=f"id in {document_ids}"
+                    expr=f'id like "%"'
                 )
                 vector_store.embed_texts(
                     texts=document_contents,
