@@ -57,7 +57,7 @@ class ProcessPassageSearch:
                 "is_force_refresh_categorized_document": body.input_setting.preprocessor_setting.is_force_refresh_categorized_document,
                 "file_partition_strategy": body.input_setting.preprocessor_setting.file_partition_strategy,
                 "chunk_size": body.input_setting.preprocessor_setting.chunk_size,
-                "overlap_size:": body.input_setting.preprocessor_setting.overlap_size,
+                "overlap_size": body.input_setting.preprocessor_setting.overlap_size,
                 "is_include_table": body.input_setting.preprocessor_setting.is_include_table,
                 "is_include_image": body.input_setting.preprocessor_setting.is_include_image,
             },
