@@ -1,3 +1,4 @@
+import asyncio
 import pickle
 from typing import Dict, List, Any, Optional, Tuple
 from uuid import UUID
@@ -55,24 +56,6 @@ class PassageSearchGraph(PreparationGraph):
 
         return query
 
-    async def node_prepare_embed(self, input_state: PassageSearchGraphState):
-        output_state: PassageSearchGraphState = input_state
-
-        categorized_documents: Dict[UUID, DocumentCategory] = input_state["categorized_documents"]
-        categorized_document_ids: List[UUID] = list(categorized_documents.keys())
-        embedded_document_ids: Optional[List[UUID]] = input_state["embedded_document_ids"]
-        if embedded_document_ids is None:
-            embedded_document_ids = []
-            output_state["embedded_document_ids"] = embedded_document_ids
-
-        next_document_ids: List[UUID] = list(set(categorized_document_ids) - set(embedded_document_ids))
-        next_document_id: UUID = next_document_ids.pop()
-
-        output_state["state"].next_document_id = next_document_id
-        output_state["state"].next_categorized_document = categorized_documents[next_document_id]
-
-        return output_state
-
     @cache_tool.cacher(args_include_keys=[])
     def _get_bge_m3_embedding_model(self) -> BgeM3Embedding:
         embedding_model: BgeM3Embedding = BgeM3Embedding(
@@ -107,24 +90,10 @@ class PassageSearchGraph(PreparationGraph):
 
         return vector_store
 
-    async def node_decide_embed_or_get_relevant_documents(self, input_state: PassageSearchGraphState) -> str:
+    async def node_embed_worker(self, input_state: PassageSearchGraphState,
+                                categorized_document: DocumentCategory) -> PassageSearchGraphState:
         output_state: PassageSearchGraphState = input_state
 
-        categorized_documents: Dict[UUID, DocumentCategory] = input_state["categorized_documents"]
-        categorized_document_ids: List[UUID] = list(categorized_documents.keys())
-        embedded_document_ids: List[UUID] = input_state["embedded_document_ids"]
-
-        if set(categorized_document_ids) == set(embedded_document_ids):
-            output_state["state"].next_document_id = None
-            output_state["state"].next_categorized_document = None
-            return "GET_RELEVANT_DOCUMENTS"
-
-        return "EMBED"
-
-    async def node_embed(self, input_state: PassageSearchGraphState) -> PassageSearchGraphState:
-        output_state: PassageSearchGraphState = input_state
-
-        categorized_document: DocumentCategory = input_state["state"].next_categorized_document
         document_contents: List[str] = []
         document_ids: List[str] = []
         document_key_value_pairs: List[Tuple[Any, Any]] = []
@@ -141,18 +110,8 @@ class PassageSearchGraph(PreparationGraph):
                 )
             )
 
-        collection_name: str = self._get_collection_name_hash(
-            categorized_document_hashes=input_state["categorized_document_hashes"],
-            embedding_model_name=input_state["embedder_setting"]["model_name"]
-        )
-        document_store: RedisStore = RedisStore(
-            client=self.two_datastore.sync_client
-        )
-        vector_store: BaseMilvusVectorStore = self._get_vector_store(
-            embedding_model_name=input_state["embedder_setting"]["model_name"],
-            collection_name=collection_name,
-            alias=self.four_datastore.alias
-        )
+        vector_store: BaseMilvusVectorStore = input_state["retriever_setting"]["vector_store"]
+        document_store: RedisStore = input_state["retriever_setting"]["document_store"]
 
         if len(document_ids) > 0:
             is_collection_exist: bool = vector_store.has_collection()
@@ -189,14 +148,35 @@ class PassageSearchGraph(PreparationGraph):
                 await document_store.amdelete(keys=document_ids)
                 await document_store.amset(key_value_pairs=document_key_value_pairs)
 
-        output_state["retriever_setting"]["vector_store"] = vector_store
-        output_state["retriever_setting"]["document_store"] = document_store
+        return output_state
 
-        if output_state.get("embedded_document_ids", None) is None:
-            output_state["embedded_document_ids"] = []
-        else:
-            document_id: UUID = input_state["state"].next_document_id
-            output_state["embedded_document_ids"].append(document_id)
+    async def node_embed(self, input_state: PassageSearchGraphState) -> PassageSearchGraphState:
+        output_state: PassageSearchGraphState = input_state
+
+        document_store: RedisStore = RedisStore(
+            client=self.two_datastore.sync_client
+        )
+        output_state["retriever_setting"]["document_store"] = document_store
+        collection_name: str = self._get_collection_name_hash(
+            categorized_document_hashes=input_state["categorized_document_hashes"],
+            embedding_model_name=input_state["embedder_setting"]["model_name"]
+        )
+        vector_store: BaseMilvusVectorStore = self._get_vector_store(
+            embedding_model_name=input_state["embedder_setting"]["model_name"],
+            collection_name=collection_name,
+            alias=self.four_datastore.alias
+        )
+        output_state["retriever_setting"]["vector_store"] = vector_store
+
+        future_tasks = []
+        for categorized_document in input_state["categorized_documents"].values():
+            future_task = self.node_embed_worker(
+                input_state=input_state,
+                categorized_document=categorized_document
+            )
+            future_tasks.append(future_task)
+
+        await asyncio.gather(*future_tasks)
 
         return output_state
 
@@ -281,7 +261,7 @@ class PassageSearchGraph(PreparationGraph):
         return hashed_data
 
     def _get_reranker_model(self, model_name: str) -> BaseReranker:
-        if model_name == "BAAI/bge-reranker-v2-m3":
+        if model_name.startswith("BAAI/bge-reranker"):
             model: BgeReranker = BgeReranker(
                 model_name=model_name
             )
@@ -380,16 +360,8 @@ class PassageSearchGraph(PreparationGraph):
             action=self.node_get_llm_model
         )
         graph.add_node(
-            node=self.node_prepare_get_categorized_documents.__name__,
-            action=self.node_prepare_get_categorized_documents
-        )
-        graph.add_node(
             node=self.node_get_categorized_documents.__name__,
             action=self.node_get_categorized_documents
-        )
-        graph.add_node(
-            node=self.node_prepare_embed.__name__,
-            action=self.node_prepare_embed
         )
         graph.add_node(
             node=self.node_embed.__name__,
@@ -409,31 +381,15 @@ class PassageSearchGraph(PreparationGraph):
         )
         graph.add_edge(
             start_key=self.node_get_llm_model.__name__,
-            end_key=self.node_prepare_get_categorized_documents.__name__
-        )
-        graph.add_edge(
-            start_key=self.node_prepare_get_categorized_documents.__name__,
             end_key=self.node_get_categorized_documents.__name__
         )
-        graph.add_conditional_edges(
-            source=self.node_get_categorized_documents.__name__,
-            path=self.node_decide_get_categorized_documents_or_embed,
-            path_map={
-                "GET_CATEGORIZED_DOCUMENTS": self.node_prepare_get_categorized_documents.__name__,
-                "EMBED": self.node_prepare_embed.__name__
-            }
+        graph.add_edge(
+            start_key=self.node_get_categorized_documents.__name__,
+            end_key=self.node_embed.__name__,
         )
         graph.add_edge(
-            start_key=self.node_prepare_embed.__name__,
-            end_key=self.node_embed.__name__
-        )
-        graph.add_conditional_edges(
-            source=self.node_embed.__name__,
-            path=self.node_decide_embed_or_get_relevant_documents,
-            path_map={
-                "EMBED": self.node_prepare_embed.__name__,
-                "GET_RELEVANT_DOCUMENTS": self.node_get_relevant_documents.__name__
-            }
+            start_key=self.node_embed.__name__,
+            end_key=self.node_get_relevant_documents.__name__
         )
         graph.add_edge(
             start_key=self.node_get_relevant_documents.__name__,

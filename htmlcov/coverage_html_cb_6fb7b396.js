@@ -10,7 +10,7 @@ coverage = {};
 // General helpers
 function debounce(callback, wait) {
     let timeoutId = null;
-    return function (...args) {
+    return function(...args) {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
             callback.apply(this, args);
@@ -64,9 +64,11 @@ function sortColumn(th) {
     var direction;
     if (currentSortOrder === "none") {
         direction = th.dataset.defaultSortOrder || "ascending";
-    } else if (currentSortOrder === "ascending") {
+    }
+    else if (currentSortOrder === "ascending") {
         direction = "descending";
-    } else {
+    }
+    else {
         direction = "ascending";
     }
     th.setAttribute("aria-sort", direction);
@@ -97,7 +99,8 @@ function sortColumn(th) {
                 "region_direction": current_direction
             }));
         }
-    } else {
+    }
+    else {
         // Sort column has changed to by function or class, remember that.
         localStorage.setItem(coverage.SORTED_BY_REGION, JSON.stringify({
             "by_region": true,
@@ -122,6 +125,16 @@ coverage.assign_shortkeys = function () {
 
 // Create the events for the filter box.
 coverage.wire_up_filter = function () {
+    // Populate the filter and hide100 inputs if there are saved values for them.
+    const saved_filter_value = localStorage.getItem(coverage.FILTER_STORAGE);
+    if (saved_filter_value) {
+        document.getElementById("filter").value = saved_filter_value;
+    }
+    const saved_hide100_value = localStorage.getItem(coverage.HIDE100_STORAGE);
+    if (saved_hide100_value) {
+        document.getElementById("hide100").checked = JSON.parse(saved_hide100_value);
+    }
+
     // Cache elements.
     const table = document.querySelector("table.index");
     const table_body_rows = table.querySelectorAll("tbody tr");
@@ -132,11 +145,15 @@ coverage.wire_up_filter = function () {
         // Keep running total of each metric, first index contains number of shown rows
         const totals = new Array(table.rows[0].cells.length).fill(0);
         // Accumulate the percentage as fraction
-        totals[totals.length - 1] = {"numer": 0, "denom": 0};  // nosemgrep: eslint.detect-object-injection
+        totals[totals.length - 1] = { "numer": 0, "denom": 0 };  // nosemgrep: eslint.detect-object-injection
 
         var text = document.getElementById("filter").value;
+        // Store filter value
+        localStorage.setItem(coverage.FILTER_STORAGE, text);
         const casefold = (text === text.toLowerCase());
         const hide100 = document.getElementById("hide100").checked;
+        // Store hide value.
+        localStorage.setItem(coverage.HIDE100_STORAGE, JSON.stringify(hide100));
 
         // Hide / show elements.
         table_body_rows.forEach(row => {
@@ -182,7 +199,8 @@ coverage.wire_up_filter = function () {
                     const [numer, denom] = cell.dataset.ratio.split(" ");
                     totals[column]["numer"] += parseInt(numer, 10);  // nosemgrep: eslint.detect-object-injection
                     totals[column]["denom"] += parseInt(denom, 10);  // nosemgrep: eslint.detect-object-injection
-                } else {
+                }
+                else {
                     totals[column] += parseInt(cell.textContent, 10);  // nosemgrep: eslint.detect-object-injection
                 }
             }
@@ -215,13 +233,14 @@ coverage.wire_up_filter = function () {
                 // and adapts to the number of decimal places.
                 const match = /\.([0-9]+)/.exec(cell.textContent);
                 const places = match ? match[1].length : 0;
-                const {numer, denom} = totals[column];  // nosemgrep: eslint.detect-object-injection
+                const { numer, denom } = totals[column];  // nosemgrep: eslint.detect-object-injection
                 cell.dataset.ratio = `${numer} ${denom}`;
                 // Check denom to prevent NaN if filtered files contain no statements
                 cell.textContent = denom
                     ? `${(numer * 100 / denom).toFixed(places)}%`
                     : `${(100).toFixed(places)}%`;
-            } else {
+            }
+            else {
                 cell.textContent = totals[column];  // nosemgrep: eslint.detect-object-injection
             }
         }
@@ -235,6 +254,8 @@ coverage.wire_up_filter = function () {
     document.getElementById("filter").dispatchEvent(new Event("input"));
     document.getElementById("hide100").dispatchEvent(new Event("input"));
 };
+coverage.FILTER_STORAGE = "COVERAGE_FILTER_VALUE";
+coverage.HIDE100_STORAGE = "COVERAGE_HIDE100_VALUE";
 
 // Set up the click-to-sort columns.
 coverage.wire_up_sorting = function () {
@@ -266,7 +287,8 @@ coverage.wire_up_sorting = function () {
     let th;
     if (document.getElementById(region_id)) {
         th = document.getElementById(by_region ? region_id : th_id);
-    } else {
+    }
+    else {
         th = document.getElementById(th_id);
     }
     th.setAttribute("aria-sort", direction === "ascending" ? "descending" : "ascending");
@@ -298,7 +320,8 @@ coverage.pyfile_ready = function () {
     if (frag.length > 2 && frag[1] === "t") {
         document.querySelector(frag).closest(".n").classList.add("highlight");
         coverage.set_sel(parseInt(frag.substr(2), 10));
-    } else {
+    }
+    else {
         coverage.set_sel(0);
     }
 
@@ -321,12 +344,12 @@ coverage.pyfile_ready = function () {
     coverage.filters = undefined;
     try {
         coverage.filters = localStorage.getItem(coverage.LINE_FILTERS_STORAGE);
-    } catch (err) {
-    }
+    } catch(err) {}
 
     if (coverage.filters) {
         coverage.filters = JSON.parse(coverage.filters);
-    } else {
+    }
+    else {
         coverage.filters = {run: false, exc: true, mis: true, par: true};
     }
 
@@ -355,8 +378,7 @@ coverage.toggle_lines = function (event) {
     coverage.filters[category] = show;
     try {
         localStorage.setItem(coverage.LINE_FILTERS_STORAGE, JSON.stringify(coverage.filters));
-    } catch (err) {
-    }
+    } catch(err) {}
 };
 
 coverage.set_line_visibilty = function (category, should_show) {
@@ -366,7 +388,8 @@ coverage.set_line_visibilty = function (category, should_show) {
         if (should_show) {
             document.querySelectorAll("#source ." + category).forEach(e => e.classList.add(cls));
             btn.classList.add(cls);
-        } else {
+        }
+        else {
             document.querySelectorAll("#source ." + category).forEach(e => e.classList.remove(cls));
             btn.classList.remove(cls);
         }
@@ -383,7 +406,7 @@ coverage.set_sel = function (b, e) {
     // The first line selected.
     coverage.sel_begin = b;
     // The next line not selected.
-    coverage.sel_end = (e === undefined) ? b + 1 : e;
+    coverage.sel_end = (e === undefined) ? b+1 : e;
 };
 
 coverage.to_top = function () {
@@ -463,7 +486,7 @@ coverage.to_prev_chunk = function () {
     const c = coverage;
 
     // Find the end of the prev colored chunk.
-    var probe = c.sel_begin - 1;
+    var probe = c.sel_begin-1;
     var probe_line = c.line_elt(probe);
     if (!probe_line) {
         return;
@@ -479,7 +502,7 @@ coverage.to_prev_chunk = function () {
     }
 
     // There's a prev chunk, `probe` points to its last line.
-    var end = probe + 1;
+    var end = probe+1;
 
     // Find the beginning of this chunk.
     var prev_indicator = chunk_indicator;
@@ -491,7 +514,7 @@ coverage.to_prev_chunk = function () {
         probe_line = c.line_elt(probe);
         prev_indicator = c.chunk_indicator(probe_line);
     }
-    c.set_sel(probe + 1, end);
+    c.set_sel(probe+1, end);
     c.show_selection();
 };
 
@@ -503,7 +526,7 @@ coverage.selection_ends_on_screen = function () {
     }
 
     const begin = coverage.line_elt(coverage.sel_begin);
-    const end = coverage.line_elt(coverage.sel_end - 1);
+    const end = coverage.line_elt(coverage.sel_end-1);
 
     return (
         (checkVisible(begin) ? 1 : 0)
@@ -522,7 +545,8 @@ coverage.to_next_chunk_nicely = function () {
         if (line.parentElement !== document.getElementById("source")) {
             // The element is not a source line but the header or similar
             coverage.select_line_or_chunk(1);
-        } else {
+        }
+        else {
             // We extract the line number from the id
             coverage.select_line_or_chunk(parseInt(line.id.substring(1), 10));
         }
@@ -537,11 +561,12 @@ coverage.to_prev_chunk_nicely = function () {
 
         // This will select the bottom-left of the viewport
         // As this is most likely the span with the line number we take the parent
-        const line = document.elementFromPoint(document.documentElement.clientHeight - 1, 0).parentElement;
+        const line = document.elementFromPoint(document.documentElement.clientHeight-1, 0).parentElement;
         if (line.parentElement !== document.getElementById("source")) {
             // The element is not a source line but the header or similar
             coverage.select_line_or_chunk(coverage.lines_len);
-        } else {
+        }
+        else {
             // We extract the line number from the id
             coverage.select_line_or_chunk(parseInt(line.id.substring(1), 10));
         }
@@ -583,7 +608,8 @@ coverage.select_line_or_chunk = function (lineno) {
         }
 
         coverage.set_sel(begin, probe);
-    } else {
+    }
+    else {
         coverage.set_sel(lineno);
     }
 };
@@ -642,7 +668,8 @@ coverage.build_scroll_markers = function () {
         if (line_number === previous_line + 1) {
             // If this solid missed block just make previous mark higher.
             last_mark.style.height = `${line_top + line_height - last_top}px`;
-        } else {
+        }
+        else {
             // Add colored line in scroll_marker block.
             last_mark = document.createElement("div");
             last_mark.id = `m${line_number}`;
@@ -670,7 +697,8 @@ coverage.wire_up_sticky_header = function () {
     function updateHeader() {
         if (window.scrollY > header_bottom) {
             header.classList.add("sticky");
-        } else {
+        }
+        else {
             header.classList.remove("sticky");
         }
     }
@@ -698,7 +726,8 @@ coverage.expand_contexts = function (e) {
 document.addEventListener("DOMContentLoaded", () => {
     if (document.body.classList.contains("indexfile")) {
         coverage.index_ready();
-    } else {
+    }
+    else {
         coverage.pyfile_ready();
     }
 });

@@ -28,3 +28,4 @@ flagembedding
 opencv-python>=4.8.0.76
 more-itertools
 pdfkit
+tf-keras

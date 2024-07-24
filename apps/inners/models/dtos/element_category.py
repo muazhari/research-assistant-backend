@@ -1,14 +1,13 @@
 from typing import List, Union
 
 from unstructured.documents.elements import Text, Table, Image, NarrativeText
-from unstructured.documents.html import HTMLText, HTMLTable
 
 from apps.inners.models.base_model import BaseModelV2
 
 
 class ElementCategory(BaseModelV2):
-    texts: List[Union[Text, NarrativeText, HTMLText]]
-    tables: List[Union[Table, HTMLTable]]
+    texts: List[Union[Text, NarrativeText]]
+    tables: List[Union[Table]]
     images: List[Image]
 
     def to_dict(self):

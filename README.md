@@ -15,9 +15,12 @@
 - [x] Passage Search
 
 ## Getting Started
-1. Clone [infrastructure](https://github.com/muazhari/research-assistant-infrastructure), [backend](https://github.com/muazhari/research-assistant-backend), and [frontend](https://github.com/muazhari/research-assistant-frontend) repositories.
+
+1.
+Clone [infrastructure](https://github.com/muazhari/research-assistant-infrastructure), [backend](https://github.com/muazhari/research-assistant-backend),
+and [frontend](https://github.com/muazhari/research-assistant-frontend) repositories.
 2. Setup infrastructure, backend, and frontend dependencies.
-3. Run the infrastructure, backend, and frontend services. 
+3. Run the infrastructure, backend, and frontend services.
 
 ## Testing
 
@@ -27,4 +30,5 @@
 python3 -m pytest --cov=./apps ./tests -n auto 
 ```
 
-2. Current test result has [43 test cases passed with 75% coverage](https://muazhari.github.io/research-assistant-backend/htmlcov/index.html).
+2. Current test result
+   has [43 test cases passed with 75% coverage](https://muazhari.github.io/research-assistant-backend/htmlcov/index.html).

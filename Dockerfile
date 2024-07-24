@@ -36,6 +36,9 @@ RUN pip3 install pymilvus[model] --use-feature=fast-deps
 # Install onnxruntime-gpu.
 RUN pip3 install onnxruntime-gpu==1.17 --extra-index-url=https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/
 
+# Install ray.
+RUN pip3 install ray[default] --use-feature=fast-deps
+
 # Copy requirements.txt to the working directory.
 COPY ./requirements.txt ./requirements.txt
 

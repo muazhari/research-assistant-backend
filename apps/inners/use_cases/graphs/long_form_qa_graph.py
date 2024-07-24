@@ -29,7 +29,7 @@ class LongFormQaGraph(PassageSearchGraph):
             **kwargs: Any
     ):
         super().__init__(*args, **kwargs)
-        self.compiled_graph: CompiledGraph = self._compile()
+        self.compiled_graph: CompiledGraph = self.compile()
 
     async def node_generate_answer(self, input_state: LongFormQaGraphState) -> LongFormQaGraphState:
         output_state: LongFormQaGraphState = input_state
@@ -412,7 +412,7 @@ class LongFormQaGraph(PassageSearchGraph):
 
         return hashed_data
 
-    def _compile(self) -> CompiledGraph:
+    def compile(self) -> CompiledGraph:
         graph: StateGraph = StateGraph(LongFormQaGraphState)
 
         graph.add_node(
@@ -420,16 +420,8 @@ class LongFormQaGraph(PassageSearchGraph):
             action=self.node_get_llm_model
         )
         graph.add_node(
-            node=self.node_prepare_get_categorized_documents.__name__,
-            action=self.node_prepare_get_categorized_documents
-        )
-        graph.add_node(
             node=self.node_get_categorized_documents.__name__,
             action=self.node_get_categorized_documents
-        )
-        graph.add_node(
-            node=self.node_prepare_embed.__name__,
-            action=self.node_prepare_embed
         )
         graph.add_node(
             node=self.node_embed.__name__,
@@ -465,31 +457,15 @@ class LongFormQaGraph(PassageSearchGraph):
         )
         graph.add_edge(
             start_key=self.node_get_llm_model.__name__,
-            end_key=self.node_prepare_get_categorized_documents.__name__
-        )
-        graph.add_edge(
-            start_key=self.node_prepare_get_categorized_documents.__name__,
             end_key=self.node_get_categorized_documents.__name__
         )
-        graph.add_conditional_edges(
-            source=self.node_get_categorized_documents.__name__,
-            path=self.node_decide_get_categorized_documents_or_embed,
-            path_map={
-                "GET_CATEGORIZED_DOCUMENTS": self.node_prepare_get_categorized_documents.__name__,
-                "EMBED": self.node_prepare_embed.__name__
-            }
-        )
         graph.add_edge(
-            start_key=self.node_prepare_embed.__name__,
+            start_key=self.node_get_categorized_documents.__name__,
             end_key=self.node_embed.__name__
         )
-        graph.add_conditional_edges(
-            source=self.node_embed.__name__,
-            path=self.node_decide_embed_or_get_relevant_documents,
-            path_map={
-                "EMBED": self.node_prepare_embed.__name__,
-                "GET_RELEVANT_DOCUMENTS": self.node_get_relevant_documents.__name__
-            }
+        graph.add_edge(
+            start_key=self.node_embed.__name__,
+            end_key=self.node_get_relevant_documents.__name__
         )
         graph.add_edge(
             start_key=self.node_get_relevant_documents.__name__,

@@ -1,10 +1,11 @@
+import asyncio
 import pickle
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Optional, Coroutine
 from uuid import UUID
 
 from langchain_anthropic import ChatAnthropic
 from langchain_openai import ChatOpenAI
-from langgraph.graph import StateGraph, END
+from langgraph.graph import StateGraph
 from litellm import Router
 from starlette.datastructures import State
 from unstructured.documents.elements import Element
@@ -42,16 +43,16 @@ class PreparationGraph:
         self.two_datastore = two_datastore
         self.partition_document_processor = partition_document_processor
         self.category_document_processor = category_document_processor
-        self.compiled_graph = self._compile_graph()
+        self.compiled_graph = self._compile()
 
     def node_get_llm_model(self, input_state: PreparationGraphState) -> PreparationGraphState:
         output_state: PreparationGraphState = input_state
 
         model_list: List[Dict] = [
             {
-                "model_name": "claude-3-haiku-20240307",
+                "model_name": "claude-3-5-sonnet-20240620",
                 "litellm_params": {
-                    "model": "claude-3-haiku-20240307",
+                    "model": "claude-3-5-sonnet-20240620",
                     "api_key": self.one_llm_setting.LLM_ONE_ANTHROPIC_API_KEY_ONE,
                     "provider": "anthropic"
                 }
@@ -93,10 +94,9 @@ class PreparationGraph:
 
         return output_state
 
-    async def node_get_categorized_documents(self, input_state: PreparationGraphState) -> PreparationGraphState:
+    async def node_get_categorized_document_worker(self, input_state: PreparationGraphState,
+                                                   document_id: UUID) -> PreparationGraphState:
         output_state: PreparationGraphState = input_state
-
-        document_id: UUID = input_state["state"].next_document_id
 
         categorized_element_hash: str = await self._get_categorized_element_hash(
             state=input_state["state"],
@@ -188,6 +188,29 @@ class PreparationGraph:
 
         return output_state
 
+    async def node_get_categorized_documents(self, input_state: PreparationGraphState) -> PreparationGraphState:
+        output_state: PreparationGraphState = input_state
+
+        document_ids: List[UUID] = input_state["document_ids"]
+        output_state["categorized_element_hashes"] = {}
+        output_state["categorized_document_hashes"] = {}
+        output_state["categorized_documents"] = {}
+
+        future_tasks: List[Coroutine] = []
+        for document_id in document_ids:
+            future_task = self.node_get_categorized_document_worker(
+                input_state=input_state,
+                document_id=document_id
+            )
+            future_tasks.append(future_task)
+
+        for task_result in await asyncio.gather(*future_tasks):
+            output_state["categorized_element_hashes"].update(task_result["categorized_element_hashes"])
+            output_state["categorized_document_hashes"].update(task_result["categorized_document_hashes"])
+            output_state["categorized_documents"].update(task_result["categorized_documents"])
+
+        return output_state
+
     async def _get_categorized_element_hash(
             self,
             state: State,
@@ -252,48 +275,12 @@ class PreparationGraph:
 
         return hashed_data
 
-    async def node_prepare_get_categorized_documents(self, input_state: PreparationGraphState):
-        output_state: PreparationGraphState = input_state
-
-        document_ids: List[UUID] = input_state["document_ids"]
-        if len(document_ids) == 0:
-            raise use_case_exception.DocumentIdsEmpty()
-
-        categorized_documents: Optional[Dict[UUID, DocumentCategory]] = input_state["categorized_documents"]
-        if categorized_documents is None:
-            categorized_documents = {}
-            output_state["categorized_documents"] = categorized_documents
-
-        next_document_ids: List[UUID] = list(set(document_ids) - set(categorized_documents.keys()))
-        next_document_id: UUID = next_document_ids.pop()
-
-        output_state["state"].next_document_id = next_document_id
-
-        return output_state
-
-    async def node_decide_get_categorized_documents_or_embed(self, input_state: PreparationGraphState) -> str:
-        output_state: PreparationGraphState = input_state
-
-        document_ids: List[UUID] = input_state["document_ids"]
-
-        categorized_documents: Dict[UUID, DocumentCategory] = input_state["categorized_documents"]
-
-        if set(categorized_documents.keys()) == set(document_ids):
-            output_state["state"].next_document_id = None
-            return "EMBED"
-
-        return "GET_CATEGORIZED_DOCUMENTS"
-
-    def _compile_graph(self):
+    def _compile(self):
         graph: StateGraph = StateGraph(PreparationGraphState)
 
         graph.add_node(
             node=self.node_get_llm_model.__name__,
             action=self.node_get_llm_model
-        )
-        graph.add_node(
-            node=self.node_prepare_get_categorized_documents.__name__,
-            action=self.node_prepare_get_categorized_documents
         )
         graph.add_node(
             node=self.node_get_categorized_documents.__name__,
@@ -303,22 +290,12 @@ class PreparationGraph:
         graph.set_entry_point(
             key=self.node_get_llm_model.__name__
         )
-
         graph.add_edge(
             start_key=self.node_get_llm_model.__name__,
-            end_key=self.node_prepare_get_categorized_documents.__name__
-        )
-        graph.add_edge(
-            start_key=self.node_prepare_get_categorized_documents.__name__,
             end_key=self.node_get_categorized_documents.__name__
         )
-        graph.add_conditional_edges(
-            source=self.node_get_categorized_documents.__name__,
-            path=self.node_decide_get_categorized_documents_or_embed,
-            path_map={
-                "GET_CATEGORIZED_DOCUMENTS": self.node_prepare_get_categorized_documents.__name__,
-                "EMBED": END
-            }
+        graph.set_finish_point(
+            key=self.node_get_categorized_documents.__name__
         )
 
         compiled_graph = graph.compile()

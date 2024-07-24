@@ -1,14 +1,9 @@
 import io
-import math
 import shutil
-from concurrent import futures
-from concurrent.futures import Future
 from pathlib import Path
-from typing import List, Any, Dict
+from typing import List
 from uuid import UUID
 
-import psutil
-from magic import Magic
 from pypdf import PdfReader, PdfWriter
 from starlette.datastructures import State
 from unstructured.documents.elements import Element

@@ -8,7 +8,6 @@ from langchain_core.documents import Document
 from langchain_core.language_models import BaseChatModel
 from unstructured.chunking.basic import chunk_elements
 from unstructured.documents.elements import Element, Text, NarrativeText, Table, Image, ListItem
-from unstructured.documents.html import HTMLText, HTMLTable
 
 from apps.inners.models.dtos.document_category import DocumentCategory
 from apps.inners.models.dtos.element_category import ElementCategory
@@ -32,12 +31,12 @@ class CategoryDocumentProcessor:
         for element in elements:
             if any(
                     element_type == element.__class__.__name__ for element_type in
-                    [Text.__name__, NarrativeText.__name__, ListItem.__name__, HTMLText.__name__]
+                    [Text.__name__, NarrativeText.__name__, ListItem.__name__]
             ):
                 categorized_elements.texts.append(element)
             elif any(
                     element_type == element.__class__.__name__ for element_type in
-                    [Table.__name__, HTMLTable.__name__]
+                    [Table.__name__]
             ):
                 categorized_elements.tables.append(element)
             elif any(

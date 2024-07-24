@@ -17,7 +17,7 @@
         <aside id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
             <label for="help_panel_state">
-                <img id="keyboard_icon" src="keybd_closed.png" alt="Show/hide keyboard shortcuts" />
+                <img id="keyboard_icon" src="keybd_closed.png" alt="Show/hide keyboard shortcuts"/>
             </label>
             <div id="help_panel">
                 <p class="legend">Shortcuts on this page</p>
@@ -55,9 +55,12 @@
         </aside>
         <h2>
             <span class="text">17 statements &nbsp;</span>
-            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">17<span class="text"> run</span></button>
-            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">0<span class="text"> missing</span></button>
-            <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
+            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">
+                17<span class="text"> run</span></button>
+            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m"
+                    title="Toggle lines missing">0<span class="text"> missing</span></button>
+            <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x"
+                    title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
         <p class="text">
             <a id="prevFileLink" class="nav" href="d_e6e06fad2b214e06___init___py.html">&#xab; prev</a> &nbsp; &nbsp;
@@ -80,53 +83,144 @@
     </div>
 </header>
 <main id="source">
-    <p class="run"><span class="n"><a id="t1" href="#t1">1</a></span><span class="t"><span class="key">from</span> <span class="nam">dependency_injector</span> <span class="key">import</span> <span class="nam">providers</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t2" href="#t2">2</a></span><span class="t"><span class="key">from</span> <span class="nam">dependency_injector</span><span class="op">.</span><span class="nam">containers</span> <span class="key">import</span> <span class="nam">DeclarativeContainer</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t3" href="#t3">3</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t4" href="#t4">4</a></span><span class="t"><span class="key">from</span> <span class="nam">apps</span><span class="op">.</span><span class="nam">outers</span><span class="op">.</span><span class="nam">containers</span><span class="op">.</span><span class="nam">controller_container</span> <span class="key">import</span> <span class="nam">ControllerContainer</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t5" href="#t5">5</a></span><span class="t"><span class="key">from</span> <span class="nam">apps</span><span class="op">.</span><span class="nam">outers</span><span class="op">.</span><span class="nam">containers</span><span class="op">.</span><span class="nam">datastore_container</span> <span class="key">import</span> <span class="nam">DatastoreContainer</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t6" href="#t6">6</a></span><span class="t"><span class="key">from</span> <span class="nam">apps</span><span class="op">.</span><span class="nam">outers</span><span class="op">.</span><span class="nam">containers</span><span class="op">.</span><span class="nam">gateway_container</span> <span class="key">import</span> <span class="nam">GatewayContainer</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t7" href="#t7">7</a></span><span class="t"><span class="key">from</span> <span class="nam">apps</span><span class="op">.</span><span class="nam">outers</span><span class="op">.</span><span class="nam">containers</span><span class="op">.</span><span class="nam">repository_container</span> <span class="key">import</span> <span class="nam">RepositoryContainer</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t8" href="#t8">8</a></span><span class="t"><span class="key">from</span> <span class="nam">apps</span><span class="op">.</span><span class="nam">outers</span><span class="op">.</span><span class="nam">containers</span><span class="op">.</span><span class="nam">router_container</span> <span class="key">import</span> <span class="nam">RouterContainer</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t9" href="#t9">9</a></span><span class="t"><span class="key">from</span> <span class="nam">apps</span><span class="op">.</span><span class="nam">outers</span><span class="op">.</span><span class="nam">containers</span><span class="op">.</span><span class="nam">setting_container</span> <span class="key">import</span> <span class="nam">SettingContainer</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t10" href="#t10">10</a></span><span class="t"><span class="key">from</span> <span class="nam">apps</span><span class="op">.</span><span class="nam">outers</span><span class="op">.</span><span class="nam">containers</span><span class="op">.</span><span class="nam">use_case_container</span> <span class="key">import</span> <span class="nam">UseCaseContainer</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t11" href="#t11">11</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t12" href="#t12">12</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t13" href="#t13">13</a></span><span class="t"><span class="key">class</span> <span class="nam">ApplicationContainer</span><span class="op">(</span><span class="nam">DeclarativeContainer</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t14" href="#t14">14</a></span><span class="t">    <span class="nam">settings</span> <span class="op">=</span> <span class="nam">providers</span><span class="op">.</span><span class="nam">Container</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t15" href="#t15">15</a></span><span class="t">        <span class="nam">SettingContainer</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t16" href="#t16">16</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t17" href="#t17">17</a></span><span class="t">    <span class="nam">gateways</span> <span class="op">=</span> <span class="nam">providers</span><span class="op">.</span><span class="nam">Container</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t18" href="#t18">18</a></span><span class="t">        <span class="nam">GatewayContainer</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t19" href="#t19">19</a></span><span class="t">        <span class="nam">settings</span><span class="op">=</span><span class="nam">settings</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t20" href="#t20">20</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t21" href="#t21">21</a></span><span class="t">    <span class="nam">datastores</span> <span class="op">=</span> <span class="nam">providers</span><span class="op">.</span><span class="nam">Container</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t22" href="#t22">22</a></span><span class="t">        <span class="nam">DatastoreContainer</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t23" href="#t23">23</a></span><span class="t">        <span class="nam">settings</span><span class="op">=</span><span class="nam">settings</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t24" href="#t24">24</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t25" href="#t25">25</a></span><span class="t">    <span class="nam">repositories</span> <span class="op">=</span> <span class="nam">providers</span><span class="op">.</span><span class="nam">Container</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t26" href="#t26">26</a></span><span class="t">        <span class="nam">RepositoryContainer</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t27" href="#t27">27</a></span><span class="t">        <span class="nam">datastores</span><span class="op">=</span><span class="nam">datastores</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t28" href="#t28">28</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t29" href="#t29">29</a></span><span class="t">    <span class="nam">use_cases</span> <span class="op">=</span> <span class="nam">providers</span><span class="op">.</span><span class="nam">Container</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t30" href="#t30">30</a></span><span class="t">        <span class="nam">UseCaseContainer</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t31" href="#t31">31</a></span><span class="t">        <span class="nam">settings</span><span class="op">=</span><span class="nam">settings</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t32" href="#t32">32</a></span><span class="t">        <span class="nam">datastores</span><span class="op">=</span><span class="nam">datastores</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t33" href="#t33">33</a></span><span class="t">        <span class="nam">repositories</span><span class="op">=</span><span class="nam">repositories</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t34" href="#t34">34</a></span><span class="t">        <span class="nam">gateways</span><span class="op">=</span><span class="nam">gateways</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t35" href="#t35">35</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t36" href="#t36">36</a></span><span class="t">    <span class="nam">controllers</span> <span class="op">=</span> <span class="nam">providers</span><span class="op">.</span><span class="nam">Container</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t37" href="#t37">37</a></span><span class="t">        <span class="nam">ControllerContainer</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t38" href="#t38">38</a></span><span class="t">        <span class="nam">managements</span><span class="op">=</span><span class="nam">use_cases</span><span class="op">.</span><span class="nam">managements</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t39" href="#t39">39</a></span><span class="t">        <span class="nam">authentications</span><span class="op">=</span><span class="nam">use_cases</span><span class="op">.</span><span class="nam">authentications</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t40" href="#t40">40</a></span><span class="t">        <span class="nam">authorizations</span><span class="op">=</span><span class="nam">use_cases</span><span class="op">.</span><span class="nam">authorizations</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t41" href="#t41">41</a></span><span class="t">        <span class="nam">passage_searches</span><span class="op">=</span><span class="nam">use_cases</span><span class="op">.</span><span class="nam">passage_searches</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t42" href="#t42">42</a></span><span class="t">        <span class="nam">long_form_qas</span><span class="op">=</span><span class="nam">use_cases</span><span class="op">.</span><span class="nam">long_form_qas</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t43" href="#t43">43</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t44" href="#t44">44</a></span><span class="t">    <span class="nam">routers</span> <span class="op">=</span> <span class="nam">providers</span><span class="op">.</span><span class="nam">Container</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t45" href="#t45">45</a></span><span class="t">        <span class="nam">RouterContainer</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t46" href="#t46">46</a></span><span class="t">        <span class="nam">controllers</span><span class="op">=</span><span class="nam">controllers</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t47" href="#t47">47</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t1" href="#t1">1</a></span><span class="t"><span class="key">from</span> <span
+            class="nam">dependency_injector</span> <span class="key">import</span> <span class="nam">providers</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="run"><span class="n"><a id="t2" href="#t2">2</a></span><span class="t"><span class="key">from</span> <span
+            class="nam">dependency_injector</span><span class="op">.</span><span class="nam">containers</span> <span
+            class="key">import</span> <span class="nam">DeclarativeContainer</span>&nbsp;</span><span class="r"></span>
+    </p>
+    <p class="pln"><span class="n"><a id="t3" href="#t3">3</a></span><span class="t">&nbsp;</span><span
+            class="r"></span></p>
+    <p class="run"><span class="n"><a id="t4" href="#t4">4</a></span><span class="t"><span class="key">from</span> <span
+            class="nam">apps</span><span class="op">.</span><span class="nam">outers</span><span
+            class="op">.</span><span class="nam">containers</span><span class="op">.</span><span class="nam">controller_container</span> <span
+            class="key">import</span> <span class="nam">ControllerContainer</span>&nbsp;</span><span class="r"></span>
+    </p>
+    <p class="run"><span class="n"><a id="t5" href="#t5">5</a></span><span class="t"><span class="key">from</span> <span
+            class="nam">apps</span><span class="op">.</span><span class="nam">outers</span><span
+            class="op">.</span><span class="nam">containers</span><span class="op">.</span><span class="nam">datastore_container</span> <span
+            class="key">import</span> <span class="nam">DatastoreContainer</span>&nbsp;</span><span class="r"></span>
+    </p>
+    <p class="run"><span class="n"><a id="t6" href="#t6">6</a></span><span class="t"><span class="key">from</span> <span
+            class="nam">apps</span><span class="op">.</span><span class="nam">outers</span><span
+            class="op">.</span><span class="nam">containers</span><span class="op">.</span><span class="nam">gateway_container</span> <span
+            class="key">import</span> <span class="nam">GatewayContainer</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t7" href="#t7">7</a></span><span class="t"><span class="key">from</span> <span
+            class="nam">apps</span><span class="op">.</span><span class="nam">outers</span><span
+            class="op">.</span><span class="nam">containers</span><span class="op">.</span><span class="nam">repository_container</span> <span
+            class="key">import</span> <span class="nam">RepositoryContainer</span>&nbsp;</span><span class="r"></span>
+    </p>
+    <p class="run"><span class="n"><a id="t8" href="#t8">8</a></span><span class="t"><span class="key">from</span> <span
+            class="nam">apps</span><span class="op">.</span><span class="nam">outers</span><span
+            class="op">.</span><span class="nam">containers</span><span class="op">.</span><span class="nam">router_container</span> <span
+            class="key">import</span> <span class="nam">RouterContainer</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t9" href="#t9">9</a></span><span class="t"><span class="key">from</span> <span
+            class="nam">apps</span><span class="op">.</span><span class="nam">outers</span><span
+            class="op">.</span><span class="nam">containers</span><span class="op">.</span><span class="nam">setting_container</span> <span
+            class="key">import</span> <span class="nam">SettingContainer</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t10" href="#t10">10</a></span><span class="t"><span
+            class="key">from</span> <span class="nam">apps</span><span class="op">.</span><span
+            class="nam">outers</span><span class="op">.</span><span class="nam">containers</span><span
+            class="op">.</span><span class="nam">use_case_container</span> <span class="key">import</span> <span
+            class="nam">UseCaseContainer</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t11" href="#t11">11</a></span><span class="t">&nbsp;</span><span
+            class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t12" href="#t12">12</a></span><span class="t">&nbsp;</span><span
+            class="r"></span></p>
+    <p class="run"><span class="n"><a id="t13" href="#t13">13</a></span><span class="t"><span
+            class="key">class</span> <span class="nam">ApplicationContainer</span><span class="op">(</span><span
+            class="nam">DeclarativeContainer</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="run"><span class="n"><a id="t14" href="#t14">14</a></span><span class="t">    <span
+            class="nam">settings</span> <span class="op">=</span> <span class="nam">providers</span><span
+            class="op">.</span><span class="nam">Container</span><span class="op">(</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t15" href="#t15">15</a></span><span class="t">        <span class="nam">SettingContainer</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t16" href="#t16">16</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="run"><span class="n"><a id="t17" href="#t17">17</a></span><span class="t">    <span
+            class="nam">gateways</span> <span class="op">=</span> <span class="nam">providers</span><span
+            class="op">.</span><span class="nam">Container</span><span class="op">(</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t18" href="#t18">18</a></span><span class="t">        <span class="nam">GatewayContainer</span><span
+            class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t19" href="#t19">19</a></span><span class="t">        <span class="nam">settings</span><span
+            class="op">=</span><span class="nam">settings</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t20" href="#t20">20</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="run"><span class="n"><a id="t21" href="#t21">21</a></span><span class="t">    <span
+            class="nam">datastores</span> <span class="op">=</span> <span class="nam">providers</span><span
+            class="op">.</span><span class="nam">Container</span><span class="op">(</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t22" href="#t22">22</a></span><span class="t">        <span class="nam">DatastoreContainer</span><span
+            class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t23" href="#t23">23</a></span><span class="t">        <span class="nam">settings</span><span
+            class="op">=</span><span class="nam">settings</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t24" href="#t24">24</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="run"><span class="n"><a id="t25" href="#t25">25</a></span><span class="t">    <span class="nam">repositories</span> <span
+            class="op">=</span> <span class="nam">providers</span><span class="op">.</span><span
+            class="nam">Container</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t26" href="#t26">26</a></span><span class="t">        <span class="nam">RepositoryContainer</span><span
+            class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t27" href="#t27">27</a></span><span class="t">        <span class="nam">datastores</span><span
+            class="op">=</span><span class="nam">datastores</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t28" href="#t28">28</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="run"><span class="n"><a id="t29" href="#t29">29</a></span><span class="t">    <span
+            class="nam">use_cases</span> <span class="op">=</span> <span class="nam">providers</span><span
+            class="op">.</span><span class="nam">Container</span><span class="op">(</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t30" href="#t30">30</a></span><span class="t">        <span class="nam">UseCaseContainer</span><span
+            class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t31" href="#t31">31</a></span><span class="t">        <span class="nam">settings</span><span
+            class="op">=</span><span class="nam">settings</span><span class="op">,</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t32" href="#t32">32</a></span><span class="t">        <span class="nam">datastores</span><span
+            class="op">=</span><span class="nam">datastores</span><span class="op">,</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t33" href="#t33">33</a></span><span class="t">        <span class="nam">repositories</span><span
+            class="op">=</span><span class="nam">repositories</span><span class="op">,</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t34" href="#t34">34</a></span><span class="t">        <span class="nam">gateways</span><span
+            class="op">=</span><span class="nam">gateways</span><span class="op">,</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t35" href="#t35">35</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="run"><span class="n"><a id="t36" href="#t36">36</a></span><span class="t">    <span class="nam">controllers</span> <span
+            class="op">=</span> <span class="nam">providers</span><span class="op">.</span><span
+            class="nam">Container</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t37" href="#t37">37</a></span><span class="t">        <span class="nam">ControllerContainer</span><span
+            class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t38" href="#t38">38</a></span><span class="t">        <span class="nam">managements</span><span
+            class="op">=</span><span class="nam">use_cases</span><span class="op">.</span><span
+            class="nam">managements</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t39" href="#t39">39</a></span><span class="t">        <span class="nam">authentications</span><span
+            class="op">=</span><span class="nam">use_cases</span><span class="op">.</span><span class="nam">authentications</span><span
+            class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t40" href="#t40">40</a></span><span class="t">        <span class="nam">authorizations</span><span
+            class="op">=</span><span class="nam">use_cases</span><span class="op">.</span><span class="nam">authorizations</span><span
+            class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t41" href="#t41">41</a></span><span class="t">        <span class="nam">passage_searches</span><span
+            class="op">=</span><span class="nam">use_cases</span><span class="op">.</span><span class="nam">passage_searches</span><span
+            class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t42" href="#t42">42</a></span><span class="t">        <span class="nam">long_form_qas</span><span
+            class="op">=</span><span class="nam">use_cases</span><span class="op">.</span><span class="nam">long_form_qas</span><span
+            class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t43" href="#t43">43</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="run"><span class="n"><a id="t44" href="#t44">44</a></span><span class="t">    <span
+            class="nam">routers</span> <span class="op">=</span> <span class="nam">providers</span><span
+            class="op">.</span><span class="nam">Container</span><span class="op">(</span>&nbsp;</span><span
+            class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t45" href="#t45">45</a></span><span class="t">        <span class="nam">RouterContainer</span><span
+            class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t46" href="#t46">46</a></span><span class="t">        <span class="nam">controllers</span><span
+            class="op">=</span><span class="nam">controllers</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t47" href="#t47">47</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span
+            class="r"></span></p>
 </main>
 <footer>
     <div class="content">
