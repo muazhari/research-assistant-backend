@@ -31,7 +31,7 @@ async def test__process__should_processed__succeed(main_context: MainContext):
         input_setting=InputSettingBody(
             document_ids=[selected_session_fake.id for selected_session_fake in selected_document_fakes],
             llm_setting=LlmSetting(
-                model_name="gpt-4o",
+                model_name="gpt-4o-mini",
                 max_token=500
             ),
             preprocessor_setting=PreprocessorSetting(
@@ -64,13 +64,22 @@ async def test__process__should_processed__succeed(main_context: MainContext):
                 is_force_refresh_generated_question=False,
                 is_force_refresh_generated_hallucination_grade=False,
                 is_force_refresh_generated_answer_relevancy_grade=False,
-                prompt="""Instruction: Create a concise and informative answer for a given question based solely on the given passages. You must only use information from the given passages. Use an academic style. Do not repeat text. Cite at least one passage in each sentence. Cite the passages using passage number notation like "[number]". If multiple passages contain the answer, cite those passages like "[number, number, etc.]". If the passages do not contain the answer to the question, then say that answering is impossible given the available information with the explanation. Ensure the output is not re-explaining the instruction.
-                Passages:
+                prompt="""
+                <instruction>
+                Answer the question efficiently and effectively based solely on the given passages. Use academic writing. Cite at least one passage in each sentence. Cite the passages using passage number notation like "[number, number, etc.]". State with the explanation that answering is impossible if the passages do not contain the answer to the question.
+                <instruction/>
+                <passages>
                 {% for passage in passages %}
-                [{{ loop.index }}]={{ passage.page_content }}
+                <passage_{{ loop.index }}>
+                {{ passage.page_content }}
+                <passage_{{ loop.index }}/>
                 {% endfor %}
-                Question: {{ question }}
-                Answer:"""
+                <passages/>
+                <question>
+                {{ question }}
+                <question/>
+                Answer:
+                """
             ),
             transform_question_max_retry=3
         )

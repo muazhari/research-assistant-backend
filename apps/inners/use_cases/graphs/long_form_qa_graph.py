@@ -1,15 +1,12 @@
 from typing import Dict, List, Any
 
-from langchain_anthropic import ChatAnthropic
-from langchain_anthropic.output_parsers import ToolsOutputParser
+from langchain_community.chat_models import ChatLiteLLM
 from langchain_core.documents import Document
-from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage, HumanMessage
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.output_parsers.openai_tools import PydanticToolsParser
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableSerializable
-from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph
 from langgraph.graph.graph import CompiledGraph, END
 from pydantic.v1 import Field
@@ -37,7 +34,7 @@ class LongFormQaGraph(PassageSearchGraph):
         re_ranked_documents: List[Document] = input_state["re_ranked_documents"]
         retriever: HybridMilvusRetriever = input_state["retriever_setting"]["retriever"]
         re_ranked_document_ids: List[str] = [document.metadata[retriever.id_key] for document in re_ranked_documents]
-        generated_answer_hash: str = self._get_generated_answer_hash(
+        generated_answer_hash: str = self.get_generated_answer_hash(
             re_ranked_document_ids=re_ranked_document_ids,
             question=input_state["question"],
             llm_model_name=input_state["llm_setting"]["model_name"],
@@ -74,7 +71,7 @@ class LongFormQaGraph(PassageSearchGraph):
                     ]
                 )
             ]
-            llm_model: BaseChatModel = input_state["llm_setting"]["model"]
+            llm_model: ChatLiteLLM = input_state["llm_setting"]["model"]
             chain: RunnableSerializable = llm_model | StrOutputParser()
             generated_answer: str = await chain.ainvoke(
                 input=messages
@@ -92,7 +89,7 @@ class LongFormQaGraph(PassageSearchGraph):
 
         return output_state
 
-    def _get_generated_answer_hash(
+    def get_generated_answer_hash(
             self,
             re_ranked_document_ids: List[str],
             question: str,
@@ -126,7 +123,7 @@ class LongFormQaGraph(PassageSearchGraph):
             )
 
         retriever: HybridMilvusRetriever = input_state["retriever_setting"]["retriever"]
-        generated_hallucination_grade_hash: str = self._get_generated_hallucination_grade_hash(
+        generated_hallucination_grade_hash: str = self.get_generated_hallucination_grade_hash(
             retrieved_document_ids=[document.metadata[retriever.id_key] for document in re_ranked_documents],
             generated_answer_hash=input_state["generated_answer_hash"]
         )
@@ -143,19 +140,31 @@ class LongFormQaGraph(PassageSearchGraph):
             "is_force_refresh_generated_hallucination_grade"]
         if is_generated_hallucination_grade_hash_exist is False or is_force_refresh_generated_hallucination_grade is True:
             prompt: PromptTemplate = PromptTemplate(
-                template="""Instruction: Assess whether an Large Language Model generated answer is supported by a set of retrieved passages. Give one binary score of "True" or "False". "True" means that the answer is supported by the set of retrieved passages. "False" means that the answer is not supported by the set of retrieved passages.
-                Passages:
+                template="""
+                <instruction>
+                Assess whether an Large Language Model generated answer to the question is supported by the passages. Give one binary score of "True" or "False". "True" means that the answer to the question is supported by the passages. "False" means that the answer to the question is not supported by the passages.
+                <instruction/>
+                <passages>
                 {% for passage in passages %}
-                [{{ loop.index }}]={{ passage.page_content }}
+                <passage_{{ loop.index }}>
+                {{ passage.page_content }}
+                <passage_{{ loop.index }}/>
                 {% endfor %}
-                Generated Answer: {{ generated_answer }}
+                <passages/>
+                <question>
+                {{ question }}
+                <question/>
+                <answer>
+                {{ answer }}
+                <answer/>
                 """,
                 template_format="jinja2",
-                input_variables=["passages", "generated_answer"]
+                input_variables=["passages", "question", "answer"]
             )
             text: str = prompt.format(
                 passages=re_ranked_documents,
-                generated_answer=input_state["generated_answer"]
+                question=input_state["question"],
+                answer=input_state["generated_answer"]
             )
             messages: List[BaseMessage] = [
                 HumanMessage(
@@ -167,19 +176,12 @@ class LongFormQaGraph(PassageSearchGraph):
                     ]
                 )
             ]
-            llm_model: BaseChatModel = input_state["llm_setting"]["model"]
-            if isinstance(llm_model, ChatAnthropic):
-                tool_parser = ToolsOutputParser(
-                    pydantic_schemas=[GradeTool]
-                )
-            elif isinstance(llm_model, ChatOpenAI):
-                tool_parser = PydanticToolsParser(
-                    tools=[GradeTool]
-                )
-            else:
-                raise use_case_exception.LlmProviderNotSupported()
-
-            chain: RunnableSerializable = llm_model.bind_tools(tools=[GradeTool]) | tool_parser
+            llm_model: ChatLiteLLM = input_state["llm_setting"]["model"]
+            tool_parser: PydanticToolsParser = PydanticToolsParser(
+                tools=[GradeTool]
+            )
+            chain: RunnableSerializable = llm_model.bind_tools(tools=tool_parser.tools,
+                                                               tool_choice="required") | tool_parser
             generated_tools: List[GradeTool] = await chain.ainvoke(
                 input=messages
             )
@@ -198,7 +200,7 @@ class LongFormQaGraph(PassageSearchGraph):
 
         return output_state
 
-    def _get_generated_hallucination_grade_hash(
+    def get_generated_hallucination_grade_hash(
             self,
             retrieved_document_ids: List[str],
             generated_answer_hash: str,
@@ -223,7 +225,7 @@ class LongFormQaGraph(PassageSearchGraph):
                 description="Is resolved binary score, either True if resolved or False if not resolved."
             )
 
-        generated_answer_relevancy_grade_hash: str = self._get_generated_answer_relevancy_grade_hash(
+        generated_answer_relevancy_grade_hash: str = self.get_generated_answer_relevancy_grade_hash(
             question=input_state["question"],
             generated_answer_hash=input_state["generated_answer_hash"]
         )
@@ -240,15 +242,23 @@ class LongFormQaGraph(PassageSearchGraph):
             "is_force_refresh_generated_answer_relevancy_grade"]
         if is_generated_hallucination_grade_hash_exist is False or is_force_refresh_generated_answer_relevancy_grade is True:
             prompt: PromptTemplate = PromptTemplate(
-                template="""Instruction: Assess whether an Large Language Model generated answer resolves a question. Give one binary score of "True" or "False". "True" means that the answer resolves the question. "False" means that the answer does not resolve the question.
-                Question: {question}
-                Generated Answer: {generated_answer}
+                template="""
+                <instruction>
+                Assess whether an Large Language Model generated answer resolves a question. Give one binary score of "True" or "False". "True" means that the answer resolves the question. "False" means that the answer does not resolve the question.
+                <instruction/>
+                <question>
+                {{ question }}
+                <question/>
+                <answer>
+                {{ answer }}
+                <answer/>
                 """,
-                input_variables=["generated_answer", "question"]
+                template_format="jinja2",
+                input_variables=["question", "answer"]
             )
             text: str = prompt.format(
-                generated_answer=input_state["generated_answer"],
-                question=input_state["question"]
+                question=input_state["question"],
+                answer=input_state["generated_answer"],
             )
             messages: List[BaseMessage] = [
                 HumanMessage(
@@ -260,19 +270,12 @@ class LongFormQaGraph(PassageSearchGraph):
                     ]
                 )
             ]
-            llm_model: BaseChatModel = input_state["llm_setting"]["model"]
-            if isinstance(llm_model, ChatAnthropic):
-                tool_parser = ToolsOutputParser(
-                    pydantic_schemas=[GradeTool]
-                )
-            elif isinstance(llm_model, ChatOpenAI):
-                tool_parser = PydanticToolsParser(
-                    tools=[GradeTool]
-                )
-            else:
-                raise use_case_exception.LlmProviderNotSupported()
-
-            chain: RunnableSerializable = llm_model.bind_tools(tools=[GradeTool]) | tool_parser
+            llm_model: ChatLiteLLM = input_state["llm_setting"]["model"]
+            tool_parser: PydanticToolsParser = PydanticToolsParser(
+                tools=[GradeTool]
+            )
+            chain: RunnableSerializable = llm_model.bind_tools(tools=tool_parser.tools,
+                                                               tool_choice="required") | tool_parser
             generated_tools: List[GradeTool] = await chain.ainvoke(
                 input=messages
             )
@@ -292,7 +295,7 @@ class LongFormQaGraph(PassageSearchGraph):
 
         return output_state
 
-    def _get_generated_answer_relevancy_grade_hash(
+    def get_generated_answer_relevancy_grade_hash(
             self,
             question: str,
             generated_answer_hash: str,
@@ -344,7 +347,7 @@ class LongFormQaGraph(PassageSearchGraph):
     async def node_transform_question(self, input_state: LongFormQaGraphState) -> LongFormQaGraphState:
         output_state: LongFormQaGraphState = input_state
 
-        generated_question_hash: str = self._get_transformed_question_hash(
+        generated_question_hash: str = self.get_transformed_question_hash(
             question=input_state["question"]
         )
         existing_generated_question_hash: int = await self.two_datastore.async_client.exists(
@@ -361,8 +364,14 @@ class LongFormQaGraph(PassageSearchGraph):
             "is_force_refresh_generated_question"]
         if is_generated_question_exist is False or is_force_refresh_generated_question is True:
             prompt: PromptTemplate = PromptTemplate(
-                template="""Instruction: Converts the question to a better version that is optimized for vector store retrieval. Observe the question and try to reason about underlying semantics. Ensure the output is only the question without re-explain the instruction.
-                Question: {question}""",
+                template="""
+                <instruction>
+                Converts the question to a better version that is optimized for vector store retrieval. Observe the question and try to reason about underlying semantics. Ensure the output is only the question without re-explain the instruction.
+                <instruction/>
+                <question>
+                {question}
+                <question/>
+                """,
                 input_variables=["question"]
             )
             text: str = prompt.format(
@@ -378,7 +387,7 @@ class LongFormQaGraph(PassageSearchGraph):
                     ]
                 )
             ]
-            llm_model: BaseChatModel = input_state["llm_setting"]["model"]
+            llm_model: ChatLiteLLM = input_state["llm_setting"]["model"]
             chain: RunnableSerializable = llm_model | StrOutputParser()
             generated_question: str = await chain.ainvoke(
                 input=messages
@@ -398,7 +407,7 @@ class LongFormQaGraph(PassageSearchGraph):
 
         return output_state
 
-    def _get_transformed_question_hash(
+    def get_transformed_question_hash(
             self,
             question: str,
     ) -> str:

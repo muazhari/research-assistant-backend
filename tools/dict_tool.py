@@ -1,20 +1,6 @@
 from typing import Dict, Any, Union, List
 
 
-def replace_end_value_to_string(d: Dict[Any, Any]) -> Dict[Any, Any]:
-    replaced_dict: Dict[Any, Any] = {}
-    for key in d.keys():
-        value: Any = d[key]
-        if isinstance(value, Dict):
-            replaced_dict[key] = replace_end_value_to_string(value)
-        elif isinstance(value, List):
-            replaced_dict[key] = list(map(replace_end_value_to_string, value))
-        else:
-            replaced_dict[key] = str(value)
-
-    return replaced_dict
-
-
 def filter_by_keys(d: Dict[Any, Any], keys: Union[List[Any] | Any]) -> Dict[Any, Any]:
     if not isinstance(d, Dict):
         return d

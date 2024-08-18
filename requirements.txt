@@ -8,7 +8,7 @@ sqlmodel
 asyncpg
 python-dotenv
 txtmarker
-dependency-injector
+dependency-injector>=4.42.0b1
 langchain
 bcrypt
 redis
@@ -29,3 +29,4 @@ opencv-python>=4.8.0.76
 more-itertools
 pdfkit
 tf-keras
+peft

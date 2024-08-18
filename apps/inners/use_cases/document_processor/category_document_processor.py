@@ -4,8 +4,8 @@ import uuid
 from typing import List, Tuple, Optional, Dict, Any
 
 import more_itertools
+from langchain_community.chat_models import ChatLiteLLM
 from langchain_core.documents import Document
-from langchain_core.language_models import BaseChatModel
 from unstructured.chunking.basic import chunk_elements
 from unstructured.documents.elements import Element, Text, NarrativeText, Table, Image, ListItem
 
@@ -57,7 +57,7 @@ class CategoryDocumentProcessor:
     async def get_categorized_documents(
             self,
             categorized_elements: ElementCategory,
-            summarization_model: BaseChatModel,
+            summarization_model: ChatLiteLLM,
             is_include_table: bool = False,
             is_include_image: bool = False,
             chunk_size: int = 400,

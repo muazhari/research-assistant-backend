@@ -22,11 +22,11 @@ class AuthorizationMiddleware(BaseHTTPMiddleware):
         super().__init__(app)
         self.session_management: SessionManagement = session_management
         self.unauthorized_path_patterns = [
-            ".*\/docs.*",
-            ".*\/openapi.json.*",
-            ".*\/authentications\/logins.*",
-            ".*\/authentications\/registers.*",
-            ".*\/authorizations\/refreshes.*"
+            r".*\/docs.*",
+            r".*\/openapi.json.*",
+            r".*\/authentications\/logins.*",
+            r".*\/authentications\/registers.*",
+            r".*\/authorizations\/refreshes.*"
         ]
 
     def is_unauthorized_path(self, path: str) -> bool:

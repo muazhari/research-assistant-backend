@@ -54,8 +54,8 @@ class PartitionDocumentProcessor:
 
         return output_file_data
 
-    async def _partition_file(self, state: State, found_document: Document,
-                              partition_strategy: str = PartitionStrategy.AUTO) -> List[Element]:
+    async def partition_file(self, state: State, found_document: Document,
+                             partition_strategy: str = PartitionStrategy.AUTO) -> List[Element]:
         found_file_document: FileDocumentResponse = await self.file_document_management.find_one_by_id_with_authorization(
             state=state,
             id=found_document.id
@@ -76,7 +76,7 @@ class PartitionDocumentProcessor:
 
         return elements
 
-    async def _partition_text(self, state: State, found_document: Document) -> List[Element]:
+    async def partition_text(self, state: State, found_document: Document) -> List[Element]:
         found_text_document: TextDocumentResponse = await self.text_document_management.find_one_by_id_with_authorization(
             state=state,
             id=found_document.id
@@ -87,7 +87,7 @@ class PartitionDocumentProcessor:
 
         return elements
 
-    async def _partition_web(self, state: State, found_document: Document) -> List[Element]:
+    async def partition_web(self, state: State, found_document: Document) -> List[Element]:
         found_web_document: WebDocumentResponse = await self.web_document_management.find_one_by_id_with_authorization(
             state=state,
             id=found_document.id
@@ -105,18 +105,18 @@ class PartitionDocumentProcessor:
             id=document_id
         )
         if found_document.document_type_id == DocumentTypeConstant.FILE:
-            elements: List[Element] = await self._partition_file(
+            elements: List[Element] = await self.partition_file(
                 state=state,
                 found_document=found_document,
                 partition_strategy=file_partition_strategy
             )
         elif found_document.document_type_id == DocumentTypeConstant.TEXT:
-            elements: List[Element] = await self._partition_text(
+            elements: List[Element] = await self.partition_text(
                 state=state,
                 found_document=found_document
             )
         elif found_document.document_type_id == DocumentTypeConstant.WEB:
-            elements: List[Element] = await self._partition_web(
+            elements: List[Element] = await self.partition_web(
                 state=state,
                 found_document=found_document
             )

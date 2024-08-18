@@ -3,10 +3,9 @@ import pickle
 from typing import Dict, List, Any, Optional, Coroutine
 from uuid import UUID
 
-from langchain_anthropic import ChatAnthropic
-from langchain_openai import ChatOpenAI
+import litellm
+from langchain_community.chat_models import ChatLiteLLM
 from langgraph.graph import StateGraph
-from litellm import Router
 from starlette.datastructures import State
 from unstructured.documents.elements import Element
 
@@ -43,53 +42,19 @@ class PreparationGraph:
         self.two_datastore = two_datastore
         self.partition_document_processor = partition_document_processor
         self.category_document_processor = category_document_processor
-        self.compiled_graph = self._compile()
+        self.compiled_graph = self.compile()
 
     def node_get_llm_model(self, input_state: PreparationGraphState) -> PreparationGraphState:
         output_state: PreparationGraphState = input_state
 
-        model_list: List[Dict] = [
-            {
-                "model_name": "claude-3-5-sonnet-20240620",
-                "litellm_params": {
-                    "model": "claude-3-5-sonnet-20240620",
-                    "api_key": self.one_llm_setting.LLM_ONE_ANTHROPIC_API_KEY_ONE,
-                    "provider": "anthropic"
-                }
-            },
-            {
-                "model_name": "gpt-4o",
-                "litellm_params": {
-                    "model": "gpt-4o",
-                    "api_key": self.two_llm_setting.LLM_TWO_OPENAI_API_KEY_ONE,
-                    "provider": "openai"
-                }
-            }
-        ]
-        router: Router = Router(model_list=model_list)
-        deployment: Dict[str, Any] = router.get_available_deployment(
-            model=input_state["llm_setting"]["model_name"]
+        litellm.anthropic_key = self.one_llm_setting.LLM_ONE_ANTHROPIC_API_KEY_ONE
+        litellm.openai_key = self.two_llm_setting.LLM_TWO_OPENAI_API_KEY_ONE
+        llm_model: ChatLiteLLM = ChatLiteLLM(
+            model=input_state["llm_setting"]["model_name"],
+            max_tokens=input_state["llm_setting"]["max_token"],
+            streaming=True,
+            temperature=0
         )
-        provider: str = deployment["litellm_params"]["provider"]
-        if provider == "anthropic":
-            llm_model: ChatAnthropic = ChatAnthropic(
-                anthropic_api_key=deployment["litellm_params"]["api_key"],
-                model=deployment["litellm_params"]["model"],
-                max_tokens=input_state["llm_setting"]["max_token"],
-                streaming=True,
-                temperature=0
-            )
-        elif provider == "openai":
-            llm_model: ChatOpenAI = ChatOpenAI(
-                openai_api_key=deployment["litellm_params"]["api_key"],
-                model=deployment["litellm_params"]["model"],
-                max_tokens=input_state["llm_setting"]["max_token"],
-                streaming=True,
-                temperature=0
-            )
-        else:
-            raise use_case_exception.LlmProviderNotSupported()
-
         output_state["llm_setting"]["model"] = llm_model
 
         return output_state
@@ -98,12 +63,12 @@ class PreparationGraph:
                                                    document_id: UUID) -> PreparationGraphState:
         output_state: PreparationGraphState = input_state
 
-        categorized_element_hash: str = await self._get_categorized_element_hash(
+        categorized_element_hash: str = await self.get_categorized_element_hash(
             state=input_state["state"],
             document_id=document_id,
             file_partition_strategy=input_state["preprocessor_setting"]["file_partition_strategy"]
         )
-        categorized_document_hash: str = self._get_categorized_document_hash(
+        categorized_document_hash: str = self.get_categorized_document_hash(
             categorized_element_hash=categorized_element_hash,
             summarization_model_name=input_state["llm_setting"]["model_name"],
             is_include_tables=input_state["preprocessor_setting"]["is_include_table"],
@@ -211,7 +176,7 @@ class PreparationGraph:
 
         return output_state
 
-    async def _get_categorized_element_hash(
+    async def get_categorized_element_hash(
             self,
             state: State,
             document_id: UUID,
@@ -253,7 +218,7 @@ class PreparationGraph:
 
         return hashed_data
 
-    def _get_categorized_document_hash(
+    def get_categorized_document_hash(
             self,
             categorized_element_hash: str,
             summarization_model_name: str,
@@ -275,7 +240,7 @@ class PreparationGraph:
 
         return hashed_data
 
-    def _compile(self):
+    def compile(self):
         graph: StateGraph = StateGraph(PreparationGraphState)
 
         graph.add_node(

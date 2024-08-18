@@ -1,9 +1,9 @@
 from typing import TypedDict, List, Union, Optional, Dict
 from uuid import UUID
 
+from langchain_community.chat_models import ChatLiteLLM
 from langchain_community.storage.redis import RedisStore
 from langchain_core.documents import Document
-from langchain_core.language_models import BaseChatModel
 from starlette.datastructures import State
 
 from apps.inners.models.dtos.document_category import DocumentCategory
@@ -14,7 +14,7 @@ from apps.inners.use_cases.vector_stores.base_milvus_vector_store import BaseMil
 class LlmSettingState(TypedDict):
     model_name: str
     max_token: int
-    model: Optional[Union[BaseChatModel]]
+    model: Optional[ChatLiteLLM]
 
 
 class PreprocessorSettingState(TypedDict):

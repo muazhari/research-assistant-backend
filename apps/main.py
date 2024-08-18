@@ -1,14 +1,35 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, Depends
 from starlette.middleware.cors import CORSMiddleware
 
 from apps.container import application_container
+from apps.inners.use_cases.graphs.passage_search_graph import PassageSearchGraph
 from apps.outers.interfaces.deliveries.middlewares.authorization_middleware import AuthorizationMiddleware
 from apps.outers.interfaces.deliveries.middlewares.session_middleware import SessionMiddleware
+from tools import cache_tool
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    passage_search_graph: PassageSearchGraph = app.container.use_cases.graphs.passage_search()
+    cache_tool.set_cache(
+        key="embedding_model/BAAI/bge-m3",
+        value=passage_search_graph.get_bge_m3_embedding_model(model_name="BAAI/bge-m3")
+    )
+    cache_tool.set_cache(
+        key="reranker_model/BAAI/bge-reranker-v2-m3",
+        value=passage_search_graph.get_reranker_model(model_name="BAAI/bge-reranker-v2-m3")
+    )
+    yield
+    cache_tool.delete_cache()
+
 
 app: FastAPI = FastAPI(
     title="research-assistant-backend",
     version="0.0.2",
-    dependencies=[Depends(application_container.routers.security())]
+    dependencies=[Depends(application_container.routers.security())],
+    lifespan=lifespan
 )
 
 app.container = application_container

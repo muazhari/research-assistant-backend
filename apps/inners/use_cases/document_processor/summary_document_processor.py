@@ -1,6 +1,6 @@
 from typing import List
 
-from langchain_core.language_models import BaseChatModel
+from langchain_community.chat_models import ChatLiteLLM
 from langchain_core.messages import BaseMessage, HumanMessage
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
@@ -10,10 +10,16 @@ from unstructured.documents.elements import Table, Image
 
 class SummaryDocumentProcessor:
 
-    async def summarize_tables(self, tables: List[Table], llm_model: BaseChatModel) -> List[str]:
+    async def summarize_tables(self, tables: List[Table], llm_model: ChatLiteLLM) -> List[str]:
         prompt: PromptTemplate = PromptTemplate(
-            template="""Instruction: Give a concise passage summary of the table that is well optimized for retrieval. These summary will be embedded and used to retrieve the table. Ensure the output does not re-explain the instruction.
-            Table: {table}""",
+            template="""
+            <instruction>
+            Give a concise passage summary of the table that is well optimized for retrieval. These summary will be embedded and used to retrieve the table. Ensure the output does not re-explain the instruction.
+            <instruction/>
+            <table>
+            {table}
+            <table/>
+            """,
             input_variables=["table"]
         )
 
@@ -41,7 +47,7 @@ class SummaryDocumentProcessor:
 
         return generated_summaries
 
-    async def summarize_images(self, images: List[Image], llm_model: BaseChatModel) -> List[str]:
+    async def summarize_images(self, images: List[Image], llm_model: ChatLiteLLM) -> List[str]:
         prompt = """Instruction: Give a concise passage summary of the image that is well optimized for retrieval. These summary will be embedded and used to retrieve the image. Ensure the output does not re-explain the instruction.
         Image:"""
         batch_messages: List[List[BaseMessage]] = []

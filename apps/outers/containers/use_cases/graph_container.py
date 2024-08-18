@@ -12,7 +12,6 @@ class GraphContainer(DeclarativeContainer):
 
     passage_search = providers.Singleton(
         PassageSearchGraph,
-        one_embedding_setting=settings.one_embedding,
         one_llm_setting=settings.one_llm,
         two_llm_setting=settings.two_llm,
         two_datastore=datastores.two,
@@ -23,7 +22,6 @@ class GraphContainer(DeclarativeContainer):
 
     long_form_qa = providers.Singleton(
         LongFormQaGraph,
-        one_embedding_setting=settings.one_embedding,
         one_llm_setting=settings.one_llm,
         two_llm_setting=settings.two_llm,
         two_datastore=datastores.two,

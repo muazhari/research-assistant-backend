@@ -3,7 +3,6 @@ import pickle
 from typing import Dict, List, Any, Optional, Tuple
 from uuid import UUID
 
-from langchain_community.embeddings.infinity import InfinityEmbeddings
 from langchain_community.storage.redis import RedisStore
 from langchain_core.documents import Document
 from langgraph.graph import StateGraph
@@ -13,52 +12,39 @@ from apps.inners.exceptions import use_case_exception
 from apps.inners.models.dtos.document_category import DocumentCategory
 from apps.inners.models.dtos.graph_state import PassageSearchGraphState
 from apps.inners.use_cases.embeddings.bge_m3_embedding import BgeM3Embedding
-from apps.inners.use_cases.embeddings.hugging_face_e5_instruct_embedding import HuggingFaceE5InstructEmbedding
 from apps.inners.use_cases.graphs.preparation_graph import PreparationGraph
 from apps.inners.use_cases.rerankers.base_reranker import BaseReranker
 from apps.inners.use_cases.rerankers.bge_reranker import BgeReranker
 from apps.inners.use_cases.retrievers.hybrid_milvus_retriever import HybridMilvusRetriever
 from apps.inners.use_cases.vector_stores.base_milvus_vector_store import BaseMilvusVectorStore
 from apps.inners.use_cases.vector_stores.bge_m3_milvus_vector_store import BgeM3MilvusVectorStore
-from apps.inners.use_cases.vector_stores.infinity_milvus_vector_store import InfinityMilvusVectorStore
 from apps.outers.datastores.four_datastore import FourDatastore
-from apps.outers.settings.one_embedding_setting import OneEmbeddingSetting
 from tools import cache_tool
 
 
 class PassageSearchGraph(PreparationGraph):
     def __init__(
             self,
-            one_embedding_setting: OneEmbeddingSetting,
             four_datastore: FourDatastore,
             *args: Any,
             **kwargs: Any
     ):
         super().__init__(*args, **kwargs)
-        self.one_embedding_setting = one_embedding_setting
         self.four_datastore = four_datastore
-        self.compiled_graph: CompiledGraph = self._compile()
+        self.compiled_graph: CompiledGraph = self.compile()
 
-    def _get_embedding_query(self, embedding_model_name: str, question: str,
-                             query_instruction: Optional[str] = None) -> str:
+    def get_embedding_query(self, embedding_model_name: str, question: str,
+                            query_instruction: Optional[str] = None) -> str:
         if embedding_model_name == "BAAI/bge-m3":
             query: str = question
-        elif embedding_model_name == "intfloat/multilingual-e5-large-instruct":
-            if query_instruction is None:
-                raise use_case_exception.QueryInstructionNotProvided()
-
-            query: str = HuggingFaceE5InstructEmbedding.get_detailed_instruct(
-                task_description=query_instruction,
-                query=question
-            )
         else:
             raise use_case_exception.EmbeddingModelNameNotSupported()
 
         return query
 
-    @cache_tool.cacher(args_include_keys=[])
-    def _get_bge_m3_embedding_model(self) -> BgeM3Embedding:
+    def get_bge_m3_embedding_model(self, model_name: str) -> BgeM3Embedding:
         embedding_model: BgeM3Embedding = BgeM3Embedding(
+            model_name=model_name,
             use_fp16=False,
             normalize_embeddings=False,
             return_colbert_vecs=False,
@@ -66,22 +52,16 @@ class PassageSearchGraph(PreparationGraph):
 
         return embedding_model
 
-    def _get_vector_store(self, embedding_model_name: str, collection_name: str, alias: str) -> BaseMilvusVectorStore:
-        if embedding_model_name == "BAAI/bge-m3":
-            embedding_model: BgeM3Embedding = self._get_bge_m3_embedding_model()
+    def get_vector_store(self, embedding_model_name: str, collection_name: str, alias: str) -> BaseMilvusVectorStore:
+        if embedding_model_name.startswith("BAAI/bge-m3"):
+            embedding_model: BgeM3Embedding = cache_tool.get_cache(
+                key=f"embedding_model/{embedding_model_name}",
+                default_func=lambda: self.get_bge_m3_embedding_model(
+                    model_name=embedding_model_name
+                )
+            )
             vector_store: BgeM3MilvusVectorStore = BgeM3MilvusVectorStore(
                 embedding_model=embedding_model,
-                alias=alias,
-                collection_name=collection_name,
-            )
-        elif embedding_model_name == "intfloat/multilingual-e5-large-instruct":
-            embedding_model: InfinityEmbeddings = InfinityEmbeddings(
-                model=embedding_model_name,
-                infinity_api_url=self.one_embedding_setting.URL,
-            )
-            vector_store: InfinityMilvusVectorStore = InfinityMilvusVectorStore(
-                embedding_model=embedding_model,
-                embedding_dimension=1024,
                 alias=alias,
                 collection_name=collection_name,
             )
@@ -157,11 +137,11 @@ class PassageSearchGraph(PreparationGraph):
             client=self.two_datastore.sync_client
         )
         output_state["retriever_setting"]["document_store"] = document_store
-        collection_name: str = self._get_collection_name_hash(
+        collection_name: str = self.get_collection_name_hash(
             categorized_document_hashes=input_state["categorized_document_hashes"],
             embedding_model_name=input_state["embedder_setting"]["model_name"]
         )
-        vector_store: BaseMilvusVectorStore = self._get_vector_store(
+        vector_store: BaseMilvusVectorStore = self.get_vector_store(
             embedding_model_name=input_state["embedder_setting"]["model_name"],
             collection_name=collection_name,
             alias=self.four_datastore.alias
@@ -180,7 +160,7 @@ class PassageSearchGraph(PreparationGraph):
 
         return output_state
 
-    def _get_collection_name_hash(self, categorized_document_hashes: Dict[UUID, str], embedding_model_name: str) -> str:
+    def get_collection_name_hash(self, categorized_document_hashes: Dict[UUID, str], embedding_model_name: str) -> str:
         modified_categorized_document_hashes: Dict[str, str] = {}
         for document_id, categorized_document_hash in categorized_document_hashes.items():
             modified_categorized_document_hashes[str(document_id)] = categorized_document_hash
@@ -198,7 +178,7 @@ class PassageSearchGraph(PreparationGraph):
     async def node_get_relevant_documents(self, input_state: PassageSearchGraphState) -> PassageSearchGraphState:
         output_state: PassageSearchGraphState = input_state
 
-        query: str = self._get_embedding_query(
+        query: str = self.get_embedding_query(
             embedding_model_name=input_state["embedder_setting"]["model_name"],
             query_instruction=input_state["embedder_setting"]["query_instruction"],
             question=input_state["question"]
@@ -214,7 +194,7 @@ class PassageSearchGraph(PreparationGraph):
             }
         )
         output_state["retriever_setting"]["retriever"] = retriever
-        relevant_document_hash: str = self._get_relevant_document_hash(
+        relevant_document_hash: str = self.get_relevant_document_hash(
             top_k=input_state["retriever_setting"]["top_k"],
             collection_name=retriever.vector_store.collection_name,
             query=query,
@@ -247,7 +227,7 @@ class PassageSearchGraph(PreparationGraph):
 
         return output_state
 
-    def _get_relevant_document_hash(self, top_k: int, collection_name: str, query: str) -> str:
+    def get_relevant_document_hash(self, top_k: int, collection_name: str, query: str) -> str:
         data: Dict[str, Any] = {
             "top_k": top_k,
             "collection_name": collection_name,
@@ -260,7 +240,7 @@ class PassageSearchGraph(PreparationGraph):
 
         return hashed_data
 
-    def _get_reranker_model(self, model_name: str) -> BaseReranker:
+    def get_reranker_model(self, model_name: str) -> BaseReranker:
         if model_name.startswith("BAAI/bge-reranker"):
             model: BgeReranker = BgeReranker(
                 model_name=model_name
@@ -274,7 +254,7 @@ class PassageSearchGraph(PreparationGraph):
         output_state: PassageSearchGraphState = input_state
 
         relevant_document_hash: str = input_state["relevant_document_hash"]
-        re_ranked_document_hash: str = self._get_re_ranked_document_hash(
+        re_ranked_document_hash: str = self.get_re_ranked_document_hash(
             relevant_document_hash=relevant_document_hash,
             reranker_model_name=input_state["reranker_setting"]["model_name"],
             top_k=input_state["reranker_setting"]["top_k"]
@@ -291,8 +271,11 @@ class PassageSearchGraph(PreparationGraph):
             "is_force_refresh_re_ranked_document"]
         if is_re_ranked_document_exist is False or is_force_refresh_re_ranked_document is True:
             relevant_documents: List[Document] = input_state["relevant_documents"]
-            reranker_model: BaseReranker = self._get_reranker_model(
-                model_name=input_state["reranker_setting"]["model_name"]
+            reranker_model: BaseReranker = cache_tool.get_cache(
+                key=f"reranker_model/{input_state['reranker_setting']['model_name']}",
+                default_func=lambda: self.get_reranker_model(
+                    model_name=input_state["reranker_setting"]["model_name"]
+                )
             )
             texts: List[str] = [document.page_content for document in relevant_documents]
             re_ranked_results: List[Dict[str, Any]] = []
@@ -334,7 +317,7 @@ class PassageSearchGraph(PreparationGraph):
 
         return output_state
 
-    def _get_re_ranked_document_hash(
+    def get_re_ranked_document_hash(
             self,
             relevant_document_hash: str,
             reranker_model_name: str,
@@ -352,7 +335,7 @@ class PassageSearchGraph(PreparationGraph):
 
         return hashed_data
 
-    def _compile(self) -> CompiledGraph:
+    def compile(self) -> CompiledGraph:
         graph: StateGraph = StateGraph(PassageSearchGraphState)
 
         graph.add_node(

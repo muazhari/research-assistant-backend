@@ -29,7 +29,7 @@ async def test__process__should_processed__succeed(main_context: MainContext):
         input_setting=InputSettingBody(
             document_ids=[selected_session_fake.id for selected_session_fake in selected_document_fakes],
             llm_setting=LlmSetting(
-                model_name="gpt-4o",
+                model_name="gpt-4o-mini",
                 max_token=500
             ),
             preprocessor_setting=PreprocessorSetting(

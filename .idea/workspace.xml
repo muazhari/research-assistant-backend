@@ -5,235 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fd6195-a3ea-473d-b9fc-8c9823b15103" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/research-assistant-backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/research-assistant-backend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.coverage" beforeDir="false" afterPath="$PROJECT_DIR$/.coverage" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inners/models/dtos/element_category.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/models/dtos/element_category.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/models/dtos/graph_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/models/dtos/graph_state.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/category_document_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/category_document_processor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/partition_document_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/partition_document_processor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/summary_document_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/document_processor/summary_document_processor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/embeddings/hugging_face_e5_instruct_embedding.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/graphs/long_form_qa_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/graphs/long_form_qa_graph.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/graphs/passage_search_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/graphs/passage_search_graph.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/graphs/preparation_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/graphs/preparation_graph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/rerankers/bge_reranker.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inners/use_cases/rerankers/bge_reranker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inners/use_cases/vector_stores/infinity_milvus_vector_store.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/containers/setting_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/containers/setting_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/containers/use_cases/graph_container.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/containers/use_cases/graph_container.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/interfaces/deliveries/middlewares/authorization_middleware.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/outers/interfaces/deliveries/middlewares/authorization_middleware.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/outers/settings/one_embedding_setting.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/class_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/class_index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/coverage_html.js" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/coverage_html.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/coverage_html_cb_da166b87.js" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/coverage_html_cb_da166b87.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_0179f68188502b38___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_0179f68188502b38___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_059294d3b281d453___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_059294d3b281d453___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_059294d3b281d453_process_response_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_059294d3b281d453_process_response_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_0d5ee41874877732___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_0d5ee41874877732___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_0d5ee41874877732_base_dto_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_0d5ee41874877732_base_dto_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_0d5ee41874877732_content_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_0d5ee41874877732_content_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_0d5ee41874877732_document_category_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_0d5ee41874877732_document_category_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_0d5ee41874877732_element_category_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_0d5ee41874877732_element_category_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_0d5ee41874877732_graph_state_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_0d5ee41874877732_graph_state_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_1809d6f0f531dcbc___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_1809d6f0f531dcbc___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_1809d6f0f531dcbc_input_setting_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_1809d6f0f531dcbc_input_setting_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_1809d6f0f531dcbc_process_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_1809d6f0f531dcbc_process_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_1936ea185de7fc32___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_1936ea185de7fc32___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_1936ea185de7fc32_input_setting_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_1936ea185de7fc32_input_setting_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_1936ea185de7fc32_process_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_1936ea185de7fc32_process_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26_account_repository_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26_account_repository_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26_document_process_repository_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26_document_process_repository_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26_document_repository_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26_document_repository_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26_document_type_repository_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26_document_type_repository_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26_file_document_repository_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26_file_document_repository_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26_session_repository_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26_session_repository_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26_text_document_repository_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26_text_document_repository_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26_web_document_repository_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_19c29315c856ab26_web_document_repository_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_1cae6cd04d8ec7a8___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_1cae6cd04d8ec7a8___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_1cae6cd04d8ec7a8_login_response_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_1cae6cd04d8ec7a8_login_response_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_2200583d261e66a3___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_2200583d261e66a3___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_2200583d261e66a3_hybrid_milvus_retriever_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_2200583d261e66a3_hybrid_milvus_retriever_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_26e93dd761911da3___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_26e93dd761911da3___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_26e93dd761911da3_create_one_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_26e93dd761911da3_create_one_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_26e93dd761911da3_patch_one_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_26e93dd761911da3_patch_one_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_28804d8e48e9318a___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_28804d8e48e9318a___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_28804d8e48e9318a_base_request_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_28804d8e48e9318a_base_request_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_2d0e995608607074___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_2d0e995608607074___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_2d0e995608607074_long_form_qa_graph_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_2d0e995608607074_long_form_qa_graph_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_2d0e995608607074_passage_search_graph_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_2d0e995608607074_passage_search_graph_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_2d0e995608607074_preparation_graph_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_2d0e995608607074_preparation_graph_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_37eac0f7cee7515d___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_37eac0f7cee7515d___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_37eac0f7cee7515d_file_document_response_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_37eac0f7cee7515d_file_document_response_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_37eac0f7cee7515d_text_document_response_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_37eac0f7cee7515d_text_document_response_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_37eac0f7cee7515d_web_document_response_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_37eac0f7cee7515d_web_document_response_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_3909fcd1e2fe4e05___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_3909fcd1e2fe4e05___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_3909fcd1e2fe4e05_base_milvus_vector_store_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_3909fcd1e2fe4e05_base_milvus_vector_store_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_3909fcd1e2fe4e05_bge_m3_milvus_vector_store_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_3909fcd1e2fe4e05_bge_m3_milvus_vector_store_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_3909fcd1e2fe4e05_infinity_milvus_vector_store_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_3909fcd1e2fe4e05_infinity_milvus_vector_store_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_448f0ef00eccf7f4___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_448f0ef00eccf7f4___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_4ef870c9475f0390___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_4ef870c9475f0390___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_4ef870c9475f0390_base_client_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_4ef870c9475f0390_base_client_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_52abc0b7b15d4805___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_52abc0b7b15d4805___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_52abc0b7b15d4805_streamlit_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_52abc0b7b15d4805_streamlit_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_5343c87a02df5f31___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_5343c87a02df5f31___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_5d0d189039034b9f___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_5d0d189039034b9f___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_5f6241be04e85cd1___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_5f6241be04e85cd1___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_62044d921eb9f27f___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_62044d921eb9f27f___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_6476fa5179d72046___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_6476fa5179d72046___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_6476fa5179d72046_process_long_form_qa_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_6476fa5179d72046_process_long_form_qa_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_6d1013a0d4d8e029___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_6d1013a0d4d8e029___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_6d1013a0d4d8e029_refresh_access_token_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_6d1013a0d4d8e029_refresh_access_token_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_6e35beab90be5c5c___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_6e35beab90be5c5c___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_6e35beab90be5c5c_create_one_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_6e35beab90be5c5c_create_one_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_6e35beab90be5c5c_patch_one_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_6e35beab90be5c5c_patch_one_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_7411cd2779c1a6c1___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_7411cd2779c1a6c1___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_7411cd2779c1a6c1_api_router_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_7411cd2779c1a6c1_api_router_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_790a8b7cfb39a3b7___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_790a8b7cfb39a3b7___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_790a8b7cfb39a3b7_base_embedding_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_790a8b7cfb39a3b7_base_embedding_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_790a8b7cfb39a3b7_bge_m3_embedding_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_790a8b7cfb39a3b7_bge_m3_embedding_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_790a8b7cfb39a3b7_hugging_face_e5_instruct_embedding_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_790a8b7cfb39a3b7_hugging_face_e5_instruct_embedding_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_800b29d278da68e6___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_800b29d278da68e6___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_803d5159a50bb580___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_803d5159a50bb580___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_86ddc3f33cad7f21___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_86ddc3f33cad7f21___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_86ddc3f33cad7f21_four_datastore_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_86ddc3f33cad7f21_four_datastore_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_86ddc3f33cad7f21_one_datastore_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_86ddc3f33cad7f21_one_datastore_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_86ddc3f33cad7f21_temp_datastore_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_86ddc3f33cad7f21_temp_datastore_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_86ddc3f33cad7f21_three_datastore_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_86ddc3f33cad7f21_three_datastore_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_86ddc3f33cad7f21_two_datastore_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_86ddc3f33cad7f21_two_datastore_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_8b86184c233b066d___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_8b86184c233b066d___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_8b9ad97910925fc8___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_8b9ad97910925fc8___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_8d0d172be8fe823b___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_8d0d172be8fe823b___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_8eb08c1e4dcbf1f5___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_8eb08c1e4dcbf1f5___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_9507b780701a3647___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_9507b780701a3647___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_9507b780701a3647_annotater_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_9507b780701a3647_annotater_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_9507b780701a3647_search_statistic_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_9507b780701a3647_search_statistic_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_9e189ee61a034fc9___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_9e189ee61a034fc9___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_9e189ee61a034fc9_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_9e189ee61a034fc9_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_9e189ee61a034fc9_main_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_9e189ee61a034fc9_main_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_9fb735680cd18936___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_9fb735680cd18936___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_9fb735680cd18936_base_response_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_9fb735680cd18936_base_response_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_a91c2f3fb6c63a51___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_a91c2f3fb6c63a51___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_a91c2f3fb6c63a51_register_by_email_and_password_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_a91c2f3fb6c63a51_register_by_email_and_password_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0_account_management_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0_account_management_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0_document_management_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0_document_management_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0_document_process_management_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0_document_process_management_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0_document_type_management_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0_document_type_management_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0_file_document_management_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0_file_document_management_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0_session_management_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0_session_management_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0_text_document_management_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0_text_document_management_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0_web_document_management_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_a93345e206ab77e0_web_document_management_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_aa5554978f34d115___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_aa5554978f34d115___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_ad3d5484de299c5b___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_ad3d5484de299c5b___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_b0831858d018b94f___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_b0831858d018b94f___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_b0831858d018b94f_logout_response_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_b0831858d018b94f_logout_response_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_b46e4c6a685523d2___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_b46e4c6a685523d2___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_b46e4c6a685523d2_process_response_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_b46e4c6a685523d2_process_response_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_b58c305a85796381___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_b58c305a85796381___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_b58c305a85796381_register_response_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_b58c305a85796381_register_response_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_b8390c665bed7346___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_b8390c665bed7346___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_b8390c665bed7346_libre_office_document_converter_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_b8390c665bed7346_libre_office_document_converter_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_b8390c665bed7346_marker_document_converter_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_b8390c665bed7346_marker_document_converter_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_b97aaec6b9e220bb___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_b97aaec6b9e220bb___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_b97aaec6b9e220bb_authorization_middleware_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_b97aaec6b9e220bb_authorization_middleware_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_b97aaec6b9e220bb_session_middleware_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_b97aaec6b9e220bb_session_middleware_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_b97aaec6b9e220bb_wrapper_middleware_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_b97aaec6b9e220bb_wrapper_middleware_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_bb55eeac8420ac09___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_bb55eeac8420ac09___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_bb55eeac8420ac09_create_one_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_bb55eeac8420ac09_create_one_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_bb55eeac8420ac09_patch_one_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_bb55eeac8420ac09_patch_one_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_bb5dded9cc06e0ae___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_bb5dded9cc06e0ae___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_bb5dded9cc06e0ae_base_reranker_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_bb5dded9cc06e0ae_base_reranker_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_bb5dded9cc06e0ae_bge_reranker_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_bb5dded9cc06e0ae_bge_reranker_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c166909959109533___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c166909959109533___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c166909959109533_authentication_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c166909959109533_authentication_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c166909959109533_authorization_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c166909959109533_authorization_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c166909959109533_document_converter_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c166909959109533_document_converter_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c166909959109533_document_processor_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c166909959109533_document_processor_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c166909959109533_graph_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c166909959109533_graph_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c166909959109533_long_form_qa_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c166909959109533_long_form_qa_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c166909959109533_management_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c166909959109533_management_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c166909959109533_passage_search_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c166909959109533_passage_search_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c166909959109533_utility_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c166909959109533_utility_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c2214e39846b3042___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c2214e39846b3042___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c2214e39846b3042_login_authentication_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c2214e39846b3042_login_authentication_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c2214e39846b3042_logout_authentication_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c2214e39846b3042_logout_authentication_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c2214e39846b3042_register_authentication_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c2214e39846b3042_register_authentication_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c291ebf028062d2b___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c291ebf028062d2b___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c291ebf028062d2b_session_authorization_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c291ebf028062d2b_session_authorization_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c417eb8598b0a700___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c417eb8598b0a700___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c667f172f80fa671___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c667f172f80fa671___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c667f172f80fa671_category_document_processor_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c667f172f80fa671_category_document_processor_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c667f172f80fa671_partition_document_processor_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c667f172f80fa671_partition_document_processor_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c667f172f80fa671_summary_document_processor_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c667f172f80fa671_summary_document_processor_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c7126710876d0ff6___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c7126710876d0ff6___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c7126710876d0ff6_process_passage_search_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c7126710876d0ff6_process_passage_search_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c94cb336a2ca7341___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c94cb336a2ca7341___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_c94cb336a2ca7341_base_model_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_c94cb336a2ca7341_base_model_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_cb85b70e32d11b81___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_cb85b70e32d11b81___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_cb85b70e32d11b81_create_one_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_cb85b70e32d11b81_create_one_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_cb85b70e32d11b81_patch_one_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_cb85b70e32d11b81_patch_one_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_d0e34781315edc72___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_d0e34781315edc72___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_d0e34781315edc72_create_one_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_d0e34781315edc72_create_one_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_d0e34781315edc72_patch_one_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_d0e34781315edc72_patch_one_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_dcf6b8e6d5fb1f7a___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_dcf6b8e6d5fb1f7a___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_dcf6b8e6d5fb1f7a_create_one_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_dcf6b8e6d5fb1f7a_create_one_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_dcf6b8e6d5fb1f7a_patch_one_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_dcf6b8e6d5fb1f7a_patch_one_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_dcf6b8e6d5fb1f7a_search_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_dcf6b8e6d5fb1f7a_search_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024_base_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024_base_setting_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024_four_datastore_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024_four_datastore_setting_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024_one_datastore_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024_one_datastore_setting_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024_one_embedding_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024_one_embedding_setting_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024_one_llm_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024_one_llm_setting_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024_temp_datastore_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024_temp_datastore_setting_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024_three_datastore_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024_three_datastore_setting_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024_two_datastore_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_dcfa5703356d2024_two_datastore_setting_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_e1b40da121da1a75___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_e1b40da121da1a75___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_e1b40da121da1a75_login_by_email_and_password_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_e1b40da121da1a75_login_by_email_and_password_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_e4401cc3e887327d___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_e4401cc3e887327d___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_e4401cc3e887327d_create_one_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_e4401cc3e887327d_create_one_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_e4401cc3e887327d_patch_one_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_e4401cc3e887327d_patch_one_body_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06_application_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06_application_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06_controller_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06_controller_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06_datastore_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06_datastore_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06_gateway_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06_gateway_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06_repository_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06_repository_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06_router_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06_router_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06_setting_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06_setting_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06_use_case_container_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_e6e06fad2b214e06_use_case_container_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_eadae4ca85deb041___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_eadae4ca85deb041___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_ee721704892296ac___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_ee721704892296ac___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_ee721704892296ac_document_type_constant_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_ee721704892296ac_document_type_constant_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_ef6675f91eb664fe___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_ef6675f91eb664fe___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_ef6675f91eb664fe_base_exception_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_ef6675f91eb664fe_base_exception_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_ef6675f91eb664fe_datastore_exception_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_ef6675f91eb664fe_datastore_exception_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_ef6675f91eb664fe_model_exception_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_ef6675f91eb664fe_model_exception_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_ef6675f91eb664fe_repository_exception_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_ef6675f91eb664fe_repository_exception_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_ef6675f91eb664fe_use_case_exception_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_ef6675f91eb664fe_use_case_exception_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_account_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_account_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_base_dao_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_base_dao_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_document_process_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_document_process_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_document_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_document_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_document_type_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_document_type_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_file_document_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_file_document_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_session_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_session_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_text_document_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_text_document_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_web_document_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f349622eccf645f6_web_document_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866___init___py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_account_controller_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_account_controller_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_authentication_controller_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_authentication_controller_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_authorization_controller_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_authorization_controller_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_document_controller_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_document_controller_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_document_process_controller_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_document_process_controller_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_document_type_controller_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_document_type_controller_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_file_document_controller_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_file_document_controller_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_long_form_qa_controller_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_long_form_qa_controller_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_passage_search_controller_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_passage_search_controller_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_text_document_controller_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_text_document_controller_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_web_document_controller_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/d_f3718ea7b0047866_web_document_controller_py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/function_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/function_index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/status.json" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/status.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/style_cb_8e611ae1.css" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/style_cb_8e611ae1.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_0179f68188502b38___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_0179f68188502b38___init___py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_059294d3b281d453___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_059294d3b281d453___init___py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_059294d3b281d453_process_response_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_059294d3b281d453_process_response_py.html" afterDir="false" />
@@ -278,7 +72,6 @@
       <change beforePath="$PROJECT_DIR$/htmlcov/z_3909fcd1e2fe4e05___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_3909fcd1e2fe4e05___init___py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_3909fcd1e2fe4e05_base_milvus_vector_store_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_3909fcd1e2fe4e05_base_milvus_vector_store_py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_3909fcd1e2fe4e05_bge_m3_milvus_vector_store_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_3909fcd1e2fe4e05_bge_m3_milvus_vector_store_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/z_3909fcd1e2fe4e05_infinity_milvus_vector_store_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_3909fcd1e2fe4e05_infinity_milvus_vector_store_py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_448f0ef00eccf7f4___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_448f0ef00eccf7f4___init___py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_4ef870c9475f0390___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_4ef870c9475f0390___init___py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_4ef870c9475f0390_base_client_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_4ef870c9475f0390_base_client_py.html" afterDir="false" />
@@ -392,11 +185,11 @@
       <change beforePath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_base_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_base_setting_py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_four_datastore_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_four_datastore_setting_py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_one_datastore_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_one_datastore_setting_py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_one_embedding_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_one_embedding_setting_py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_one_llm_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_one_llm_setting_py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_temp_datastore_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_temp_datastore_setting_py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_three_datastore_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_three_datastore_setting_py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_two_datastore_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_two_datastore_setting_py.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_two_llm_setting_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_dcfa5703356d2024_two_llm_setting_py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_e1b40da121da1a75___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_e1b40da121da1a75___init___py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_e1b40da121da1a75_login_by_email_and_password_body_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_e1b40da121da1a75_login_by_email_and_password_body_py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/z_e4401cc3e887327d___init___py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/z_e4401cc3e887327d___init___py.html" afterDir="false" />
@@ -446,6 +239,8 @@
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/long_form_qa_controller_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/app/outers/interfaces/deliveries/controllers/passage_search_controller_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tools/cache_tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/cache_tool.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tools/dict_tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/dict_tool.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -501,6 +296,7 @@
     &quot;Docker.muazhari/research-assistant-backend-dev:latest.executor&quot;: &quot;Run&quot;,
     &quot;Docker.muazhari/research-assistant-backend.executor&quot;: &quot;Run&quot;,
     &quot;Docker.muazhari/research-assistant-backend:latest.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.one: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;FastAPI.run-1.executor&quot;: &quot;Debug&quot;,
     &quot;Python tests.Python tests for document_controller_test.test__patch_one_by_id__should_patch_one_document__succeed.executor&quot;: &quot;Debug&quot;,
     &quot;Python tests.Python tests for document_process_controller_test.test__patch_one_by_id__should_patch_one_document_process__succeed.executor&quot;: &quot;Debug&quot;,
@@ -527,7 +323,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Data/Apps/research-assistant-infrastructure&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Data/Apps/autocode&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -563,7 +359,7 @@
       <recent name="C:\Data\Apps\research-assistant-backend\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.pytest in tests">
+  <component name="RunManager" selected="Docker.muazhari/research-assistant-backend:latest">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -654,7 +450,7 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="muazhari/research-assistant-backend:latest" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
+    <configuration name="muazhari/research-assistant-backend:latest" type="docker-deploy" factoryName="dockerfile" server-name="Docker WSL">
       <deployment type="dockerfile">
         <settings>
           <option name="imageTag" value="muazhari/research-assistant-backend:latest" />
@@ -672,6 +468,14 @@
           <option name="buildOnly" value="true" />
           <option name="showCommandPreview" value="true" />
           <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="one: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker WSL">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="../research-assistant-infrastructure/docker/one/docker-compose.yml" />
         </settings>
       </deployment>
       <method v="2" />
@@ -725,7 +529,7 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_parameters" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;-n\u003d4 --cov\u003d./apps --cov-report\u003dhtml -v&quot;" />
+      <option name="_new_additionalArguments" value="&quot;-n\u003d12 --cov\u003d./apps --cov-report\u003dhtml -v&quot;" />
       <option name="_new_target" value="&quot;$PROJECT_DIR$/tests&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
@@ -750,11 +554,17 @@
     </configuration>
     <list>
       <item itemvalue="Docker.muazhari/research-assistant-backend:latest" />
+      <item itemvalue="Docker.one: Compose Deployment" />
       <item itemvalue="FastAPI.run-1" />
       <item itemvalue="Python.path_playground" />
       <item itemvalue="Python tests.pytest in one of tests" />
       <item itemvalue="Python tests.pytest in tests" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.one: Compose Deployment" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -971,7 +781,16 @@
       <workItem from="1721794414146" duration="8695000" />
       <workItem from="1721815886108" duration="193000" />
       <workItem from="1721816199052" duration="1774000" />
-      <workItem from="1721818388638" duration="7520000" />
+      <workItem from="1721818388638" duration="8046000" />
+      <workItem from="1721907484120" duration="2043000" />
+      <workItem from="1721955116190" duration="89000" />
+      <workItem from="1721970518078" duration="2745000" />
+      <workItem from="1722587815044" duration="73000" />
+      <workItem from="1722697929106" duration="1248000" />
+      <workItem from="1723931126207" duration="6714000" />
+      <workItem from="1723965251442" duration="244000" />
+      <workItem from="1723965513857" duration="2812000" />
+      <workItem from="1723992745823" duration="14905000" />
     </task>
     <servers />
   </component>
