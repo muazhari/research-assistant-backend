@@ -1,12 +1,9 @@
 import hashlib
-import inspect
 import json
 from threading import Timer
-from typing import Dict, Any, Union, List, Optional, Callable
+from typing import Dict, Any, Optional, Callable
 
 from fastapi.encoders import jsonable_encoder
-
-from tools import dict_tool
 
 cache: Dict[Any, Any] = {}
 
@@ -54,4 +51,3 @@ def set_cache(key: Any, value: Any, timeout: Optional[float] = None):
     if timeout is not None:
         timer: Timer = Timer(timeout, delete_cache, args=[key])
         timer.start()
-

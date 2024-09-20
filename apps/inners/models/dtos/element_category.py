@@ -2,10 +2,10 @@ from typing import List, Union
 
 from unstructured.documents.elements import Text, Table, Image, NarrativeText
 
-from apps.inners.models.base_model import BaseModelV2
+from apps.inners.models.base_model import BaseModel
 
 
-class ElementCategory(BaseModelV2):
+class ElementCategory(BaseModel):
     texts: List[Union[Text, NarrativeText]]
     tables: List[Union[Table]]
     images: List[Image]

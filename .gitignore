@@ -3,3 +3,4 @@
 .idea/jupyter-settings.xml
 .env
 apps/outers/datastores/temps/**/*
+playgrounds/.byaldi/**/*

@@ -1,10 +1,10 @@
 import inspect
 from typing import List, Optional
 
-from apps.inners.models.base_model import BaseModelV2
+from apps.inners.models.base_model import BaseModel
 
 
-class Caller(BaseModelV2):
+class Caller(BaseModel):
     file_name: Optional[str]
     class_name: Optional[str]
     function_name: Optional[str]

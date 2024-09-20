@@ -12,7 +12,7 @@ from langgraph.graph.graph import CompiledGraph, END
 from pydantic.v1 import Field
 
 from apps.inners.exceptions import use_case_exception
-from apps.inners.models.base_model import BaseModelV1
+from apps.inners.models.base_model import BaseModel
 from apps.inners.models.dtos.graph_state import LongFormQaGraphState
 from apps.inners.use_cases.graphs.passage_search_graph import PassageSearchGraph
 from apps.inners.use_cases.retrievers.hybrid_milvus_retriever import HybridMilvusRetriever
@@ -116,7 +116,7 @@ class LongFormQaGraph(PassageSearchGraph):
 
         re_ranked_documents: List[Document] = input_state["re_ranked_documents"]
 
-        class GradeTool(BaseModelV1):
+        class GradeTool(BaseModel):
             """Binary score for support check."""
             binary_score: bool = Field(
                 description="Is supported binary score, either True if supported or False if not supported."
@@ -219,7 +219,7 @@ class LongFormQaGraph(PassageSearchGraph):
     async def node_grade_answer_relevancy(self, input_state: LongFormQaGraphState) -> LongFormQaGraphState:
         output_state: LongFormQaGraphState = input_state
 
-        class GradeTool(BaseModelV1):
+        class GradeTool(BaseModel):
             """Binary score for resolution check."""
             binary_score: bool = Field(
                 description="Is resolved binary score, either True if resolved or False if not resolved."

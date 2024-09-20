@@ -10,6 +10,7 @@ python-dotenv
 txtmarker
 dependency-injector>=4.42.0b1
 langchain
+langchain_community
 bcrypt
 redis
 minio
@@ -30,3 +31,4 @@ more-itertools
 pdfkit
 tf-keras
 peft
+paddlepaddle-gpu

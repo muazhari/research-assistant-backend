@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="z_8d0d172be8fe823b___init___py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.1">coverage.py v7.6.1</a>,
-            created at 2024-08-18 18:45 +0000
+            created at 2024-09-22 19:03 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -97,8 +97,10 @@
     <p class="run"><span class="n"><a id="t15" href="#t15">15</a></span><span class="t">    <span class="key">def</span> <span class="nam">to_response</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="op">-></span> <span class="nam">Response</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t16" href="#t16">16</a></span><span class="t">        <span class="key">return</span> <span class="nam">Response</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t17" href="#t17">17</a></span><span class="t">            <span class="nam">status_code</span><span class="op">=</span><span class="nam">self</span><span class="op">.</span><span class="nam">status_code</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t18" href="#t18">18</a></span><span class="t">            <span class="nam">content</span><span class="op">=</span><span class="nam">self</span><span class="op">.</span><span class="nam">json</span><span class="op">(</span><span class="nam">exclude</span><span class="op">=</span><span class="op">{</span><span class="str">"status_code"</span><span class="op">}</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t19" href="#t19">19</a></span><span class="t">        <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t18" href="#t18">18</a></span><span class="t">            <span class="nam">content</span><span class="op">=</span><span class="nam">self</span><span class="op">.</span><span class="nam">model_dump_json</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t19" href="#t19">19</a></span><span class="t">                <span class="nam">exclude</span><span class="op">=</span><span class="op">{</span><span class="str">"status_code"</span><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t20" href="#t20">20</a></span><span class="t">            <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t21" href="#t21">21</a></span><span class="t">        <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
 </main>
 <footer>
     <div class="content">
@@ -108,7 +110,7 @@
             <a class="nav" href="z_8d0d172be8fe823b___init___py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.1">coverage.py v7.6.1</a>,
-            created at 2024-08-18 18:45 +0000
+            created at 2024-09-22 19:03 +0000
         </p>
     </div>
 </footer>

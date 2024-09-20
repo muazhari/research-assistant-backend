@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="research-assistant-backend@localhost">
-  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.52">
+  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1"/>
     <database id="2" parent="1" name="research-assistant-backend">
       <Current>1</Current>
@@ -3485,31 +3485,31 @@
       <OwnerName>default</OwnerName>
     </table>
     <column id="271" parent="263" name="id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>2730</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="272" parent="263" name="name">
-      <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>2730</StateNumber>
+      <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="273" parent="263" name="password">
-      <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>2730</StateNumber>
+      <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="274" parent="263" name="email">
-      <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>2730</StateNumber>
+      <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <index id="275" parent="263" name="account_pkey">
@@ -3529,38 +3529,38 @@
       <UnderlyingIndexId>16961</UnderlyingIndexId>
     </key>
     <column id="277" parent="264" name="id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>2734</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="278" parent="264" name="name">
-      <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>2734</StateNumber>
+      <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="279" parent="264" name="description">
-      <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>2734</StateNumber>
+      <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="280" parent="264" name="document_type_id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>2734</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="281" parent="264" name="account_id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>2734</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <foreign-key id="282" parent="264" name="document_document_type_id_fkey">
@@ -3606,31 +3606,31 @@
       <UnderlyingIndexId>16975</UnderlyingIndexId>
     </key>
     <column id="286" parent="265" name="id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>2736</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="287" parent="265" name="initial_document_id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>2736</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="288" parent="265" name="final_document_id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>2736</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="289" parent="265" name="process_duration">
-      <DasType>double precision|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>2736</StateNumber>
+      <StoredType>double precision|0s</StoredType>
       <TypeId>701</TypeId>
     </column>
     <foreign-key id="290" parent="265" name="document_process_initial_document_id_fkey">
@@ -3676,24 +3676,24 @@
       <UnderlyingIndexId>16990</UnderlyingIndexId>
     </key>
     <column id="294" parent="266" name="id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>2732</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="295" parent="266" name="name">
-      <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>2732</StateNumber>
+      <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="296" parent="266" name="description">
-      <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>2732</StateNumber>
+      <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <index id="297" parent="266" name="document_type_pkey">
@@ -3713,38 +3713,38 @@
       <UnderlyingIndexId>16968</UnderlyingIndexId>
     </key>
     <column id="299" parent="267" name="id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>2744</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="300" parent="267" name="entity_id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>2744</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="301" parent="267" name="entity_name">
-      <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>2744</StateNumber>
+      <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="302" parent="267" name="operation">
-      <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>2744</StateNumber>
+      <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="303" parent="267" name="timestamp">
-      <DasType>timestamp with time zone|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>2744</StateNumber>
+      <StoredType>timestamp with time zone|0s</StoredType>
       <TypeId>1184</TypeId>
     </column>
     <index id="304" parent="267" name="event_pkey">
@@ -3764,38 +3764,38 @@
       <UnderlyingIndexId>17043</UnderlyingIndexId>
     </key>
     <column id="306" parent="268" name="id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>2738</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="307" parent="268" name="document_id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>2738</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="308" parent="268" name="file_name">
-      <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>2738</StateNumber>
+      <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="309" parent="268" name="file_extension">
-      <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>2738</StateNumber>
+      <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="310" parent="268" name="file_bytes">
-      <DasType>bytea|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>2738</StateNumber>
+      <StoredType>bytea|0s</StoredType>
       <TypeId>17</TypeId>
     </column>
     <foreign-key id="311" parent="268" name="file_document_document_id_fkey">
@@ -3828,24 +3828,24 @@
       <UnderlyingIndexId>17007</UnderlyingIndexId>
     </key>
     <column id="314" parent="269" name="id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>2742</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="315" parent="269" name="document_id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>2742</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="316" parent="269" name="text_content">
-      <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>2742</StateNumber>
+      <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <foreign-key id="317" parent="269" name="text_document_document_id_fkey">
@@ -3878,24 +3878,24 @@
       <UnderlyingIndexId>17031</UnderlyingIndexId>
     </key>
     <column id="320" parent="270" name="id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>2740</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="321" parent="270" name="document_id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>2740</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="322" parent="270" name="web_url">
-      <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>2740</StateNumber>
+      <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <foreign-key id="323" parent="270" name="web_document_document_id_fkey">

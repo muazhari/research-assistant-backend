@@ -15,5 +15,7 @@ class Content(BaseDto, Generic[T]):
     def to_response(self) -> Response:
         return Response(
             status_code=self.status_code,
-            content=self.json(exclude={"status_code"})
+            content=self.model_dump_json(
+                exclude={"status_code"}
+            )
         )
